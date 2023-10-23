@@ -1,6 +1,6 @@
-![NAME](./public/thumb.png)
+![Perfect UI](./public/thumb.png)
 
-# NAME
+# Perfect UI
 
 Description.
 
