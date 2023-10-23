@@ -1,0 +1,16 @@
+{
+  "name": "@chrissgon/perfectui",
+  "displayName": "Perfect UI",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "dist/perfectui.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "sass": "^1.58.0",
+    "vite": "^4.1.0"
+  }
+}

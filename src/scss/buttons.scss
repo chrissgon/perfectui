@@ -1,0 +1,106 @@
+.btn {
+  border-radius: var(--rounded);
+  background-color: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-size: var(--fontSM);
+  outline: none;
+  padding: var(--spacingSM);
+  user-select: none;
+  white-space: nowrap;
+}
+
+// sizes
+@each $size in $sizes {
+  .btn-#{to-lower-case($size)} {
+    font-size: var(--font#{$size});
+  }
+}
+
+// styles
+@each $state in $states {
+  // solid
+  .btn-solid-#{$state} {
+    background-color: rgb(map-get($states-colors, $state));
+    color: white !important;
+
+    &:hover {
+      background-color: rgb(map-get($states-colors, #{$state}Dark));
+    }
+  }
+
+  // outline
+  .btn-outline-#{$state} {
+    border-color: rgb(map-get($states-colors, $state));
+    background-color: transparent;
+    color: rgb(map-get($states-colors, $state)) !important;
+
+    &:hover {
+      background-color: rgba(map-get($states-colors, $state), 0.05);
+    }
+  }
+  .dark .btn-outline-#{$state}:hover {
+    background-color: rgba(map-get($states-colors, $state), 0.1);
+  }
+
+  // soft
+  .btn-soft-#{$state} {
+    background-color: rgba(map-get($states-colors, $state), 0.1);
+    color: rgb(map-get($states-colors, $state)) !important;
+  }
+  .dark .btn-soft-#{$state} {
+    background-color: rgba(map-get($states-colors, $state), 0.2);
+  }
+
+  // link
+  .btn-link-#{$state} {
+    color: rgb(map-get($states-colors, $state)) !important;
+
+    &:hover {
+      color: rgb(map-get($states-colors, #{$state}Dark)) !important;
+      text-decoration: underline;
+      text-underline-offset: 0.3rem;
+    }
+  }
+
+  // ghost
+  .btn-ghost-#{$state} {
+    color: rgb(map-get($states-colors, $state)) !important;
+
+    &:hover {
+      background-color: rgba(map-get($states-colors, $state), 0.1);
+    }
+  }
+  .dark .btn-ghost-#{$state}:hover {
+    background-color: rgba(map-get($states-colors, $state), 0.2);
+  }
+}
+
+// exceptions
+.btn-white {
+  border-color: rgb(var(--borderSecondary));
+  background: rgb(var(--backgroundPrimary));
+}
+
+.dark .btn-white {
+  border-color: rgb(var(--borderSecondaryDark));
+  background: rgb(var(--backgroundPrimaryDark));
+}
+
+.btn-black {
+  color: rgb(var(--contentPrimaryDark));
+  background: rgb(var(--backgroundPrimaryDark));
+
+  &:hover {
+    background: rgba(var(--backgroundPrimaryDark), 0.8);
+  }
+}
+
+.dark .btn-black {
+  color: rgb(var(--contentPrimary));
+  background: rgb(var(--backgroundPrimary));
+
+  &:hover {
+    background: rgba(var(--backgroundPrimary), 0.8);
+  }
+}
