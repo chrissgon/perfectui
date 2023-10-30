@@ -1,13 +1,13 @@
 export interface IThemeColor {
-  50: string;
-  100: string;
-  200: string;
-  300: string;
-  400: string;
-  500: string;
-  600: string;
-  700: string;
-  800: string;
-  900: string;
-  950: string;
+  50: number[] | string;
+  100: number[] | string;
+  200: number[] | string;
+  300: number[] | string;
+  400: number[] | string;
+  500: number[] | string;
+  600: number[] | string;
+  700: number[] | string;
+  800: number[] | string;
+  900: number[] | string;
+  950: number[] | string;
 }
