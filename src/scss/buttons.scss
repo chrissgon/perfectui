@@ -1,6 +1,6 @@
 .btn {
-  border-radius: var(--rounded);
   background-color: transparent;
+  border-radius: var(--rounded);
   border: 1px solid transparent;
   cursor: pointer;
   font-size: var(--fontSM);
@@ -14,6 +14,7 @@
 @each $size in $sizes {
   .btn-#{to-lower-case($size)} {
     font-size: var(--font#{$size});
+    padding: var(--spacing#{$size});
   }
 }
 
@@ -22,7 +23,7 @@
   // solid
   .btn-solid-#{$state} {
     background-color: rgb(map-get($states-colors, $state));
-    color: white !important;
+    color: rgb(var(--contentPrimaryDark));
 
     &:hover {
       background-color: rgb(map-get($states-colors, #{$state}Dark));
@@ -31,8 +32,8 @@
 
   // outline
   .btn-outline-#{$state} {
-    border-color: rgb(map-get($states-colors, $state));
     background-color: transparent;
+    border-color: rgb(map-get($states-colors, $state));
     color: rgb(map-get($states-colors, $state)) !important;
 
     &:hover {
@@ -47,9 +48,15 @@
   .btn-soft-#{$state} {
     background-color: rgba(map-get($states-colors, $state), 0.1);
     color: rgb(map-get($states-colors, $state)) !important;
+    &:hover {
+      background-color: rgba(map-get($states-colors, $state), 0.2);
+    }
   }
   .dark .btn-soft-#{$state} {
     background-color: rgba(map-get($states-colors, $state), 0.2);
+    &:hover {
+      background-color: rgba(map-get($states-colors, $state), 0.3);
+    }
   }
 
   // link
@@ -78,18 +85,18 @@
 
 // exceptions
 .btn-white {
-  border-color: rgb(var(--borderSecondary));
   background: rgb(var(--backgroundPrimary));
+  border-color: rgb(var(--borderSecondary));
 }
 
 .dark .btn-white {
-  border-color: rgb(var(--borderSecondaryDark));
   background: rgb(var(--backgroundPrimaryDark));
+  border-color: rgb(var(--borderSecondaryDark));
 }
 
 .btn-black {
-  color: rgb(var(--contentPrimaryDark));
   background: rgb(var(--backgroundPrimaryDark));
+  color: rgb(var(--contentPrimaryDark));
 
   &:hover {
     background: rgba(var(--backgroundPrimaryDark), 0.8);
@@ -97,8 +104,8 @@
 }
 
 .dark .btn-black {
-  color: rgb(var(--contentPrimary));
   background: rgb(var(--backgroundPrimary));
+  color: rgb(var(--contentPrimary));
 
   &:hover {
     background: rgba(var(--backgroundPrimary), 0.8);
