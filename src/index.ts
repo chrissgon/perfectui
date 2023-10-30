@@ -5,9 +5,41 @@ console.log(`🎨 ${pkg.displayName} - ${pkg.version}`);
 import { IThemeColor } from "./interfaces";
 
 function setThemeColor(colors: IThemeColor): void {
+  if (Object.keys(colors).length < 11) {
+    throw new Error(
+      "setThemeColor: Insufficient tone range. Expect range 50 to 950"
+    );
+  }
+
   for (const tone in colors) {
-    const hex = colors[tone];
-    document.documentElement.style.setProperty(`--theme${tone}`, hex);
+    const color = colors[tone];
+    let rgb: string = "";
+
+    if (typeof color !== "string" && !Array.isArray(color)) {
+      throw new Error("setThemeColor: invalid type");
+    }
+
+    if (Array.isArray(color)) {
+      if (color.length > 3)
+        throw new Error(
+          "setThemeColor: invalid rgb format. Expect [R, G, B] array"
+        );
+
+      rgb = color.join(",");
+    }
+
+    if (typeof color === "string") {
+      const matchRGB = /^\d{1,3}, \d{1,3}, \d{1,3}$/.test(color);
+
+      if (!matchRGB)
+        throw new Error(
+          "setThemeColor: invalid rgb format. Expect 'R, G, B' string"
+        );
+
+      rgb = color;
+    }
+
+    document.documentElement.style.setProperty(`--theme${tone}`, rgb);
   }
 }
 
