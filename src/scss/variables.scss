@@ -59,17 +59,6 @@
   --green900: 20, 83, 45;
   --green950: 5, 46, 22;
 
-  --spacingXS: 0.3rem 0.6rem;
-  --spacingSM: 0.4rem 0.8rem;
-  --spacingMD: 0.6rem 1.2rem;
-  --spacingLG: 0.8rem 1.6rem;
-
-  --fontXS: 0.75rem; // 12px
-  --fontSM: 0.875rem; // 14px
-  --fontMD: 1rem; // 16px
-  --fontLG: 1.125rem; // 18px
-  --fontXL: 1.25rem; // 20px
-
   --backgroundPrimary: 255, 255, 255;
   --backgroundSecondary: var(--gray100);
   --backgroundTertiary: var(--gray200);
@@ -88,6 +77,18 @@
 
   --borderPrimaryDark: var(--theme500);
   --borderSecondaryDark: var(--gray700);
+
+  --spacingXS: 0.3rem 0.6rem;
+  --spacingSM: 0.4rem 0.8rem;
+  --spacingMD: 0.6rem 1.2rem;
+  --spacingLG: 0.8rem 1.6rem;
+  --spacingXL: 1rem 2rem;
+
+  --fontXS: 0.75rem; // 12px
+  --fontSM: 0.875rem; // 14px
+  --fontMD: 1rem; // 16px
+  --fontLG: 1.125rem; // 18px
+  --fontXL: 1.25rem; // 20px
 
   --rounded: 0.375rem;
 }
