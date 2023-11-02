@@ -1,10 +1,10 @@
 {
   "name": "@chrissgon/perfectui",
+  "version": "0.2.0",
   "displayName": "Perfect UI",
   "description": "An exceptionally lightweight and highly customizable CSS and JavaScript library for crafting elegant user interfaces.",
   "private": false,
   "license": "MIT",
-  "version": "0.1.0",
   "type": "module",
   "main": "dist/perfectui.js",
   "scripts": {
