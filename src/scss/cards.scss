@@ -1,0 +1,45 @@
+.card {
+  @include border;
+
+  border-radius: calc(var(--rounded) * 1.5);
+  width: fit-content;
+  overflow: hidden;
+}
+
+.card-header,
+.card-body,
+.card-footer {
+  padding: 1.25rem;
+}
+
+// header
+.card-header {
+  @include border;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background-color: rgb(var(--backgroundSecondary));
+}
+
+// body
+.card-body {
+  display: flex;
+  flex-direction: column;
+}
+.card-body-center {
+  align-items: center;
+  text-align: center;
+}
+.card-body-right {
+  align-items: flex-end;
+  text-align: right;
+}
+
+// footer
+.card-footer {
+  display: flex;
+}
+
+.card-footer-right {
+  justify-content: flex-end;
+}

@@ -1,26 +1,70 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.min.css");
+@import "./scss/reset.scss";
 @import "./scss/variables.scss";
 @import "./scss/buttons.scss";
+@import "./scss/forms.scss";
+@import "./scss/cards.scss";
 
 html,
 body {
   max-width: 100%;
   overflow-x: hidden;
   font-family: "Poppins";
-  box-sizing: border-box;
+  background-color: rgb(var(--backgroundPrimary));
 }
 
 body * {
+  @include fontsize;
   font-family: "Poppins";
-  box-sizing: border-box;
   color: rgb(var(--contentPrimary));
 }
 
-.dark body {
-  background-color: rgb(var(--gray950));
+*:disabled {
+  opacity: 0.5;
+  pointer-events: none;
 }
 
-.dark body * {
-  color: rgb(var(--contentPrimaryDark));
+.divider {
+  @include border;
+  border-bottom: none;
+  width: 100%;
+  height: 1px;
+}
+
+// group
+.group {
+  display: flex;
+}
+
+// group row
+.group-row > .group-item {
+  @include roundedCornersX;
+  border-radius: 0px;
+}
+
+.group-row > .group-item + .group-item {
+  border-left: none;
+}
+
+// group column
+.group-column {
+  flex-direction: column;
+}
+
+.group-column > .group-item {
+  @include roundedCornersY;
+  border-radius: 0px;
+}
+
+.group-column > .group-item + .group-item {
+  border-top: none;
+}
+
+// rounded
+.rounded {
+  border-radius: var(--rounded);
+}
+.rounded-full {
+  border-radius: var(--roundedFull);
 }

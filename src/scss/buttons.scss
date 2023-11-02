@@ -1,29 +1,30 @@
 .btn {
+  @include rounded;
+  @include padding;
+  @include fontsize;
+
   background-color: transparent;
-  border-radius: var(--rounded);
   border: 1px solid transparent;
   cursor: pointer;
-  font-size: var(--fontSM);
   outline: none;
-  padding: var(--spacingSM);
   user-select: none;
   white-space: nowrap;
 }
 
 // sizes
-@each $size in $sizes {
-  .btn-#{to-lower-case($size)} {
-    font-size: var(--font#{$size});
-    padding: var(--spacing#{$size});
-  }
-}
+// @each $size in $sizes {
+//   .btn-#{to-lower-case($size)} {
+//     font-size: var(--font#{$size});
+//     padding: var(--spacing#{$size});
+//   }
+// }
 
 // styles
 @each $state in $states {
   // solid
   .btn-solid-#{$state} {
     background-color: rgb(map-get($states-colors, $state));
-    color: rgb(var(--contentPrimaryDark));
+    color: white;
 
     &:hover {
       background-color: rgb(map-get($states-colors, #{$state}Dark));
@@ -34,7 +35,7 @@
   .btn-outline-#{$state} {
     background-color: transparent;
     border-color: rgb(map-get($states-colors, $state));
-    color: rgb(map-get($states-colors, $state)) !important;
+    color: rgb(map-get($states-colors, $state));
 
     &:hover {
       background-color: rgba(map-get($states-colors, $state), 0.05);
@@ -44,70 +45,42 @@
     background-color: rgba(map-get($states-colors, $state), 0.1);
   }
 
-  // soft
-  .btn-soft-#{$state} {
-    background-color: rgba(map-get($states-colors, $state), 0.1);
-    color: rgb(map-get($states-colors, $state)) !important;
-    &:hover {
-      background-color: rgba(map-get($states-colors, $state), 0.2);
-    }
-  }
-  .dark .btn-soft-#{$state} {
-    background-color: rgba(map-get($states-colors, $state), 0.2);
-    &:hover {
-      background-color: rgba(map-get($states-colors, $state), 0.3);
-    }
-  }
-
   // link
   .btn-link-#{$state} {
-    color: rgb(map-get($states-colors, $state)) !important;
+    color: rgb(map-get($states-colors, $state));
 
     &:hover {
-      color: rgb(map-get($states-colors, #{$state}Dark)) !important;
+      color: rgb(map-get($states-colors, #{$state}Dark));
       text-decoration: underline;
       text-underline-offset: 0.3rem;
     }
   }
-
-  // ghost
-  .btn-ghost-#{$state} {
-    color: rgb(map-get($states-colors, $state)) !important;
-
-    &:hover {
-      background-color: rgba(map-get($states-colors, $state), 0.1);
-    }
-  }
-  .dark .btn-ghost-#{$state}:hover {
-    background-color: rgba(map-get($states-colors, $state), 0.2);
-  }
 }
 
-// exceptions
+// white
 .btn-white {
   background: rgb(var(--backgroundPrimary));
   border-color: rgb(var(--borderSecondary));
+
+  &:hover {
+    background: rgba(var(--contentPrimary), 0.05);
+  }
 }
 
-.dark .btn-white {
-  background: rgb(var(--backgroundPrimaryDark));
-  border-color: rgb(var(--borderSecondaryDark));
+.dark .btn-white:hover {
+  background: rgba(var(--contentPrimary), 0.1);
 }
 
+// black
 .btn-black {
-  background: rgb(var(--backgroundPrimaryDark));
-  color: rgb(var(--contentPrimaryDark));
+  background: rgb(var(--contentPrimary));
+  color: rgb(var(--backgroundPrimary));
 
   &:hover {
-    background: rgba(var(--backgroundPrimaryDark), 0.8);
+    background: rgba(var(--contentPrimary), 0.8);
   }
 }
 
-.dark .btn-black {
-  background: rgb(var(--backgroundPrimary));
-  color: rgb(var(--contentPrimary));
-
-  &:hover {
-    background: rgba(var(--backgroundPrimary), 0.8);
-  }
+.dark .btn-black:hover {
+  background: rgba(var(--contentPrimary), 0.9);
 }
