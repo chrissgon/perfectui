@@ -11,9 +11,9 @@ An exceptionally lightweight and highly customizable CSS and JavaScript library 
 - Import CDN's.
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/@chrissgon/perfectui@0.1.0/dist/perfectui.css" />
+<link rel="stylesheet" href="https://unpkg.com/@chrissgon/perfectui@latest/dist/perfectui.css" />
 
-<script src="https://unpkg.com/@chrissgon/perfectui@0.1.0/dist/perfectui.js"></script>
+<script src="https://unpkg.com/@chrissgon/perfectui@latest/dist/perfectui.js"></script>
 ```
 
 ## 💪🏻 Contribution
