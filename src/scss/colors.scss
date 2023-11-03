@@ -1,0 +1,39 @@
+// primitives
+@each $tone in $tones {
+  @each $color in $colors {
+    .bg-#{$color}-#{$tone} {
+      background-color: rgb(var(--#{$color}#{$tone}));
+    }
+    .text-#{$color}-#{$tone} {
+      color: rgb(var(--#{$color}#{$tone}));
+    }
+  }
+}
+
+// core
+// background
+.bg-primary {
+  background-color: rgb(var(--backgroundPrimary));
+}
+.bg-secondary {
+  background-color: rgb(var(--backgroundSecondary));
+}
+.bg-tertiary {
+  background-color: rgb(var(--backgroundTertiary));
+}
+
+// contents
+.text-primary {
+  color: rgb(var(--contentPrimary));
+}
+.text-secondary {
+  color: rgb(var(--contentSecondary));
+}
+
+// borders
+.border-primary {
+  border-color: rgb(var(--borderPrimary));
+}
+.border-secondary {
+  border-color: rgb(var(--borderSecondary));
+}

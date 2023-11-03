@@ -1,0 +1,6 @@
+// sizes
+@each $size in $sizes {
+  .text-#{to-lower-case($size)} {
+    font-size: var(--font#{$size});
+  }
+}
