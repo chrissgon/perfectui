@@ -1,6 +1,6 @@
 {
   "name": "@chrissgon/perfectui",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "displayName": "Perfect UI",
   "description": "An exceptionally lightweight and highly customizable CSS and JavaScript library for crafting elegant user interfaces.",
   "private": false,
@@ -10,7 +10,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "release": "vite build && bunx changelogen --release --publish --r"
   },
   "devDependencies": {
     "sass": "^1.58.0",
