@@ -4,7 +4,7 @@
 
 # Perfect UI
 
-An exceptionally lightweight and highly customizable CSS and JavaScript library for crafting elegant user interfaces. 🎨💡
+An exceptionally lightweight and highly customizable CSS and JavaScript framework for crafting elegant user interfaces. 🎨💡
 
 ## 📦 Install
 
