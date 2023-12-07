@@ -1,7 +1,5 @@
 import pkg from "../package.json";
 
-console.log(`🎨 ${pkg.displayName} - ${pkg.version}`);
-
 import { IThemeColor } from "./interfaces";
 
 function setThemeColor(colors: IThemeColor): void {
@@ -58,6 +56,12 @@ function setTheme(theme: "system" | "dark" | "light" = "system"): void {
 
 (function init() {
   if (window && document) {
+    console.log(`🎨 ${pkg.displayName} - ${pkg.version}`);
+
+    const perfectui = { setTheme, setThemeColor };
+    Object.assign(window, { perfectui: perfectui });
+    Object.assign(document, { perfectui: perfectui });
+
     return;
   }
 
