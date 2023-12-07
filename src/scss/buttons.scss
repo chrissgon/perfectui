@@ -12,12 +12,12 @@
 }
 
 // sizes
-// @each $size in $sizes {
-//   .btn-#{to-lower-case($size)} {
-//     font-size: var(--font#{$size});
-//     padding: var(--spacing#{$size});
-//   }
-// }
+@each $size in $sizes {
+  .btn-#{to-lower-case($size)} {
+    font-size: var(--font#{$size});
+    padding: var(--spacing#{$size});
+  }
+}
 
 // styles
 @each $state in $states {
