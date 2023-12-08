@@ -1,0 +1,43 @@
+.table {
+  border-collapse: separate;
+  text-align: left;
+  text-indent: 0;
+  width: 100%;
+}
+
+.table-responsive {
+  overflow: auto;
+}
+
+.table th,
+.table td {
+  @include border;
+  border-right: none;
+  border-bottom: none;
+  padding: var(--spacingMD);
+}
+
+.table tr :first-child {
+  border-left: none;
+}
+
+.table thead :first-child > * {
+  border-top: none;
+}
+
+.table-bordeless,
+.table-bordeless td,
+.table-bordeless th {
+  border: none !important;
+}
+
+.table-bordered {
+  @include border;
+  @include rounded;
+}
+
+.table-striped tbody tr:nth-child(even),
+.table-striped thead,
+.table-hoverable tbody tr:hover {
+  background-color: rgb(var(--backgroundSecondary));
+}
