@@ -9,7 +9,7 @@
 .card-header,
 .card-body,
 .card-footer {
-  padding: 1.25rem;
+  padding: 1rem;
 }
 
 // header
@@ -19,6 +19,8 @@
   border-left: none;
   border-right: none;
   background-color: rgb(var(--backgroundSecondary));
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
 }
 
 // body
@@ -38,8 +40,13 @@
 // footer
 .card-footer {
   display: flex;
+  padding-top: 0.625rem;
 }
 
 .card-footer-right {
   justify-content: flex-end;
+}
+
+.card-footer-center {
+  justify-content: center;
 }

@@ -2,6 +2,7 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.min.css");
 @import "./scss/reset.scss";
 @import "./scss/variables.scss";
+@import "./scss/accordions.scss";
 @import "./scss/buttons.scss";
 @import "./scss/cards.scss";
 @import "./scss/colors.scss";
@@ -12,13 +13,12 @@ html,
 body {
   max-width: 100%;
   overflow-x: hidden;
-  font-family: "Poppins";
   background-color: rgb(var(--backgroundPrimary));
 }
 
 body * {
   @include fontsize;
-  font-family: "Poppins";
+  font-family: "Poppins", sans-serif;
   color: rgb(var(--contentPrimary));
 }
 
@@ -40,12 +40,14 @@ body * {
 }
 
 // group row
-.group-row > .group-item {
+.group-row > .group-item,
+.group-row > *[class*="item"] {
   @include roundedCornersX;
   border-radius: 0px;
 }
 
-.group-row > .group-item + .group-item {
+.group-row > .group-item + .group-item,
+.group-row > *[class*="item"] + *[class*="item"] {
   border-left: none;
 }
 
@@ -54,12 +56,14 @@ body * {
   flex-direction: column;
 }
 
-.group-column > .group-item {
+.group-column > .group-item,
+.group-column > *[class*="item"] {
   @include roundedCornersY;
   border-radius: 0px;
 }
 
-.group-column > .group-item + .group-item {
+.group-column > .group-item + .group-item,
+.group-column > *[class*="item"] + *[class*="item"] {
   border-top: none;
 }
 

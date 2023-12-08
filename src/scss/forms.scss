@@ -30,8 +30,8 @@
   appearance: none;
   background-color: rgb(var(--backgroundPrimary));
   border-radius: 0.175rem;
-  height: var(--fontSM);
-  width: var(--fontSM);
+  height: var(--fontMD);
+  width: var(--fontMD);
 }
 
 .checkbox:is(:checked, :indeterminate),
@@ -60,7 +60,7 @@
 
 // switch
 .switch {
-  @include padding;
+  padding: var(--spacingMD);
 
   width: auto;
   height: auto;
@@ -68,7 +68,7 @@
   background-image: var(--form-switch-checked-bg);
   background-position: left center;
   background-repeat: no-repeat;
-  transition: 0.15s;
+  // transition: 0.15s;
 }
 
 .switch:checked {
@@ -80,10 +80,10 @@
 .input,
 .addon {
   @include border;
-  @include padding;
   @include fontsize;
   @include roundedCornersX;
 
+  padding: var(--spacingSM);
   background-color: transparent;
   outline: none;
 }
@@ -114,41 +114,6 @@
 .field-group > .input + .addon {
   border-left: none;
 }
-
-// sizes
-// @each $size in $sizes {
-//   .checkbox-#{to-lower-case($size)},
-//   .radio-#{to-lower-case($size)} {
-//     width: var(--font#{$size});
-//     height: var(--font#{$size});
-//   }
-
-//   .switch-#{to-lower-case($size)} {
-//     padding: var(--spacing#{$size});
-//   }
-
-//   .input-#{to-lower-case($size)} {
-//     font-size: var(--font#{$size});
-//     padding: var(--spacing#{$size});
-//   }
-
-//   .field-group-#{to-lower-case($size)} {
-//     .checkbox,
-//     .radio {
-//       width: var(--font#{$size});
-//       height: var(--font#{$size});
-//     }
-
-//     .switch {
-//       padding: var(--spacing#{$size});
-//     }
-
-//     .input,
-//     .addon {
-//       font-size: var(--font#{$size});
-//     }
-//   }
-// }
 
 // styles
 @each $state in $states {

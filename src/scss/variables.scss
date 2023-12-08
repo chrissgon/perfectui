@@ -71,9 +71,9 @@
 
   --spacingXS: 0.3rem 0.6rem;
   --spacingSM: 0.4rem 0.8rem;
-  --spacingMD: 0.6rem 1.2rem;
-  --spacingLG: 0.8rem 1.6rem;
-  // --spacingXL: 1rem 2rem;
+  --spacingMD: 0.5rem 1rem;
+  --spacingLG: 0.6rem 1.2rem;
+  --spacingXL: 0.7rem 1.4rem;
 
   --fontXS: 0.75rem; // 12px
   --fontSM: 0.875rem; // 14px
@@ -154,12 +154,8 @@ $colors: "theme", "gray", "red", "amber", "green";
   border-radius: var(--rounded);
 }
 
-@mixin padding {
-  padding: var(--spacingSM);
-}
-
 @mixin fontsize {
-  font-size: var(--fontMD);
+  font-size: var(--fontSM);
 }
 
 @mixin roundedCornersX {

@@ -1,22 +1,14 @@
 .btn {
   @include rounded;
-  @include padding;
   @include fontsize;
 
+  padding: var(--spacingMD);
   background-color: transparent;
   border: 1px solid transparent;
   cursor: pointer;
   outline: none;
   user-select: none;
   white-space: nowrap;
-}
-
-// sizes
-@each $size in $sizes {
-  .btn-#{to-lower-case($size)} {
-    font-size: var(--font#{$size});
-    padding: var(--spacing#{$size});
-  }
 }
 
 // styles
