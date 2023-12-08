@@ -1,0 +1,1 @@
+export const ACCORDION_ITEM = ".accordion-item"

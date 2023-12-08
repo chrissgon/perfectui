@@ -1,6 +1,29 @@
 import pkg from "../package.json";
 
 import { IThemeColor } from "./interfaces";
+import { ACCORDION_ITEM } from "./constants";
+
+function Accordion() {
+  const items = document.querySelectorAll(
+    ACCORDION_ITEM
+  ) as NodeListOf<HTMLElement>;
+
+  for (const item of items) {
+    item.onclick = () => {
+      if (!item) return;
+      if (!item.parentElement) return;
+
+      const itemsByAccordion =
+        item.parentElement.querySelectorAll(ACCORDION_ITEM);
+
+      for (const itemAccordion of itemsByAccordion) {
+        if (itemAccordion === item) continue;
+
+        itemAccordion.removeAttribute("open");
+      }
+    };
+  }
+}
 
 function setThemeColor(colors: IThemeColor): void {
   if (Object.keys(colors).length < 11) {
@@ -54,13 +77,39 @@ function setTheme(theme: "system" | "dark" | "light" = "system"): void {
   document.querySelector("html")?.classList.remove("dark");
 }
 
+function loadFunctions(): void {
+  Accordion();
+}
+
+function loadFunctionsByDebounce(): void {
+  let debounce = false;
+  const enableDebounce = () => (debounce = true);
+  const disableDebounce = () => (debounce = false);
+
+  document.addEventListener("mousemove", () => {
+    if (debounce) return;
+    enableDebounce();
+    setTimeout(disableDebounce, 2000);
+
+    loadFunctions();
+  });
+  document.addEventListener("click", () => {
+    loadFunctions();
+  });
+}
+
+function addFunctionsGlobally(): void {
+  const fns = { setTheme, setThemeColor, Accordion, loadFunctions };
+  Object.assign(window, { perfectui: fns });
+  Object.assign(document, { perfectui: fns });
+}
+
 (function init() {
   if (window && document) {
     console.log(`🎨 ${pkg.displayName} - ${pkg.version}`);
 
-    const perfectui = { setTheme, setThemeColor };
-    Object.assign(window, { perfectui: perfectui });
-    Object.assign(document, { perfectui: perfectui });
+    addFunctionsGlobally();
+    loadFunctionsByDebounce();
 
     return;
   }
@@ -68,4 +117,4 @@ function setTheme(theme: "system" | "dark" | "light" = "system"): void {
   setTimeout(init, 1000);
 })();
 
-export { setTheme, setThemeColor };
+export { setTheme, setThemeColor, Accordion };
