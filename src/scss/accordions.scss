@@ -1,0 +1,34 @@
+.accordion > .accordion-item {
+  position: relative;
+}
+
+.accordion > .accordion-item > summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.accordion > .accordion-item > summary::before {
+  content: "\F282";
+  font-family: "bootstrap-icons";
+  position: absolute;
+  right: 15px;
+}
+
+.accordion > .accordion-item > summary[arrow]::before {
+  content: attr(arrow);
+}
+
+.accordion > .accordion-item > summary,
+.accordion > .accordion-item > article {
+  padding: var(--spacingMD);
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.accordion-bordered > .accordion-item {
+  @include border;
+}
+
+.accordion-accented .accordion-item[open] {
+  background-color: rgb(var(--backgroundSecondary));
+}
