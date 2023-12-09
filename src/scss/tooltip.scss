@@ -1,0 +1,18 @@
+.tooltip {
+  @include rounded;
+  @include border;
+
+  width: fit-content;
+  position: absolute;
+  text-transform: none;
+  background-color: rgb(var(--backgroundPrimary));
+  font-size: var(--fontXS);
+  padding: var(--spacingXS);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.tooltip-black {
+  background: rgb(var(--contentPrimary));
+  color: rgb(var(--backgroundPrimary));
+}

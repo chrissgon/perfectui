@@ -1,0 +1,25 @@
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.list-bordered > .list-item {
+  @include border;
+}
+
+.list-hoverable > .list-item:hover {
+  background-color: rgb(var(--backgroundSecondary));
+}
+
+.list-striped > .list-item:nth-child(even) {
+  background-color: rgb(var(--backgroundSecondary));
+}
+
+.list > .list-item {
+  cursor: pointer;
+  padding: var(--spacingMD);
+}
+
+.list > .list-item.active {
+  background-color: rgb(var(--backgroundSecondary));
+}

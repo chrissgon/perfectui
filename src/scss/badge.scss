@@ -1,0 +1,29 @@
+.badge {
+  @include rounded;
+  border: 1px solid transparent;
+  font-size: var(--fontXS);
+  outline: none;
+  padding: 2px 7px;
+}
+
+@each $state in $states {
+  .badge-solid-#{$state} {
+    background-color: rgb(map-get($states-colors, $state));
+    color: white;
+  }
+  .badge-outline-#{$state} {
+    @include border;
+    color: rgb(map-get($states-colors, $state));
+  }
+}
+// white
+.badge-white {
+  background: rgb(var(--backgroundPrimary));
+  border-color: rgb(var(--borderSecondary));
+}
+
+// black
+.badge-black {
+  background: rgb(var(--contentPrimary));
+  color: rgb(var(--backgroundPrimary));
+}

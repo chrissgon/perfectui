@@ -1,10 +1,10 @@
 import { defineConfig } from "vite";
-import { resolve } from "path";
+import * as url from "url";
 
 export default defineConfig({
   build: {
     lib: {
-      entry: resolve(__dirname, "src/main.ts"),
+      entry: url.fileURLToPath(new URL("src/main.ts", import.meta.url)),
       name: "perfectui",
     },
     rollupOptions: {

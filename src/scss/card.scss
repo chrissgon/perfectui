@@ -18,9 +18,11 @@
   border-top: none;
   border-left: none;
   border-right: none;
-  background-color: rgb(var(--backgroundSecondary));
   padding-top: 0.625rem;
   padding-bottom: 0.625rem;
+}
+.card-header-accented {
+  background-color: rgb(var(--backgroundSecondary));
 }
 
 // body

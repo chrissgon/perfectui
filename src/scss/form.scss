@@ -22,6 +22,29 @@
   content: attr(message);
 }
 
+// input-group
+.input-group {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 0 !important;
+}
+
+.input-group .input,
+.input-group .input:focus {
+  border: none;
+  box-shadow: none;
+}
+
+.input-group .leading {
+  line-height: 0;
+  padding-left: 1rem;
+}
+.input-group .trailing {
+  line-height: 0;
+  padding-right: 1rem;
+}
+
 // checkbox, radio, switch
 .checkbox,
 .radio,
@@ -61,14 +84,12 @@
 // switch
 .switch {
   padding: var(--spacingMD);
-
   width: auto;
   height: auto;
   border-radius: var(--roundedFull);
   background-image: var(--form-switch-checked-bg);
   background-position: left center;
   background-repeat: no-repeat;
-  // transition: 0.15s;
 }
 
 .switch:checked {
@@ -86,6 +107,11 @@
   padding: var(--spacingSM);
   background-color: transparent;
   outline: none;
+
+  &:focus-within {
+    border-color: rgb(var(--borderPrimary));
+    box-shadow: 0 0 0 1px rgb(var(--borderPrimary));
+  }
 }
 
 // input
