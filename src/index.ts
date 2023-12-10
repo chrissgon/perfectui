@@ -1,12 +1,27 @@
 import pkg from "../package.json";
 
-import { IThemeColor } from "./interfaces";
+import "./index.scss";
+
 import {
   ACCORDION_ITEM,
   CHECKBOX_INDETERMINATE,
   TOOLTIP_ELEMENT,
   TOOLTIP_TARGET,
 } from "./constants";
+
+export interface IThemeColor {
+  50: number[] | string;
+  100: number[] | string;
+  200: number[] | string;
+  300: number[] | string;
+  400: number[] | string;
+  500: number[] | string;
+  600: number[] | string;
+  700: number[] | string;
+  800: number[] | string;
+  900: number[] | string;
+  950: number[] | string;
+}
 
 export function Checkbox(): void {
   const items = document.querySelectorAll(

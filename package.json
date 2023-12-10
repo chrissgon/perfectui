@@ -1,12 +1,13 @@
 {
   "name": "@chrissgon/perfectui",
-  "version": "0.4.8",
+  "version": "0.5.8",
   "displayName": "Perfect UI",
   "description": "An exceptionally lightweight and highly customizable CSS and JavaScript library for crafting elegant user interfaces.",
   "private": false,
   "license": "MIT",
   "type": "module",
   "main": "dist/perfectui.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -15,7 +16,8 @@
   },
   "devDependencies": {
     "sass": "^1.58.0",
-    "vite": "^4.1.0"
+    "vite": "^4.1.0",
+    "vite-plugin-dts": "^3.6.4"
   },
   "author": "Christopher Gonçalves <chrissgon.dev@gmail.com>",
   "repository": {
