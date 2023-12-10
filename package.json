@@ -1,6 +1,6 @@
 {
   "name": "@chrissgon/perfectui",
-  "version": "v0.4.7",
+  "version": "0.4.8",
   "displayName": "Perfect UI",
   "description": "An exceptionally lightweight and highly customizable CSS and JavaScript library for crafting elegant user interfaces.",
   "private": false,
