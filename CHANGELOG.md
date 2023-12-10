@@ -1,6 +1,10 @@
 # Changelog
 
 
+## vv0.4.7
+
+[compare changes](https://github.com/chrissgon/perfectui/compare/v0.4.5...vv0.4.7)
+
 ## v0.3.1
 
 [compare changes](https://github.com/chrissgon/perfectui/compare/0.3.0...v0.3.1)
