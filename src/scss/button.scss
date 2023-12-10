@@ -68,6 +68,11 @@
   background: rgb(var(--contentPrimary));
   color: rgb(var(--backgroundPrimary));
 
+  * {
+    color: rgb(var(--backgroundPrimary));
+    
+  }
+
   &:hover {
     background: rgba(var(--contentPrimary), 0.8);
   }
