@@ -3,6 +3,10 @@
   padding: 0;
 }
 
+.list > .list-item {
+  @include rounded;
+}
+
 .list-bordered > .list-item {
   @include border;
 }
