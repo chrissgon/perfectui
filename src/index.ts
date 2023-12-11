@@ -67,9 +67,17 @@ export function Tooltip() {
 
   for (const item of items) {
     item.onmouseenter = ({ target }: any) => {
-      const { top: scrollTop, left: scrollLeft } =
-        document.body.getBoundingClientRect();
-      const { top: topTarget, left: leftTarget } = item.getBoundingClientRect();
+      const SPACING_TOOLTIP = 5;
+      const {
+        top: scrollTop,
+        left: scrollLeft,
+      } = document.body.getBoundingClientRect();
+      const {
+        top: topTarget,
+        left: leftTarget,
+        width: widthTarget,
+        height: heightTarget,
+      } = item.getBoundingClientRect();
 
       const div = document.createElement("div");
 
@@ -82,12 +90,22 @@ export function Tooltip() {
 
       document.body.append(div);
 
-      const left = leftTarget - scrollLeft;
+      const { width: widthTooltip, height: heightTooltip } =
+        div.getBoundingClientRect();
+
+      const marginLeft = (widthTarget - widthTooltip) / 2;
+
+      const left = leftTarget - scrollLeft + marginLeft;
       div.style.setProperty("left", `${left}px`);
 
-      const divHeight = div.offsetHeight;
-      const top = topTarget - scrollTop - divHeight - 5;
-      div.style.setProperty("top", `${top}px`);
+      if (target.hasAttribute("bottom")) {
+        const down = topTarget - scrollTop + heightTarget + SPACING_TOOLTIP;
+        div.style.setProperty("top", `${down}px`);
+        return;
+      }
+
+      const up = topTarget - scrollTop - heightTooltip - SPACING_TOOLTIP;
+      div.style.setProperty("top", `${up}px`);
     };
     item.onmouseleave = () => {
       document.querySelector(TOOLTIP_ELEMENT)?.remove();
@@ -191,7 +209,7 @@ function addFunctionsGlobally(): void {
     loadFunctionsByDebounce();
   } catch {
     // @ts-ignore
-    if(process.server) return
+    if (process.server) return;
     setTimeout(init, 1000);
   }
 })();
