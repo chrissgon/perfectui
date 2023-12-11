@@ -18,6 +18,10 @@
     background-color: rgb(map-get($states-colors, $state));
     color: white;
 
+    * {
+      color: white;
+    }
+
     &:hover {
       background-color: rgb(map-get($states-colors, #{$state}Dark));
     }
@@ -28,6 +32,10 @@
     background-color: transparent;
     border-color: rgb(map-get($states-colors, $state));
     color: rgb(map-get($states-colors, $state));
+
+    * {
+      color: rgb(map-get($states-colors, $state));
+    }
 
     &:hover {
       background-color: rgba(map-get($states-colors, $state), 0.05);
@@ -40,6 +48,10 @@
   // link
   .btn-link-#{$state} {
     color: rgb(map-get($states-colors, $state));
+
+    * {
+      color: rgb(map-get($states-colors, $state));
+    }
 
     &:hover {
       color: rgb(map-get($states-colors, #{$state}Dark));
@@ -70,7 +82,6 @@
 
   * {
     color: rgb(var(--backgroundPrimary));
-    
   }
 
   &:hover {

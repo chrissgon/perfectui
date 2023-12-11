@@ -184,14 +184,14 @@ function addFunctionsGlobally(): void {
 }
 
 (function init() {
-  if (window && document) {
-    console.log(`🎨 ${pkg.displayName} - ${pkg.version}`);
+  console.log(`🎨 ${pkg.displayName} - ${pkg.version}`);
 
+  try {
     addFunctionsGlobally();
     loadFunctionsByDebounce();
-
-    return;
+  } catch {
+    // @ts-ignore
+    if(process.server) return
+    setTimeout(init, 1000);
   }
-
-  setTimeout(init, 1000);
 })();
