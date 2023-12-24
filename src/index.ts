@@ -68,10 +68,8 @@ export function Tooltip() {
   for (const item of items) {
     item.onmouseenter = ({ target }: any) => {
       const SPACING_TOOLTIP = 5;
-      const {
-        top: scrollTop,
-        left: scrollLeft,
-      } = document.body.getBoundingClientRect();
+      const { top: scrollTop, left: scrollLeft } =
+        document.body.getBoundingClientRect();
       const {
         top: topTarget,
         left: leftTarget,

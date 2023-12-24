@@ -36,13 +36,20 @@
   box-shadow: none;
 }
 
-.input-group .leading {
+.input-group > * {
   line-height: 0;
+}
+
+.input-group > :first-child {
   padding-left: 1rem;
 }
-.input-group .trailing {
-  line-height: 0;
+.input-group > :last-child {
   padding-right: 1rem;
+}
+
+.input-group > *:not(.input, :first-child, :last-child) {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 // checkbox, radio, switch
