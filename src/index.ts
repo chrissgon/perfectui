@@ -150,7 +150,7 @@ export function setThemeColor(colors: IThemeColor): void {
   }
 }
 
-export function setTheme(theme: "system" | "dark" | "light" = "system"): void {
+export function setMode(theme: "system" | "dark" | "light" = "system"): void {
   const systemIsDark =
     window.matchMedia &&
     window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -188,7 +188,7 @@ function loadFunctionsByDebounce(): void {
 
 function addFunctionsGlobally(): void {
   const fns = {
-    setTheme,
+    setMode,
     setThemeColor,
     Accordion,
     Checkbox,

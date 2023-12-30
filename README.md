@@ -29,7 +29,7 @@ bun i @chrissgon/perfectui
 - Import library on your project.
 
 ```js
-import { setTheme } from "@chrissgon/perfectui";
+import { setMode } from "@chrissgon/perfectui";
 import "@chrissgon/perfectui/dist/perfectui.css";
 ```
 
@@ -47,8 +47,8 @@ import "@chrissgon/perfectui/dist/perfectui.css";
 
 <script>
   // access the functions via window or document
-  console.log(window.perfectui) // { setTheme: ƒ ...}
-  console.log(document.perfectui) // { setTheme: ƒ ...}
+  console.log(window.perfectui); // { setMode: ƒ ...}
+  console.log(document.perfectui); // { setMode: ƒ ...}
 </script>
 ```
 
