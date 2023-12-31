@@ -8,14 +8,23 @@
 }
 
 .accordion > .accordion-item > summary::before {
-  content: "\F282";
-  font-family: "bootstrap-icons";
+  content: "";
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' %3E%3Cpath d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
   position: absolute;
   right: 1rem;
+  margin-top: 2px;
+  width: 1rem;
+  background-color: currentColor;
+  aspect-ratio: 1;
 }
 
-.accordion > .accordion-item > summary[arrow]::before {
-  content: attr(arrow);
+.accordion > .accordion-item > summary:has(.accordion-icon)::before {
+  content: none;
+}
+
+.accordion > .accordion-item > summary > .accordion-icon {
+  position: absolute;
+  right: 1rem;
 }
 
 .accordion > .accordion-item > summary,
