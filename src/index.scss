@@ -35,19 +35,17 @@ hr {
   border-color: rgb(var(--borderSecondary));
 }
 
-hr[vertical]{
+hr[vertical] {
   display: inline;
   width: 1px;
   height: 100%;
   border-left: 1px solid rgb(var(--borderSecondary));
 }
 
-// group
-.group {
+// group row
+.group-row {
   display: flex;
 }
-
-// group row
 .group-row > .group-item,
 .group-row > *[class*="item"] {
   @include roundedCornersX;
@@ -60,18 +58,19 @@ hr[vertical]{
 }
 
 // group column
-.group-column {
+.group-col {
+  display: flex;
   flex-direction: column;
 }
 
-.group-column > .group-item,
-.group-column > *[class*="item"] {
+.group-col > .group-item,
+.group-col > *[class*="item"] {
   @include roundedCornersY;
   border-radius: 0px;
 }
 
-.group-column > .group-item + .group-item,
-.group-column > *[class*="item"] + *[class*="item"] {
+.group-col > .group-item + .group-item,
+.group-col > *[class*="item"] + *[class*="item"] {
   border-top: none;
 }
 
