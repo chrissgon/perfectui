@@ -4,6 +4,7 @@ import "./index.scss";
 
 import {
   ACCORDION_ITEM,
+  ACCORDION_PARENT,
   CHECKBOX_INDETERMINATE,
   TOOLTIP_ELEMENT,
   TOOLTIP_TARGET,
@@ -44,16 +45,19 @@ export function Accordion(): void {
   ) as NodeListOf<HTMLElement>;
 
   for (const item of items) {
-    item.onclick = () => {
+    item.onclick = (e: Event) => {
       if (!item) return;
-      if (!item.parentElement) return;
+      if (!e.target) return;
 
-      const itemsByAccordion =
-        item.parentElement.querySelectorAll(ACCORDION_ITEM);
+      const summary = e.target as HTMLElement;
+      const parent = summary.closest(ACCORDION_PARENT) as HTMLElement;
+
+      if (item.parentElement !== parent) return;
+
+      const itemsByAccordion = parent.querySelectorAll(ACCORDION_ITEM);
 
       for (const itemAccordion of itemsByAccordion) {
         if (itemAccordion === item) continue;
-
         itemAccordion.removeAttribute("open");
       }
     };
