@@ -35,6 +35,10 @@
   padding-right: 1rem;
 }
 
+.accordion > .accordion-item > article:has(> .accordion) {
+  padding-right: 0;
+}
+
 .accordion-bordered > .accordion-item {
   @include border;
 }
