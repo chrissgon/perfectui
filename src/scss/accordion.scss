@@ -35,7 +35,7 @@
   padding-right: 1rem;
 }
 
-.accordion > .accordion-item > article:has(> .accordion) {
+.accordion-aligned > .accordion-item > article:has(> .accordion) {
   padding-right: 0;
 }
 
@@ -43,6 +43,6 @@
   @include border;
 }
 
-.accordion-accented .accordion-item[open] {
+.accordion-accented > .accordion-item[open] {
   background-color: rgb(var(--backgroundSecondary));
 }
