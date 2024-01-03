@@ -1,15 +1,3 @@
-// primitives
-@each $tone in $tones {
-  @each $color in $colors {
-    .bg-#{$color}-#{$tone} {
-      background-color: rgb(var(--#{$color}#{$tone}));
-    }
-    .text-#{$color}-#{$tone} {
-      color: rgb(var(--#{$color}#{$tone}));
-    }
-  }
-}
-
 // core
 // background
 .bg-primary {
