@@ -1,7 +1,7 @@
 .list {
   @include background;
   @include rounded;
-  
+
   list-style-position: inside !important;
 }
 
@@ -24,7 +24,6 @@
 }
 
 .list-bordered > .list-item {
- 
   @include border;
 }
 
@@ -50,6 +49,12 @@
 
 // exceptions
 .list.group-row:is(.list-disc) > .list-item,
-.list.group-row:not(.list-bordered, .list-hoverable, .list-striped, .list-decimal) > .list-item:has(.marker) {
+.list.group-row:not(
+    .list-bordered,
+    .list-hoverable,
+    .list-striped,
+    .list-decimal
+  )
+  > .list-item:has(.marker) {
   padding-left: 0 !important;
 }
