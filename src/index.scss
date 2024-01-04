@@ -14,7 +14,7 @@
 html,
 body {
   @include background;
-  
+
   max-width: 100%;
   overflow-x: hidden;
 }
@@ -42,7 +42,7 @@ hr[vertical] {
   border-left: 1px solid rgb(var(--borderSecondary));
 }
 
-a{
+a {
   cursor: pointer;
 }
 

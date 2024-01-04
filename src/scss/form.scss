@@ -58,7 +58,7 @@
 .switch {
   @include border;
   @include background;
-  
+
   appearance: none;
   border-radius: 0.175rem;
   height: var(--fontMD);
