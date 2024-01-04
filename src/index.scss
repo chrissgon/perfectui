@@ -41,6 +41,10 @@ hr[vertical] {
   border-left: 1px solid rgb(var(--borderSecondary));
 }
 
+a{
+  cursor: pointer;
+}
+
 // group row
 .group-row {
   display: flex;
@@ -49,7 +53,6 @@ hr[vertical] {
 .group-row > *[class*="item"] {
   @include roundedCornersX;
   border-radius: 0px;
-  flex: 1;
 }
 
 .group-row > .group-item + .group-item,

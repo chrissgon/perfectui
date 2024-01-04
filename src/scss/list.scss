@@ -1,6 +1,19 @@
 .list {
-  list-style: none;
-  padding: 0;
+  list-style-position: inside !important;
+}
+
+*::marker {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
+    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+}
+
+.list-disc {
+  list-style: disc;
+}
+
+.list-decimal {
+  list-style: decimal;
 }
 
 .list > .list-item {
@@ -20,10 +33,19 @@
 }
 
 .list > .list-item {
-  cursor: pointer;
   padding: var(--spacingMD);
 }
 
 .list > .list-item.active {
   background-color: rgb(var(--backgroundSecondary));
+}
+
+.list > .list-item > .marker {
+  padding-right: 0.5rem;
+}
+
+// exceptions
+.list.group-row:is(.list-disc) > .list-item,
+.list.group-row:not(.list-bordered, .list-hoverable, .list-striped, .list-decimal) > .list-item:has(.marker) {
+  padding-left: 0 !important;
 }

@@ -9,6 +9,15 @@
 .bg-tertiary {
   background-color: rgb(var(--backgroundTertiary));
 }
+.bg-success {
+  background-color: rgb(var(--green500));
+}
+.bg-error {
+  background-color: rgb(var(--red500));
+}
+.bg-warn {
+  background-color: rgb(var(--amber500));
+}
 
 // contents
 .text-primary {
@@ -17,6 +26,15 @@
 .text-secondary {
   color: rgb(var(--contentSecondary));
 }
+.text-success {
+  color: rgb(var(--green500));
+}
+.text-error {
+  color: rgb(var(--red500));
+}
+.text-warn {
+  color: rgb(var(--amber500));
+}
 
 // borders
 .border-primary {
@@ -24,4 +42,13 @@
 }
 .border-secondary {
   border-color: rgb(var(--borderSecondary));
+}
+.border-success {
+  border-color: rgb(var(--green500));
+}
+.border-error {
+  border-color: rgb(var(--red500));
+}
+.border-warn {
+  border-color: rgb(var(--amber500));
 }
