@@ -57,8 +57,9 @@
 .radio,
 .switch {
   @include border;
+  @include background;
+  
   appearance: none;
-  background-color: rgb(var(--backgroundPrimary));
   border-radius: 0.175rem;
   height: var(--fontMD);
   width: var(--fontMD);

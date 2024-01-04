@@ -1,12 +1,12 @@
 .tooltip {
   @include rounded;
   @include border;
+  @include background;
 
   text-align: center;
   width: fit-content;
   position: absolute;
   text-transform: none;
-  background-color: rgb(var(--backgroundPrimary));
   font-size: var(--fontXS);
   padding: var(--spacingXS);
   pointer-events: none;

@@ -13,9 +13,10 @@
 
 html,
 body {
+  @include background;
+  
   max-width: 100%;
   overflow-x: hidden;
-  background-color: rgb(var(--backgroundPrimary));
 }
 
 body * {

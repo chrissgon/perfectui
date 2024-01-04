@@ -1,4 +1,7 @@
 .list {
+  @include background;
+  @include rounded;
+  
   list-style-position: inside !important;
 }
 
@@ -21,6 +24,7 @@
 }
 
 .list-bordered > .list-item {
+ 
   @include border;
 }
 

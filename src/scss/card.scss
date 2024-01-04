@@ -1,7 +1,7 @@
 .card {
   @include border;
-
-  background-color: rgb(var(--backgroundPrimary));
+  @include background;
+  
   border-radius: calc(var(--rounded) * 1.5);
   overflow: hidden;
 }

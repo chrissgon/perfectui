@@ -26,6 +26,9 @@
 .text-secondary {
   color: rgb(var(--contentSecondary));
 }
+.text-theme {
+  color: rgb(var(--theme500));
+}
 .text-success {
   color: rgb(var(--green500));
 }
