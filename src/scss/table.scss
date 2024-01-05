@@ -19,11 +19,11 @@
   padding: var(--spacingMD);
 }
 
-.table tr :first-child {
+.table tr > :first-child {
   border-left: none;
 }
 
-.table thead :first-child > * {
+.table thead :first-child > *:is(td, th) {
   border-top: none;
 }
 
@@ -46,4 +46,8 @@
 .table-striped tbody tr:nth-child(even),
 .table-hoverable tbody tr:hover {
   background-color: rgb(var(--backgroundSecondary));
+}
+
+.table:not(:has(thead)) tbody tr:first-child > *:is(td, th) {
+  border-top-width: 0;
 }
