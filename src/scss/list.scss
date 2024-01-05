@@ -1,8 +1,9 @@
-.list {
-  @include background;
-  @include rounded;
+ul {
+  list-style: disc;
+}
 
-  list-style-position: inside !important;
+ol {
+  list-style: decimal;
 }
 
 *::marker {
@@ -11,12 +12,15 @@
     Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
 }
 
-.list-disc {
-  list-style: disc;
+.unmarker {
+  list-style: none !important;
 }
 
-.list-decimal {
-  list-style: decimal;
+.list {
+  @include background;
+  @include rounded;
+
+  list-style-position: inside !important;
 }
 
 .list > .list-item {
@@ -45,16 +49,4 @@
 
 .list > .list-item > .marker {
   padding-right: 0.5rem;
-}
-
-// exceptions
-.list.group-row:is(.list-disc) > .list-item,
-.list.group-row:not(
-    .list-bordered,
-    .list-hoverable,
-    .list-striped,
-    .list-decimal
-  )
-  > .list-item:has(.marker) {
-  padding-left: 0 !important;
 }
