@@ -3,6 +3,7 @@
   text-align: left;
   text-indent: 0;
   width: 100%;
+  overflow: hidden;
 }
 
 .table-responsive {
@@ -14,6 +15,7 @@
   @include border;
   border-right: none;
   border-bottom: none;
+  border-left-width: 0;
   padding: var(--spacingMD);
 }
 
@@ -36,8 +38,12 @@
   @include rounded;
 }
 
+.table-bordered th,
+.table-bordered td {
+  border-left-width: 1px;
+}
+
 .table-striped tbody tr:nth-child(even),
-.table-striped thead,
 .table-hoverable tbody tr:hover {
   background-color: rgb(var(--backgroundSecondary));
 }
