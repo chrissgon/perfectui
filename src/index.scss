@@ -35,7 +35,7 @@ hr {
   border-color: rgb(var(--borderSecondary));
 }
 
-hr[vertical] {
+hr.vertical {
   display: inline;
   width: 1px;
   height: 100%;

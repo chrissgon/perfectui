@@ -69,50 +69,67 @@ export function Tooltip() {
     TOOLTIP_TARGET
   ) as NodeListOf<HTMLElement>;
 
-  for (const item of items) {
-    item.onmouseenter = ({ target }: any) => {
-      const SPACING_TOOLTIP = 5;
-      const { top: scrollTop, left: scrollLeft } =
-        document.body.getBoundingClientRect();
-      const {
-        top: topTarget,
-        left: leftTarget,
-        width: widthTarget,
-        height: heightTarget,
-      } = item.getBoundingClientRect();
+  function show({ target, item }: any) {
+    const SPACING_TOOLTIP = 5;
+    const { top: scrollTop, left: scrollLeft } =
+      document.body.getBoundingClientRect();
+    const {
+      top: topTarget,
+      left: leftTarget,
+      width: widthTarget,
+      height: heightTarget,
+    } = item.getBoundingClientRect();
 
-      const div = document.createElement("div");
+    const div = document.createElement("div");
 
-      div.innerHTML = target.getAttribute("tooltip");
-      div.classList.add("tooltip");
+    div.innerHTML = target.getAttribute("tooltip");
+    div.classList.add("tooltip");
 
-      if (target.hasAttribute("black")) {
-        div.classList.add("tooltip-black");
-      }
+    if (target.hasAttribute("black")) {
+      div.classList.add("tooltip-black");
+    }
 
-      document.body.append(div);
+    document.body.append(div);
 
-      const { width: widthTooltip, height: heightTooltip } =
-        div.getBoundingClientRect();
+    const { width: widthTooltip, height: heightTooltip } =
+      div.getBoundingClientRect();
 
-      const marginLeft = (widthTarget - widthTooltip) / 2;
+    const marginLeft = (widthTarget - widthTooltip) / 2;
 
-      const left = leftTarget - scrollLeft + marginLeft;
-      div.style.setProperty("left", `${left}px`);
+    const left = leftTarget - scrollLeft + marginLeft;
+    div.style.setProperty("left", `${left}px`);
 
-      if (target.hasAttribute("bottom")) {
-        const down = topTarget - scrollTop + heightTarget + SPACING_TOOLTIP;
-        div.style.setProperty("top", `${down}px`);
-        return;
-      }
+    if (target.hasAttribute("bottom")) {
+      const down = topTarget - scrollTop + heightTarget + SPACING_TOOLTIP;
+      div.style.setProperty("top", `${down}px`);
+      return;
+    }
 
-      const up = topTarget - scrollTop - heightTooltip - SPACING_TOOLTIP;
-      div.style.setProperty("top", `${up}px`);
-    };
-    item.onmouseleave = () => {
-      document.querySelector(TOOLTIP_ELEMENT)?.remove();
-    };
+    const up = topTarget - scrollTop - heightTooltip - SPACING_TOOLTIP;
+    div.style.setProperty("top", `${up}px`);
   }
+
+  function hide() {
+    document.querySelector(TOOLTIP_ELEMENT)?.remove();
+  }
+
+  for (const item of items) {
+    item.onmouseenter = ({ target }) => {
+      show({ target, item });
+    };
+    item.onmouseleave = hide;
+
+    onElementRemoved(item, hide);
+  }
+}
+
+function onElementRemoved(element, callback) {
+  new MutationObserver(function (mutations) {
+    if (!document.body.contains(element)) {
+      callback();
+      this.disconnect();
+    }
+  }).observe(element.parentElement, { childList: true });
 }
 
 export function setThemeColor(colors: IThemeColor): void {
@@ -168,6 +185,7 @@ export function setMode(theme: "system" | "dark" | "light" = "system"): void {
 }
 
 export function loadFunctions(): void {
+  console.log("load");
   Accordion();
   Checkbox();
   Tooltip();
@@ -178,16 +196,23 @@ function loadFunctionsByDebounce(): void {
   const enableDebounce = () => (debounce = true);
   const disableDebounce = () => (debounce = false);
 
-  document.addEventListener("mousemove", () => {
+  new MutationObserver(function (mutations) {
+    console.log("body changed");
     if (debounce) return;
     enableDebounce();
     setTimeout(disableDebounce, 2000);
 
     loadFunctions();
-  });
-  document.addEventListener("click", () => {
-    loadFunctions();
-  });
+  }).observe(document.body, { childList: true, subtree: true });
+
+  // loadFunctions()
+
+  // document.addEventListener("mousemove", () => {
+
+  // });
+  // document.addEventListener("click", () => {
+  //   loadFunctions();
+  // });
 }
 
 function addFunctionsGlobally(): void {
