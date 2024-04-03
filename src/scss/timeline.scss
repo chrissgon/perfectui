@@ -1,0 +1,83 @@
+.timeline {
+  font-size: var(--fontSM);
+  color: rgb(var(--contentPrimary));
+  margin-left: var(--checkpoint-icon-width);
+}
+
+.checkpoint {
+  width: 100%;
+  min-height: 50px;
+  position: relative;
+  padding: var(--spacingMD);
+}
+
+.checkpoint .icon {
+  width: var(--checkpoint-icon-width);
+  height: var(--checkpoint-icon-width);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: calc(var(--checkpoint-icon-width) * -1);
+  border: 1px solid transparent;
+  border-radius: var(--roundedFull);
+  z-index: 1;
+}
+
+.checkpoint::after {
+  --checkpoint-icon-width-after: 12px;
+
+  content: "";
+  background-color: rgb(var(--backgroundPrimary));
+  border-radius: var(--roundedFull);
+  position: absolute;
+  width: calc(
+    var(--checkpoint-icon-width) + var(--checkpoint-icon-width-after)
+  );
+  height: calc(
+    var(--checkpoint-icon-width) + var(--checkpoint-icon-width-after)
+  );
+  left: calc(
+    (var(--checkpoint-icon-width) + (var(--checkpoint-icon-width-after) / 2)) *
+      -1
+  );
+  top: calc(var(--checkpoint-icon-width-after) / 6);
+}
+
+.checkpoint::before {
+  content: "";
+
+  width: 1px;
+  height: 100%;
+  position: absolute;
+  left: calc((var(--checkpoint-icon-width) / 2) * -1);
+  border-left: 1px solid rgb(var(--borderSecondary));
+}
+
+.checkpoint:last-child::before {
+  border-left: none;
+}
+
+@each $state in $states {
+  .checkpoint-solid-#{$state} .icon {
+    background-color: rgb(map-get($states-colors, $state));
+    color: white;
+  }
+  .checkpoint-outline-#{$state} .icon {
+    border-color: rgb(map-get($states-colors, $state));
+    color: rgb(map-get($states-colors, $state));
+  }
+  .checkpoint-link-#{$state} .icon {
+    color: rgb(map-get($states-colors, $state));
+  }
+}
+
+.checkpoint-white .icon {
+  background: rgb(var(--backgroundPrimary));
+  border-color: rgb(var(--borderSecondary));
+}
+
+.checkpoint-black .icon {
+  background: rgb(var(--contentPrimary));
+  color: rgb(var(--backgroundPrimary));
+}
