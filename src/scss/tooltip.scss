@@ -1,11 +1,25 @@
 .tooltip {
+  position: relative;
+}
+
+.tooltip:hover::before {
+  display: block;
+}
+
+.tooltip::before {
+  content: attr(tooltip);
+
   @include rounded;
   @include border;
   @include background;
 
+  display: none;
   text-align: center;
   width: fit-content;
   position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
   text-transform: none;
   font-size: var(--fontXS);
   padding: var(--spacingXS);
@@ -13,7 +27,7 @@
   z-index: 2;
 }
 
-.tooltip-black {
+.tooltip-black::before {
   background: rgb(var(--contentPrimary));
   color: rgb(var(--backgroundPrimary));
 }
