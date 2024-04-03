@@ -7,10 +7,10 @@ export default defineConfig({
   build: {
     lib: {
       entry: url.fileURLToPath(new URL("src/index.ts", import.meta.url)),
-      name: "perfectui",
+      name: "perfectui"
     },
     rollupOptions: {
-      output: { assetFileNames: "perfectui.css" },
-    },
-  },
+      output: { assetFileNames: "perfectui.css" }
+    }
+  }
 });

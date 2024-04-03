@@ -7,7 +7,7 @@ import {
   ACCORDION_PARENT,
   CHECKBOX_INDETERMINATE,
   TOOLTIP_ELEMENT,
-  TOOLTIP_TARGET,
+  TOOLTIP_TARGET
 } from "./constants";
 
 export interface IThemeColor {
@@ -31,7 +31,7 @@ export function Checkbox(): void {
 
   for (const item of items) {
     if (!item) return;
-    // @ts-ignore
+    // @ts-expect-error change custom prop "indeterminate"
     item.indeterminate = true;
     item.addEventListener("click", () => {
       item.removeAttribute("indeterminate");
@@ -69,7 +69,17 @@ export function Tooltip() {
     TOOLTIP_TARGET
   ) as NodeListOf<HTMLElement>;
 
-  function show({ target, item }: any) {
+  function show({
+    target: t,
+    item
+  }: {
+    target: EventTarget | null;
+    item: HTMLElement;
+  }) {
+    if (!t) return;
+
+    const target = t as HTMLInputElement;
+
     const SPACING_TOOLTIP = 5;
     const { top: scrollTop, left: scrollLeft } =
       document.body.getBoundingClientRect();
@@ -77,12 +87,12 @@ export function Tooltip() {
       top: topTarget,
       left: leftTarget,
       width: widthTarget,
-      height: heightTarget,
+      height: heightTarget
     } = item.getBoundingClientRect();
 
     const div = document.createElement("div");
 
-    div.innerHTML = target.getAttribute("tooltip");
+    div.innerHTML = target.getAttribute("tooltip") ?? "";
     div.classList.add("tooltip");
 
     if (target.hasAttribute("black")) {
@@ -124,7 +134,7 @@ export function Tooltip() {
 }
 
 function onElementRemoved(element, callback) {
-  new MutationObserver(function (mutations) {
+  new MutationObserver(function () {
     if (!document.body.contains(element)) {
       callback();
       this.disconnect();
@@ -211,7 +221,7 @@ function addFunctionsGlobally(): void {
     Accordion,
     Checkbox,
     Tooltip,
-    loadFunctions,
+    loadFunctions
   };
   Object.assign(window, { perfectui: fns });
   Object.assign(document, { perfectui: fns });
@@ -224,7 +234,7 @@ function addFunctionsGlobally(): void {
     addFunctionsGlobally();
     loadFunctionsByDebounce();
   } catch {
-    // @ts-ignore
+    // @ts-expect-error verify SSR renderer
     if (process.server) return;
     setTimeout(init, 1000);
   }
