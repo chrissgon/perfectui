@@ -185,7 +185,6 @@ export function setMode(theme: "system" | "dark" | "light" = "system"): void {
 }
 
 export function loadFunctions(): void {
-  console.log("load");
   Accordion();
   Checkbox();
   Tooltip();
@@ -196,23 +195,13 @@ function loadFunctionsByDebounce(): void {
   const enableDebounce = () => (debounce = true);
   const disableDebounce = () => (debounce = false);
 
-  new MutationObserver(function (mutations) {
-    console.log("body changed");
+  new MutationObserver(function () {
     if (debounce) return;
     enableDebounce();
     setTimeout(disableDebounce, 2000);
 
     loadFunctions();
   }).observe(document.body, { childList: true, subtree: true });
-
-  // loadFunctions()
-
-  // document.addEventListener("mousemove", () => {
-
-  // });
-  // document.addEventListener("click", () => {
-  //   loadFunctions();
-  // });
 }
 
 function addFunctionsGlobally(): void {

@@ -36,7 +36,7 @@
   box-shadow: none;
 }
 
-.input-group > * {
+.input-group > *:not(textarea) {
   line-height: 0;
 }
 
@@ -115,6 +115,7 @@
   padding: var(--spacingSM);
   background-color: transparent;
   outline: none;
+  min-height: 37px;
 
   &:focus-within {
     border-color: rgb(var(--borderPrimary));
