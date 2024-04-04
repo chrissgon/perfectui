@@ -16,15 +16,36 @@
   display: none;
   text-align: center;
   width: fit-content;
+
   position: absolute;
-  top: -100%;
+  top: 0%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, calc(-100% - var(--tooltip-margin)));
+
   text-transform: none;
   font-size: var(--fontXS);
   padding: var(--spacingXS);
   pointer-events: none;
   z-index: 2;
+}
+.tooltip-left::before {
+  top: 50%;
+  left: 0;
+  transform: translate(calc(-100% - var(--tooltip-margin)), -50%);
+}
+
+.tooltip-right::before {
+  left: auto;
+  top: 50%;
+  right: 0;
+  transform: translate(calc(100% + var(--tooltip-margin)), -50%);
+}
+
+.tooltip-bottom::before {
+  top: auto;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, calc(100% + var(--tooltip-margin)));
 }
 
 .tooltip-black::before {

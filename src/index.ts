@@ -117,7 +117,6 @@ export function setMode(theme: "system" | "dark" | "light" = "system"): void {
 export function loadFunctions(): void {
   Accordion();
   Checkbox();
-  // Tooltip();
 }
 
 function loadFunctionsByDebounce(): void {
