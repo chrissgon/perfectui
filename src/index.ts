@@ -152,6 +152,9 @@ function addFunctionsGlobally(): void {
     addFunctionsGlobally();
     loadFunctionsByDebounce();
   } catch {
+    // @ts-expect-error SSR verification
+    if (process && process.server) return;
+
     setTimeout(init, 1000);
   }
 })();

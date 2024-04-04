@@ -22,12 +22,12 @@
   left: 50%;
   transform: translate(-50%, calc(-100% - var(--tooltip-margin)));
 
-  text-transform: none;
   font-size: var(--fontXS);
   padding: var(--spacingXS);
   pointer-events: none;
   z-index: 2;
 }
+
 .tooltip-left::before {
   top: 50%;
   left: 0;
