@@ -16,11 +16,11 @@
 
   display: none;
   text-align: center;
-  width: fit-content;
+  width: max-content;
   max-width: 200px;
   overflow: hidden;
-  white-space: pre-wrap;
   text-overflow: ellipsis;
+  font-weight: 500;
 
   position: absolute;
   top: 0%;
