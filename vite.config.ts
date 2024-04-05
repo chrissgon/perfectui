@@ -1,12 +1,20 @@
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
-import * as url from "url";
+import { fileURLToPath } from "url";
+import ts from "typescript";
 
 export default defineConfig({
-  plugins: [dts({ insertTypesEntry: true })],
+  plugins: [
+    dts({
+      insertTypesEntry: true,
+      compilerOptions: {
+        moduleResolution: ts.ModuleResolutionKind.Bundler
+      }
+    })
+  ],
   build: {
     lib: {
-      entry: url.fileURLToPath(new URL("src/index.ts", import.meta.url)),
+      entry: fileURLToPath(new URL("src/index.ts", import.meta.url)),
       name: "perfectui"
     },
     rollupOptions: {
