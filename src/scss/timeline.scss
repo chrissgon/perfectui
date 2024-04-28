@@ -1,47 +1,18 @@
 .timeline {
+  position: relative;
   font-size: var(--fontSM);
   color: rgb(var(--contentPrimary));
-  margin-left: var(--checkpoint-icon-width);
 }
 
 .checkpoint {
+  display: flex;
   width: 100%;
   min-height: 50px;
   position: relative;
-  padding: var(--spacingMD);
 }
 
-.checkpoint .icon {
-  width: var(--checkpoint-icon-width);
-  height: var(--checkpoint-icon-width);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  left: calc(var(--checkpoint-icon-width) * -1);
-  border: 1px solid transparent;
-  border-radius: var(--roundedFull);
-  z-index: 1;
-}
-
-.checkpoint::after {
-  --checkpoint-icon-width-after: 12px;
-
-  content: "";
-  background-color: rgb(var(--backgroundPrimary));
-  border-radius: var(--roundedFull);
-  position: absolute;
-  width: calc(
-    var(--checkpoint-icon-width) + var(--checkpoint-icon-width-after)
-  );
-  height: calc(
-    var(--checkpoint-icon-width) + var(--checkpoint-icon-width-after)
-  );
-  left: calc(
-    (var(--checkpoint-icon-width) + (var(--checkpoint-icon-width-after) / 2)) *
-      -1
-  );
-  top: calc(var(--checkpoint-icon-width-after) / 6);
+.timeline.group-row .checkpoint {
+  flex-direction: column;
 }
 
 .checkpoint::before {
@@ -50,34 +21,65 @@
   width: 1px;
   height: 100%;
   position: absolute;
-  left: calc((var(--checkpoint-icon-width) / 2) * -1);
+  left: 0;
   border-left: 1px solid rgb(var(--borderSecondary));
 }
 
-.checkpoint:last-child::before {
-  border-left: none;
+.timeline.group-row .checkpoint::before {
+  width: 100%;
+  height: 1px;
+  border-top: 1px solid rgb(var(--borderSecondary));
+}
+
+.checkpoint-content {
+  flex: 1;
+  padding: 0.5rem;
+}
+
+.checkpoint-icon {
+  width: var(--checkpoint-icon-width);
+  height: var(--checkpoint-icon-width);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: var(--fontXS);
+  background-color: rgb(var(--backgroundPrimary));
+
+  border: 1px solid transparent;
+  border-radius: var(--roundedFull);
+
+  margin-left: calc(var(--checkpoint-icon-width) / 2 * -1);
+  margin-top: 0.25rem;
+  z-index: 1;
+}
+
+.timeline.group-row .checkpoint-icon {
+  margin-left: 0.25rem;
+  margin-top: calc(var(--checkpoint-icon-width) / 2 * -1);
 }
 
 @each $state in $states {
-  .checkpoint-solid-#{$state} .icon {
+  .checkpoint-solid-#{$state} .checkpoint-icon {
     background-color: rgb(map-get($states-colors, $state));
     color: white;
   }
-  .checkpoint-outline-#{$state} .icon {
+  .checkpoint-outline-#{$state} .checkpoint-icon {
     border-color: rgb(map-get($states-colors, $state));
     color: rgb(map-get($states-colors, $state));
   }
-  .checkpoint-link-#{$state} .icon {
+  .checkpoint-link-#{$state} .checkpoint-icon {
     color: rgb(map-get($states-colors, $state));
   }
 }
 
-.checkpoint-white .icon {
+.checkpoint-white .checkpoint-icon {
   background: rgb(var(--backgroundPrimary));
   border-color: rgb(var(--borderSecondary));
 }
 
-.checkpoint-black .icon {
+.checkpoint-black .checkpoint-icon {
   background: rgb(var(--contentPrimary));
   color: rgb(var(--backgroundPrimary));
 }
