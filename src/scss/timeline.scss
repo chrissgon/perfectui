@@ -31,7 +31,7 @@
   border-top: 1px solid rgb(var(--borderSecondary));
 }
 
-.checkpoint-content {
+.checkpoint > *:not(.checkpoint-icon) {
   flex: 1;
   padding: 0.5rem;
 }
