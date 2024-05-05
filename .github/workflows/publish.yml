@@ -16,18 +16,23 @@ jobs:
       - name: Setup bun
         uses: oven-sh/setup-bun@v1
 
-      - name: Setup node
-        uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v3
         with:
-          node-version-file: .nvmrc
-          node-version: 20
-          registry-url: https://registry.npmjs.org
+          version:
+      # - name: Setup node
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version-file: .nvmrc
+      #     node-version: 20
+      #     registry-url: https://registry.npmjs.org
 
-      - name: Config .npmrc
-        run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ./.npmrc
+      - name: Set publishing config
+        run: pnpm config set '//registry.npmjs.org/:_authToken' "${NODE_AUTH_TOKEN}"
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
       - name: 🔧 Install and build
         run: bun i && bun run build
 
       - name: 📦 Publish package on NPM
-        run: npm publish --access public
+        run: pnpm publish --access public
