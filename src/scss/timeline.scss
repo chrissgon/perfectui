@@ -25,6 +25,10 @@
   border-left: 1px solid rgb(var(--borderSecondary));
 }
 
+.timeline .checkpoint:last-child::before {
+  display: none;
+}
+
 .timeline.group-row .checkpoint::before {
   width: 100%;
   height: 1px;
@@ -34,6 +38,10 @@
 .checkpoint > *:not(.checkpoint-icon) {
   flex: 1;
   padding: 0.5rem;
+}
+
+.timeline.group-row .checkpoint > *:not(.checkpoint-icon) {
+  margin-left: -1rem;
 }
 
 .checkpoint-icon {
@@ -51,12 +59,10 @@
   border-radius: var(--roundedFull);
 
   margin-left: calc(var(--checkpoint-icon-width) / 2 * -1);
-  margin-top: 0.25rem;
   z-index: 1;
 }
 
 .timeline.group-row .checkpoint-icon {
-  margin-left: 0.25rem;
   margin-top: calc(var(--checkpoint-icon-width) / 2 * -1);
 }
 
@@ -82,4 +88,27 @@
 .checkpoint-black .checkpoint-icon {
   background: rgb(var(--contentPrimary));
   color: rgb(var(--backgroundPrimary));
+}
+
+// responsive
+@media (min-width: 1024px) {
+  .timeline.group-responsive {
+    .checkpoint {
+      flex-direction: column;
+    }
+
+    .checkpoint::before {
+      width: 100%;
+      height: 1px;
+      border-top: 1px solid rgb(var(--borderSecondary));
+    }
+
+    .checkpoint > *:not(.checkpoint-icon) {
+      margin-left: -1rem;
+    }
+
+    .checkpoint-icon {
+      margin-top: calc(var(--checkpoint-icon-width) / 2 * -1);
+    }
+  }
 }
