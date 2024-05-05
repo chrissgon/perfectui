@@ -1,8 +1,10 @@
 name: publish to npm
 on:
   push:
-    tags:
-      - "*"
+    branches:
+      - main
+    # tags:
+    #   - "*"
 
 jobs:
   publish:
@@ -22,7 +24,7 @@ jobs:
           registry-url: https://registry.npmjs.org
 
       - name: Config .npmrc
-        run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+        run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ./.npmrc
 
       - name: 🔧 Install and build
         run: bun i && bun run build
