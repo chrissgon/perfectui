@@ -15,10 +15,10 @@ jobs:
         uses: oven-sh/setup-bun@v1
 
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-          registry-url: https://registry.npmjs.org/
+          registry-url: "https://registry.npmjs.org"
 
       - name: 🔧 Install and build
         run: bun i && bun run build
