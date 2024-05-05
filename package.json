@@ -1,6 +1,6 @@
 {
   "name": "@chrissgon/perfectui",
-  "version": "0.11.3",
+  "version": "0.11.4",
   "displayName": "Perfect UI",
   "description": "An exceptionally lightweight and highly customizable CSS and JavaScript library for crafting elegant user interfaces.",
   "private": false,
@@ -28,6 +28,6 @@
   "author": "Christopher Gonçalves <chrissgon.dev@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/chrissgon/perfectui"
+    "url": "git+https://github.com/chrissgon/perfectui.git"
   }
 }
