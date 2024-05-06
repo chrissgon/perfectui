@@ -29,5 +29,8 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/chrissgon/perfectui.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   }
 }
