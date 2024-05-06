@@ -23,14 +23,15 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v4
         with:
-          registry-url: "https://registry.npmjs.org"
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
 
       # - name: Set publishing config
       #   run: pnpm config set '//registry.npmjs.org/:_authToken' "${NODE_AUTH_TOKEN}"
       #   env:
       #     NODE_AUTH_TOKEN: ${{secrets.NPM_PUBLISH_TOKEN}}
 
-      # 
+      #
 
       - name: 🔧 Install and build
         run: bun i && bun run build
