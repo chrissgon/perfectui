@@ -25,10 +25,6 @@
   border-left: 1px solid rgb(var(--borderSecondary));
 }
 
-.timeline .checkpoint:last-child::before {
-  display: none;
-}
-
 .timeline.group-row .checkpoint::before {
   width: 100%;
   height: 1px;
