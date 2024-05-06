@@ -34,6 +34,6 @@ jobs:
         run: bun i && bun run build
 
       - name: 📦 Publish package on NPM
-        run: npm publish --registry=https://registry.npmjs.org/
+        run: npm publish
         env:
-          NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
