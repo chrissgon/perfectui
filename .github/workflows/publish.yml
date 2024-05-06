@@ -23,7 +23,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v4
         with:
-          registry-url: 'https://registry.npmjs.org/'
+          registry-url: "https://registry.npmjs.org"
 
       # - name: Set publishing config
       #   run: pnpm config set '//registry.npmjs.org/:_authToken' "${NODE_AUTH_TOKEN}"
