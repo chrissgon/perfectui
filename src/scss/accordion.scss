@@ -20,6 +20,10 @@
   aspect-ratio: 1;
 }
 
+.accordion > .accordion-item[open] > summary::before {
+  transform: rotate(180deg);
+}
+
 .accordion > .accordion-item > summary:has(.accordion-icon)::before {
   content: none;
 }
@@ -27,6 +31,17 @@
 .accordion > .accordion-item > summary > .accordion-icon {
   position: absolute;
   right: 1rem;
+}
+
+.accordion > .accordion-item > summary > .accordion-icon.open {
+  display: none;
+}
+
+.accordion > .accordion-item[open] > summary > .accordion-icon:not(.open) {
+  display: none;
+}
+.accordion > .accordion-item[open] > summary > .accordion-icon.open {
+  display: inline;
 }
 
 .accordion > .accordion-item > summary,
