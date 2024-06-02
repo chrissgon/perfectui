@@ -1,0 +1,48 @@
+.dropdown-trigger {
+  position: relative;
+}
+
+.dropdown {
+  @include border;
+  @include background;
+
+  display: none !important;
+  position: absolute;
+
+  text-align: left;
+  font-size: var(--fontSM);
+  border-radius: calc(var(--rounded) * 1.5);
+  overflow: hidden;
+
+  top: 100%;
+  left: 0;
+  transform: translateY(var(--dropdownMargin));
+
+  padding: 0.5rem;
+
+  z-index: 2 !important;
+}
+
+.dropdown.list-bordered {
+  border: none;
+}
+
+.dropdown.visible {
+  display: flex !important;
+}
+
+.dropdown-top {
+  top: 0;
+  transform: translateY(calc(-100% - var(--dropdownMargin)));
+}
+
+.dropdown-left {
+  top: 0;
+  transform: translateX(calc(-100% - var(--dropdownMargin)));
+}
+.dropdown-right {
+  left: initial;
+  top: 0;
+  right: 0;
+  transform: translateX(calc(100% + var(--dropdownMargin)));
+}

@@ -5,7 +5,9 @@ import "./index.scss";
 import {
   ACCORDION_ITEM,
   ACCORDION_PARENT,
-  CHECKBOX_INDETERMINATE
+  CHECKBOX_INDETERMINATE,
+  DROPDOWN,
+  DROPDOWN_TRIGGER
 } from "./constants";
 
 export interface IThemeColor {
@@ -31,9 +33,9 @@ export function Checkbox(): void {
     if (!item) return;
     // @ts-expect-error change custom prop "indeterminate"
     item.indeterminate = true;
-    item.addEventListener("click", () => {
+    item.onclick = () => {
       item.removeAttribute("indeterminate");
-    });
+    };
   }
 }
 
@@ -62,6 +64,64 @@ export function Accordion(): void {
   }
 }
 
+export function Dropdown(): void {
+  const triggers = document.querySelectorAll(
+    DROPDOWN_TRIGGER
+  ) as NodeListOf<HTMLElement>;
+
+  for (const trigger of triggers) {
+    trigger.onclick = (e: Event) => {
+      const target = e.target as HTMLElement;
+
+      const ignoreClick =
+        target.classList.contains("ignore") ||
+        target.closest(".ignore") !== null;
+
+      if (ignoreClick) return;
+
+      const parent = e.currentTarget as HTMLElement;
+      const dropdown = parent.querySelector(DROPDOWN) as HTMLElement;
+      const isVisible = dropdown?.classList?.contains("visible");
+
+      hideDropdowns({ dropdown });
+
+      dropdown?.classList?.toggle("visible");
+
+      if (isVisible) return;
+
+      const fn = (e: Event) => {
+        const target = e.target as HTMLElement;
+
+        const ignoreClick =
+          target.classList.contains("ignore") ||
+          target.closest(".ignore") !== null;
+
+        if (ignoreClick) {
+          return;
+        }
+
+        dropdown?.classList?.remove("visible");
+        document.body.removeEventListener("click", fn);
+      };
+
+      setTimeout(() => {
+        document.body.addEventListener("click", fn);
+      }, 0);
+    };
+  }
+}
+
+export function hideDropdowns({ dropdown }): void {
+  const dropdowns = document.querySelectorAll(
+    DROPDOWN
+  ) as NodeListOf<HTMLElement>;
+
+  for (const d of dropdowns) {
+    if (dropdown === d) continue;
+    d.classList.remove("visible");
+  }
+}
+
 export function setThemeColor(colors: IThemeColor): void {
   if (Object.keys(colors).length < 11) {
     throw new Error(
@@ -78,10 +138,11 @@ export function setThemeColor(colors: IThemeColor): void {
     }
 
     if (Array.isArray(color)) {
-      if (color.length > 3)
+      if (color.length != 3) {
         throw new Error(
           "setThemeColor: invalid rgb format. Expect [R, G, B] array"
         );
+      }
 
       rgb = color.join(",");
     }
@@ -117,6 +178,7 @@ export function setMode(theme: "system" | "dark" | "light" = "system"): void {
 export function loadFunctions(): void {
   Accordion();
   Checkbox();
+  Dropdown();
 }
 
 function loadFunctionsByDebounce(): void {
@@ -139,6 +201,7 @@ function addFunctionsGlobally(): void {
     setThemeColor,
     Accordion,
     Checkbox,
+    Dropdown,
     loadFunctions
   };
   Object.assign(window, { perfectui: fns });
