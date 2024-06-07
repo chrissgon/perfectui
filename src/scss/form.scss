@@ -36,7 +36,7 @@
   box-shadow: none;
 }
 
-.input-group > *:not(textarea) {
+.input-group > *:not(textarea, select) {
   line-height: 0;
 }
 
@@ -127,17 +127,11 @@
   }
 }
 
-select.input {
-  background-image: var(--formSelectArrow);
-  background-repeat: no-repeat;
-  background-position: right 0.7rem top 50%;
-  background-size: 0.8rem auto;
-}
-
 // input
 .input {
   flex: 1;
   z-index: 1;
+  color: rgb(var(--contentPrimary));
 }
 
 .field-group .input {
@@ -146,6 +140,15 @@ select.input {
 
 .field-group > .input + .input {
   border-left: none;
+}
+
+// select
+select.input {
+  background-image: var(--formSelectArrow);
+  background-repeat: no-repeat;
+  background-position: right 0.7rem top 50%;
+  background-size: 0.8rem auto;
+  padding-right: 35px;
 }
 
 // addon
