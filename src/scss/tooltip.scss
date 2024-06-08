@@ -26,7 +26,7 @@
   position: absolute;
   top: 0%;
   left: 50%;
-  transform: translate(-50%, calc(-100% - var(--tooltip-margin)));
+  transform: translate(-50%, calc(-100% - var(--tooltipMargin)));
 
   font-size: var(--fontXS);
   padding: var(--spacingXS);
@@ -36,21 +36,21 @@
 .tooltip-left::before {
   top: 50%;
   left: 0;
-  transform: translate(calc(-100% - var(--tooltip-margin)), -50%);
+  transform: translate(calc(-100% - var(--tooltipMargin)), -50%);
 }
 
 .tooltip-right::before {
   left: auto;
   top: 50%;
   right: 0;
-  transform: translate(calc(100% + var(--tooltip-margin)), -50%);
+  transform: translate(calc(100% + var(--tooltipMargin)), -50%);
 }
 
 .tooltip-bottom::before {
   top: auto;
   bottom: 0;
   left: 50%;
-  transform: translate(-50%, calc(100% + var(--tooltip-margin)));
+  transform: translate(-50%, calc(100% + var(--tooltipMargin)));
 }
 
 .tooltip-black::before {
