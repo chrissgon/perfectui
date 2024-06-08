@@ -69,6 +69,7 @@ export function Dropdown(): void {
     DROPDOWN_TRIGGER
   ) as NodeListOf<HTMLElement>;
 
+  console.log("click", triggers);
   for (const trigger of triggers) {
     trigger.onclick = (e: Event) => {
       const target = e.target as HTMLElement;
@@ -181,10 +182,12 @@ export function loadFunctions(): void {
   Dropdown();
 }
 
-function loadFunctionsByDebounce(): void {
+function loadFunctionsWithDebounce(): void {
   let debounce = false;
   const enableDebounce = () => (debounce = true);
   const disableDebounce = () => (debounce = false);
+
+  const container = document.body || document.documentElement;
 
   new MutationObserver(function () {
     if (debounce) return;
@@ -192,7 +195,10 @@ function loadFunctionsByDebounce(): void {
     setTimeout(disableDebounce, 2000);
 
     loadFunctions();
-  }).observe(document.body, { childList: true, subtree: true });
+  }).observe(container, {
+    childList: true,
+    subtree: true
+  });
 }
 
 function addFunctionsGlobally(): void {
@@ -213,8 +219,9 @@ function addFunctionsGlobally(): void {
 
   try {
     addFunctionsGlobally();
-    loadFunctionsByDebounce();
-  } catch {
+    loadFunctionsWithDebounce();
+  } catch (e) {
+    console.error(`🎨 ${pkg.displayName} - ${pkg.version} ERROR:`, e);
     // @ts-expect-error SSR verification
     if (process && process.server) return;
 

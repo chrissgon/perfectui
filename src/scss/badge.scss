@@ -1,6 +1,8 @@
 .badge {
   @include rounded;
+
   height: fit-content;
+  width: -moz-fit-content;
   width: fit-content;
   border: 1px solid transparent;
   font-size: var(--fontXS);
@@ -13,7 +15,7 @@
     background-color: rgb(map-get($states-colors, $state));
     color: white;
 
-    * {
+    > * {
       color: white;
     }
   }
@@ -22,7 +24,7 @@
     border-color: rgb(map-get($states-colors, $state));
     color: rgb(map-get($states-colors, $state));
 
-    * {
+    > * {
       color: rgb(map-get($states-colors, $state));
     }
   }
@@ -38,7 +40,7 @@
   background: rgb(var(--contentPrimary));
   color: rgb(var(--backgroundPrimary));
 
-  * {
+  > * {
     color: rgb(var(--backgroundPrimary));
   }
 }

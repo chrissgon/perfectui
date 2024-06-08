@@ -167,6 +167,10 @@ $colors: "theme", "gray", "red", "amber", "green";
   background-color: rgb(var(--backgroundPrimary));
 }
 
+@mixin content{
+  color: rgb(var(--contentPrimary));
+}
+
 @mixin roundedCornersX {
   &:first-child {
     border-top-left-radius: var(--rounded);

@@ -7,6 +7,7 @@
   border: 1px solid transparent;
   cursor: pointer;
   outline: none;
+  -webkit-user-select: none;
   user-select: none;
   white-space: nowrap;
 }
@@ -18,7 +19,7 @@
     background-color: rgb(map-get($states-colors, $state));
     color: white;
 
-    * {
+    > * {
       color: white;
     }
 
@@ -33,7 +34,7 @@
     border-color: rgb(map-get($states-colors, $state));
     color: rgb(map-get($states-colors, $state));
 
-    * {
+    > * {
       color: rgb(map-get($states-colors, $state));
     }
 
@@ -49,7 +50,7 @@
   .btn-link-#{$state} {
     color: rgb(map-get($states-colors, $state));
 
-    * {
+    > * {
       color: rgb(map-get($states-colors, $state));
     }
 
@@ -80,7 +81,7 @@
   background: rgb(var(--contentPrimary));
   color: rgb(var(--backgroundPrimary));
 
-  * {
+  > * {
     color: rgb(var(--backgroundPrimary));
   }
 

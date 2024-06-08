@@ -23,8 +23,8 @@ body {
 
 body * {
   @include fontsize;
+  @include content;
   font-family: "Poppins", sans-serif;
-  color: rgb(var(--contentPrimary));
 }
 
 [disabled] {
