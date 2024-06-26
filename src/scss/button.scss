@@ -17,10 +17,10 @@
   // solid
   .btn-solid-#{$state} {
     background-color: rgb(map-get($states-colors, $state));
-    color: white;
+    color: #fff;
 
     > * {
-      color: white;
+      color: #fff;
     }
 
     &:hover {

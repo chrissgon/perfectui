@@ -119,19 +119,14 @@
 }
 
 $states-colors: (
-  primaryLight: var(--theme400),
   primary: var(--theme500),
   primaryDark: var(--theme600),
-  secondaryLight: var(--gray400),
   secondary: var(--gray500),
   secondaryDark: var(--gray600),
-  successLight: var(--green400),
   success: var(--green500),
   successDark: var(--green600),
-  errorLight: var(--red400),
   error: var(--red500),
   errorDark: var(--red600),
-  warnLight: var(--amber400),
   warn: var(--amber500),
   warnDark: var(--amber600)
 );

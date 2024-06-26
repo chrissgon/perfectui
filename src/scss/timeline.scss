@@ -65,7 +65,7 @@
 @each $state in $states {
   .checkpoint-solid-#{$state} .checkpoint-icon {
     background-color: rgb(map-get($states-colors, $state));
-    color: white;
+    color: #fff;
   }
   .checkpoint-outline-#{$state} .checkpoint-icon {
     border-color: rgb(map-get($states-colors, $state));

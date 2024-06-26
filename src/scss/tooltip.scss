@@ -8,7 +8,7 @@
 }
 
 .tooltip::before {
-  content: attr(tooltip);
+  content: attr(data-tooltip);
 
   @include rounded;
   @include border;

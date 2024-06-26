@@ -1,6 +1,5 @@
 .card {
   @include border;
-  @include background;
 
   border-radius: calc(var(--rounded) * 1.5);
   overflow: hidden;

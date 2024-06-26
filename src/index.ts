@@ -9,20 +9,7 @@ import {
   DROPDOWN,
   DROPDOWN_TRIGGER
 } from "./constants";
-
-export interface IThemeColor {
-  50: number[] | string;
-  100: number[] | string;
-  200: number[] | string;
-  300: number[] | string;
-  400: number[] | string;
-  500: number[] | string;
-  600: number[] | string;
-  700: number[] | string;
-  800: number[] | string;
-  900: number[] | string;
-  950: number[] | string;
-}
+import { IFunctions, IThemeColor } from "./interfaces";
 
 export function Checkbox(): void {
   const items = document.querySelectorAll(
@@ -69,7 +56,6 @@ export function Dropdown(): void {
     DROPDOWN_TRIGGER
   ) as NodeListOf<HTMLElement>;
 
-  console.log("click", triggers);
   for (const trigger of triggers) {
     trigger.onclick = (e: Event) => {
       const target = e.target as HTMLElement;
@@ -134,30 +120,17 @@ export function setThemeColor(colors: IThemeColor): void {
     const color = colors[tone];
     let rgb: string = "";
 
-    if (typeof color !== "string" && !Array.isArray(color)) {
+    if (!Array.isArray(color)) {
       throw new Error("setThemeColor: invalid type");
     }
 
-    if (Array.isArray(color)) {
-      if (color.length != 3) {
-        throw new Error(
-          "setThemeColor: invalid rgb format. Expect [R, G, B] array"
-        );
-      }
-
-      rgb = color.join(",");
+    if (color.length != 3) {
+      throw new Error(
+        "setThemeColor: invalid rgb format. Expect [R, G, B] array"
+      );
     }
 
-    if (typeof color === "string") {
-      const matchRGB = /^\d{1,3}, \d{1,3}, \d{1,3}$/.test(color);
-
-      if (!matchRGB)
-        throw new Error(
-          "setThemeColor: invalid rgb format. Expect 'R, G, B' string"
-        );
-
-      rgb = color;
-    }
+    rgb = color.join(",");
 
     document.documentElement.style.setProperty(`--theme${tone}`, rgb);
   }
@@ -176,10 +149,12 @@ export function setMode(theme: "system" | "dark" | "light" = "system"): void {
   document.querySelector("html")?.classList.remove("dark");
 }
 
-export function loadFunctions(): void {
+export function loadFunctions(): IFunctions {
   Accordion();
   Checkbox();
   Dropdown();
+
+  return { Accordion, Checkbox, Dropdown, setMode, setThemeColor };
 }
 
 function loadFunctionsWithDebounce(): void {
@@ -187,29 +162,20 @@ function loadFunctionsWithDebounce(): void {
   const enableDebounce = () => (debounce = true);
   const disableDebounce = () => (debounce = false);
 
-  const container = document.body || document.documentElement;
-
   new MutationObserver(function () {
     if (debounce) return;
     enableDebounce();
-    setTimeout(disableDebounce, 2000);
+    setTimeout(disableDebounce, 1000);
 
     loadFunctions();
-  }).observe(container, {
+  }).observe(document.documentElement, {
     childList: true,
     subtree: true
   });
 }
 
 function addFunctionsGlobally(): void {
-  const fns = {
-    setMode,
-    setThemeColor,
-    Accordion,
-    Checkbox,
-    Dropdown,
-    loadFunctions
-  };
+  const fns = loadFunctions();
   Object.assign(window, { perfectui: fns });
   Object.assign(document, { perfectui: fns });
 }

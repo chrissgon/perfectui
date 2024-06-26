@@ -13,10 +13,10 @@
 @each $state in $states {
   .badge-solid-#{$state} {
     background-color: rgb(map-get($states-colors, $state));
-    color: white;
+    color: #fff;
 
     > * {
-      color: white;
+      color: #fff;
     }
   }
   .badge-outline-#{$state} {

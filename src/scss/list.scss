@@ -29,7 +29,6 @@ ol {
 }
 
 .list {
-  @include background;
   @include rounded;
 
   list-style-position: inside !important;

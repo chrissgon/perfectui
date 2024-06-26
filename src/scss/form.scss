@@ -2,7 +2,6 @@
   display: flex;
   flex-wrap: wrap;
   flex: auto;
-  height: fit-content;
 }
 
 .field-group::before,
@@ -15,11 +14,11 @@
 }
 
 .field-group::before {
-  content: attr(label);
+  content: attr(data-label);
 }
 
 .field-group::after {
-  content: attr(message);
+  content: attr(data-message);
 }
 
 // input-group
@@ -57,7 +56,6 @@
 .radio,
 .switch {
   @include border;
-  @include background;
 
   appearance: none;
   border-radius: 0.175rem;
