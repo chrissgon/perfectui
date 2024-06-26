@@ -40,10 +40,10 @@ import "@chrissgon/perfectui/dist/perfectui.css";
 ```html
 <link
   rel="stylesheet"
-  href="https://unpkg.com/@chrissgon/perfectui@latest/dist/perfectui.css"
+  href="https://cdn.jsdelivr.net/npm/@chrissgon/perfectui@latest/dist/perfectui.css"
 />
 
-<script src="https://unpkg.com/@chrissgon/perfectui@latest/dist/perfectui.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@chrissgon/perfectui@latest/dist/perfectui.js"></script>
 
 <script>
   // access the functions via window or document
