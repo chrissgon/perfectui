@@ -52,6 +52,10 @@ import "@chrissgon/perfectui/dist/perfectui.css";
 </script>
 ```
 
+## 📚 Documentation
+
+Read all documentation in [docs](https://github.com/chrissgon/perfectui/tree/main/docs) folder or in the [official website](https://perfectui.netlify.app/).
+
 ## 💪🏻 Contribution
 
 This project is open source and welcomes community contributions. Feel free to fork, implement improvements, and submit a pull request. Every contribution is valued and appreciated!

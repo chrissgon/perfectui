@@ -3,7 +3,7 @@
 An exceptionally lightweight and highly customizable CSS and JavaScript framework for crafting elegant user interfaces. 🎨💡
 
 ## Summary
-``
+
 Getting Started
 - [Installation](https://github.com/chrissgon/perfectui/blob/main/docs/installation.md)
 - [Typescript](https://github.com/chrissgon/perfectui/blob/main/docs/typescript.md)
