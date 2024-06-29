@@ -9,8 +9,31 @@ import {
   DROPDOWN,
   DROPDOWN_TRIGGER
 } from "./constants";
-import { IFunctions, IThemeColor } from "./interfaces";
 
+// interfaces
+export interface IThemeColor {
+  50: number[];
+  100: number[];
+  200: number[];
+  300: number[];
+  400: number[];
+  500: number[];
+  600: number[];
+  700: number[];
+  800: number[];
+  900: number[];
+  950: number[];
+}
+
+export interface IFunctions {
+  Accordion: () => void;
+  Checkbox: () => void;
+  Dropdown: () => void;
+  setMode: (theme?: "system" | "dark" | "light") => void;
+  setThemeColor: (colors: IThemeColor) => void;
+}
+
+// methods
 export function Checkbox(): void {
   const items = document.querySelectorAll(
     CHECKBOX_INDETERMINATE
@@ -98,7 +121,7 @@ export function Dropdown(): void {
   }
 }
 
-export function hideDropdowns({ dropdown }): void {
+function hideDropdowns({ dropdown }): void {
   const dropdowns = document.querySelectorAll(
     DROPDOWN
   ) as NodeListOf<HTMLElement>;
@@ -180,6 +203,7 @@ function addFunctionsGlobally(): void {
   Object.assign(document, { perfectui: fns });
 }
 
+// init
 (function init() {
   console.log(`🎨 ${pkg.displayName} - ${pkg.version}`);
 
