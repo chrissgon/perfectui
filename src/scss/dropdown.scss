@@ -3,8 +3,8 @@
 }
 
 .dropdown {
-  @include border;
   @include background;
+  @include border;
 
   display: none !important;
   position: absolute;

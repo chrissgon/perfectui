@@ -8,7 +8,7 @@ A checkbox is an input control that allows a user to select one or more options 
 
 To create checkboxes, simply add the `.checkbox` class to the `input` element.
 
-``` html
+```html
 <ul class="list unmarker">
   <label class="list-item">
     <input type="checkbox" class="checkbox align-middle" />
@@ -33,7 +33,7 @@ To create checkboxes, simply add the `.checkbox` class to the `input` element.
 
 A group of checkboxes elements.
 
-``` html
+```html
 <div class="flex flex-wrap">
   <ul class="list unmarker">
     <label class="list-item">
@@ -96,20 +96,16 @@ A group of checkboxes elements.
 
 You can use checkboxes with [Field Group](https://github.com/chrissgon/perfectui/blob/main/docs/field-group.md).
 
-``` html
+```html
 <div class="flex flex-col gap-2">
   <label class="field-group">
     <span class="addon">
       <input type="checkbox" class="checkbox" />
     </span>
-    <div class="input">
-      Default checkbox
-    </div>
+    <div class="input">Default checkbox</div>
   </label>
   <label class="field-group">
-    <div class="input">
-      Checked checkbox
-    </div>
+    <div class="input">Checked checkbox</div>
     <span class="addon">
       <input type="checkbox" class="checkbox" checked />
     </span>
@@ -121,7 +117,7 @@ You can use checkboxes with [Field Group](https://github.com/chrissgon/perfectui
 
 You can use checkboxes with [Lists](https://github.com/chrissgon/perfectui/blob/main/docs/list.md).
 
-``` html
+```html
 <ul class="list unmarker">
   <label class="list-item !flex gap-2">
     <input type="checkbox" class="checkbox" checked />
@@ -142,7 +138,7 @@ You can use checkboxes with [Lists](https://github.com/chrissgon/perfectui/blob/
 
 You can make the list item appear with checkbox.
 
-``` html
+```html
 <ul class="unmarker sm:w-64 list list-bordered group-col">
   <label class="list-item">
     <input type="checkbox" class="checkbox align-middle mr-2" checked />
@@ -161,7 +157,7 @@ You can make the list item appear with checkbox.
 
 You can also make a horizontal list group item appear with checkbox.
 
-``` html
+```html
 <ul class="unmarker sm:w-64 list list-bordered group-row">
   <label class="list-item !flex gap-2 items-center whitespace-nowrap">
     <input type="checkbox" class="checkbox" checked />

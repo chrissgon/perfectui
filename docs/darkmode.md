@@ -8,17 +8,17 @@ Implement different modes in your application easily with Perfect UI through aux
 
 Perfect ui provides methods to make customization easier. You can set the mode using the `setMode` function.
 
-``` ts
-import { setMode } from "@chrissgon/perfectui"
+```ts
+import { setMode } from "@chrissgon/perfectui";
 
-setMode("dark") // system, light or dark
+setMode("dark"); // system, light or dark
 ```
 
 ### Mode button
 
 You can implement a mode button in your application for the user to change according to their preference.
 
-``` html
+```html
 <!-- switch button -->
 <label class="field-group gap-2 w-fit">
   <i class="bi-sun"></i>

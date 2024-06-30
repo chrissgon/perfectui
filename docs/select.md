@@ -8,7 +8,7 @@ Select allows users to make a single selection or multiple selections from a lis
 
 To create selects, simply add the `.input` class to the `select` element.
 
-``` html
+```html
 <select class="input">
   <option value="#" disabled selected>Select an option</option>
   <option value="#">One</option>
@@ -21,7 +21,7 @@ To create selects, simply add the `.input` class to the `select` element.
 
 You can use [Field Group](https://github.com/chrissgon/perfectui/blob/main/docs/field-group.md) with `select` to create complex elements.
 
-``` html
+```html
 <label
   class="field-group field-group-error"
   data-label="Currency"

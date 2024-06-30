@@ -8,7 +8,7 @@ Use different button styles for actions in forms, dialogs and more.
 
 The most commonly used button styles, we provide `solid`, `outline`, `link`, `white` and `black`.
 
-``` html
+```html
 <button class="btn btn-solid-primary">Solid</button>
 <button class="btn btn-outline-primary">Outline</button>
 <button class="btn btn-link-primary">Link</button>
@@ -20,7 +20,7 @@ The most commonly used button styles, we provide `solid`, `outline`, `link`, `wh
 
 Use the `.rounded-full` class to create rounded buttons.
 
-``` html
+```html
 <button class="btn btn-solid-primary rounded-full">Solid</button>
 <button class="btn btn-outline-primary rounded-full">Outline</button>
 <button class="btn btn-link-primary rounded-full">Link</button>
@@ -32,7 +32,7 @@ Use the `.rounded-full` class to create rounded buttons.
 
 To create solid buttons, simply use the `.btn-solid-[variant]` class.
 
-``` html
+```html
 <button class="btn btn-solid-primary">Primary</button>
 <button class="btn btn-solid-secondary">Secondary</button>
 <button class="btn btn-solid-success">Success</button>
@@ -44,7 +44,7 @@ To create solid buttons, simply use the `.btn-solid-[variant]` class.
 
 To create outline buttons, simply use the `.btn-outline-[variant]` class.
 
-``` html
+```html
 <button class="btn btn-outline-primary">Primary</button>
 <button class="btn btn-outline-secondary">Secondary</button>
 <button class="btn btn-outline-success">Success</button>
@@ -56,7 +56,7 @@ To create outline buttons, simply use the `.btn-outline-[variant]` class.
 
 To create link buttons, simply use the `.btn-link-[variant]` class.
 
-``` html
+```html
 <button class="btn btn-link-primary">Primary</button>
 <button class="btn btn-link-secondary">Secondary</button>
 <button class="btn btn-link-success">Success</button>
@@ -78,8 +78,12 @@ To create white or black button, simply use the `.btn-white` or `.btn-black` cla
 You can add icons from any library. In the example below we used [Bootstrap Icons](https://icons.getbootstrap.com/).
 
 ```html
-<button class="btn btn-solid-primary">Add to cart <i class="bi-basket2-fill"></i></button>
-<button class="btn btn-white">Signup free <i class="bi-chevron-right"></i></button>
+<button class="btn btn-solid-primary">
+  Add to cart <i class="bi-basket2-fill"></i>
+</button>
+<button class="btn btn-white">
+  Signup free <i class="bi-chevron-right"></i>
+</button>
 <button class="btn btn-solid-error"><i class="bi-heart-fill"></i></button>
 ```
 

@@ -8,7 +8,7 @@ A visual indicator for a value or status descriptor for UI elements.
 
 The most commonly used badge styles, we provide `solid`, `outline`, `white` and `black`.
 
-``` html
+```html
 <span class="badge badge-solid-primary">Solid</span>
 <span class="badge badge-outline-primary">Outline</span>
 <span class="badge badge-white">White</span>
@@ -19,7 +19,7 @@ The most commonly used badge styles, we provide `solid`, `outline`, `white` and 
 
 Use the `.rounded-full` class to create rounded badges.
 
-``` html
+```html
 <span class="badge badge-solid-primary rounded-full">Solid</span>
 <span class="badge badge-outline-primary rounded-full">Outline</span>
 <span class="badge badge-white rounded-full">White</span>
@@ -30,7 +30,7 @@ Use the `.rounded-full` class to create rounded badges.
 
 To create solid badges, simply use the `.badge-solid-[variant]` class.
 
-``` html
+```html
 <span class="badge badge-solid-primary">Primary</span>
 <span class="badge badge-solid-secondary">Secondary</span>
 <span class="badge badge-solid-success">Success</span>
@@ -42,7 +42,7 @@ To create solid badges, simply use the `.badge-solid-[variant]` class.
 
 To create outline badges, simply use the `.badge-outline-[variant]` class.
 
-``` html
+```html
 <span class="badge badge-outline-primary">Primary</span>
 <span class="badge badge-outline-secondary">Secondary</span>
 <span class="badge badge-outline-success">Success</span>
@@ -54,7 +54,7 @@ To create outline badges, simply use the `.badge-outline-[variant]` class.
 
 To create white or black badge, simply use the `.badge-white` or `.badge-black` class.
 
-``` html
+```html
 <span class="badge badge-white">White</span>
 <span class="badge badge-black">Black</span>
 ```
@@ -63,8 +63,12 @@ To create white or black badge, simply use the `.badge-white` or `.badge-black` 
 
 You can add icons from any library. In the example below we used [Bootstrap Icons](https://icons.getbootstrap.com/).
 
-``` html
-<span class="badge badge-solid-error"><i class="bi-heart-fill"></i> Favorite</span>
-<span class="badge badge-outline-warn">Best ranking <i class="bi-star-fill"></i></span>
+```html
+<span class="badge badge-solid-error"
+  ><i class="bi-heart-fill"></i> Favorite</span
+>
+<span class="badge badge-outline-warn"
+  >Best ranking <i class="bi-star-fill"></i
+></span>
 <span class="badge badge-white">Recent viewed <i class="bi-eye-fill"></i></span>
 ```

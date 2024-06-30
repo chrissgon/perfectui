@@ -1,0 +1,47 @@
+.modal {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  background: rgba(var(--gray950), 0.7);
+  -webkit-backdrop-filter: blur(7px);
+  backdrop-filter: blur(7px);
+
+  padding: 1rem;
+
+  z-index: 2;
+}
+
+.dark .modal {
+  background: rgba(var(--gray950), 0.5);
+}
+
+html:has(.modal[open]) {
+  overflow: hidden;
+}
+
+.modal[open] {
+  display: flex;
+  justify-content: center;
+}
+
+.modal > * {
+  max-width: 1024px;
+  max-height: 100%;
+  height: min-content;
+
+  overflow-y: auto;
+
+  margin-top: 75px;
+}
+
+.modal .addon {
+}
+
+@media (max-width: 768px) {
+  .modal > * {
+    margin-top: 0;
+  }
+}

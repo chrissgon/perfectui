@@ -8,7 +8,7 @@ Easily extend fields by adding text, buttons, icons and more.
 
 You can use the `.field-group` class to create complex forms with states, buttons, icons and others.
 
-``` html
+```html
 <form class="flex flex-col gap-3">
   <!-- name -->
   <label
@@ -52,9 +52,9 @@ You can use the `.field-group` class to create complex forms with states, button
 
 To create a field with label and message, simply add `label` and `message` properties.
 
-``` html
+```html
 <label class="field-group" data-label="Label" data-message="Some message">
-  <input class="input">
+  <input class="input" />
 </label>
 ```
 
@@ -62,10 +62,10 @@ To create a field with label and message, simply add `label` and `message` prope
 
 To extend a field with a text or icon, simply add `.addon` class inside `.field-group` element.
 
-``` html
+```html
 <label class="field-group" data-label="Price" data-message="Required">
   <i class="addon bi-bank"></i>
-  <input class="input" type="number">
+  <input class="input" type="number" />
   <span class="addon">R$</span>
 </label>
 ```
@@ -74,7 +74,7 @@ To extend a field with a text or icon, simply add `.addon` class inside `.field-
 
 To set a field state, simply add `.field-group-success`, `.field-group-warn` or `.field-group-error` class in the `.field-group` element.
 
-``` html
+```html
 <form class="flex flex-col gap-3">
   <!-- default -->
   <label class="field-group" data-label="Label" data-message="Some message">
@@ -113,10 +113,14 @@ You can create a more efficient field with mixed types.
 
 To create a field with mixed types, simply add one or more `.input` inside `.field-group` element.
 
-``` html
+```html
 <form class="flex flex-col gap-3">
   <!-- social -->
-  <label class="field-group" data-label="Social Profile" data-message="Optional">
+  <label
+    class="field-group"
+    data-label="Social Profile"
+    data-message="Optional"
+  >
     <select class="input !max-w-fit">
       <option>Linkedin</option>
       <option>Behance</option>
@@ -157,18 +161,14 @@ To create a field with action buttons, simply add `.group-row` class in the `.fi
 
 After, add a button with `.group-item` class.
 
-``` html
+```html
 <div class="card">
   <article class="card-content">
     <h4 class="text-lg text-center mb-4">
       You want to subscribe in our newsletter?
     </h4>
     <label class="field-group group-row">
-      <input
-        type="email"
-        class="input"
-        placeholder="Your email"
-      >
+      <input type="email" class="input" placeholder="Your email" />
       <button class="btn btn-solid-primary group-item">Subscribe</button>
     </label>
   </article>
@@ -179,7 +179,7 @@ After, add a button with `.group-item` class.
 
 Make fields look inactive by adding the `disabled` boolean attribute to any `.field-group` or `.input` element.
 
-``` html
+```html
 <form class="flex flex-col gap-3">
   <!-- field group disabled -->
   <label
@@ -189,35 +189,17 @@ Make fields look inactive by adding the `disabled` boolean attribute to any `.fi
     disabled
   >
     <span class="addon">Credit Card</span>
-    <input
-      type="text"
-      class="input"
-      placeholder="Number"
-    >
-    <input
-      type="month"
-      class="input"
-      placeholder="Expiration Date"
-    >
-    <input
-      type="text"
-      class="input"
-      placeholder="CCV"
-    >
+    <input type="text" class="input" placeholder="Number" />
+    <input type="month" class="input" placeholder="Expiration Date" />
+    <input type="text" class="input" placeholder="CCV" />
   </label>
   <!-- input disabled -->
-  <label
-    class="field-group"
-    data-label="Country/City"
-  >
+  <label class="field-group" data-label="Country/City">
     <select class="input">
       <option>Brazil</option>
       <option>Ireland</option>
     </select>
-    <select
-      class="input"
-      disabled
-    >
+    <select class="input" disabled>
       <option>Select city by country</option>
     </select>
   </label>

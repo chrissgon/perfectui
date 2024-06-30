@@ -7,7 +7,10 @@ import {
   ACCORDION_PARENT,
   CHECKBOX_INDETERMINATE,
   DROPDOWN,
-  DROPDOWN_TRIGGER
+  DROPDOWN_TRIGGER,
+  MODAL,
+  MODAL_BUTTON,
+  MODAL_TRIGGER
 } from "./constants";
 
 // interfaces
@@ -29,6 +32,7 @@ export interface IFunctions {
   Accordion: () => void;
   Checkbox: () => void;
   Dropdown: () => void;
+  Modal: () => void;
   setMode: (theme?: "system" | "dark" | "light") => void;
   setThemeColor: (colors: IThemeColor) => void;
 }
@@ -132,6 +136,49 @@ function hideDropdowns({ dropdown }): void {
   }
 }
 
+function Modal(): void {
+  const modals = document.querySelectorAll(
+    MODAL
+  ) as NodeListOf<HTMLDialogElement>;
+  const autocloses = document.querySelectorAll(
+    MODAL_BUTTON
+  ) as NodeListOf<HTMLElement>;
+  const triggers = document.querySelectorAll(
+    MODAL_TRIGGER
+  ) as NodeListOf<HTMLElement>;
+
+  for (const modal of modals) {
+    modal.addEventListener("click", (e: MouseEvent) => {
+      const clickedOutside = e.target === modal;
+
+      if (clickedOutside) {
+        modal.close();
+      }
+    });
+  }
+
+  for (const button of autocloses) {
+    button.addEventListener("click", (e: MouseEvent) => {
+      if (!e.target) return;
+      const modal = (e.target as HTMLElement).closest(
+        MODAL
+      ) as HTMLDialogElement;
+      modal.close();
+    });
+  }
+
+  for (const button of triggers) {
+    button.addEventListener("click", (e: MouseEvent) => {
+      if (!e.target) return;
+      const modalID = (e.target as HTMLElement).getAttribute("data-modal");
+
+      const modal = document.querySelector(`#${modalID}`) as HTMLDialogElement;
+
+      modal?.show();
+    });
+  }
+}
+
 export function setThemeColor(colors: IThemeColor): void {
   if (Object.keys(colors).length < 11) {
     throw new Error(
@@ -176,8 +223,9 @@ export function loadFunctions(): IFunctions {
   Accordion();
   Checkbox();
   Dropdown();
+  Modal();
 
-  return { Accordion, Checkbox, Dropdown, setMode, setThemeColor };
+  return { Accordion, Checkbox, Dropdown, Modal, setMode, setThemeColor };
 }
 
 function loadFunctionsWithDebounce(): void {

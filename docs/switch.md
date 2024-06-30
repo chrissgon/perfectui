@@ -8,7 +8,7 @@ A toggle is used to view or switch between enabled or disabled states.
 
 To create switches, simply add the `.switch` class to the `input:checkbox` element.
 
-``` html
+```html
 <div>
   <label class="field-group gap-2">
     <input type="checkbox" class="switch" />
@@ -29,7 +29,7 @@ To create switches, simply add the `.switch` class to the `input:checkbox` eleme
 
 A group of switches elements.
 
-``` html
+```html
 <div class="flex flex-wrap">
   <ul class="list unmarker">
     <label class="list-item">
@@ -80,20 +80,16 @@ A group of switches elements.
 
 You can use switches with [Field Group](https://github.com/chrissgon/perfectui/blob/main/docs/field-group.md).
 
-``` html
+```html
 <div class="flex flex-col gap-2">
   <label class="field-group">
     <span class="addon">
       <input type="checkbox" class="switch" />
     </span>
-    <div class="input">
-      Default switch
-    </div>
+    <div class="input">Default switch</div>
   </label>
   <label class="field-group">
-    <div class="input">
-      Checked switch
-    </div>
+    <div class="input">Checked switch</div>
     <span class="addon">
       <input type="checkbox" class="switch" checked />
     </span>
@@ -105,7 +101,7 @@ You can use switches with [Field Group](https://github.com/chrissgon/perfectui/b
 
 You can use switches with [Lists](https://github.com/chrissgon/perfectui/blob/main/docs/list.md).
 
-``` html
+```html
 <ul class="list unmarker">
   <label class="list-item !flex gap-2">
     <input type="checkbox" class="switch !h-fit" checked />
@@ -126,7 +122,7 @@ You can use switches with [Lists](https://github.com/chrissgon/perfectui/blob/ma
 
 You can make the list item appear with switch.
 
-``` html
+```html
 <ul class="unmarker sm:w-64 list list-bordered group-col">
   <label class="list-item">
     <input type="checkbox" class="switch align-middle mr-2" checked />
@@ -145,7 +141,7 @@ You can make the list item appear with switch.
 
 You can also make a horizontal list group item appear with switch.
 
-``` html
+```html
 <ul class="unmarker sm:w-64 list list-bordered group-row">
   <label class="list-item !flex gap-2 items-center whitespace-nowrap">
     <input type="checkbox" class="switch" checked />

@@ -5,19 +5,23 @@ An exceptionally lightweight and highly customizable CSS and JavaScript framewor
 ## Summary
 
 Getting Started
+
 - [Installation](https://github.com/chrissgon/perfectui/blob/main/docs/installation.md)
 - [Typescript](https://github.com/chrissgon/perfectui/blob/main/docs/typescript.md)
 - [Tailwind CSS](https://github.com/chrissgon/perfectui/blob/main/docs/tailwindcss.md)
 - [License](https://github.com/chrissgon/perfectui/blob/main/docs/license.md)
 
 Customization
+
 - [Dark Mode](https://github.com/chrissgon/perfectui/blob/main/docs/darkmode.md)
 - [Theme Color](https://github.com/chrissgon/perfectui/blob/main/docs/theme-color.md)
 
 General
+
 - [Layout Group](https://github.com/chrissgon/perfectui/blob/main/docs/layout-group.md)
 
 Components
+
 - [Accordion](https://github.com/chrissgon/perfectui/blob/main/docs/accordion.md)
 - [Badge](https://github.com/chrissgon/perfectui/blob/main/docs/badge.md)
 - [Button](https://github.com/chrissgon/perfectui/blob/main/docs/button.md)
@@ -29,6 +33,7 @@ Components
 - [Tooltip](https://github.com/chrissgon/perfectui/blob/main/docs/tooltip.md)
 
 Forms
+
 - [Field Group](https://github.com/chrissgon/perfectui/blob/main/docs/field-group.md)
 - [Input](https://github.com/chrissgon/perfectui/blob/main/docs/input.md)
 - [Input Group](https://github.com/chrissgon/perfectui/blob/main/docs/input-group.md)

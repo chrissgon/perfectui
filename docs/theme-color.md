@@ -8,8 +8,8 @@ Perfect UI allows you to define your own color palette, automatically adjusting 
 
 To better adapt to your visual identity, Perfect UI provides the `setThemeColor` method that allows you to define your color palette, setting it as the default for the entire application.
 
-``` ts
-import { setThemeColor } from "@chrissgon/perfectui"
+```ts
+import { setThemeColor } from "@chrissgon/perfectui";
 
 const palette = {
   50: [240, 250, 255],
@@ -22,18 +22,18 @@ const palette = {
   700: [0, 116, 166],
   800: [3, 98, 137],
   900: [9, 81, 113],
-  950: [6, 51, 75],
-}
+  950: [6, 51, 75]
+};
 
-setThemeColor(palette)
+setThemeColor(palette);
 ```
 
 The `setThemeColor` method expects to receive an object that satisfies the `IThemeColor` interface.
 
-> ⚠️ Attention needed: 
+> ⚠️ Attention needed:
 > To satisfy the interface, you need to enter a shade from 50 to 950 in RGB!
 
-``` ts
+```ts
 export interface IThemeColor {
   50: number[];
   100: number[];

@@ -8,7 +8,7 @@ A textarea is an element on a webpage that you can type into.
 
 To create textareas, simply add the `.input` class to the `textarea` element.
 
-``` html
+```html
 <textarea class="input"></textarea>
 ```
 
@@ -16,27 +16,21 @@ To create textareas, simply add the `.input` class to the `textarea` element.
 
 Basic textarea with placeholder.
 
-``` html
-<textarea
-  class="input"
-  placeholder="This is placeholder"
-></textarea>
+```html
+<textarea class="input" placeholder="This is placeholder"></textarea>
 ```
 
 ### Label/Message
 
 You can use [Field Group](https://github.com/chrissgon/perfectui/blob/main/docs/field-group.md) with `textarea` to create complex elements.
 
-``` html
+```html
 <label
   class="field-group field-group-error"
   data-label="Observation"
   data-message="Required"
 >
-  <textarea
-    class="input"
-    placeholder="Let your observation"
-  ></textarea>
+  <textarea class="input" placeholder="Let your observation"></textarea>
   <span class="addon bi-pencil-fill"></span>
 </label>
 ```
@@ -45,7 +39,7 @@ You can use [Field Group](https://github.com/chrissgon/perfectui/blob/main/docs/
 
 A textarea example with copy button, character counter, label and message.
 
-``` html
+```html
 <label
   class="field-group"
   data-label="Leave your question"

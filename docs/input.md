@@ -8,21 +8,21 @@ A basic widget for getting the user input is a text field.
 
 To create inputs, simply add the `.input` class to the `input` element.
 
-``` html
-<input class="input">
+```html
+<input class="input" />
 ```
 
 Also possible add a placeholder.
 
-``` html
-<input class="input" placeholder="This is placeholder">
+```html
+<input class="input" placeholder="This is placeholder" />
 ```
 
 ### Types
 
 The most commonly used input types.
 
-``` html
+```html
 <form class="flex flex-col gap-3">
   <label class="field-group">
     <input class="input" placeholder="Text" />

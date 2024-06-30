@@ -13,9 +13,9 @@ The timeline component has three main classes `.timeline`, `.checkpoint` and `.c
 - `.checkpoint-icon` : Define the checkpoint icon.
 
 > ⚠️ Attention needed:
->  Everything inside the `.checkpoint` element that do not have the `.checkpoint-icon` class will be consider a `content`.
+> Everything inside the `.checkpoint` element that do not have the `.checkpoint-icon` class will be consider a `content`.
 
-``` html
+```html
 <!-- timeline -->
 <figure class="timeline">
   <!-- checkpoint -->
@@ -40,7 +40,7 @@ We provide differents checkpoints styles, such as `solid`, `outline`, `link`, `w
 
 You can change the checkpoint style using differents classes in the `.checkpoint` element.
 
-``` html
+```html
 <!-- timeline -->
 <figure class="timeline">
   <!-- checkpoint solid -->
@@ -94,7 +94,7 @@ You can change the checkpoint style using differents classes in the `.checkpoint
 
 To create a solid checkpoint, simply use the `.checkpoint-solid-[variant]` classes.
 
-``` html
+```html
 <figure class="timeline">
   <figcaption class="checkpoint checkpoint-solid-primary">
     <i class="checkpoint-icon bi-person-fill"></i>
@@ -119,7 +119,7 @@ To create a solid checkpoint, simply use the `.checkpoint-solid-[variant]` class
 
 To create a outline checkpoint, simply use the `.checkpoint-outline-[variant]` classes.
 
-``` html
+```html
 <figure class="timeline">
   <figcaption class="checkpoint checkpoint-outline-primary">
     <i class="checkpoint-icon bi-person-fill"></i>
@@ -144,7 +144,7 @@ To create a outline checkpoint, simply use the `.checkpoint-outline-[variant]` c
 
 To create a link checkpoint, simply use the `.checkpoint-link-[variant]` classes.
 
-``` html
+```html
 <figure class="timeline">
   <figcaption class="checkpoint checkpoint-link-primary">
     <i class="checkpoint-icon bi-person-fill"></i>
@@ -169,7 +169,7 @@ To create a link checkpoint, simply use the `.checkpoint-link-[variant]` classes
 
 To create a white or black checkpoint, simply use the `.checkpoint-white` or `.checkpoint-black` classes.
 
-``` html
+```html
 <figure class="timeline">
   <figcaption class="checkpoint checkpoint-white">
     <i class="checkpoint-icon bi-person-fill"></i>
@@ -186,7 +186,7 @@ To create a white or black checkpoint, simply use the `.checkpoint-white` or `.c
 
 To create horizontal timelines, simply add the `.group-row` class in the `.timeline` parent.
 
-``` html
+```html
 <!-- timeline -->
 <figure class="timeline group-row min-w-[700px]">
   <!-- checkpoint solid -->
@@ -226,7 +226,7 @@ Use [Layout Group](https://github.com/chrissgon/perfectui/blob/main/docs/layout-
 
 Simply add the `.group-responsive` class in the `.timeline` parent.
 
-``` html
+```html
 <!-- timeline -->
 <figure class="timeline group-responsive">
   <!-- checkpoint solid -->

@@ -10,29 +10,24 @@ To create bulleted or numeric lists, use the `<ul>` or `<ol>` tag with `.list` c
 
 Use the `.list-item` for the children.
 
-``` html
+```html
 <ul class="list">
   <li class="list-item">
-    Now this is a story all about how, my life got flipped turned upside
-    down
+    Now this is a story all about how, my life got flipped turned upside down
   </li>
-  <li class="list-item">
-    And I like to take a minute and sit right here
-  </li>
+  <li class="list-item">And I like to take a minute and sit right here</li>
   <li class="list-item">
     I'll tell you how I became the prince of a town called Bel-Air
   </li>
 </ul>
 ```
-``` html
+
+```html
 <ol class="list">
   <li class="list-item">
-    Now this is a story all about how, my life got flipped turned upside
-    down
+    Now this is a story all about how, my life got flipped turned upside down
   </li>
-  <li class="list-item">
-    And I like to take a minute and sit right here
-  </li>
+  <li class="list-item">And I like to take a minute and sit right here</li>
   <li class="list-item">
     I'll tell you how I became the prince of a town called Bel-Air
   </li>
@@ -41,15 +36,12 @@ Use the `.list-item` for the children.
 
 Use the `.unmarker` class to create unmarked lists.
 
-``` html
+```html
 <ul class="unmarker list">
   <li class="list-item">
-    Now this is a story all about how, my life got flipped turned upside
-    down
+    Now this is a story all about how, my life got flipped turned upside down
   </li>
-  <li class="list-item">
-    And I like to take a minute and sit right here
-  </li>
+  <li class="list-item">And I like to take a minute and sit right here</li>
   <li class="list-item">
     I'll tell you how I became the prince of a town called Bel-Air
   </li>
@@ -60,7 +52,7 @@ Use the `.unmarker` class to create unmarked lists.
 
 To use customs markers, simply add `.marker` class in `.list-item` element.
 
-``` html
+```html
 <div class="flex flex-wrap">
   <ul class="unmarker list">
     <li class="list-item">
@@ -111,17 +103,11 @@ To use customs markers, simply add `.marker` class in `.list-item` element.
 
 To create bordered lists, simply use the `.list-bordered` class with [Layout Group](https://github.com/chrissgon/perfectui/blob/main/docs/layout-group.md).
 
-``` html
+```html
 <ul class="unmarker sm:w-64 list list-bordered group-col">
-  <li class="list-item">
-    Profile
-  </li>
-  <li class="list-item">
-    Settings
-  </li>
-  <li class="list-item">
-    Newsletter
-  </li>
+  <li class="list-item">Profile</li>
+  <li class="list-item">Settings</li>
+  <li class="list-item">Newsletter</li>
 </ul>
 ```
 
@@ -129,17 +115,11 @@ To create bordered lists, simply use the `.list-bordered` class with [Layout Gro
 
 To create hoverable lists, simply use the `.list-hoverable` class.
 
-``` html
+```html
 <ul class="unmarker sm:w-64 list list-bordered list-hoverable group-col">
-  <a class="list-item">
-    Newsletter
-  </a>
-  <a class="list-item">
-    Downloads
-  </a>
-  <a class="list-item">
-    Team Account
-  </a>
+  <a class="list-item"> Newsletter </a>
+  <a class="list-item"> Downloads </a>
+  <a class="list-item"> Team Account </a>
 </ul>
 ```
 
@@ -147,23 +127,13 @@ To create hoverable lists, simply use the `.list-hoverable` class.
 
 To create striped lists, simply use the `.list-striped` class.
 
-``` html
+```html
 <ul class="unmarker sm:w-64 list list-bordered list-striped group-col">
-  <li class="list-item">
-    Newsletter
-  </li>
-  <li class="list-item">
-    Downloads
-  </li>
-  <li class="list-item">
-    Profile
-  </li>
-  <li class="list-item">
-    Settings
-  </li>
-  <li class="list-item">
-    Team Account
-  </li>
+  <li class="list-item">Newsletter</li>
+  <li class="list-item">Downloads</li>
+  <li class="list-item">Profile</li>
+  <li class="list-item">Settings</li>
+  <li class="list-item">Team Account</li>
 </ul>
 ```
 
@@ -171,7 +141,7 @@ To create striped lists, simply use the `.list-striped` class.
 
 You can add icons from any library. In the example below was used [Bootstrap Icons](https://icons.getbootstrap.com/).
 
-``` html
+```html
 <ul class="unmarker sm:w-64 list list-bordered group-col">
   <li class="list-item">
     <i class="bi-bell"></i>
@@ -196,7 +166,7 @@ Use the `disabled` attribute to indicate a disabled item.
 
 Use `<a>` to create list group items with cursor pointer.
 
-``` html
+```html
 <ul class="unmarker sm:w-64 list list-bordered group-col">
   <a class="list-item active">
     <i class="bi-bell"></i>
@@ -217,7 +187,7 @@ Use `<a>` to create list group items with cursor pointer.
 
 To create horizontal lists, simply use the list classes with [Layout Group](https://github.com/chrissgon/perfectui/blob/main/docs/layout-group.md).
 
-``` html
+```html
 <ul class="unmarker w-fit list list-bordered list-hoverable group-row">
   <a class="list-item">
     <i class="bi-bell"></i>
@@ -238,7 +208,7 @@ To create horizontal lists, simply use the list classes with [Layout Group](http
 
 Add badges to any list group item to show unread counts, activity, and more.
 
-``` html
+```html
 <ul class="unmarker sm:w-64 list list-bordered list-hoverable group-col">
   <a class="list-item">
     <span>
@@ -264,7 +234,7 @@ Add badges to any list group item to show unread counts, activity, and more.
 
 A simple list group example with a highlighted footer.
 
-``` html
+```html
 <ul class="unmarker sm:w-64 list list-bordered group-col">
   <li class="list-item">
     <p>

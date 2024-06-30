@@ -4,7 +4,7 @@
 
 Toggle contextual overlays for displaying [lists](https://github.com/chrissgon/perfectui/blob/main/docs/list.md) of links and more. Combine with Lists and other elements to create powerfull dropdowns.
 
-> ⚠️ Requires JS:  Note that this component requires use our javascript file to works, else you can skip this message if you are already using Perfect UI as a package.
+> ⚠️ Requires JS: Note that this component requires use our javascript file to works, else you can skip this message if you are already using Perfect UI as a package.
 
 ### Basic
 
@@ -15,9 +15,9 @@ The dropdown component has two main classes, `.dropdown-trigger`, `.dropdown` an
 - `.ignore` : Ignore the click event on element, so the dropdown will not be closed.
 
 > ⚠️ Attention needed:
->  The `.dropdown` should be placed inside of `.dropdown-trigger`, since it has parent-child relation. 
+> The `.dropdown` should be placed inside of `.dropdown-trigger`, since it has parent-child relation.
 
-``` html
+```html
 <!-- dropdown trigger -->
 <button class="dropdown-trigger btn btn-white">
   Dropdown
@@ -26,7 +26,7 @@ The dropdown component has two main classes, `.dropdown-trigger`, `.dropdown` an
   <div class="dropdown">
     <!-- ignore -->
     <label class="field-group ignore">
-      <input class="input" type="text" placeholder="Search">
+      <input class="input" type="text" placeholder="Search" />
     </label>
     <ul class="unmarker w-64 list list-hoverable">
       <li class="list-item">Profile</li>
@@ -41,7 +41,7 @@ The dropdown component has two main classes, `.dropdown-trigger`, `.dropdown` an
 
 The default dropdown menu with dividers.
 
-``` html
+```html
 <!-- dropdown trigger -->
 <button class="dropdown-trigger btn btn-white">
   Dropdown
@@ -51,9 +51,9 @@ The default dropdown menu with dividers.
     <ul class="unmarker w-64 list list-hoverable">
       <li class="list-item">Newsletter</li>
       <li class="list-item">Purchases</li>
-      <hr class="my-2">
+      <hr class="my-2" />
       <li class="list-item">Upgrade License</li>
-      <hr class="my-2">
+      <hr class="my-2" />
       <li class="list-item">Sign Out</li>
     </ul>
   </div>
@@ -64,7 +64,7 @@ The default dropdown menu with dividers.
 
 You can add icons or badges. In the example below was used [Bootstrap Icons](https://icons.getbootstrap.com/).
 
-``` html
+```html
 <!-- dropdown trigger -->
 <button class="dropdown-trigger btn btn-white">
   Dropdown
@@ -97,7 +97,7 @@ You can add icons or badges. In the example below was used [Bootstrap Icons](htt
 
 The default dropdown menu with title.
 
-``` html
+```html
 <!-- dropdown trigger -->
 <button class="dropdown-trigger btn btn-white">
   Dropdown
@@ -133,7 +133,7 @@ The default dropdown menu with title.
 
 The `.dropdown` element has the bottom direction by default, but you can also use `.dropdown-right`, `.dropdown-left` and `.dropdown-top` directions.
 
-``` html
+```html
 <div class="flex flex-wrap gap-2">
   <!-- dropdown bottom -->
   <button class="dropdown-trigger btn btn-white">
@@ -190,7 +190,7 @@ The `.dropdown` element has the bottom direction by default, but you can also us
 
 You can combine the dropdown element with many other. Be creative!
 
-``` html
+```html
 <div class="group group-row">
   <button class="group-item btn btn-white">Dropdown</button>
   <!-- dropdown trigger -->
@@ -212,9 +212,7 @@ You can combine the dropdown element with many other. Be creative!
         <li class="list-item">
           <i class="bi-cloud-download"></i>
           Downloads
-          <span
-            class="badge badge-solid-primary rounded-full float-right"
-          >
+          <span class="badge badge-solid-primary rounded-full float-right">
             2
           </span>
         </li>

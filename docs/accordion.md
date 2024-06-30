@@ -4,21 +4,27 @@
 
 Build vertically collapsing accordions.
 
-> ⚠️ Requires JS:  Note that this component requires use our javascript file to works, else you can skip this message if you are already using Perfect UI as a package.
+> ⚠️ Requires JS: Note that this component requires use our javascript file to works, else you can skip this message if you are already using Perfect UI as a package.
 
 ### Basic
 
 To create accordions, simply add the `.accordion` class to the `details` parent element.
 
-``` html
+```html
 <div class="accordion group-col">
   <details class="accordion-item">
     <summary>Accordion #1</summary>
-    <article>This is the body of the accordion item. It is hidden by default, until you expand it with a click.</article>
+    <article>
+      This is the body of the accordion item. It is hidden by default, until you
+      expand it with a click.
+    </article>
   </details>
   <details class="accordion-item">
     <summary>Accordion #2</summary>
-    <article>This is the body of the accordion item. It is hidden by default, until you expand it with a click.</article>
+    <article>
+      This is the body of the accordion item. It is hidden by default, until you
+      expand it with a click.
+    </article>
   </details>
 </div>
 ```
@@ -27,15 +33,21 @@ To create accordions, simply add the `.accordion` class to the `details` parent 
 
 To create bordered accordions, simply add the `.accordion-bordered` class.
 
-``` html
+```html
 <div class="accordion accordion-bordered group-col">
   <details class="accordion-item">
     <summary>Accordion #1</summary>
-    <article>This is the body of the accordion item. It is hidden by default, until you expand it with a click.</article>
+    <article>
+      This is the body of the accordion item. It is hidden by default, until you
+      expand it with a click.
+    </article>
   </details>
   <details class="accordion-item">
     <summary>Accordion #2</summary>
-    <article>This is the body of the accordion item. It is hidden by default, until you expand it with a click.</article>
+    <article>
+      This is the body of the accordion item. It is hidden by default, until you
+      expand it with a click.
+    </article>
   </details>
 </div>
 ```
@@ -44,15 +56,21 @@ To create bordered accordions, simply add the `.accordion-bordered` class.
 
 To create accented accordions when opened, simply add the `.accordion-accented` class.
 
-``` html
+```html
 <div class="accordion accordion-bordered accordion-accented group-col">
   <details class="accordion-item">
     <summary>Accordion #1</summary>
-    <article>This is the body of the accordion item. It is hidden by default, until you expand it with a click.</article>
+    <article>
+      This is the body of the accordion item. It is hidden by default, until you
+      expand it with a click.
+    </article>
   </details>
   <details class="accordion-item">
     <summary>Accordion #2</summary>
-    <article>This is the body of the accordion item. It is hidden by default, until you expand it with a click.</article>
+    <article>
+      This is the body of the accordion item. It is hidden by default, until you
+      expand it with a click.
+    </article>
   </details>
 </div>
 ```
@@ -61,7 +79,7 @@ To create accented accordions when opened, simply add the `.accordion-accented` 
 
 To create nested accordions, simply add the `.accordion` element inside the `article` of another.
 
-``` html
+```html
 <!-- mainly accordion -->
 <div class="accordion accordion-bordered group-col">
   <details class="accordion-item">
@@ -71,7 +89,10 @@ To create nested accordions, simply add the `.accordion` element inside the `art
       <div class="accordion group-col">
         <details class="accordion-item">
           <summary>Accordion #1</summary>
-          <article>This is the body of the accordion item. It is hidden by default, until you expand it with a click.</article>
+          <article>
+            This is the body of the accordion item. It is hidden by default,
+            until you expand it with a click.
+          </article>
         </details>
         <details class="accordion-item">
           <summary>Accordion #2</summary>
@@ -80,7 +101,10 @@ To create nested accordions, simply add the `.accordion` element inside the `art
             <div class="accordion group-col">
               <details class="accordion-item">
                 <summary>Accordion #1</summary>
-                <article>This is the body of the accordion item. It is hidden by default, until you expand it with a click.</article>
+                <article>
+                  This is the body of the accordion item. It is hidden by
+                  default, until you expand it with a click.
+                </article>
               </details>
             </div>
           </article>
@@ -90,14 +114,17 @@ To create nested accordions, simply add the `.accordion` element inside the `art
   </details>
   <details class="accordion-item">
     <summary>Accordion #2</summary>
-    <article>This is the body of the accordion item. It is hidden by default, until you expand it with a click.</article>
+    <article>
+      This is the body of the accordion item. It is hidden by default, until you
+      expand it with a click.
+    </article>
   </details>
 </div>
 ```
 
 For basic accordions you can use the `.accordion-aligned` class to align the arrows to the right.
 
-``` html
+```html
 <!-- mainly accordion -->
 <div class="accordion accordion-bordered accordion-aligned group-col">
   <details class="accordion-item">
@@ -107,7 +134,10 @@ For basic accordions you can use the `.accordion-aligned` class to align the arr
       <div class="accordion accordion-aligned group-col">
         <details class="accordion-item">
           <summary>Accordion #1</summary>
-          <article>This is the body of the accordion item. It is hidden by default, until you expand it with a click.</article>
+          <article>
+            This is the body of the accordion item. It is hidden by default,
+            until you expand it with a click.
+          </article>
         </details>
         <details class="accordion-item">
           <summary>Accordion #2</summary>
@@ -116,7 +146,10 @@ For basic accordions you can use the `.accordion-aligned` class to align the arr
             <div class="accordion accordion-aligned group-col">
               <details class="accordion-item">
                 <summary>Accordion #1</summary>
-                <article>This is the body of the accordion item. It is hidden by default, until you expand it with a click.</article>
+                <article>
+                  This is the body of the accordion item. It is hidden by
+                  default, until you expand it with a click.
+                </article>
               </details>
             </div>
           </article>
@@ -126,14 +159,17 @@ For basic accordions you can use the `.accordion-aligned` class to align the arr
   </details>
   <details class="accordion-item">
     <summary>Accordion #2</summary>
-    <article>This is the body of the accordion item. It is hidden by default, until you expand it with a click.</article>
+    <article>
+      This is the body of the accordion item. It is hidden by default, until you
+      expand it with a click.
+    </article>
   </details>
 </div>
 ```
 
 You can mix the variants to create complex accordions.
 
-``` html
+```html
 <!-- mainly accordion -->
 <div class="accordion accordion-bordered group-col">
   <details class="accordion-item">
@@ -143,7 +179,10 @@ You can mix the variants to create complex accordions.
       <div class="accordion accordion-bordered accordion-accented group-col">
         <details class="accordion-item">
           <summary>Accordion #1</summary>
-          <article>This is the body of the accordion item. It is hidden by defaultuntil you expand it with a click.</article>
+          <article>
+            This is the body of the accordion item. It is hidden by defaultuntil
+            you expand it with a click.
+          </article>
         </details>
         <details class="accordion-item">
           <summary>Accordion #2</summary>
@@ -152,11 +191,17 @@ You can mix the variants to create complex accordions.
             <div class="accordion accordion-bordered group-col">
               <details class="accordion-item">
                 <summary>Accordion #1</summary>
-                <article>This is the body of the accordion item. It is hidden bdefault, until you expand it with a click.</article>
+                <article>
+                  This is the body of the accordion item. It is hidden bdefault,
+                  until you expand it with a click.
+                </article>
               </details>
               <details class="accordion-item">
                 <summary>Accordion #2</summary>
-                <article>This is the body of the accordion item. It is hidden bdefault, until you expand it with a click.</article>
+                <article>
+                  This is the body of the accordion item. It is hidden bdefault,
+                  until you expand it with a click.
+                </article>
               </details>
             </div>
           </article>
@@ -166,7 +211,10 @@ You can mix the variants to create complex accordions.
   </details>
   <details class="accordion-item">
     <summary>Accordion #2</summary>
-    <article>This is the body of the accordion item. It is hidden by default, untiyou expand it with a click.</article>
+    <article>
+      This is the body of the accordion item. It is hidden by default, untiyou
+      expand it with a click.
+    </article>
   </details>
 </div>
 ```
@@ -179,7 +227,7 @@ To define a custom arrow when the accordion is `open`, simply create an element 
 
 If you leave the element empty, there will be no arrow.
 
-``` html
+```html
 <div class="accordion accordion-bordered group-col">
   <details class="accordion-item">
     <summary>
@@ -188,7 +236,10 @@ If you leave the element empty, there will be no arrow.
       <i class="accordion-icon bi-plus-circle"></i>
       <i class="accordion-icon open bi-dash-circle"></i>
     </summary>
-    <article>This is the body of the accordion item. It is hidden by default, until you expand it with a click.</article>
+    <article>
+      This is the body of the accordion item. It is hidden by default, until you
+      expand it with a click.
+    </article>
   </details>
   <details class="accordion-item">
     <summary>
@@ -196,7 +247,10 @@ If you leave the element empty, there will be no arrow.
       <!-- empty arrow -->
       <i class="accordion-icon"></i>
     </summary>
-    <article>This is the body of the accordion item. It is hidden by default, until you expand it with a click.</article>
+    <article>
+      This is the body of the accordion item. It is hidden by default, until you
+      expand it with a click.
+    </article>
   </details>
 </div>
 ```
