@@ -6,6 +6,13 @@
   @include background;
   @include border;
 
+  --top: 100%;
+  --left: 0;
+  --right: initial;
+  --bottom: initial;
+  --translateX: 0;
+  --translateY: var(--dropdownMargin);
+
   display: none !important;
   position: absolute;
   flex-direction: column;
@@ -16,9 +23,11 @@
   border-radius: calc(var(--rounded) * 1.5);
   overflow: hidden;
 
-  top: 100%;
-  left: 0;
-  transform: translateY(var(--dropdownMargin));
+  top: var(--top);
+  left: var(--left);
+  right: var(--right);
+  bottom: var(--bottom);
+  transform: translate(var(--translateX), var(--translateY));
 
   padding: 0.5rem;
 
@@ -34,17 +43,41 @@
 }
 
 .dropdown-top {
-  top: 0;
-  transform: translateY(calc(-100% - var(--dropdownMargin)));
+  --top: 0;
+  --translateY: calc(-100% - var(--dropdownMargin));
 }
 
 .dropdown-left {
-  top: 0;
-  transform: translateX(calc(-100% - var(--dropdownMargin)));
+  --top: 0;
+  --translateX: calc(-100% - var(--dropdownMargin));
+  --translateY: 0;
 }
 .dropdown-right {
-  left: initial;
-  top: 0;
-  right: 0;
-  transform: translateX(calc(100% + var(--dropdownMargin)));
+  --left: initial;
+  --top: 0;
+  --right: 0;
+  --translateX: calc(100% + var(--dropdownMargin));
+  --translateY: 0;
+}
+
+// center
+.dropdown:not(.dropdown-left, .dropdown-right).dropdown-center {
+  --translateX: -50%;
+  --left: 50%;
+}
+
+.dropdown:is(.dropdown-left, .dropdown-right).dropdown-center {
+  --translateY: -50%;
+  --top: 50%;
+}
+
+// end
+.dropdown:not(.dropdown-left, .dropdown-right).dropdown-end {
+  --translateX: -100%;
+  --left: 100%;
+}
+
+.dropdown:is(.dropdown-left, .dropdown-right).dropdown-end {
+  --translateY: -100%;
+  --top: 100%;
 }

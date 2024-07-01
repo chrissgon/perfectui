@@ -37,9 +37,6 @@ html:has(.modal[open]) {
   margin-top: 75px;
 }
 
-.modal .addon {
-}
-
 @media (max-width: 768px) {
   .modal > * {
     margin-top: 0;
