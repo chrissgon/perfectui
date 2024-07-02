@@ -9,7 +9,7 @@
   -webkit-backdrop-filter: blur(7px);
   backdrop-filter: blur(7px);
 
-  padding: 1rem;
+  padding: var(--modalMargin);
 
   z-index: 2;
 }
@@ -29,16 +29,24 @@ html:has(.modal[open]) {
 
 .modal > * {
   max-width: 1024px;
-  max-height: 100%;
+  max-height: calc(100% - var(--modalTopMargin) * 2);
   height: min-content;
+
+  display: flex;
+  flex-direction: column;
 
   overflow-y: auto;
 
-  margin-top: 75px;
+  margin-top: var(--modalTopMargin);
+}
+
+.modal .card-content {
+  overflow-y: auto;
 }
 
 @media (max-width: 768px) {
   .modal > * {
+    max-height: 100%;
     margin-top: 0;
   }
 }
