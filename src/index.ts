@@ -9,7 +9,9 @@ import {
   DROPDOWN,
   DROPDOWN_TRIGGER,
   MODAL,
+  MODAL_BACKDROP,
   MODAL_BUTTON,
+  MODAL_OPENED,
   MODAL_TRIGGER
 } from "./constants";
 
@@ -138,7 +140,7 @@ function hideDropdowns({ dropdown }): void {
 
 function Modal(): void {
   const modals = document.querySelectorAll(
-    MODAL
+    MODAL_BACKDROP
   ) as NodeListOf<HTMLDialogElement>;
   const autocloses = document.querySelectorAll(
     MODAL_BUTTON
@@ -148,7 +150,7 @@ function Modal(): void {
   ) as NodeListOf<HTMLElement>;
 
   for (const modal of modals) {
-    modal.addEventListener("click", (e: MouseEvent) => {
+    modal.addEventListener("mousedown", (e: MouseEvent) => {
       const clickedOutside = e.target === modal;
 
       if (clickedOutside) {
@@ -170,6 +172,15 @@ function Modal(): void {
   for (const button of triggers) {
     button.addEventListener("click", (e: MouseEvent) => {
       if (!e.target) return;
+
+      const openedModals = document.querySelectorAll(
+        MODAL_OPENED
+      ) as NodeListOf<HTMLDialogElement>;
+
+      for (const modal of openedModals) {
+        modal.close();
+      }
+
       const modalID = (e.target as HTMLElement).getAttribute("data-modal");
 
       const modal = document.querySelector(`#${modalID}`) as HTMLDialogElement;

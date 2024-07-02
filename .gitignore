@@ -3,3 +3,4 @@ dist
 .env
 index.html
 .npmrc
+.DS_Store
