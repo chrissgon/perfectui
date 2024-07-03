@@ -47,7 +47,7 @@ html:has(.modal[open]) {
 }
 
 @media (max-width: 768px) {
-  .modal > * {
+  .modal > .card {
     max-height: 100%;
     margin-top: 0;
   }
