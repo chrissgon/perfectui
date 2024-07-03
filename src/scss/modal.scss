@@ -27,7 +27,9 @@ html:has(.modal[open]) {
   justify-content: center;
 }
 
-.modal > * {
+.modal > .card {
+  @include background;
+
   max-width: 1024px;
   max-height: calc(100% - var(--modalTopMargin) * 2);
   height: min-content;

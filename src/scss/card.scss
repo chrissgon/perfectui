@@ -1,5 +1,4 @@
 .card {
-  @include background;
   @include border;
 
   border-radius: calc(var(--rounded) * 1.5);
