@@ -28,6 +28,7 @@ Components
 - [Card](https://github.com/chrissgon/perfectui/blob/main/docs/card.md)
 - [Dropdown](https://github.com/chrissgon/perfectui/blob/main/docs/dropdown.md)
 - [List](https://github.com/chrissgon/perfectui/blob/main/docs/list.md)
+- [Modal](https://github.com/chrissgon/perfectui/blob/main/docs/modal.md)
 - [Table](https://github.com/chrissgon/perfectui/blob/main/docs/table.md)
 - [Timeline](https://github.com/chrissgon/perfectui/blob/main/docs/timeline.md)
 - [Tooltip](https://github.com/chrissgon/perfectui/blob/main/docs/tooltip.md)
