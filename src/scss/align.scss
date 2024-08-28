@@ -1,0 +1,24 @@
+.align {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: fixed;
+  left: var(--alignMargin);
+  bottom: var(--alignMargin);
+  margin-top: var(--alignMargin);
+  margin-right: var(--alignMargin);
+}
+
+.align-right {
+  left: initial;
+  right: var(--alignMargin);
+  margin-left: var(--alignMargin);
+  margin-right: initial;
+}
+
+.align-top {
+  bottom: initial;
+  top: var(--alignMargin);
+  margin-top: initial;
+  margin-bottom: var(--alignMargin);
+}
