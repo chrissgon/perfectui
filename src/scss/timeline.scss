@@ -1,3 +1,6 @@
+@use "sass:map";
+@use "./global" as *;
+
 .timeline {
   position: relative;
   font-size: var(--fontSM);
@@ -64,15 +67,15 @@
 
 @each $state in $states {
   .checkpoint-solid-#{$state} .checkpoint-icon {
-    background-color: rgb(map-get($states-colors, $state));
+    background-color: rgb(map.get($states-colors, $state));
     color: #fff;
   }
   .checkpoint-outline-#{$state} .checkpoint-icon {
-    border-color: rgb(map-get($states-colors, $state));
-    color: rgb(map-get($states-colors, $state));
+    border-color: rgb(map.get($states-colors, $state));
+    color: rgb(map.get($states-colors, $state));
   }
   .checkpoint-link-#{$state} .checkpoint-icon {
-    color: rgb(map-get($states-colors, $state));
+    color: rgb(map.get($states-colors, $state));
   }
 }
 

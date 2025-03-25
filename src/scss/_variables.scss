@@ -65,6 +65,10 @@
 
   --contentPrimary: 0, 0, 0;
   --contentSecondary: var(--gray500);
+  --contentWarn: var(--amber700);
+  --contentError: var(--red600);
+  --contentSuccess: var(--green700);
+  --contentTheme: var(--theme700);
 
   --borderPrimary: var(--theme500);
   --borderSecondary: var(--gray300);
@@ -111,12 +115,17 @@
 }
 
 .dark {
-  --backgroundPrimary: var(--gray950);
+  --backgroundPrimary: 0, 0, 0;
   --backgroundSecondary: var(--gray900);
   --backgroundTertiary: var(--gray800);
 
   --contentPrimary: 255, 255, 255;
   --contentSecondary: var(--gray400);
+
+  --contentWarn: var(--amber500);
+  --contentError: var(--red500);
+  --contentSuccess: var(--green500);
+  --contentTheme: var(--theme500);
 
   --borderSecondary: var(--gray700);
 
@@ -126,71 +135,28 @@
 $states-colors: (
   primary: var(--theme500),
   primaryDark: var(--theme600),
+  primaryContent: var(--contentTheme),
   secondary: var(--gray500),
   secondaryDark: var(--gray600),
+  secondaryContent: var(--contentSecondary),
   success: var(--green500),
   successDark: var(--green600),
+  successContent: var(--contentSuccess),
   error: var(--red500),
   errorDark: var(--red600),
+  errorContent: var(--contentError),
   warn: var(--amber500),
-  warnDark: var(--amber600)
+  warnDark: var(--amber600),
+  warnContent: var(--contentWarn)
 );
 
 $states: "primary", "secondary", "success", "error", "warn";
 
-$sizes: "XS", "SM", "MD", "LG", "XL", "2XL", "3XL", "4XL", "5XL", "6XL", "7XL",
-  "8XL", "9XL";
+$sizes:
+  "XS", "SM", "MD", "LG", "XL", "2XL", "3XL", "4XL", "5XL", "6XL", "7XL", "8XL",
+  "9XL";
 
-$tones: "50", "100", "200", "300", "400", "500", "600", "700", "800", "900",
-  "950";
+$tones:
+  "50", "100", "200", "300", "400", "500", "600", "700", "800", "900", "950";
 
 $colors: "theme", "gray", "red", "amber", "green";
-
-@mixin border {
-  border: 1px solid rgb(var(--borderSecondary));
-
-  &:focus {
-    border-color: rgb(var(--borderPrimary));
-    box-shadow: 0 0 0 1px rgb(var(--borderPrimary));
-  }
-}
-
-@mixin rounded {
-  border-radius: var(--rounded);
-}
-
-@mixin fontsize {
-  font-size: var(--fontSM);
-}
-
-@mixin background {
-  background-color: rgb(var(--backgroundPrimary));
-}
-
-@mixin content {
-  color: rgb(var(--contentPrimary));
-}
-
-@mixin roundedCornersX {
-  &:first-child {
-    border-top-left-radius: var(--rounded);
-    border-bottom-left-radius: var(--rounded);
-  }
-
-  &:last-child {
-    border-top-right-radius: var(--rounded);
-    border-bottom-right-radius: var(--rounded);
-  }
-}
-
-@mixin roundedCornersY {
-  &:first-child {
-    border-top-left-radius: var(--rounded);
-    border-top-right-radius: var(--rounded);
-  }
-
-  &:last-child {
-    border-bottom-left-radius: var(--rounded);
-    border-bottom-right-radius: var(--rounded);
-  }
-}

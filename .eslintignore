@@ -1,6 +1,0 @@
-dist/
-node_modules/
-index.d.ts
-.env
-index.html
-.npmrc

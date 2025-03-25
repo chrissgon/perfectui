@@ -1,3 +1,5 @@
+@use "./global" as *;
+
 .accordion > .accordion-item {
   position: relative;
 }

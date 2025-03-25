@@ -1,0 +1,48 @@
+@mixin border {
+  border: 1px solid rgb(var(--borderSecondary));
+
+  &:focus {
+    border-color: rgb(var(--borderPrimary));
+    box-shadow: 0 0 0 1px rgb(var(--borderPrimary));
+  }
+}
+
+@mixin rounded {
+  border-radius: var(--rounded);
+}
+
+@mixin fontsize {
+  font-size: var(--fontSM);
+}
+
+@mixin background {
+  background-color: rgb(var(--backgroundPrimary));
+}
+
+@mixin content {
+  color: rgb(var(--contentPrimary));
+}
+
+@mixin roundedCornersX {
+  &:first-child {
+    border-top-left-radius: var(--rounded);
+    border-bottom-left-radius: var(--rounded);
+  }
+
+  &:last-child {
+    border-top-right-radius: var(--rounded);
+    border-bottom-right-radius: var(--rounded);
+  }
+}
+
+@mixin roundedCornersY {
+  &:first-child {
+    border-top-left-radius: var(--rounded);
+    border-top-right-radius: var(--rounded);
+  }
+
+  &:last-child {
+    border-bottom-left-radius: var(--rounded);
+    border-bottom-right-radius: var(--rounded);
+  }
+}

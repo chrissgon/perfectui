@@ -1,3 +1,6 @@
+@use "sass:map";
+@use "./global" as *;
+
 // core
 // background
 .bg-primary {
@@ -20,23 +23,23 @@
 }
 
 // contents
-.text-primary {
+.text-content {
   color: rgb(var(--contentPrimary));
 }
 .text-secondary {
   color: rgb(var(--contentSecondary));
 }
-.text-theme {
-  color: rgb(var(--theme500));
+.text-primary {
+  color: rgb(var(--contentTheme));
 }
 .text-success {
-  color: rgb(var(--green500));
+  color: rgb(var(--contentSuccess));
 }
 .text-error {
-  color: rgb(var(--red500));
+  color: rgb(var(--contentError));
 }
 .text-warn {
-  color: rgb(var(--amber500));
+  color: rgb(var(--contentWarn));
 }
 
 // borders
@@ -60,62 +63,62 @@
 @each $state in $states {
   // solid
   .style-solid-#{$state} {
-    background-color: rgb(map-get($states-colors, $state));
-    color: #fff;
+    background-color: rgb(map.get($states-colors, $state));
+    color: rgb(var(--backgroundPrimary));
 
     > * {
-      color: #fff;
+      color: inherit;
     }
 
     &:hover {
-      background-color: rgb(map-get($states-colors, #{$state}Dark));
+      background-color: rgb(map.get($states-colors, #{$state}Dark));
     }
   }
 
   // soft
   .style-soft-#{$state} {
-    background-color: rgba(map-get($states-colors, $state), 0.15);
+    background-color: rgba(map.get($states-colors, $state), 0.15);
     border-color: transparent;
-    color: rgb(map-get($states-colors, $state));
+    color: rgb(map.get($states-colors, #{$state}Content));
 
     > * {
-      color: rgb(map-get($states-colors, $state));
+      color: inherit;
     }
 
     &:hover {
-      background-color: rgba(map-get($states-colors, $state), 0.2);
+      background-color: rgba(map.get($states-colors, $state), 0.2);
     }
   }
 
   // outline
   .style-outline-#{$state} {
     background-color: transparent;
-    border-color: rgb(map-get($states-colors, $state));
-    color: rgb(map-get($states-colors, $state));
+    border-color: rgb(map.get($states-colors, $state));
+    color: rgb(map.get($states-colors, $state));
 
     > * {
-      color: rgb(map-get($states-colors, $state));
+      color: inherit;
     }
 
     &:hover {
-      background-color: rgba(map-get($states-colors, $state), 0.05);
+      background-color: rgba(map.get($states-colors, $state), 0.05);
     }
   }
   .dark .style-outline-#{$state}:hover {
-    background-color: rgba(map-get($states-colors, $state), 0.1);
+    background-color: rgba(map.get($states-colors, $state), 0.1);
   }
 
   // link
   .style-link-#{$state} {
     border: none;
-    color: rgb(map-get($states-colors, $state));
+    color: rgb(map.get($states-colors, $state));
 
     > * {
-      color: rgb(map-get($states-colors, $state));
+      color: rgb(map.get($states-colors, $state));
     }
 
     &:hover {
-      color: rgb(map-get($states-colors, #{$state}Dark));
+      color: rgb(map.get($states-colors, #{$state}Dark));
       text-decoration: underline;
       text-underline-offset: 0.3rem;
     }

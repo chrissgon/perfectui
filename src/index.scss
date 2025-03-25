@@ -1,19 +1,18 @@
+@use "./scss/global" as *;
+@use "./scss/accordion.scss";
+@use "./scss/align.scss";
+@use "./scss/badge.scss";
+@use "./scss/button.scss";
+@use "./scss/card.scss";
+@use "./scss/color.scss";
+@use "./scss/dropdown.scss";
+@use "./scss/form.scss";
+@use "./scss/list.scss";
+@use "./scss/modal.scss";
+@use "./scss/table.scss";
+@use "./scss/timeline.scss";
+@use "./scss/tooltip.scss";
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
-@import "./scss/reset.scss";
-@import "./scss/variable.scss";
-@import "./scss/accordion.scss";
-@import "./scss/align.scss";
-@import "./scss/badge.scss";
-@import "./scss/button.scss";
-@import "./scss/card.scss";
-@import "./scss/color.scss";
-@import "./scss/dropdown.scss";
-@import "./scss/form.scss";
-@import "./scss/list.scss";
-@import "./scss/modal.scss";
-@import "./scss/table.scss";
-@import "./scss/timeline.scss";
-@import "./scss/tooltip.scss";
 
 html,
 body {

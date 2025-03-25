@@ -20,5 +20,12 @@ export default defineConfig({
     rollupOptions: {
       output: { assetFileNames: "perfectui.css" }
     }
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `;`
+      }
+    }
   }
 });

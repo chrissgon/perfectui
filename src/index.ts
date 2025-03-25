@@ -241,8 +241,12 @@ export function loadFunctions(): IFunctions {
 
 function loadFunctionsWithDebounce(): void {
   let debounce = false;
-  const enableDebounce = () => (debounce = true);
-  const disableDebounce = () => (debounce = false);
+  function enableDebounce() {
+    debounce = true;
+  }
+  function disableDebounce() {
+    debounce = false;
+  }
 
   new MutationObserver(function () {
     if (debounce) return;
@@ -250,10 +254,7 @@ function loadFunctionsWithDebounce(): void {
     setTimeout(disableDebounce, 1000);
 
     loadFunctions();
-  }).observe(document.documentElement, {
-    childList: true,
-    subtree: true
-  });
+  }).observe(document.documentElement, { childList: true, subtree: true });
 }
 
 function addFunctionsGlobally(): void {
@@ -263,17 +264,22 @@ function addFunctionsGlobally(): void {
 }
 
 // init
-(function init() {
-  console.log(`🎨 ${pkg.displayName} - ${pkg.version}`);
+function init() {
+  console.info(`🎨 ${pkg.displayName} - ${pkg.version}`);
 
   try {
     addFunctionsGlobally();
     loadFunctionsWithDebounce();
-  } catch (e) {
-    console.error(`🎨 ${pkg.displayName} - ${pkg.version} ERROR:`, e);
+  } catch {
+    console.info(
+      `🎨 ${pkg.displayName} - ${pkg.version} SSR Identified, skiping init`
+    );
+
     // @ts-expect-error SSR verification
-    if (process && process.server) return;
+    if ((process && process.server) || import.meta.server) return;
 
     setTimeout(init, 1000);
   }
-})();
+}
+
+init();

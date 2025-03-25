@@ -14,15 +14,18 @@
     "preview": "vite preview",
     "prepare": "husky",
     "lint": "eslint ./src --fix",
-    "format": "prettier --write .",
-    "release": "vite build && bunx changelogen --release --publish --r"
+    "format": "prettier --write ."
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^19.4.1",
+    "@eslint/compat": "^1.2.7",
+    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/js": "^9.23.0",
     "@types/node": "^20.10.4",
     "@typescript-eslint/eslint-plugin": "^7.5.0",
     "eslint-plugin-import": "^2.29.1",
     "husky": "^9.1.5",
+    "install": "^0.13.0",
     "prettier": "^3.2.5",
     "sass": "^1.58.0",
     "typescript": "^5.4.3",
