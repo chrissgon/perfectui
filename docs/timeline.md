@@ -27,7 +27,7 @@ The timeline component has three main classes `.timeline`, `.checkpoint` and `.c
       <h4 class="font-bold">🐞 Release v5.2.0 quick bug fix</h4>
       <p class="text-secondary">
         Find more detailed insctructions
-        <a href="#" class="btn-link-primary">here</a>.
+        <a href="#" class="style-link-primary">here</a>.
       </p>
     </article>
   </figcaption>
@@ -50,9 +50,9 @@ You can change the checkpoint style using differents classes in the `.checkpoint
       <h4 class="font-bold">Created "Perfect UI in Vue" task</h4>
       <p class="text-secondary">
         Find more detailed insctructions
-        <a href="#" class="btn-link-primary">here</a>.
+        <a href="#" class="style-link-primary">here</a>.
       </p>
-      <p class="badge badge-white mt-2">Amanda Ketellyn</p>
+      <p class="badge style-white mt-2">Amanda Ketellyn</p>
     </article>
   </figcaption>
   <!-- checkpoint outline -->
@@ -60,7 +60,7 @@ You can change the checkpoint style using differents classes in the `.checkpoint
     <i class="checkpoint-icon bi-exclamation-lg"></i>
     <article>
       <h4 class="font-bold">🐞 Release v5.2.0 quick bug fix</h4>
-      <p class="badge badge-white mt-2">Kamilly Aldrey</p>
+      <p class="badge style-white mt-2">Kamilly Aldrey</p>
     </article>
   </figcaption>
   <!-- checkpoint link -->
@@ -76,7 +76,7 @@ You can change the checkpoint style using differents classes in the `.checkpoint
     <i class="checkpoint-icon bi-cup-hot"></i>
     <article>
       <h4 class="font-bold">📦 Update "Perfect UI" packages</h4>
-      <p class="badge badge-white mt-2">Amanda Ketellyn</p>
+      <p class="badge style-white mt-2">Amanda Ketellyn</p>
     </article>
   </figcaption>
   <!-- checkpoint black -->
@@ -84,7 +84,7 @@ You can change the checkpoint style using differents classes in the `.checkpoint
     <i class="checkpoint-icon bi-bookmark-fill"></i>
     <article>
       <h4 class="font-bold">Feature fixed as a priority</h4>
-      <p class="badge badge-white mt-2">Kamilly Aldrey</p>
+      <p class="badge style-white mt-2">Kamilly Aldrey</p>
     </article>
   </figcaption>
 </figure>
@@ -196,9 +196,9 @@ To create horizontal timelines, simply add the `.group-row` class in the `.timel
       <h4 class="font-bold">Created "Perfect UI in Vue" task</h4>
       <p class="text-secondary">
         Find more detailed insctructions
-        <a href="#" class="btn-link-primary">here</a>.
+        <a href="#" class="style-link-primary">here</a>.
       </p>
-      <p class="badge badge-white mt-2">Amanda Ketellyn</p>
+      <p class="badge style-white mt-2">Amanda Ketellyn</p>
     </article>
   </figcaption>
   <!-- checkpoint outline -->
@@ -206,7 +206,7 @@ To create horizontal timelines, simply add the `.group-row` class in the `.timel
     <i class="checkpoint-icon bi-exclamation-lg"></i>
     <article>
       <h4 class="font-bold">🐞 Release v5.2.0 quick bug fix</h4>
-      <p class="badge badge-white mt-2">Kamilly Aldrey</p>
+      <p class="badge style-white mt-2">Kamilly Aldrey</p>
     </article>
   </figcaption>
   <!-- checkpoint white -->
@@ -214,7 +214,7 @@ To create horizontal timelines, simply add the `.group-row` class in the `.timel
     <i class="checkpoint-icon bi-cup-hot"></i>
     <article>
       <h4 class="font-bold">📦 Update "Perfect UI" packages</h4>
-      <p class="badge badge-white mt-2">Amanda Ketellyn</p>
+      <p class="badge style-white mt-2">Amanda Ketellyn</p>
     </article>
   </figcaption>
 </figure>
@@ -236,9 +236,9 @@ Simply add the `.group-responsive` class in the `.timeline` parent.
       <h4 class="font-bold">Created "Perfect UI in Vue" task</h4>
       <p class="text-secondary">
         Find more detailed insctructions
-        <a href="#" class="btn-link-primary">here</a>.
+        <a href="#" class="style-link-primary">here</a>.
       </p>
-      <p class="badge badge-white mt-2">Amanda Ketellyn</p>
+      <p class="badge style-white mt-2">Amanda Ketellyn</p>
     </article>
   </figcaption>
   <!-- checkpoint outline -->
@@ -246,7 +246,7 @@ Simply add the `.group-responsive` class in the `.timeline` parent.
     <i class="checkpoint-icon bi-exclamation-lg"></i>
     <article>
       <h4 class="font-bold">🐞 Release v5.2.0 quick bug fix</h4>
-      <p class="badge badge-white mt-2">Kamilly Aldrey</p>
+      <p class="badge style-white mt-2">Kamilly Aldrey</p>
     </article>
   </figcaption>
   <!-- checkpoint white -->
@@ -254,7 +254,7 @@ Simply add the `.group-responsive` class in the `.timeline` parent.
     <i class="checkpoint-icon bi-cup-hot"></i>
     <article>
       <h4 class="font-bold">📦 Update "Perfect UI" packages</h4>
-      <p class="badge badge-white mt-2">Amanda Ketellyn</p>
+      <p class="badge style-white mt-2">Amanda Ketellyn</p>
     </article>
   </figcaption>
 </figure>

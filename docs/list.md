@@ -215,17 +215,17 @@ Add badges to any list group item to show unread counts, activity, and more.
       <i class="bi-bell"></i>
       Profile
     </span>
-    <span class="badge badge-solid-primary float-right">New</span>
+    <span class="badge style-solid-primary float-right">New</span>
   </a>
   <a class="list-item">
     <i class="bi-cloud-download"></i>
     Downloads
-    <span class="badge badge-solid-primary rounded-full float-right">2</span>
+    <span class="badge style-solid-primary rounded-full float-right">2</span>
   </a>
   <a class="list-item">
     <i class="bi-people"></i>
     Team Account
-    <span class="badge badge-solid-primary rounded-full float-right">99+</span>
+    <span class="badge style-solid-primary rounded-full float-right">99+</span>
   </a>
 </ul>
 ```

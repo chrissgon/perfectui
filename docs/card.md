@@ -29,7 +29,7 @@ You can use `.card-content` class for the content, `.card-header` class for the 
       Some quick example text to build on the card title and make up the bulk of
       the card's content.
     </p>
-    <button class="btn btn-solid-primary w-fit">Some action</button>
+    <button class="btn style-solid-primary w-fit">Some action</button>
   </article>
 </div>
 ```
@@ -55,7 +55,7 @@ You can add others elements in the `.card-content` parent.
     <h4 class="text-secondary">Card Subtitle</h4>
     <p>This is some text within a card body.</p>
     <p>
-      <button class="btn-link-primary">
+      <button class="style-link-primary">
         Card link
         <i class="bi-chevron-right"></i>
       </button>
@@ -78,7 +78,7 @@ You can use `.card-header` and `<hr>` tag to create a header or footer.
       With supporting text below as a natural lead-in to additional content.
     </p>
     <p>
-      <button class="btn-link-primary">
+      <button class="style-link-primary">
         Card link
         <i class="bi-chevron-right"></i>
       </button>
@@ -95,7 +95,7 @@ You can use `.card-header` and `<hr>` tag to create a header or footer.
       With supporting text below as a natural lead-in to additional content.
     </p>
     <p>
-      <button class="btn-link-primary">
+      <button class="style-link-primary">
         Card link
         <i class="bi-chevron-right"></i>
       </button>

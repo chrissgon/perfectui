@@ -19,7 +19,7 @@ The dropdown component has two main classes, `.dropdown-trigger`, `.dropdown` an
 
 ```html
 <!-- dropdown trigger -->
-<button class="dropdown-trigger btn btn-white">
+<button class="dropdown-trigger btn style-white">
   Dropdown
   <i class="bi-chevron-down"></i>
   <!-- dropdown -->
@@ -43,7 +43,7 @@ The default dropdown menu with dividers.
 
 ```html
 <!-- dropdown trigger -->
-<button class="dropdown-trigger btn btn-white">
+<button class="dropdown-trigger btn style-white">
   Dropdown
   <i class="bi-chevron-down"></i>
   <!-- dropdown -->
@@ -66,7 +66,7 @@ You can add icons or badges. In the example below was used [Bootstrap Icons](htt
 
 ```html
 <!-- dropdown trigger -->
-<button class="dropdown-trigger btn btn-white">
+<button class="dropdown-trigger btn style-white">
   Dropdown
   <i class="bi-chevron-down"></i>
   <!-- dropdown -->
@@ -75,12 +75,12 @@ You can add icons or badges. In the example below was used [Bootstrap Icons](htt
       <li class="list-item">
         <i class="bi-bell"></i>
         Newsletter
-        <span class="badge badge-solid-primary float-right">New</span>
+        <span class="badge style-solid-primary float-right">New</span>
       </li>
       <li class="list-item">
         <i class="bi-cloud-download"></i>
         Downloads
-        <span class="badge badge-solid-primary rounded-full float-right">
+        <span class="badge style-solid-primary rounded-full float-right">
           2
         </span>
       </li>
@@ -99,7 +99,7 @@ The default dropdown menu with title.
 
 ```html
 <!-- dropdown trigger -->
-<button class="dropdown-trigger btn btn-white">
+<button class="dropdown-trigger btn style-white">
   Dropdown
   <i class="bi-chevron-down"></i>
   <!-- dropdown -->
@@ -109,12 +109,12 @@ The default dropdown menu with title.
       <li class="list-item">
         <i class="bi-bell"></i>
         Newsletter
-        <span class="badge badge-solid-primary float-right">New</span>
+        <span class="badge style-solid-primary float-right">New</span>
       </li>
       <li class="list-item">
         <i class="bi-cloud-download"></i>
         Downloads
-        <span class="badge badge-solid-primary rounded-full float-right">
+        <span class="badge style-solid-primary rounded-full float-right">
           2
         </span>
       </li>
@@ -136,7 +136,7 @@ The `.dropdown` element has the bottom direction by default, but you can also us
 ```html
 <div class="flex flex-wrap gap-2">
   <!-- dropdown bottom -->
-  <button class="dropdown-trigger btn btn-white">
+  <button class="dropdown-trigger btn style-white">
     Bottom
     <i class="bi-chevron-down"></i>
     <div class="dropdown">
@@ -148,7 +148,7 @@ The `.dropdown` element has the bottom direction by default, but you can also us
     </div>
   </button>
   <!-- dropdown top -->
-  <button class="dropdown-trigger btn btn-white">
+  <button class="dropdown-trigger btn style-white">
     Top
     <i class="bi-chevron-up"></i>
     <div class="dropdown dropdown-top">
@@ -160,7 +160,7 @@ The `.dropdown` element has the bottom direction by default, but you can also us
     </div>
   </button>
   <!-- dropdown left -->
-  <button class="dropdown-trigger btn btn-white">
+  <button class="dropdown-trigger btn style-white">
     <i class="bi-chevron-left"></i>
     Left
     <div class="dropdown dropdown-left">
@@ -172,7 +172,7 @@ The `.dropdown` element has the bottom direction by default, but you can also us
     </div>
   </button>
   <!-- dropdown right -->
-  <button class="dropdown-trigger btn btn-white">
+  <button class="dropdown-trigger btn style-white">
     Right
     <i class="bi-chevron-right"></i>
     <div class="dropdown dropdown-right">
@@ -192,9 +192,9 @@ You can combine the dropdown element with many other. Be creative!
 
 ```html
 <div class="group group-row">
-  <button class="group-item btn btn-white">Dropdown</button>
+  <button class="group-item btn style-white">Dropdown</button>
   <!-- dropdown trigger -->
-  <button class="dropdown-trigger group-item btn btn-white">
+  <button class="dropdown-trigger group-item btn style-white">
     <i class="bi-chevron-up"></i>
     <!-- dropdown -->
     <div class="dropdown dropdown-top">
@@ -207,12 +207,12 @@ You can combine the dropdown element with many other. Be creative!
         <li class="list-item active">
           <i class="bi-bell"></i>
           Newsletter
-          <span class="badge badge-solid-primary float-right">New</span>
+          <span class="badge style-solid-primary float-right">New</span>
         </li>
         <li class="list-item">
           <i class="bi-cloud-download"></i>
           Downloads
-          <span class="badge badge-solid-primary rounded-full float-right">
+          <span class="badge style-solid-primary rounded-full float-right">
             2
           </span>
         </li>

@@ -22,7 +22,7 @@ Place the `<link>` tag in the `<head>` for our CSS, and the `<script>` tag for o
     />
   </head>
   <body>
-    <button class="btn btn-solid-primary">My button</button>
+    <button class="btn style-solid-primary">My button</button>
 
     <!-- import javascript -->
     <script src="https://cdn.jsdelivr.net/npm/@chrissgon/perfectui@latest/dist/perfectui.js"></script>

@@ -23,21 +23,21 @@ To open a modal with Perfect UI, use the `data-modal` attribute, providing a mod
 To close a modal with Perfect UI, use the `data-autoclose` attribute.
 
 ```html
-<button class="btn btn-solid-primary" data-modal="modal-basic">
+<button class="btn style-solid-primary" data-modal="modal-basic">
   Open modal
 </button>
 <dialog class="modal" id="modal-basic">
   <div class="card w-96">
     <header class="card-header bg-secondary text-secondary">
       <span>Modal title</span>
-      <a class="bi bi-x-lg float-right btn-link-secondary" data-autoclose></a>
+      <a class="bi bi-x-lg float-right style-link-secondary" data-autoclose></a>
     </header>
     <hr />
     <article class="card-content flex flex-col gap-2">Modal content</article>
     <hr />
     <footer class="card-header flex gap-2 justify-end">
-      <button class="btn btn-link-error" data-autoclose>Close</button>
-      <button class="btn btn-solid-primary">Save changes</button>
+      <button class="btn style-link-error" data-autoclose>Close</button>
+      <button class="btn style-solid-primary">Save changes</button>
     </footer>
   </div>
 </dialog>
@@ -50,21 +50,21 @@ When backdrop is set to static, the modal will not close when clicking outside i
 To create a static backdrop modal, simply add the `.static-backdrop` in the `.modal` element.
 
 ```html
-<button class="btn btn-solid-primary" data-modal="modal-static">
+<button class="btn style-solid-primary" data-modal="modal-static">
   Open modal
 </button>
 <dialog class="modal static-backdrop" id="modal-static">
   <div class="card w-96">
     <header class="card-header bg-secondary text-secondary">
       <span>Modal title</span>
-      <a class="bi bi-x-lg float-right btn-link-secondary" data-autoclose></a>
+      <a class="bi bi-x-lg float-right style-link-secondary" data-autoclose></a>
     </header>
     <hr />
     <article class="card-content flex flex-col gap-2">Modal content</article>
     <hr />
     <footer class="card-header flex gap-2 justify-end">
-      <button class="btn btn-link-error" data-autoclose>Close</button>
-      <button class="btn btn-solid-primary">Save changes</button>
+      <button class="btn style-link-error" data-autoclose>Close</button>
+      <button class="btn style-solid-primary">Save changes</button>
     </footer>
   </div>
 </dialog>
@@ -75,14 +75,14 @@ To create a static backdrop modal, simply add the `.static-backdrop` in the `.mo
 Modal dialogs differ in width, whereas height is determined by the content. Once it reaches a certain threshold, the body content will scroll while the header and footer remain fixed until the bottom of the modal dialog is reached.
 
 ```html
-<button class="btn btn-solid-primary" data-modal="modal-scroll">
+<button class="btn style-solid-primary" data-modal="modal-scroll">
   Open modal
 </button>
 <dialog class="modal" id="modal-scroll">
   <div class="card w-96">
     <header class="card-header bg-secondary text-secondary">
       <span>Modal title</span>
-      <a class="bi bi-x-lg float-right btn-link-secondary" data-autoclose></a>
+      <a class="bi bi-x-lg float-right style-link-secondary" data-autoclose></a>
     </header>
     <hr />
     <article class="card-content">
@@ -126,8 +126,8 @@ Modal dialogs differ in width, whereas height is determined by the content. Once
     </article>
     <hr />
     <footer class="card-header flex gap-2 justify-end">
-      <button class="btn btn-link-error" data-autoclose>Close</button>
-      <button class="btn btn-solid-primary">Save changes</button>
+      <button class="btn style-link-error" data-autoclose>Close</button>
+      <button class="btn style-solid-primary">Save changes</button>
     </footer>
   </div>
 </dialog>
@@ -138,14 +138,14 @@ Modal dialogs differ in width, whereas height is determined by the content. Once
 Toggle between two separate modals.
 
 ```html
-<button class="btn btn-solid-primary" data-modal="modal-toggle">
+<button class="btn style-solid-primary" data-modal="modal-toggle">
   Open first modal
 </button>
 <dialog class="modal" id="modal-toggle">
   <div class="card w-96">
     <header class="card-header bg-secondary text-secondary">
       <span>Modal 1</span>
-      <a class="bi bi-x-lg float-right btn-link-secondary" data-autoclose></a>
+      <a class="bi bi-x-lg float-right style-link-secondary" data-autoclose></a>
     </header>
     <hr />
     <article class="card-content flex flex-col gap-2">
@@ -153,8 +153,8 @@ Toggle between two separate modals.
     </article>
     <hr />
     <footer class="card-header flex gap-2 justify-end">
-      <button class="btn btn-link-error" data-autoclose>Close</button>
-      <button class="btn btn-solid-primary" data-modal="modal-toggle2">
+      <button class="btn style-link-error" data-autoclose>Close</button>
+      <button class="btn style-solid-primary" data-modal="modal-toggle2">
         Open second modal
       </button>
     </footer>
@@ -164,7 +164,7 @@ Toggle between two separate modals.
   <div class="card w-96">
     <header class="card-header bg-secondary text-secondary">
       <span>Modal 2</span>
-      <a class="bi bi-x-lg float-right btn-link-secondary" data-autoclose></a>
+      <a class="bi bi-x-lg float-right style-link-secondary" data-autoclose></a>
     </header>
     <hr />
     <article class="card-content flex flex-col gap-2">
@@ -172,8 +172,8 @@ Toggle between two separate modals.
     </article>
     <hr />
     <footer class="card-header flex gap-2 justify-end">
-      <button class="btn btn-link-error" data-autoclose>Close</button>
-      <button class="btn btn-solid-primary" data-modal="modal-toggle">
+      <button class="btn style-link-error" data-autoclose>Close</button>
+      <button class="btn style-solid-primary" data-modal="modal-toggle">
         Back to first
       </button>
     </footer>

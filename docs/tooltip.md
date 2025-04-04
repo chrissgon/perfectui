@@ -14,7 +14,7 @@ Tooltip are meant to be exactly that, a hint or tip on what a tool or other inte
 - Provide the tooltip text through the `tooltip` attribute.
 
 ```html
-<button class="btn btn-white tooltip" data-tooltip="More details here">
+<button class="btn style-white tooltip" data-tooltip="More details here">
   Tooltip
   <i class="bi-question-circle"></i>
 </button>
@@ -30,25 +30,25 @@ The tooltip has the top direction by default, but you can also use `.tooltip-rig
 ```html
 <div class="grid grid-cols-3 gap-y-2 gap-x-2 max-w-60 mx-auto w-fit">
   <button
-    class="tooltip btn btn-white rounded-full col-start-2 w-10 !px-2"
+    class="tooltip btn style-white rounded-full col-start-2 w-10 !px-2"
     data-tooltip="Tooltip on top"
   >
     <i class="bi-chevron-up"></i>
   </button>
   <button
-    class="tooltip tooltip-left btn btn-white rounded-full col-start-1 w-10 !px-2"
+    class="tooltip tooltip-left btn style-white rounded-full col-start-1 w-10 !px-2"
     data-tooltip="Tooltip on left"
   >
     <i class="bi-chevron-left"></i>
   </button>
   <button
-    class="tooltip tooltip-right btn btn-white rounded-full col-start-3 w-10 !px-2"
+    class="tooltip tooltip-right btn style-white rounded-full col-start-3 w-10 !px-2"
     data-tooltip="Tooltip on right"
   >
     <i class="bi-chevron-right"></i>
   </button>
   <button
-    class="tooltip tooltip-bottom btn btn-white rounded-full col-start-2 w-10 !px-2"
+    class="tooltip tooltip-bottom btn style-white rounded-full col-start-2 w-10 !px-2"
     data-tooltip="Tooltip on bottom"
   >
     <i class="bi-chevron-down"></i>
@@ -58,19 +58,19 @@ The tooltip has the top direction by default, but you can also use `.tooltip-rig
 
 ### White/Black tooltips
 
-The tooltip has `.tooltip-white` class by default, but if you want use the black style, simply use the `.btn-black` class.
+The tooltip has `.tooltip-white` class by default, but if you want use the black style, simply use the `.style-black` class.
 
 ```html
 <div class="flex flex-col gap-2 w-fit">
   <button
-    class="btn btn-white tooltip tooltip-right"
+    class="btn style-white tooltip tooltip-right"
     data-tooltip="More details here"
   >
     White Tooltip
   </button>
 
   <button
-    class="btn btn-white tooltip tooltip-black tooltip-right"
+    class="btn style-white tooltip tooltip-black tooltip-right"
     data-tooltip="More details here"
   >
     Black Tooltip

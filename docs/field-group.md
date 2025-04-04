@@ -43,7 +43,7 @@ You can use the `.field-group` class to create complex forms with states, button
       <option>outlook.com</option>
       <option>hotmail.com</option>
     </select>
-    <button class="group-item btn btn-solid-primary">Send Code</button>
+    <button class="group-item btn style-solid-primary">Send Code</button>
   </label>
 </form>
 ```
@@ -169,7 +169,7 @@ After, add a button with `.group-item` class.
     </h4>
     <label class="field-group group-row">
       <input type="email" class="input" placeholder="Your email" />
-      <button class="btn btn-solid-primary group-item">Subscribe</button>
+      <button class="btn style-solid-primary group-item">Subscribe</button>
     </label>
   </article>
 </div>

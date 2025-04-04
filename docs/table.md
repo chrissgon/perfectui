@@ -29,20 +29,20 @@ To make your table responsive, simply add `.table-responsive` to its parent.
       <td>Mark</td>
       <td>Otto</td>
       <td>@mdo</td>
-      <td><button class="btn-link-error">Delete</button></td>
+      <td><button class="style-link-error">Delete</button></td>
     </tr>
     <tr>
       <th>2</th>
       <td>Jacob</td>
       <td>Thornton</td>
       <td>@fat</td>
-      <td><button class="btn-link-error">Delete</button></td>
+      <td><button class="style-link-error">Delete</button></td>
     </tr>
     <tr>
       <th>3</th>
       <td colspan="2">Larry the Bird</td>
       <td>@twitter</td>
-      <td><button class="btn-link-error">Delete</button></td>
+      <td><button class="style-link-error">Delete</button></td>
     </tr>
   </tbody>
 </table>
@@ -71,20 +71,20 @@ To create a bordered table, simply add the `.table-bordered` class.
       <td>Mark</td>
       <td>Otto</td>
       <td>@mdo</td>
-      <td><button class="btn-link-error">Delete</button></td>
+      <td><button class="style-link-error">Delete</button></td>
     </tr>
     <tr>
       <th>2</th>
       <td>Jacob</td>
       <td>Thornton</td>
       <td>@fat</td>
-      <td><button class="btn-link-error">Delete</button></td>
+      <td><button class="style-link-error">Delete</button></td>
     </tr>
     <tr>
       <th>3</th>
       <td colspan="2">Larry the Bird</td>
       <td>@twitter</td>
-      <td><button class="btn-link-error">Delete</button></td>
+      <td><button class="style-link-error">Delete</button></td>
     </tr>
   </tbody>
 </table>
@@ -113,20 +113,20 @@ To create a striped table, simply add the `.table-striped` class.
       <td>Mark</td>
       <td>Otto</td>
       <td>@mdo</td>
-      <td><button class="btn-link-error">Delete</button></td>
+      <td><button class="style-link-error">Delete</button></td>
     </tr>
     <tr>
       <th>2</th>
       <td>Jacob</td>
       <td>Thornton</td>
       <td>@fat</td>
-      <td><button class="btn-link-error">Delete</button></td>
+      <td><button class="style-link-error">Delete</button></td>
     </tr>
     <tr>
       <th>3</th>
       <td colspan="2">Larry the Bird</td>
       <td>@twitter</td>
-      <td><button class="btn-link-error">Delete</button></td>
+      <td><button class="style-link-error">Delete</button></td>
     </tr>
   </tbody>
 </table>
@@ -153,20 +153,20 @@ To create a hoverable table, simply add the `.table-hoverable` class.
       <td>Mark</td>
       <td>Otto</td>
       <td>@mdo</td>
-      <td><button class="btn-link-error">Delete</button></td>
+      <td><button class="style-link-error">Delete</button></td>
     </tr>
     <tr>
       <th>2</th>
       <td>Jacob</td>
       <td>Thornton</td>
       <td>@fat</td>
-      <td><button class="btn-link-error">Delete</button></td>
+      <td><button class="style-link-error">Delete</button></td>
     </tr>
     <tr>
       <th>3</th>
       <td colspan="2">Larry the Bird</td>
       <td>@twitter</td>
-      <td><button class="btn-link-error">Delete</button></td>
+      <td><button class="style-link-error">Delete</button></td>
     </tr>
   </tbody>
 </table>
@@ -191,20 +191,20 @@ These hoverable rows can also be combined with the striped variant:
       <td>Mark</td>
       <td>Otto</td>
       <td>@mdo</td>
-      <td><button class="btn-link-error">Delete</button></td>
+      <td><button class="style-link-error">Delete</button></td>
     </tr>
     <tr>
       <th>2</th>
       <td>Jacob</td>
       <td>Thornton</td>
       <td>@fat</td>
-      <td><button class="btn-link-error">Delete</button></td>
+      <td><button class="style-link-error">Delete</button></td>
     </tr>
     <tr>
       <th>3</th>
       <td colspan="2">Larry the Bird</td>
       <td>@twitter</td>
-      <td><button class="btn-link-error">Delete</button></td>
+      <td><button class="style-link-error">Delete</button></td>
     </tr>
   </tbody>
 </table>
@@ -233,20 +233,20 @@ To create a borderless table, simply add the `.table-borderless` class.
       <td>Mark</td>
       <td>Otto</td>
       <td>@mdo</td>
-      <td><button class="btn-link-error">Delete</button></td>
+      <td><button class="style-link-error">Delete</button></td>
     </tr>
     <tr>
       <th>2</th>
       <td>Jacob</td>
       <td>Thornton</td>
       <td>@fat</td>
-      <td><button class="btn-link-error">Delete</button></td>
+      <td><button class="style-link-error">Delete</button></td>
     </tr>
     <tr>
       <th>3</th>
       <td colspan="2">Larry the Bird</td>
       <td>@twitter</td>
-      <td><button class="btn-link-error">Delete</button></td>
+      <td><button class="style-link-error">Delete</button></td>
     </tr>
   </tbody>
 </table>
@@ -264,20 +264,20 @@ A table can render without a table header if no `<thead>` is supplied.
       <td>Mark</td>
       <td>Otto</td>
       <td>@mdo</td>
-      <td><button class="btn-link-error">Delete</button></td>
+      <td><button class="style-link-error">Delete</button></td>
     </tr>
     <tr>
       <th>2</th>
       <td>Jacob</td>
       <td>Thornton</td>
       <td>@fat</td>
-      <td><button class="btn-link-error">Delete</button></td>
+      <td><button class="style-link-error">Delete</button></td>
     </tr>
     <tr>
       <th>3</th>
       <td colspan="2">Larry the Bird</td>
       <td>@twitter</td>
-      <td><button class="btn-link-error">Delete</button></td>
+      <td><button class="style-link-error">Delete</button></td>
     </tr>
   </tbody>
 </table>
@@ -306,20 +306,20 @@ Simply add a `checkbox` in the first column.
       <td>Mark</td>
       <td>Otto</td>
       <td>@mdo</td>
-      <td><button class="btn-link-error">Delete</button></td>
+      <td><button class="style-link-error">Delete</button></td>
     </tr>
     <tr>
       <th><input type="checkbox" class="checkbox align-middle" /></th>
       <td>Jacob</td>
       <td>Thornton</td>
       <td>@fat</td>
-      <td><button class="btn-link-error">Delete</button></td>
+      <td><button class="style-link-error">Delete</button></td>
     </tr>
     <tr>
       <th><input type="checkbox" class="checkbox align-middle" /></th>
       <td colspan="2">Larry the Bird</td>
       <td>@twitter</td>
-      <td><button class="btn-link-error">Delete</button></td>
+      <td><button class="style-link-error">Delete</button></td>
     </tr>
   </tbody>
 </table>
@@ -354,20 +354,20 @@ Search is used for making dropdown items searchable.
       <td>Mark</td>
       <td>Otto</td>
       <td>@mdo</td>
-      <td><button class="btn-link-error">Delete</button></td>
+      <td><button class="style-link-error">Delete</button></td>
     </tr>
     <tr>
       <th><input type="checkbox" class="checkbox align-middle" /></th>
       <td>Jacob</td>
       <td>Thornton</td>
       <td>@fat</td>
-      <td><button class="btn-link-error">Delete</button></td>
+      <td><button class="style-link-error">Delete</button></td>
     </tr>
     <tr>
       <th><input type="checkbox" class="checkbox align-middle" /></th>
       <td colspan="2">Larry the Bird</td>
       <td>@twitter</td>
-      <td><button class="btn-link-error">Delete</button></td>
+      <td><button class="style-link-error">Delete</button></td>
     </tr>
   </tbody>
 </table>
@@ -402,20 +402,20 @@ Example with pagination using [Lists](https://github.com/chrissgon/perfectui/blo
       <td>Mark</td>
       <td>Otto</td>
       <td>@mdo</td>
-      <td><button class="btn-link-error">Delete</button></td>
+      <td><button class="style-link-error">Delete</button></td>
     </tr>
     <tr>
       <th><input type="checkbox" class="checkbox align-middle" /></th>
       <td>Jacob</td>
       <td>Thornton</td>
       <td>@fat</td>
-      <td><button class="btn-link-error">Delete</button></td>
+      <td><button class="style-link-error">Delete</button></td>
     </tr>
     <tr>
       <th><input type="checkbox" class="checkbox align-middle" /></th>
       <td colspan="2">Larry the Bird</td>
       <td>@twitter</td>
-      <td><button class="btn-link-error">Delete</button></td>
+      <td><button class="style-link-error">Delete</button></td>
     </tr>
   </tbody>
   <tfoot>

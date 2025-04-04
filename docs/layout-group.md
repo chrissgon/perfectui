@@ -30,9 +30,9 @@ Other elements are optional, such as the `<button>`.
 
 ```html
 <div class="group group-row">
-  <button class="group-item btn btn-white">Left</button>
-  <button class="group-item btn btn-white">Middle</button>
-  <button class="group-item btn btn-white">Right</button>
+  <button class="group-item btn style-white">Left</button>
+  <button class="group-item btn style-white">Middle</button>
+  <button class="group-item btn style-white">Right</button>
 </div>
 ```
 
