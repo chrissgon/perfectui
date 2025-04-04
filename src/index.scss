@@ -1,10 +1,9 @@
 @use "./scss/global" as *;
+
 @use "./scss/accordion.scss";
-@use "./scss/align.scss";
 @use "./scss/badge.scss";
 @use "./scss/button.scss";
 @use "./scss/card.scss";
-@use "./scss/color.scss";
 @use "./scss/dropdown.scss";
 @use "./scss/form.scss";
 @use "./scss/list.scss";
@@ -12,6 +11,12 @@
 @use "./scss/table.scss";
 @use "./scss/timeline.scss";
 @use "./scss/tooltip.scss";
+
+@use "./scss/float.scss";
+@use "./scss/spacing.scss";
+@use "./scss/color.scss";
+@use "./scss/group.scss";
+
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
 html,
@@ -19,7 +24,6 @@ body {
   @include background;
 
   max-width: 100%;
-  overflow-x: hidden;
 }
 
 body * {
@@ -31,6 +35,10 @@ body * {
 [disabled] {
   opacity: 0.5 !important;
   pointer-events: none !important;
+}
+
+[disabled] [disabled] {
+  opacity: 1 !important;
 }
 
 hr {
@@ -49,76 +57,17 @@ a {
   cursor: pointer;
 }
 
-// group row
-.group-row {
-  display: flex;
-}
-.group-row > .group-item,
-.group-row > *[class*="item"] {
-  @include roundedCornersX;
-  border-radius: 0px;
-}
-
-.group-row > .group-item + .group-item,
-.group-row > *[class*="item"] + *[class*="item"] {
-  border-left: none;
-}
-
-// group column
-.group-col {
-  display: flex;
-  flex-direction: column;
-}
-
-.group-col > .group-item,
-.group-col > *[class*="item"] {
-  @include roundedCornersY;
-  border-radius: 0px;
-}
-
-.group-col > .group-item + .group-item,
-.group-col > *[class*="item"] + *[class*="item"] {
-  border-top: none;
-}
-
-.group-responsive {
-  display: flex;
-
-  @media (min-width: 1024px) {
-    & > .group-item,
-    & > *[class*="item"] {
-      @include roundedCornersX;
-      border-radius: 0px;
-    }
-
-    & > .group-item + .group-item,
-    & > *[class*="item"] + *[class*="item"] {
-      border-left: none;
-    }
-  }
-
-  @media (max-width: 1023px) {
-    flex-direction: column;
-
-    & > .group-item,
-    & > *[class*="item"] {
-      @include roundedCornersY;
-      border-radius: 0px;
-    }
-
-    & > .group-item + .group-item,
-    & > *[class*="item"] + *[class*="item"] {
-      border-top: none;
-    }
-  }
-}
-
 // rounded
 .rounded {
   border-radius: var(--rounded);
 }
 .rounded-full {
   border-radius: var(--roundedFull);
+}
+
+// overflow
+.overflow-hidden {
+  overflow: hidden;
 }
 
 // darkmode

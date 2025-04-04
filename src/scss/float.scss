@@ -1,0 +1,24 @@
+.float {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: fixed;
+  left: var(--floatMargin);
+  bottom: var(--floatMargin);
+  margin-top: var(--floatMargin);
+  margin-right: var(--floatMargin);
+}
+
+.float.float-right {
+  left: initial;
+  right: var(--floatMargin);
+  margin-left: var(--floatMargin);
+  margin-right: initial;
+}
+
+.float.float-top {
+  bottom: initial;
+  top: var(--floatMargin);
+  margin-top: initial;
+  margin-bottom: var(--floatMargin);
+}

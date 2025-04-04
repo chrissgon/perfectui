@@ -1,0 +1,66 @@
+@use "./global" as *;
+
+// group row
+.group-row {
+  display: flex;
+}
+.group-row > .group-item,
+.group-row > *[class*="item"] {
+  @include roundedCornersX;
+  border-radius: 0px;
+}
+
+.group-row > .group-item + .group-item,
+.group-row > *[class*="item"] + *[class*="item"] {
+  border-left: none;
+}
+
+// group column
+.group-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.group-col > .group-item,
+.group-col > *[class*="item"] {
+  @include roundedCornersY;
+  border-radius: 0px;
+}
+
+.group-col > .group-item + .group-item,
+.group-col > *[class*="item"] + *[class*="item"] {
+  border-top: none;
+}
+
+// group responsive
+.group-responsive {
+  display: flex;
+
+  @media (min-width: 1024px) {
+    & > .group-item,
+    & > *[class*="item"] {
+      @include roundedCornersX;
+      border-radius: 0px;
+    }
+
+    & > .group-item + .group-item,
+    & > *[class*="item"] + *[class*="item"] {
+      border-left: none;
+    }
+  }
+
+  @media (max-width: 1023px) {
+    flex-direction: column;
+
+    & > .group-item,
+    & > *[class*="item"] {
+      @include roundedCornersY;
+      border-radius: 0px;
+    }
+
+    & > .group-item + .group-item,
+    & > *[class*="item"] + *[class*="item"] {
+      border-top: none;
+    }
+  }
+}

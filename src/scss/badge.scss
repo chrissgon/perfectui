@@ -12,39 +12,3 @@
   outline: none;
   padding: 2px 7px;
 }
-
-// @each $state in $states {
-//   .badge-solid-#{$state} {
-//     background-color: rgb(map.get($states-colors, $state));
-//     color: #fff;
-
-//     > * {
-//       color: #fff;
-//     }
-//   }
-//   .badge-outline-#{$state} {
-//     @include border;
-//     border-color: rgb(map.get($states-colors, $state));
-//     color: rgb(map.get($states-colors, $state));
-
-//     > * {
-//       color: rgb(map.get($states-colors, $state));
-//     }
-//   }
-// }
-
-// // white
-// .badge-white {
-//   background: rgb(var(--backgroundPrimary));
-//   border-color: rgb(var(--borderSecondary));
-// }
-
-// // black
-// .badge-black {
-//   background: rgb(var(--contentPrimary));
-//   color: rgb(var(--backgroundPrimary));
-
-//   > * {
-//     color: rgb(var(--backgroundPrimary));
-//   }
-// }

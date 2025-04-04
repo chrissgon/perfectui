@@ -66,11 +66,11 @@
   --contentPrimary: 0, 0, 0;
   --contentSecondary: var(--gray500);
   --contentWarn: var(--amber700);
-  --contentError: var(--red600);
+  --contentError: var(--red700);
   --contentSuccess: var(--green700);
   --contentTheme: var(--theme700);
 
-  --borderPrimary: var(--theme500);
+  --borderTheme: var(--theme500);
   --borderSecondary: var(--gray300);
 
   --spacingXS: 0.3rem 0.6rem;
@@ -111,7 +111,7 @@
   --modalMargin: 1rem;
   --modalTopMargin: 75px;
 
-  --alignMargin: 25px;
+  --floatMargin: 25px;
 }
 
 .dark {

@@ -15,7 +15,7 @@
   --translateX: 0;
   --translateY: var(--dropdownMargin);
 
-  display: none !important;
+  display: none;
   position: absolute;
   flex-direction: column;
 
@@ -33,7 +33,7 @@
 
   padding: 0.5rem;
 
-  z-index: 2 !important;
+  z-index: 2;
 }
 
 .dropdown.list-bordered {
@@ -41,7 +41,7 @@
 }
 
 .dropdown.visible {
-  display: flex !important;
+  display: flex;
 }
 
 .dropdown-top {

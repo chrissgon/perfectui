@@ -1,0 +1,17 @@
+@use "./global" as *;
+
+.spacing-xs {
+  padding: var(--spacingXS);
+}
+.spacing-sm {
+  padding: var(--spacingSM);
+}
+.spacing-md {
+  padding: var(--spacingMD);
+}
+.spacing-lg {
+  padding: var(--spacingLG);
+}
+.spacing-xl {
+  padding: var(--spacingXL);
+}

@@ -155,6 +155,7 @@ function Modal(): void {
 
       if (clickedOutside) {
         modal.close();
+        document.body.classList.remove("overflow-hidden");
       }
     });
   }
@@ -166,6 +167,7 @@ function Modal(): void {
         MODAL
       ) as HTMLDialogElement;
       modal.close();
+      document.body.classList.remove("overflow-hidden");
     });
   }
 
@@ -186,6 +188,7 @@ function Modal(): void {
       const modal = document.querySelector(`#${modalID}`) as HTMLDialogElement;
 
       modal?.show();
+      document.body.classList.add("overflow-hidden");
     });
   }
 }
@@ -199,13 +202,13 @@ export function setThemeColor(colors: IThemeColor): void {
 
   for (const tone in colors) {
     const color = colors[tone];
-    let rgb: string = "";
+    let rgb = "";
 
     if (!Array.isArray(color)) {
       throw new Error("setThemeColor: invalid type");
     }
 
-    if (color.length != 3) {
+    if (color.length !== 3) {
       throw new Error(
         "setThemeColor: invalid rgb format. Expect [R, G, B] array"
       );
@@ -218,9 +221,9 @@ export function setThemeColor(colors: IThemeColor): void {
 }
 
 export function setMode(theme: "system" | "dark" | "light" = "system"): void {
-  const systemIsDark =
-    window.matchMedia &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const systemIsDark = window.matchMedia?.(
+    "(prefers-color-scheme: dark)"
+  ).matches;
 
   if ((theme === "system" && systemIsDark) || theme === "dark") {
     document.querySelector("html")?.classList.add("dark");
@@ -248,7 +251,7 @@ function loadFunctionsWithDebounce(): void {
     debounce = false;
   }
 
-  new MutationObserver(function () {
+  new MutationObserver(() => {
     if (debounce) return;
     enableDebounce();
     setTimeout(disableDebounce, 1000);
@@ -276,7 +279,7 @@ function init() {
     );
 
     // @ts-expect-error SSR verification
-    if ((process && process.server) || import.meta.server) return;
+    if (process?.server || import.meta.server) return;
 
     setTimeout(init, 1000);
   }

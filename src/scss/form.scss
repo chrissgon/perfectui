@@ -29,7 +29,7 @@
   flex: 1;
   display: flex;
   align-items: center;
-  padding: 0 !important;
+  padding: 0 !important; // it's important to remove the extra padding in the .input-group
 }
 
 .input-group .input,
@@ -123,8 +123,8 @@
   appearance: none;
 
   &:focus-within {
-    border-color: rgb(var(--borderPrimary));
-    box-shadow: 0 0 0 1px rgb(var(--borderPrimary));
+    border-color: rgb(var(--borderTheme));
+    box-shadow: 0 0 0 1px rgb(var(--borderTheme));
   }
 }
 
@@ -135,9 +135,9 @@
   color: rgb(var(--contentPrimary));
 }
 
-// .field-group .input {
-//   width: 1px;
-// }
+.field-group .input:is(select, input, textarea) {
+  width: 0px;
+}
 
 .field-group > .input + .input {
   border-left: none;
@@ -172,11 +172,11 @@ select.input {
 @each $state in $states {
   .field-group-#{$state}::before,
   .field-group-#{$state}::after {
-    color: rgb(map.get($states-colors, $state));
+    color: rgb(map.get($states-colors, #{$state}Content));
   }
   .field-group-#{$state} > .input {
-    border-color: rgb(map.get($states-colors, $state)) !important;
-    box-shadow: 0 0 0 1px rgb(map.get($states-colors, $state)) !important;
+    border-color: rgb(map.get($states-colors, $state));
+    box-shadow: 0 0 0 1px rgb(map.get($states-colors, $state));
   }
 }
 

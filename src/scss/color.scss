@@ -12,6 +12,9 @@
 .bg-tertiary {
   background-color: rgb(var(--backgroundTertiary));
 }
+.bg-theme {
+  background-color: rgb(var(--theme500));
+}
 .bg-success {
   background-color: rgb(var(--green500));
 }
@@ -23,13 +26,13 @@
 }
 
 // contents
-.text-content {
+.text-primary {
   color: rgb(var(--contentPrimary));
 }
 .text-secondary {
   color: rgb(var(--contentSecondary));
 }
-.text-primary {
+.text-theme {
   color: rgb(var(--contentTheme));
 }
 .text-success {
@@ -43,11 +46,11 @@
 }
 
 // borders
-.border-primary {
-  border-color: rgb(var(--borderPrimary));
-}
 .border-secondary {
   border-color: rgb(var(--borderSecondary));
+}
+.border-theme {
+  border-color: rgb(var(--borderTheme));
 }
 .border-success {
   border-color: rgb(var(--green500));
@@ -105,7 +108,7 @@
     }
   }
   .dark .style-outline-#{$state}:hover {
-    background-color: rgba(map.get($states-colors, $state), 0.1);
+    background-color: rgba(map.get($states-colors, $state), 0.15);
   }
 
   // link
@@ -114,7 +117,7 @@
     color: rgb(map.get($states-colors, $state));
 
     > * {
-      color: rgb(map.get($states-colors, $state));
+      color: inherit;
     }
 
     &:hover {
@@ -132,7 +135,7 @@
   color: rgb(var(--contentPrimary));
 
   > * {
-    color: rgb(var(--contentPrimary));
+    color: inherit;
   }
 
   &:hover {
@@ -150,7 +153,7 @@
   color: rgb(var(--backgroundPrimary));
 
   > * {
-    color: rgb(var(--backgroundPrimary));
+    color: inherit;
   }
 
   &:hover {

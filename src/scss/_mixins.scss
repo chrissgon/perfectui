@@ -2,8 +2,8 @@
   border: 1px solid rgb(var(--borderSecondary));
 
   &:focus {
-    border-color: rgb(var(--borderPrimary));
-    box-shadow: 0 0 0 1px rgb(var(--borderPrimary));
+    border-color: rgb(var(--borderTheme));
+    box-shadow: 0 0 0 1px rgb(var(--borderTheme));
   }
 }
 
