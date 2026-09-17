@@ -80,10 +80,12 @@
     }
   }
 
-  /* A child keeps its own border and ring visible while it is the one being
-     used, instead of being covered by the overlap of the next one. */
+  /* A focused child is raised so its ring is not clipped by the neighbour that
+     overlaps it. Hover is deliberately not in this list: raising on hover flips
+     which element owns the shared one-pixel edge, and the border appears to
+     move as the pointer crosses the group. */
   :is(.pui-group-row, .pui-group-col, .pui-group-responsive)
-    > *:is(:hover, :focus-visible, :focus-within) {
+    > *:is(:focus-visible, :focus-within) {
     position: relative;
     z-index: 1;
   }

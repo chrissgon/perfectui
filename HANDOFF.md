@@ -104,6 +104,8 @@ Parity gaps against `0.23.0` were reviewed at the same time. Kept as they were: 
 
 Dropped by the maintainer's decision: `accordion-accented` and `accordion-aligned`.
 
+One more found afterwards: inside a group, hovering a child raised it with `z-index`, which flipped the ownership of the shared one-pixel edge and made the border look like it moved as the pointer crossed. Measured first — the geometry never changed, so it was paint order, not layout. Only focus raises a child now, which is the case the rule was written for.
+
 ### What Phase 7 added (this repo only)
 
 - `/docs` rewritten for the v1 API: 26 files, plus new `chip.md` and `float.md`. The index, the root `README.md` and `MIGRATION.md` were written too.
