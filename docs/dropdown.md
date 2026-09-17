@@ -32,12 +32,12 @@ Three classes move it elsewhere:
 <div class="pui-dropdown pui-end" id="menu" popover>After the trigger</div>
 ```
 
-| Class        | Where it goes                         |
-| ------------ | ------------------------------------- |
-| *(none)*     | below                                 |
-| `pui-top`    | above                                 |
-| `pui-start`  | to the left, or the right in RTL      |
-| `pui-end`    | to the right, or the left in RTL      |
+| Class       | Where it goes                    |
+| ----------- | -------------------------------- |
+| _(none)_    | below                            |
+| `pui-top`   | above                            |
+| `pui-start` | to the left, or the right in RTL |
+| `pui-end`   | to the right, or the left in RTL |
 
 Each one flips to the opposite side when the preferred one does not fit, so a menu never opens off screen.
 

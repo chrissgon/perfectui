@@ -27,12 +27,12 @@ The tooltip sits above its trigger and flips below when there is no room. Three 
 <div class="pui-tooltip pui-end" id="help" popover="hint">After</div>
 ```
 
-| Class         | Where it goes                        |
-| ------------- | ------------------------------------ |
-| *(none)*      | above                                |
-| `pui-bottom`  | below                                |
-| `pui-start`   | to the left, or the right in RTL     |
-| `pui-end`     | to the right, or the left in RTL     |
+| Class        | Where it goes                    |
+| ------------ | -------------------------------- |
+| _(none)_     | above                            |
+| `pui-bottom` | below                            |
+| `pui-start`  | to the left, or the right in RTL |
+| `pui-end`    | to the right, or the left in RTL |
 
 ### Styles
 
