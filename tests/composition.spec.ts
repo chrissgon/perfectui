@@ -52,6 +52,19 @@ test("aria-invalid colors the control and its message", async ({ page }) => {
   expect(border).not.toBe("rgb(0, 0, 0)");
 });
 
+test("focus rings come from the library, not from the browser", async ({
+  page
+}) => {
+  // The class is on the <details> while the <summary> is what takes focus, so
+  // this one is easy to lose: the browser's own ring then shows through.
+  await page.locator("#summary").focus();
+  await expect(page.locator("#summary")).toHaveCSS(
+    "outline-color",
+    THEME_LIGHT
+  );
+  await expect(page.locator("#summary")).toHaveCSS("outline-style", "solid");
+});
+
 test("a group overlaps its children's borders", async ({ page }) => {
   const margin = await page
     .locator("#group-second")

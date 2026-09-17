@@ -17,10 +17,6 @@ Built on `<details>`. Opening, closing and keyboard support come from the browse
 </div>
 ```
 
-The `<summary>` is the item's header, so it carries the same band and the same
-padding as `pui-card-header`, and it responds to hover. Its text is not muted,
-because a card header is a label while a summary is a control.
-
 ### One open at a time
 
 Give the items the same `name`. The browser closes the others for you:
