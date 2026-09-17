@@ -6,13 +6,25 @@
  * module needs no state shared with the other fallbacks and no attribute of
  * its own.
  *
- * A popover with `popover="hint"` is a tooltip and prefers to sit above its
- * anchor; anything else is a menu and prefers to sit below. Either flips when
- * the preferred side does not fit, which is what position-try-fallbacks does
- * natively.
+ * The side comes from the same classes the CSS uses — `pui-top`, `pui-bottom`,
+ * `pui-start`, `pui-end` — falling back to the default of each component: a
+ * tooltip sits above its anchor, a menu below it. Either flips to the opposite
+ * side when the preferred one does not fit, which is what
+ * position-try-fallbacks does natively.
  */
 
+type Side = "top" | "bottom" | "start" | "end";
+
 const GAP = 4;
+
+const SIDES: Side[] = ["top", "bottom", "start", "end"];
+
+const OPPOSITE: Record<Side, Side> = {
+  top: "bottom",
+  bottom: "top",
+  start: "end",
+  end: "start"
+};
 
 let installed = false;
 let open: HTMLElement | null = null;
@@ -27,30 +39,63 @@ function anchorOf(popover: HTMLElement): HTMLElement | null {
   );
 }
 
+function sideOf(popover: HTMLElement, isHint: boolean): Side {
+  for (const side of SIDES) {
+    if (popover.classList.contains(`pui-${side}`)) return side;
+  }
+  return isHint ? "top" : "bottom";
+}
+
+const clamp = (value: number, min: number, max: number) =>
+  Math.min(Math.max(value, min), max);
+
 function place(popover: HTMLElement): void {
   const anchor = anchorOf(popover);
   if (!anchor) return;
 
   const a = anchor.getBoundingClientRect();
   const p = popover.getBoundingClientRect();
-  const above = popover.getAttribute("popover") === "hint";
+  const isHint = popover.getAttribute("popover") === "hint";
+  const rtl = getComputedStyle(popover).direction === "rtl";
 
-  const roomBelow = window.innerHeight - a.bottom;
-  const roomAbove = a.top;
-  const fitsBelow = roomBelow >= p.height + GAP;
-  const fitsAbove = roomAbove >= p.height + GAP;
-  const placeAbove = above ? fitsAbove || !fitsBelow : !fitsBelow && fitsAbove;
+  const room: Record<Side, number> = {
+    top: a.top,
+    bottom: window.innerHeight - a.bottom,
+    start: rtl ? window.innerWidth - a.right : a.left,
+    end: rtl ? a.left : window.innerWidth - a.right
+  };
+  const needed: Record<Side, number> = {
+    top: p.height,
+    bottom: p.height,
+    start: p.width,
+    end: p.width
+  };
 
-  const top = placeAbove ? a.top - p.height - GAP : a.bottom + GAP;
-  const left = Math.min(
-    Math.max(GAP, above ? a.left + (a.width - p.width) / 2 : a.left),
-    window.innerWidth - p.width - GAP
-  );
+  let side = sideOf(popover, isHint);
+  const other = OPPOSITE[side];
+  if (room[side] < needed[side] + GAP && room[other] >= needed[other] + GAP) {
+    side = other;
+  }
+
+  let top: number;
+  let left: number;
+
+  if (side === "top" || side === "bottom") {
+    top = side === "top" ? a.top - p.height - GAP : a.bottom + GAP;
+    // A tooltip is centered on its trigger; a menu lines up with its edge.
+    left = isHint ? a.left + (a.width - p.width) / 2 : a.left;
+  } else {
+    // "start" is the left side in a left-to-right page and the right side in a
+    // right-to-left one.
+    const toTheLeft = (side === "start") !== rtl;
+    left = toTheLeft ? a.left - p.width - GAP : a.right + GAP;
+    top = a.top + (a.height - p.height) / 2;
+  }
 
   popover.style.position = "fixed";
   popover.style.margin = "0";
-  popover.style.top = `${Math.max(GAP, top)}px`;
-  popover.style.left = `${left}px`;
+  popover.style.top = `${clamp(top, GAP, window.innerHeight - p.height - GAP)}px`;
+  popover.style.left = `${clamp(left, GAP, window.innerWidth - p.width - GAP)}px`;
 }
 
 function onToggle(event: Event): void {

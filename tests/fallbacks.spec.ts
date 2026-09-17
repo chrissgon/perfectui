@@ -73,6 +73,20 @@ test("a dropdown opens below its trigger", async ({ page }) => {
   expect(Math.abs(panel.x - trigger.x)).toBeLessThan(4);
 });
 
+test("a direction class moves the dropdown to the other side", async ({
+  page
+}) => {
+  await gotoOverlays(page);
+  await page.locator("#open-menu-top").click();
+
+  const menu = page.locator("#menu-top");
+  await expect(menu).toBeVisible();
+
+  const trigger = (await page.locator("#open-menu-top").boundingBox())!;
+  const panel = (await menu.boundingBox())!;
+  expect(panel.y + panel.height).toBeLessThanOrEqual(trigger.y + 1);
+});
+
 test("interestfor shows a tooltip above its trigger on hover", async ({
   page
 }) => {

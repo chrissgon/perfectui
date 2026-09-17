@@ -22,7 +22,26 @@ Built on the popover API. The browser handles the top layer, closing on an outsi
 
 ### Placement
 
-The panel is placed under its trigger with CSS anchor positioning, and flips above when there is no room below. Browsers without anchor positioning get the same placement from the fallback, so import the script if you need to support them.
+The panel is placed under its trigger, aligned to its starting edge, and flips above when there is no room below.
+
+Three classes move it elsewhere:
+
+```html
+<div class="pui-dropdown pui-top" id="menu" popover>Above the trigger</div>
+<div class="pui-dropdown pui-start" id="menu" popover>Before the trigger</div>
+<div class="pui-dropdown pui-end" id="menu" popover>After the trigger</div>
+```
+
+| Class        | Where it goes                         |
+| ------------ | ------------------------------------- |
+| *(none)*     | below                                 |
+| `pui-top`    | above                                 |
+| `pui-start`  | to the left, or the right in RTL      |
+| `pui-end`    | to the right, or the left in RTL      |
+
+Each one flips to the opposite side when the preferred one does not fit, so a menu never opens off screen.
+
+Placement uses CSS anchor positioning. Browsers that do not have it yet get the same placement, including the direction classes, from the fallback in the script.
 
 ### Anything can go inside
 

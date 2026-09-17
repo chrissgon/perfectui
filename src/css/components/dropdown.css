@@ -23,10 +23,33 @@
     .pui-dropdown {
       position: absolute;
       inset: auto;
+      margin: 0;
       position-area: block-end span-inline-end;
       position-try-fallbacks: flip-block, flip-inline;
       margin-block-start: var(--pui-space);
       min-width: anchor-size(inline);
+    }
+
+    /* Directions. The gap always sits on the side facing the trigger, and the
+       flip goes back to where the panel came from. */
+    .pui-dropdown.pui-top {
+      position-area: block-start span-inline-end;
+      position-try-fallbacks: flip-block;
+      margin: 0 0 var(--pui-space);
+    }
+
+    .pui-dropdown.pui-start {
+      position-area: inline-start span-block-end;
+      position-try-fallbacks: flip-inline;
+      margin: 0 var(--pui-space) 0 0;
+      min-width: 0;
+    }
+
+    .pui-dropdown.pui-end {
+      position-area: inline-end span-block-end;
+      position-try-fallbacks: flip-inline;
+      margin: 0 0 0 var(--pui-space);
+      min-width: 0;
     }
   }
 }

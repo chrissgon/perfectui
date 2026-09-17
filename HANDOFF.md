@@ -87,6 +87,23 @@ Goal kept: **bare minimum, lightweight, customizable**. Tailwind is an optional 
 - `tsconfig.json`.
 - Verified: build OK, `tsc` OK, JS import in Node (SSR) OK.
 
+### Review round after Phase 7
+
+Four defects found by the maintainer in the manual pages, three of them in the library:
+
+- The timeline rule left a gap at the end it started from and none at the end it finished at. Both ends now share one gap.
+- The accordion chevron sat in a box twice its own height, so rotating it swung it around a point below itself and it landed misaligned. Zeroing the bottom border makes the box the triangle, and it now spins in place.
+- A card had no background of its own, so over a modal backdrop the page showed through it. A surface needs a surface color.
+- The fourth was a question, not a defect: form focus uses one `outline` for the whole library rather than v0's border plus shadow. Kept, by the maintainer's decision, because the ring applies to every component, does not shift layout and follows the radius on its own.
+
+Parity gaps against `0.23.0` were reviewed at the same time. Kept as they were: the form combinations (verified), tooltip styles (`pui-solid pui-inverse` replaces `tooltip-black`), the modal's card-in-a-container shape, native closing, and nested accordions. Added on request:
+
+- **Direction classes** for the dropdown and the tooltip, honored by both the CSS and the JS fallback.
+- **`pui-accordion-icon`**, a hook to replace the drawn chevron with your own icon.
+- **A documented recipe** for moving between two modals: a button carries one command, so the swap needs the current dialog closed on the same click. Not shipped as library JS, since that would be behavior rather than emulation (hard rule 7).
+
+Dropped by the maintainer's decision: `accordion-accented` and `accordion-aligned`.
+
 ### What Phase 7 added (this repo only)
 
 - `/docs` rewritten for the v1 API: 26 files, plus new `chip.md` and `float.md`. The index, the root `README.md` and `MIGRATION.md` were written too.

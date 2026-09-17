@@ -60,6 +60,23 @@ Give the items the same `name`. The browser closes the others for you:
 </div>
 ```
 
+### Your own icon
+
+Put an element with `pui-accordion-icon` in the summary and the drawn chevron
+steps aside. Placement and the rotation on open stay with the library:
+
+```html
+<details class="pui-accordion-item">
+  <summary>
+    Question
+    <i class="pui-accordion-icon bi-chevron-down"></i>
+  </summary>
+  <p>Answer</p>
+</details>
+```
+
+Anything works — an icon font, an inline `<svg>`, or a character.
+
 ### Reacting to it
 
 `<details>` fires a `toggle` event, and `open` is a property:

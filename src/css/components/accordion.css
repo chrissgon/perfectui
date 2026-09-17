@@ -54,13 +54,30 @@
       rotate: 180deg;
     }
 
+    /* Bring your own icon: put pui-accordion-icon inside the summary and the
+       drawn chevron steps aside. Rotation and placement stay ours. */
+    & > summary:has(.pui-accordion-icon)::after {
+      content: none;
+    }
+
+    & > summary > .pui-accordion-icon {
+      flex: none;
+      margin-inline-start: auto;
+      transition: rotate 0.15s ease;
+    }
+
+    &[open] > summary > .pui-accordion-icon {
+      rotate: 180deg;
+    }
+
     & > :not(summary) {
       padding: 0 calc(var(--pui-space) * 4) calc(var(--pui-space) * 4);
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .pui-accordion-item > summary::after {
+    .pui-accordion-item > summary::after,
+    .pui-accordion-item > summary > .pui-accordion-icon {
       transition: none;
     }
   }

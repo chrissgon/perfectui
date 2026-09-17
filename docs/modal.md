@@ -76,6 +76,39 @@ modal.close();
 modal.addEventListener("close", () => console.log("closed"));
 ```
 
+### Moving between two modals
+
+A button carries one command, so opening the next modal does not close the one
+you are in: they stack, and closing the second reveals the first. When you want
+a real swap, close the current one on the same click:
+
+```html
+<dialog class="pui-modal" id="first" closedby="any">
+  <div class="pui-card">
+    <div class="pui-card-content">
+      <button
+        class="pui-btn pui-solid pui-theme"
+        commandfor="second"
+        command="show-modal"
+        onclick="this.closest('dialog').close()"
+      >
+        Continue
+      </button>
+    </div>
+  </div>
+</dialog>
+```
+
+If inline handlers are not allowed by your content security policy, the same
+thing written once for the whole page:
+
+```js
+document.addEventListener("click", (event) => {
+  const button = event.target.closest('[command="show-modal"][commandfor]');
+  if (button) button.closest("dialog")?.close();
+});
+```
+
 ### Long content
 
 The dialog scrolls on its own once it reaches the height of the viewport.
