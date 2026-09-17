@@ -23,6 +23,11 @@
       justify-content: space-between;
       gap: calc(var(--pui-space) * 2);
       padding: calc(var(--pui-space) * 2) calc(var(--pui-space) * 4);
+      /* Nothing is painted with this: it is what shapes the focus ring, which
+         follows the radius of the element it surrounds. `inherit` cannot be
+         used — a <summary> is slotted into the shadow root of <details>, so it
+         inherits from that slot rather than from the item. */
+      border-radius: var(--pui-radius);
       cursor: pointer;
       user-select: none;
       /* Hide the default marker: `list-style` covers Chrome and Firefox, the

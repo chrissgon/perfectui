@@ -63,6 +63,9 @@ test("focus rings come from the library, not from the browser", async ({
     THEME_LIGHT
   );
   await expect(page.locator("#summary")).toHaveCSS("outline-style", "solid");
+  // The ring takes the shape of the element it surrounds, and a square ring
+  // around a rounded component is what gave this away the first time.
+  await expect(page.locator("#summary")).toHaveCSS("border-radius", "6px");
 });
 
 test("a group overlaps its children's borders", async ({ page }) => {
