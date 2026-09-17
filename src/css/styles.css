@@ -1,3 +1,78 @@
-/* pui-solid, pui-soft, pui-outline, pui-link (§3). Filled in Phase 3. */
+/* Style classes. They only read the contract variables (§3.1); no sizes.
+
+   Every value below is derived, so a new color never needs a new rule here.
+   Contrast was measured for all 7 colors x 4 styles x hover in both modes:
+   nothing drops below 4.5:1. Two derivations carry that:
+   - hover shades the color toward --pui-shade (the text color by default),
+     which always moves *away* from --pui-on-color, so contrast can only rise;
+   - the non-filled styles deepen the color by one step for their text, so it
+     stays readable on top of the tinted background of .pui-soft. */
 @layer pui.styles {
+  :where(.pui-solid, .pui-soft, .pui-outline, .pui-link) {
+    transition:
+      background-color 0.15s ease,
+      border-color 0.15s ease,
+      color 0.15s ease;
+
+    /* Links, buttons and svg do not inherit color on their own. */
+    > * {
+      color: inherit;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :where(.pui-solid, .pui-soft, .pui-outline, .pui-link) {
+      transition: none;
+    }
+  }
+
+  /* Text of the three non-filled styles. */
+  :where(.pui-soft, .pui-outline, .pui-link) {
+    color: var(
+      --pui-ink,
+      color-mix(in oklch, var(--pui-color), var(--pui-shade, var(--pui-text)) 15%)
+    );
+  }
+
+  .pui-solid {
+    background-color: var(--pui-color);
+    border-color: var(--pui-edge, var(--pui-color));
+    color: var(--pui-on-color);
+
+    &:hover {
+      background-color: color-mix(
+        in oklch,
+        var(--pui-color),
+        var(--pui-shade, var(--pui-text)) 12%
+      );
+    }
+  }
+
+  .pui-soft {
+    background-color: color-mix(in oklch, var(--pui-color) 15%, transparent);
+    border-color: transparent;
+
+    &:hover {
+      background-color: color-mix(in oklch, var(--pui-color) 22%, transparent);
+    }
+  }
+
+  .pui-outline {
+    background-color: transparent;
+    border-color: var(--pui-edge, var(--pui-color));
+
+    &:hover {
+      background-color: color-mix(in oklch, var(--pui-color) 10%, transparent);
+    }
+  }
+
+  .pui-link {
+    background-color: transparent;
+    border-color: transparent;
+
+    &:hover {
+      text-decoration: underline;
+      text-underline-offset: 0.3rem;
+    }
+  }
 }

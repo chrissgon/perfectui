@@ -69,8 +69,9 @@ Goal kept: **bare minimum, lightweight, customizable**. Tailwind is an optional 
 | 0 — Prepare       | ✅ Baseline measured: `perfectui.css` **6005 B** gzip, `perfectui.js` **1587 B** gzip (+ Poppins). ⏳ Notify users: maintainer. |
 | 1 — Build         | ✅ Applied on branch `v1` (commit `337e7fb`).                                                                                   |
 | 2 — Tokens & mode | ✅ Done. `perfectui.css` 338 B gzip, `js/mode.js` 309 B, `js/index.js` 154 B.                                                   |
-| 3 — Lego pieces   | ⏭️ Next                                                                                                                         |
-| 4 – 8             | Pending                                                                                                                         |
+| 3 — Lego pieces   | ✅ Done. `perfectui.css` 833 B gzip.                                                                                                                         |
+| 4 — Components    | ⏭️ Next
+| 5 – 8             | Pending                                                                                                                         |
 
 ### What Phase 1 changed (patch)
 
@@ -82,6 +83,14 @@ Goal kept: **bare minimum, lightweight, customizable**. Tailwind is an optional 
 - `package.json`: `exports`, `files`, `sideEffects`, scripts `build`, `size`; devDep `lightningcss`.
 - `tsconfig.json`.
 - Verified: build OK, `tsc` OK, JS import in Node (SSR) OK.
+
+### What Phase 3 added
+
+- `src/css/colors.css`: the 7 color classes, variables only.
+- `src/css/styles.css`: `pui-solid`, `pui-soft`, `pui-outline`, `pui-link`, with hover and ink derived from the contract.
+- `src/css/states.css`: disabled, `:focus-visible` ring and `aria-invalid`.
+- `tests/manual/preview.html`: manual preview of everything that exists, with a mode switch. Open it with `bun run dev` (live) or straight from the file system.
+- Contrast measured for 7 colors x 4 styles x hover in both modes: no combination below 4.5:1.
 
 ### What Phase 2 added
 
@@ -101,20 +110,21 @@ Goal kept: **bare minimum, lightweight, customizable**. Tailwind is an optional 
 
 ## 4. Next steps (in Claude Code)
 
-1. **Phase 3 — Lego pieces** (ARCHITECTURE.md §3, §3.1, §5):
-   - `colors.css`: `pui-theme`, `pui-success`, `pui-error`, `pui-warn`, `pui-muted`, `pui-surface`, `pui-inverse` — variables only.
-   - `styles.css`: `pui-solid`, `pui-soft`, `pui-outline`, `pui-link`, reading the contract.
-   - `states.css`: disabled, `aria-invalid`, focus ring — scoped to `pui-` classes.
-   - Open point to settle there: `pui-solid:hover` mixes `--pui-color` with `--pui-text`, which is a no-op for `pui-inverse` (the two are the same color). Needs a different derivation.
-   - Stop and report.
-2. Continue phases 4 → 8 one at a time.
+1. **Phase 4 — Components, one group at a time** (ARCHITECTURE.md §4.1, §6):
+   - button, badge, chip first, using the approved multipliers.
+   - Replace the `.demo` stand-in in `tests/manual/preview.html` with the real
+     shape classes as each one lands, so the page keeps showing what exists.
+   - Re-check the `@layer` order in a component file loaded on its own, without
+     `core.css` (see Known issues).
+   - Stop and report after each group.
+2. Continue phases 5 → 8 one at a time.
 
 ### Prompt to start in Claude Code
 
 ```
 Read CLAUDE.md, ARCHITECTURE.md and HANDOFF.md.
-Confirm the repo state (branch v1, phases 1 and 2 done).
-Then execute Phase 3 using the senior-frontend-architect skill, and stop when it is done.
+Confirm the repo state (branch v1, phases 1 to 3 done).
+Then execute Phase 4 using the senior-frontend-architect skill, one component group at a time, and stop when it is done.
 ```
 
 ---

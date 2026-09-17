@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Perfect UI v1 — preview</title>
+
+    <!-- Read the persisted mode before the stylesheet, so there is no flash.
+         This is the snippet documented for static sites (ARCHITECTURE.md §7.4). -->
+    <script>
+      (function (m) {
+        if (m) document.documentElement.setAttribute("data-pui-mode", m[1]);
+      })(document.cookie.match(/(?:^|; )pui-mode=(light|dark)/));
+    </script>
+
+    <!-- The library itself. Everything below this line is the page's own CSS. -->
+    <link rel="stylesheet" href="../../src/css/index.css" />
+
+    <style>
+      /* Page chrome. Unlayered on purpose: it shows that plain author CSS wins
+         over every pui layer without !important. */
+      body {
+        margin: 0;
+        padding: 2rem clamp(1rem, 4vw, 3rem) 4rem;
+        background: var(--pui-bg);
+        color: var(--pui-text);
+        font: 16px/1.5 system-ui, sans-serif;
+      }
+
+      header {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        align-items: baseline;
+        justify-content: space-between;
+        border-bottom: var(--pui-border-width) solid var(--pui-border);
+        padding-bottom: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      h1 {
+        font-size: 1.25rem;
+        margin: 0;
+      }
+
+      h2 {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--pui-text-muted);
+        margin: 3rem 0 1rem;
+      }
+
+      p {
+        color: var(--pui-text-muted);
+        font-size: 0.875rem;
+        max-width: 70ch;
+      }
+
+      code {
+        font-family: ui-monospace, monospace;
+        font-size: 0.85em;
+        background: var(--pui-bg-muted);
+        border-radius: 4px;
+        padding: 0.1em 0.35em;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      th,
+      td {
+        text-align: left;
+        padding: 0.6rem 0.75rem;
+        border-bottom: var(--pui-border-width) solid var(--pui-border);
+        font-size: 0.8rem;
+        font-weight: 400;
+        color: var(--pui-text-muted);
+        vertical-align: middle;
+      }
+
+      thead th {
+        color: var(--pui-text);
+      }
+
+      tbody th {
+        font-family: ui-monospace, monospace;
+      }
+
+      .swatches {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+        gap: 0.75rem;
+      }
+
+      .swatch {
+        border: var(--pui-border-width) solid var(--pui-border);
+        border-radius: var(--pui-radius);
+        overflow: hidden;
+        font-size: 0.75rem;
+      }
+
+      .swatch div {
+        height: 3rem;
+      }
+
+      .swatch span {
+        display: block;
+        padding: 0.4rem 0.5rem;
+        font-family: ui-monospace, monospace;
+      }
+
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        align-items: center;
+      }
+
+      /* Stand-in for the shape classes, which arrive in Phase 4. It uses the
+         same multipliers approved for pui-btn (ARCHITECTURE.md §4.1) so the
+         proportions already match what the real component will ship. */
+      .demo {
+        padding: calc(var(--pui-space) * 2) calc(var(--pui-space) * 4);
+        /* Width and style only: border-color belongs to the style classes, and
+           this rule is unlayered, so it would beat them. */
+        border-width: var(--pui-border-width);
+        border-style: solid;
+        border-radius: var(--pui-radius);
+        font: inherit;
+        font-size: var(--pui-font-size);
+        cursor: pointer;
+        white-space: nowrap;
+      }
+
+      .note {
+        border-inline-start: 3px solid var(--pui-warn);
+        padding-inline-start: 0.75rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div>
+        <h1>Perfect UI v1 — preview</h1>
+        <p style="margin: 0.25rem 0 0">
+          Phases 2 and 3: tokens, color mode, and the style + color contract.
+          Shapes (<code>pui-btn</code>, <code>pui-card</code>, …) arrive in
+          Phase 4.
+        </p>
+      </div>
+      <div class="row">
+        <button class="demo pui-outline pui-surface" data-mode="system">
+          System
+        </button>
+        <button class="demo pui-outline pui-surface" data-mode="light">
+          Light
+        </button>
+        <button class="demo pui-outline pui-surface" data-mode="dark">
+          Dark
+        </button>
+      </div>
+    </header>
+
+    <h2>Color tokens</h2>
+    <p>
+      Every value is a <code>light-dark()</code> pair. The tone is chosen per
+      mode so the color keeps at least 4.5:1 against <code>--pui-bg</code>,
+      which makes it readable both as text on the page and as a fill behind
+      <code>--pui-on-color</code>.
+    </p>
+    <div class="swatches" id="swatches"></div>
+
+    <h2>Base tokens</h2>
+    <p>
+      Only four exist. Components derive every size from them with
+      <code>calc()</code>, so changing one rescales the library.
+    </p>
+    <table>
+      <tbody id="base-tokens"></tbody>
+    </table>
+
+    <h2>Styles &times; colors</h2>
+    <p>
+      Shape, style and color are independent classes. The cells below are all
+      the same element with two classes swapped. Hover them: the hover tone is
+      derived with <code>color-mix()</code>, never hardcoded.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>color \ style</th>
+          <th>pui-solid</th>
+          <th>pui-soft</th>
+          <th>pui-outline</th>
+          <th>pui-link</th>
+        </tr>
+      </thead>
+      <tbody id="matrix"></tbody>
+    </table>
+
+    <h2>States</h2>
+    <p>
+      Disabled, invalid and focus live in the last layer. Press
+      <code>Tab</code> to see the focus ring, which takes the element's own
+      color.
+    </p>
+    <div class="row">
+      <button class="demo pui-solid pui-theme">Focus me</button>
+      <button class="demo pui-solid pui-theme" disabled>disabled</button>
+      <button class="demo pui-outline pui-surface" disabled>disabled</button>
+      <button class="demo pui-soft pui-muted" aria-disabled="true">
+        aria-disabled
+      </button>
+      <button class="demo pui-outline pui-surface" aria-invalid="true">
+        aria-invalid
+      </button>
+      <button class="demo pui-solid pui-error">Focus me</button>
+    </div>
+
+    <h2>Overriding</h2>
+    <p>
+      All library CSS lives in <code>@layer pui.*</code>, so any unlayered rule
+      of yours wins with no <code>!important</code>. The button on the right is
+      the same markup with a plain <code>.brand</code> class setting
+      <code>--pui-color</code>.
+    </p>
+    <div class="row">
+      <button class="demo pui-solid pui-theme">Default</button>
+      <button class="demo pui-solid pui-theme brand">Overridden</button>
+      <style>
+        .brand {
+          --pui-color: rebeccapurple;
+          --pui-on-color: white;
+        }
+      </style>
+    </div>
+
+    <h2 class="note">Not implemented yet</h2>
+    <p class="note">
+      Components (Phase 4), the fallback loader registry (Phase 5) and the
+      Playwright suites (Phase 6). This page is a manual check, not a test.
+    </p>
+
+    <script type="module">
+      const COLORS = [
+        "bg",
+        "bg-muted",
+        "bg-emphasis",
+        "text",
+        "text-muted",
+        "border",
+        "theme",
+        "success",
+        "error",
+        "warn",
+        "muted"
+      ];
+      const BASE = ["radius", "space", "font-size", "border-width"];
+      const STYLES = ["pui-solid", "pui-soft", "pui-outline", "pui-link"];
+      const NAMES = [
+        "pui-theme",
+        "pui-success",
+        "pui-error",
+        "pui-warn",
+        "pui-muted",
+        "pui-surface",
+        "pui-inverse"
+      ];
+
+      const read = (name) =>
+        getComputedStyle(document.documentElement)
+          .getPropertyValue(`--pui-${name}`)
+          .trim();
+
+      function paint() {
+        swatches.innerHTML = COLORS.map(
+          (name) => `
+          <div class="swatch">
+            <div style="background: var(--pui-${name})"></div>
+            <span>--pui-${name}<br /><small data-resolve></small></span>
+          </div>`
+        ).join("");
+
+        // Print what the token resolves to in the current mode. Reading the
+        // custom property would only return the light-dark() pair.
+        for (const swatch of swatches.children) {
+          swatch.querySelector("[data-resolve]").textContent = getComputedStyle(
+            swatch.firstElementChild
+          ).backgroundColor;
+        }
+      }
+
+      document.getElementById("base-tokens").innerHTML = BASE.map(
+        (name) =>
+          `<tr><th>--pui-${name}</th><td>${read(name)}</td>
+           <td style="width: 60%">
+             <div style="height: .75rem; width: calc(${read(name)} * 8); background: var(--pui-theme); border-radius: 2px"></div>
+           </td></tr>`
+      ).join("");
+
+      document.getElementById("matrix").innerHTML = NAMES.map(
+        (color) => `
+        <tr>
+          <th>${color}</th>
+          ${STYLES.map(
+            (style) =>
+              `<td><button class="demo ${style} ${color}">Button</button></td>`
+          ).join("")}
+        </tr>`
+      ).join("");
+
+      // Same behavior as src/js/mode.ts, inlined so the page also works when
+      // opened straight from the file system.
+      for (const button of document.querySelectorAll("[data-mode]")) {
+        button.addEventListener("click", () => {
+          const mode = button.dataset.mode;
+          if (mode === "system") {
+            document.documentElement.removeAttribute("data-pui-mode");
+            document.cookie = "pui-mode=; path=/; max-age=0; SameSite=Lax";
+          } else {
+            document.documentElement.setAttribute("data-pui-mode", mode);
+            document.cookie = `pui-mode=${mode}; path=/; max-age=31536000; SameSite=Lax`;
+          }
+          paint();
+        });
+      }
+
+      paint();
+    </script>
+  </body>
+</html>

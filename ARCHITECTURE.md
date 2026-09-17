@@ -56,80 +56,41 @@ Every visual element is built from **3 independent pieces**:
 ### 3.1 The contract between pieces
 
 Color classes **only set these variables**. Style classes **only read them**.
+The implementation lives in `src/css/colors.css` and `src/css/styles.css`.
 
-| Variable         | Meaning                                        |
-| ---------------- | ---------------------------------------------- |
-| `--pui-color`    | Main color of the element                      |
-| `--pui-on-color` | Text/icon color placed on top of `--pui-color` |
-| `--pui-edge`     | Border color (defaults to `--pui-color`)       |
+| Variable         | Set by                    | Meaning                                                            |
+| ---------------- | ------------------------- | ------------------------------------------------------------------ |
+| `--pui-color`    | every color class         | Main color of the element                                          |
+| `--pui-on-color` | every color class         | Text/icon color placed on top of `--pui-color`                     |
+| `--pui-edge`     | optional (`pui-surface`)  | Border color. Defaults to `--pui-color`                            |
+| `--pui-ink`      | optional (`pui-surface`)  | Text color when the color is *not* the fill (soft, outline, link). Defaults to `--pui-color` deepened one step |
+| `--pui-shade`    | optional (`pui-inverse`)  | Color that hover and ink blend toward. Defaults to `--pui-text`     |
 
-```css
-@layer pui.colors {
-  .pui-theme {
-    --pui-color: var(--pui-theme);
-    --pui-on-color: var(--pui-bg);
-  }
-  .pui-success {
-    --pui-color: var(--pui-success);
-    --pui-on-color: var(--pui-bg);
-  }
-  .pui-error {
-    --pui-color: var(--pui-error);
-    --pui-on-color: var(--pui-bg);
-  }
-  .pui-warn {
-    --pui-color: var(--pui-warn);
-    --pui-on-color: var(--pui-bg);
-  }
-  .pui-muted {
-    --pui-color: var(--pui-muted);
-    --pui-on-color: var(--pui-bg);
-  } /* old "secondary" */
+The last two exist because two color classes are defined *in terms of the page*:
+`pui-surface` is the background and `pui-inverse` is the text color. Without
+them, `pui-surface` would paint text with the page background (invisible) and
+`pui-inverse` would shade toward the color it already is (a no-op on hover).
+Every other color class is one line, as intended.
 
-  /* aligned with the page background */
-  .pui-surface {
-    --pui-color: var(--pui-bg);
-    --pui-on-color: var(--pui-text);
-    --pui-edge: var(--pui-border);
-  }
-  /* opposite of the page background */
-  .pui-inverse {
-    --pui-color: var(--pui-text);
-    --pui-on-color: var(--pui-bg);
-  }
-}
+**Derivations.** Nothing is hardcoded per color:
 
-@layer pui.styles {
-  .pui-solid {
-    background: var(--pui-color);
-    color: var(--pui-on-color);
-    border-color: var(--pui-edge, var(--pui-color));
-    &:hover {
-      background: color-mix(in oklch, var(--pui-color), var(--pui-text) 12%);
-    }
-  }
-  .pui-soft {
-    background: color-mix(in oklch, var(--pui-color) 15%, transparent);
-    color: var(--pui-color);
-    border-color: transparent;
-  }
-  .pui-outline {
-    background: transparent;
-    color: var(--pui-color);
-    border-color: var(--pui-edge, var(--pui-color));
-  }
-  .pui-link {
-    background: transparent;
-    color: var(--pui-color);
-    border-color: transparent;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-}
-```
+- hover blends `--pui-color` toward `--pui-shade`, which always moves *away*
+  from `--pui-on-color`, so contrast can only rise;
+- soft/outline/link deepen the color by one step for their text, so it stays
+  readable on the tinted background of `pui-soft`.
 
-> Values above are illustrative. Tune the exact mixes during implementation; keep the variable contract.
+Measured across 7 colors x 4 styles x hover in both modes, nothing drops below
+4.5:1. Re-run that check when a token value changes.
+
+**Combinations.** Composition is free, but two facts follow from the model and
+belong in the docs rather than in code:
+
+- `pui-soft pui-surface` is degenerate: a 15% tint of the page background over
+  the page background is invisible. Use `pui-soft pui-muted` for a neutral fill.
+  It is not documented as an option.
+- `pui-solid pui-surface` and `pui-outline pui-surface` look identical on the
+  page background, and only differ on top of another surface (inside a card, a
+  modal, or a `pui-bg-muted` area).
 
 **Adding a new color = one line in `pui.colors`.** Adding a new style = one rule in `pui.styles`. Never create combined classes like `pui-solid-theme`.
 
@@ -629,7 +590,7 @@ None at the moment. If a new question appears, add it here and ask the maintaine
 - [x] **Phase 0 — Prepare:** branch `v1`; gzip baseline of `0.23.0`: `perfectui.css` 6005 B, `perfectui.js` 1587 B (plus external Poppins download). _Notify existing users: pending (maintainer)._
 - [x] **Phase 1 — Build:** _(delivered as `perfectui-phase-1.patch`; apply it first — see HANDOFF.md)_ removed Sass, reset and font; Vite ESM lib for JS (`src/js` → `dist/js`, types in `dist/types`); `scripts/build-css.mjs` (lightningcss bundle + minify, per-file output); `scripts/size.mjs`; `exports` + `sideEffects`; `tsconfig.json`. Note: `./mode` export is added in Phase 2 together with `mode.ts`.
 - [x] **Phase 2 — Tokens & mode:** `tokens.css` (semantic colors with `light-dark()`, 4 base tokens, `data-pui-mode` rules), `src/js/mode.ts` (`setMode`/`getMode` + cookie), `./mode` export and Vite entry. `layers.css` already shipped in Phase 1.
-- [ ] **Phase 3 — Lego pieces:** `styles.css`, `colors.css`, `states.css`.
+- [x] **Phase 3 — Lego pieces:** `colors.css` (7 color classes), `styles.css` (4 style classes, derived hover and ink), `states.css` (disabled, focus ring, `aria-invalid`). Contract extended with `--pui-ink` and `--pui-shade` (§3.1). Preview page at `tests/manual/preview.html`.
 - [ ] **Phase 4 — Components (one PR each):**
   - [ ] button, badge, chip
   - [ ] card, list, table, timeline
