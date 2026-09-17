@@ -24,10 +24,11 @@
       gap: calc(var(--pui-space) * 2);
       padding: calc(var(--pui-space) * 2) calc(var(--pui-space) * 4);
       /* Nothing is painted with this: it is what shapes the focus ring, which
-         follows the radius of the element it surrounds. `inherit` cannot be
-         used — a <summary> is slotted into the shadow root of <details>, so it
-         inherits from that slot rather than from the item. */
-      border-radius: var(--pui-radius);
+         follows the radius of the element it surrounds. One border width is
+         taken off so the ring's corner ends up concentric with the item's.
+         `inherit` cannot be used — a <summary> is slotted into the shadow root
+         of <details>, so it inherits from that slot, not from the item. */
+      border-radius: calc(var(--pui-radius) - var(--pui-border-width));
       cursor: pointer;
       user-select: none;
       /* Hide the default marker: `list-style` covers Chrome and Firefox, the
@@ -94,6 +95,9 @@
      browser's default ring shows through instead. */
   .pui-accordion-item > summary:focus-visible {
     outline: 2px solid var(--pui-color, var(--pui-theme));
-    outline-offset: 2px;
+    /* The summary sits inside the item's border, so the offset carries that
+       border width as well. Without it the ring hugs this component one pixel
+       tighter than every other one. */
+    outline-offset: calc(2px + var(--pui-border-width));
   }
 }

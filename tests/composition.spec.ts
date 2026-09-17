@@ -65,7 +65,11 @@ test("focus rings come from the library, not from the browser", async ({
   await expect(page.locator("#summary")).toHaveCSS("outline-style", "solid");
   // The ring takes the shape of the element it surrounds, and a square ring
   // around a rounded component is what gave this away the first time.
-  await expect(page.locator("#summary")).toHaveCSS("border-radius", "6px");
+  await expect(page.locator("#summary")).toHaveCSS("border-radius", "5px");
+  // The summary sits inside the item's border, so its offset carries that
+  // border width too, which is what keeps the gap equal to every other
+  // component's.
+  await expect(page.locator("#summary")).toHaveCSS("outline-offset", "3px");
 });
 
 test("a group overlaps its children's borders", async ({ page }) => {
