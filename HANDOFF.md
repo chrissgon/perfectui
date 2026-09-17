@@ -104,7 +104,9 @@ Parity gaps against `0.23.0` were reviewed at the same time. Kept as they were: 
 
 Dropped by the maintainer's decision: `accordion-accented` and `accordion-aligned`.
 
-One more found afterwards: inside a group, hovering a child raised it with `z-index`, which flipped the ownership of the shared one-pixel edge and made the border look like it moved as the pointer crossed. Measured first — the geometry never changed, so it was paint order, not layout. Only focus raises a child now, which is the case the rule was written for.
+Two more found afterwards. The accordion looked, in the maintainer's words, like nothing but a thin grey line: it was the only container without a header band, so it read as off-pattern next to a card. The `<summary>` now carries the same band, padding and hover as `pui-card-header`, chosen from a rendered comparison of the alternatives, and its content picked up the top padding it was missing.
+
+And: inside a group, hovering a child raised it with `z-index`, which flipped the ownership of the shared one-pixel edge and made the border look like it moved as the pointer crossed. Measured first — the geometry never changed, so it was paint order, not layout. Only focus raises a child now, which is the case the rule was written for.
 
 ### What Phase 7 added (this repo only)
 

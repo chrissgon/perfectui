@@ -17,14 +17,23 @@
     border: var(--pui-border-width) solid var(--pui-edge, var(--pui-border));
     border-radius: var(--pui-radius);
 
+    /* The summary is this component's header, so it gets the same band and the
+       same padding as pui-card-header. Its text is not muted, though: a card
+       header is a label, a summary is a control. */
     & > summary {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: calc(var(--pui-space) * 2);
       padding: calc(var(--pui-space) * 2) calc(var(--pui-space) * 4);
+      background-color: var(--pui-bg-muted);
       cursor: pointer;
       user-select: none;
+      transition: background-color 0.15s ease;
+
+      &:hover {
+        background-color: var(--pui-bg-emphasis);
+      }
       /* Hide the default marker: `list-style` covers Chrome and Firefox, the
          pseudo-element covers Safari. */
       list-style: none;
@@ -71,11 +80,12 @@
     }
 
     & > :not(summary) {
-      padding: 0 calc(var(--pui-space) * 4) calc(var(--pui-space) * 4);
+      padding: calc(var(--pui-space) * 4);
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .pui-accordion-item > summary,
     .pui-accordion-item > summary::after,
     .pui-accordion-item > summary > .pui-accordion-icon {
       transition: none;
