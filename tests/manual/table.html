@@ -23,7 +23,9 @@
         padding: 2rem clamp(1rem, 4vw, 3rem) 6rem;
         background: var(--pui-bg);
         color: var(--pui-text);
-        font: 16px/1.5 system-ui, sans-serif;
+        font:
+          16px/1.5 system-ui,
+          sans-serif;
       }
 
       .page-head {
@@ -376,7 +378,9 @@
             <tr>
               <td>1</td>
               <td>Mark</td>
-              <td><span class="pui-badge pui-soft pui-success">active</span></td>
+              <td>
+                <span class="pui-badge pui-soft pui-success">active</span>
+              </td>
               <td><button class="pui-btn pui-link pui-theme">Edit</button></td>
             </tr>
             <tr>
@@ -642,8 +646,7 @@
     <section class="case recipe-responsive">
       <h2>18 — recipe: responsive (was table-responsive)</h2>
       <p>
-        The scroll container is the parent. Narrow the window to see it
-        scroll.
+        The scroll container is the parent. Narrow the window to see it scroll.
       </p>
       <table class="pui-table pui-striped">
         <thead>
