@@ -1,6 +1,6 @@
 # Perfect UI Official Documentation
 
-An exceptionally lightweight and highly customizable CSS and JavaScript framework for crafting elegant user interfaces. 🎨💡
+An exceptionally lightweight and highly customizable CSS and JavaScript library for crafting elegant user interfaces. 🎨💡
 
 ## Summary
 
@@ -9,6 +9,7 @@ Getting Started
 - [Installation](https://github.com/chrissgon/perfectui/blob/main/docs/installation.md)
 - [Typescript](https://github.com/chrissgon/perfectui/blob/main/docs/typescript.md)
 - [Tailwind CSS](https://github.com/chrissgon/perfectui/blob/main/docs/tailwindcss.md)
+- [Migrating from 0.x](https://github.com/chrissgon/perfectui/blob/main/MIGRATION.md)
 - [License](https://github.com/chrissgon/perfectui/blob/main/docs/license.md)
 
 Customization
@@ -19,6 +20,7 @@ Customization
 General
 
 - [Layout Group](https://github.com/chrissgon/perfectui/blob/main/docs/layout-group.md)
+- [Float](https://github.com/chrissgon/perfectui/blob/main/docs/float.md)
 
 Components
 
@@ -26,6 +28,7 @@ Components
 - [Badge](https://github.com/chrissgon/perfectui/blob/main/docs/badge.md)
 - [Button](https://github.com/chrissgon/perfectui/blob/main/docs/button.md)
 - [Card](https://github.com/chrissgon/perfectui/blob/main/docs/card.md)
+- [Chip](https://github.com/chrissgon/perfectui/blob/main/docs/chip.md)
 - [Dropdown](https://github.com/chrissgon/perfectui/blob/main/docs/dropdown.md)
 - [List](https://github.com/chrissgon/perfectui/blob/main/docs/list.md)
 - [Modal](https://github.com/chrissgon/perfectui/blob/main/docs/modal.md)

@@ -2,88 +2,61 @@
 
 # Input Group
 
-Easily extend input by adding text and icons.
-
-### Basic
-
-You can extend input with icons or texts.
-
-To extend inputs, simply add the `.input-group` class to the `.input` element.
-
-After, add `.input` element inside `.input-group` parent.
-
-Others elements will be consider texts or icons.
+Joins a control with an addon into a single field: one border, one radius, one focus ring.
 
 ```html
-<label class="field-group">
-  <div class="input input-group">
-    <i class="bi-person"></i>
-    <input type="text" class="input" placeholder="Your name" />
-    <span>
-      <svg
-        class="animate-spin h-5 w-5 text-white"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-      >
-        <circle
-          class="opacity-25"
-          cx="12"
-          cy="12"
-          r="10"
-          stroke="currentColor"
-          stroke-width="4"
-        ></circle>
-        <path
-          class="opacity-75"
-          fill="currentColor"
-          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-        ></path>
-      </svg>
-    </span>
-  </div>
-</label>
+<div class="pui-input-group">
+  <span class="pui-addon">https://</span>
+  <input class="pui-input" value="perfectui.dev" />
+</div>
 ```
 
-### Mixed
-
-You can add multiple `.input` inside a `.input-group`.
+The addon can sit on either side, or on both:
 
 ```html
-<label class="field-group field-group-success" data-message="Verified">
-  <div class="input input-group">
-    <i class="bi-envelope"></i>
-    <input type="text" class="input" placeholder="your_email" />
-    <span>@</span>
-    <select class="input">
-      <option>gmail.com</option>
-      <option>outlook.com</option>
-      <option>hotmail.com</option>
-    </select>
-  </div>
-</label>
+<div class="pui-input-group">
+  <input class="pui-input" placeholder="Amount" />
+  <span class="pui-addon">BRL</span>
+</div>
+
+<div class="pui-input-group">
+  <span class="pui-addon">R$</span>
+  <input class="pui-input" />
+  <span class="pui-addon">,00</span>
+</div>
 ```
 
-### Buttons
+### With a button
 
-You can also add buttons inside a `.input-group`.
+Anything dropped into the group gives up its own frame, so a button needs no extra markup:
 
 ```html
-<label class="field-group">
-  <div class="input input-group">
-    <button class="btn style-link-primary">
-      New
-      <i class="bi-plus-lg"></i>
-    </button>
-    <input type="text" class="input" placeholder="Write a task" />
-    <button class="btn style-link-error">
-      Delete
-      <i class="bi-trash"></i>
-    </button>
-    <button class="btn style-solid-success">
-      Done
-      <i class="bi-check-lg"></i>
-    </button>
+<div class="pui-input-group">
+  <input class="pui-input" placeholder="Search" />
+  <button class="pui-btn pui-solid pui-theme">Go</button>
+</div>
+```
+
+### Errors
+
+`aria-invalid` on the group colors the whole field:
+
+```html
+<div class="pui-input-group" aria-invalid="true">
+  <span class="pui-addon">@</span>
+  <input class="pui-input" value="not an email" />
+</div>
+```
+
+### Inside a field group
+
+```html
+<label class="pui-field-group">
+  <span>Website</span>
+  <div class="pui-input-group">
+    <span class="pui-addon">https://</span>
+    <input class="pui-input" />
   </div>
+  <small>Without the protocol.</small>
 </label>
 ```

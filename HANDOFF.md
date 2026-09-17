@@ -73,8 +73,8 @@ Goal kept: **bare minimum, lightweight, customizable**. Tailwind is an optional 
 | 4 — Components    | ✅ Done. `perfectui.css` 2922 B gzip, still under half the 0.23.0 baseline. `perfectui.css` 1464 B gzip.                        |
 | 5 — JS fallbacks  | ✅ Done. `js/index.js` 487 B gzip; fallbacks 331–487 B each, downloaded only when missing.                                      |
 | 6 — Tests         | ✅ Done. 16 tests x 2 engines, all green, plus the SSR check.                                                                   |
-| 7 — Docs          | ⏭️ Next                                                                                                                         |
-| 8 — Release       | Pending                                                                                                                         |
+| 7 — Docs          | ✅ This repo done. Site repo `perfectui-doc` deferred by the maintainer.                                                        |
+| 8 — Release       | ⏭️ Next                                                                                                                         |
 
 ### What Phase 1 changed (patch)
 
@@ -86,6 +86,14 @@ Goal kept: **bare minimum, lightweight, customizable**. Tailwind is an optional 
 - `package.json`: `exports`, `files`, `sideEffects`, scripts `build`, `size`; devDep `lightningcss`.
 - `tsconfig.json`.
 - Verified: build OK, `tsc` OK, JS import in Node (SSR) OK.
+
+### What Phase 7 added (this repo only)
+
+- `/docs` rewritten for the v1 API: 26 files, plus new `chip.md` and `float.md`. The index, the root `README.md` and `MIGRATION.md` were written too.
+- Verified two ways rather than by reading: every `pui-` class named in the docs was cross-checked against the built CSS (42 used, 43 defined, none missing), and every HTML example was extracted and rendered in a browser.
+- The recipes that replace the v0 modifiers live in the docs now: the table variants, the list ones, and the float corners.
+- The two known trade-offs are documented in `MIGRATION.md`: the light-mode `pui-solid` contrast and the degenerate `pui-soft pui-surface` combination.
+- **Not done, deliberately:** the site repo `chrissgon/perfectui-doc`. `Atom.ThemeColorPicker.vue` calls `setThemeColor` and `Atom.DarkMode.vue` toggles `.dark`; neither API exists. The maintainer asked to handle that repo separately.
 
 ### What Phase 6 added
 

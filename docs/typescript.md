@@ -1,36 +1,45 @@
 #### Getting Started
 
-# Typescript friendly
+# TypeScript
 
-Perfect UI is fully typed, developed in Typescript. All the methods and interfaces are available for use.
+Perfect UI ships its own type declarations. There is nothing to install.
 
-### Types
+### Color mode
 
 ```ts
-export interface IThemeColor {
-  50: number[];
-  100: number[];
-  200: number[];
-  300: number[];
-  400: number[];
-  500: number[];
-  600: number[];
-  700: number[];
-  800: number[];
-  900: number[];
-  950: number[];
+import { setMode, getMode, type Mode } from "@chrissgon/perfectui/mode";
+
+const mode: Mode = getMode(); // "system" | "light" | "dark"
+
+setMode("dark");
+setMode(); // back to the system preference
+```
+
+### The fallback loader
+
+Importing the loader for its side effect is all most projects need:
+
+```ts
+import "@chrissgon/perfectui";
+```
+
+The registry is exported if you want to inspect what your browser is missing, or to drive the loading yourself:
+
+```ts
+import { features, loadFallbacks, type Feature } from "@chrissgon/perfectui";
+
+for (const feature of features) {
+  console.log(feature.name, feature.supported());
 }
-export interface IFunctions {
-  Accordion: () => void;
-  Checkbox: () => void;
-  Dropdown: () => void;
-  setMode: (theme?: "system" | "dark" | "light") => void;
-  setThemeColor: (colors: IThemeColor) => void;
-}
-export declare function Checkbox(): void;
-export declare function Accordion(): void;
-export declare function Dropdown(): void;
-export declare function setThemeColor(colors: IThemeColor): void;
-export declare function setMode(theme?: "system" | "dark" | "light"): void;
-export declare function loadFunctions(): IFunctions;
+
+// Force every fallback, which is useful when testing the non-native path.
+loadFallbacks(
+  features.map((feature) => ({ ...feature, supported: () => false }))
+);
+```
+
+A single fallback can also be imported directly, if you know you need it:
+
+```ts
+import "@chrissgon/perfectui/fallbacks/interest-for";
 ```

@@ -2,37 +2,43 @@
 
 # Select
 
-Select allows users to make a single selection or multiple selections from a list of options.
-
-### Basic
-
-To create selects, simply add the `.input` class to the `select` element.
+The same `pui-input` class, on a `<select>`.
 
 ```html
-<select class="input">
-  <option value="#" disabled selected>Select an option</option>
-  <option value="#">One</option>
-  <option value="#">Two</option>
-  <option value="#">Three</option>
+<select class="pui-input">
+  <option>Owner</option>
+  <option>Editor</option>
+  <option>Viewer</option>
 </select>
 ```
 
-### Label/Message
+The arrow is drawn in CSS from the current text color, so it follows your theme and the color mode without shipping an image.
 
-You can use [Field Group](https://github.com/chrissgon/perfectui/blob/main/docs/field-group.md) with `select` to create complex elements.
+### With a label
 
 ```html
-<label
-  class="field-group field-group-error"
-  data-label="Currency"
-  data-message="Choose a currency"
->
-  <select class="input">
-    <option value="#" disabled selected>Select your currency</option>
-    <option value="#">Euro</option>
-    <option value="#">Dollar</option>
-    <option value="#">Pounds</option>
+<label class="pui-field-group">
+  <span>Role</span>
+  <select class="pui-input">
+    <option value="">Choose one</option>
+    <option value="owner">Owner</option>
   </select>
-  <span class="addon bi-bank"></span>
 </label>
 ```
+
+### Multiple and grouped
+
+```html
+<select class="pui-input" multiple size="4">
+  <optgroup label="Admins">
+    <option>Mark</option>
+  </optgroup>
+  <optgroup label="Members">
+    <option>Jacob</option>
+  </optgroup>
+</select>
+```
+
+### Dark mode
+
+The dropdown list and its options are drawn by the operating system. Perfect UI declares `color-scheme`, so they follow the page mode on their own.

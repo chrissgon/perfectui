@@ -1,112 +1,77 @@
 #### Components
 
-# Buttons
+# Button
 
-Use different button styles for actions in forms, dialogs and more.
-
-### Types
-
-The most commonly used button styles, we provide `solid`, `outline`, `link`, `white` and `black`.
+The `pui-btn` class turns a `<button>` or an `<a>` into a button. It brings the shape only: pair it with a style and a color.
 
 ```html
-<button class="btn style-solid-primary">Solid</button>
-<button class="btn style-outline-primary">Outline</button>
-<button class="btn style-link-primary">Link</button>
-<button class="btn style-white">White</button>
-<button class="btn style-black">Black</button>
+<button class="pui-btn pui-solid pui-theme">Save</button>
+<a class="pui-btn pui-solid pui-theme" href="#">A link that looks like one</a>
 ```
 
-### Rounded buttons
-
-Use the `.rounded-full` class to create rounded buttons.
+### Styles
 
 ```html
-<button class="btn style-solid-primary rounded-full">Solid</button>
-<button class="btn style-outline-primary rounded-full">Outline</button>
-<button class="btn style-link-primary rounded-full">Link</button>
-<button class="btn style-white rounded-full">White</button>
-<button class="btn style-black rounded-full">Black</button>
+<button class="pui-btn pui-solid pui-theme">Solid</button>
+<button class="pui-btn pui-soft pui-theme">Soft</button>
+<button class="pui-btn pui-outline pui-theme">Outline</button>
+<button class="pui-btn pui-link pui-theme">Link</button>
 ```
 
-### Solid buttons
-
-To create solid buttons, simply use the `.style-solid-[variant]` class.
+### Colors
 
 ```html
-<button class="btn style-solid-primary">Primary</button>
-<button class="btn style-solid-secondary">Secondary</button>
-<button class="btn style-solid-success">Success</button>
-<button class="btn style-solid-warn">Warn</button>
-<button class="btn style-solid-error">Error</button>
+<button class="pui-btn pui-solid pui-theme">Theme</button>
+<button class="pui-btn pui-solid pui-success">Success</button>
+<button class="pui-btn pui-solid pui-error">Error</button>
+<button class="pui-btn pui-solid pui-warn">Warn</button>
+<button class="pui-btn pui-solid pui-muted">Muted</button>
 ```
 
-### Outline buttons
-
-To create outline buttons, simply use the `.style-outline-[variant]` class.
+Two colors are defined against the page rather than against a palette:
 
 ```html
-<button class="btn style-outline-primary">Primary</button>
-<button class="btn style-outline-secondary">Secondary</button>
-<button class="btn style-outline-success">Success</button>
-<button class="btn style-outline-warn">Warn</button>
-<button class="btn style-outline-error">Error</button>
+<!-- aligned with the page background: the usual secondary button -->
+<button class="pui-btn pui-outline pui-surface">Cancel</button>
+<!-- the opposite of the page background -->
+<button class="pui-btn pui-solid pui-inverse">Continue</button>
 ```
 
-### Link buttons
-
-To create link buttons, simply use the `.style-link-[variant]` class.
+### Rounded
 
 ```html
-<button class="btn style-link-primary">Primary</button>
-<button class="btn style-link-secondary">Secondary</button>
-<button class="btn style-link-success">Success</button>
-<button class="btn style-link-warn">Warn</button>
-<button class="btn style-link-error">Error</button>
+<button class="pui-btn pui-solid pui-theme pui-rounded-full">Pill</button>
 ```
 
-### White/Black buttons
-
-To create white or black button, simply use the `.style-white` or `.style-black` class.
-
-```html
-<button class="btn style-white">White</button>
-<button class="btn style-black">Black</button>
-```
-
-### Icons
-
-You can add icons from any library. In the example below we used [Bootstrap Icons](https://icons.getbootstrap.com/).
+`pui-rounded` is the other half of the pair: it puts the default radius back on
+an element that lost it, which is what a group does to the pieces inside it.
 
 ```html
-<button class="btn style-solid-primary">
-  Add to cart <i class="bi-basket2-fill"></i>
-</button>
-<button class="btn style-white">
-  Signup free <i class="bi-chevron-right"></i>
-</button>
-<button class="btn style-solid-error"><i class="bi-heart-fill"></i></button>
-```
-
-### Button group
-
-You can group buttons using [Layout Group](https://perfectui.netlify.app/docs/layout-group).
-
-```html
-<div class="group group-row">
-  <button class="group-item btn style-white">Left</button>
-  <button class="group-item btn style-white">Middle</button>
-  <button class="group-item btn style-white">Right</button>
+<div class="pui-group-row">
+  <button class="pui-btn pui-outline pui-surface">Left</button>
+  <button class="pui-btn pui-outline pui-surface pui-rounded">Detached</button>
 </div>
 ```
 
 ### Disabled
 
-Make buttons look inactive by adding the `disabled` boolean attribute to any `<button>` element.
+```html
+<button class="pui-btn pui-solid pui-theme" disabled>Disabled</button>
+```
+
+For an element that is not a `<button>`, use `aria-disabled="true"`, which looks the same and is announced correctly.
+
+### With an icon
+
+`pui-btn` is a flex container with a gap, so an icon and a label line up on their own:
 
 ```html
-<button class="btn style-solid-primary" disabled>Solid</button>
-<button class="btn style-outline-primary" disabled>Outline</button>
-<button class="btn style-link-primary" disabled>Link</button>
-<button class="btn style-white" disabled>White</button>
-<button class="btn style-black" disabled>Black</button>
+<button class="pui-btn pui-solid pui-theme">
+  <svg width="16" height="16"><!-- ... --></svg>
+  Save
+</button>
 ```
+
+### Grouping
+
+See [Layout Group](https://github.com/chrissgon/perfectui/blob/main/docs/layout-group.md).
