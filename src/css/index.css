@@ -7,4 +7,5 @@
 @import "./components/list.css";
 @import "./components/table.css";
 @import "./components/timeline.css";
+@import "./components/form.css";
 /* More components are added in Phase 4, one per file in ./components. */

@@ -136,7 +136,7 @@ File: `src/css/tokens.css`. Semantic names only. No palettes (the old `--theme50
 - Theming = user overrides these variables in their own CSS. **No JS theming API** (`setThemeColor` is removed).
 - Hover/soft/focus shades are derived with `color-mix()`. Do not add tone variables.
 - Values come from the v0 palette: tone `600` in light mode and `500` in dark (`muted` keeps `500`/`400`). `--pui-on-color` is always `--pui-bg`, so a solid fill carries a white label in light mode and a dark one in dark mode, exactly like `0.23.0`.
-- **Known contrast trade-off.** In light mode, `pui-solid` with `theme` (3.50:1), `success` (3.30:1) and `warn` (3.19:1) sits above the 3:1 floor for interface elements but below WCAG AA's 4.5:1 for text. This is a deliberate decision by the maintainer: the v0 appearance is worth more than the last step of contrast, and a project that needs AA overrides three tokens. Do not "fix" it by darkening the tokens. Everything else — every text use, every hover, and the whole dark mode — stays at or above 4.5:1.
+- **Known contrast trade-off.** In light mode, `pui-solid` with `theme` (3.50:1), `success` (3.30:1) and `warn` (3.19:1) sits above the 3:1 floor for interface elements but below WCAG AA's 4.5:1 for text. The same decision covers the white check, radio dot and switch knob, which are white on the control's own color for the same reason a solid button's label is: in dark mode that glyph lands at 2.34:1 on `theme`. Switching those controls to `accent-color` would hand the job to the platform and fix it, at the cost of the custom shape. This is a deliberate decision by the maintainer: the v0 appearance is worth more than the last step of contrast, and a project that needs AA overrides three tokens. Do not "fix" it by darkening the tokens. Everything else — every text use, every hover, and the whole dark mode — stays at or above 4.5:1.
 - The readable text tone is **derived, not stored**: `pui.styles` moves the color 25% toward `--pui-text` before using it as text (§3.1), which is the minimum that keeps every color readable on the page and on the tint of `pui-soft`. That one derivation replaces v0's `contentTheme`, `contentError`, … variables.
 - Naming rule: **semantic purpose**, never color names or numbers. Do not use `accent` (it means "brand color" in most systems).
 
@@ -602,7 +602,7 @@ None at the moment. If a new question appears, add it here and ask the maintaine
 - [ ] **Phase 4 — Components (one PR each):**
   - [x] button, badge, chip — `pui-rounded`/`pui-rounded-full` shipped with them, in `pui.utilities`
   - [x] card, list, table, timeline (+ `pui-striped`, `pui-hoverable`; horizontal timeline waits for `pui-group-row`)
-  - [ ] form (field group, input, input group, select, textarea, checkbox, radio, switch)
+  - [x] form (field group, input, input group, addon, select, textarea, checkbox, radio, switch)
   - [ ] group, float
   - [ ] accordion (`details name`)
   - [ ] modal (`dialog`, `commandfor`, `closedby`)

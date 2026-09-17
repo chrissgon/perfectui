@@ -116,6 +116,12 @@
         font-family: ui-monospace, monospace;
       }
 
+      .stack {
+        display: grid;
+        gap: 0.75rem;
+        align-content: start;
+      }
+
       .grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
@@ -296,6 +302,88 @@
           <span>Planning</span>
         </figcaption>
       </figure>
+    </div>
+
+    <h2>Forms</h2>
+    <p>
+      The label is a real <code>&lt;span&gt;</code> and the message a real
+      <code>&lt;small&gt;</code> tied to the control with
+      <code>aria-describedby</code>, so screen readers announce them and the
+      text can be selected and translated. The error state is
+      <code>aria-invalid</code> on the control — no class — which repoints
+      <code>--pui-edge</code> and turns the message red through
+      <code>:has()</code>.
+    </p>
+    <div class="grid">
+      <div class="stack">
+        <label class="pui-field-group">
+          <span>Email</span>
+          <input
+            class="pui-input"
+            type="email"
+            placeholder="you@example.com"
+            aria-describedby="pv-help"
+          />
+          <small id="pv-help">We never share it.</small>
+        </label>
+
+        <label class="pui-field-group">
+          <span>Password</span>
+          <input
+            class="pui-input"
+            type="password"
+            value="short"
+            aria-invalid="true"
+            aria-describedby="pv-err"
+          />
+          <small id="pv-err">Too short.</small>
+        </label>
+
+        <label class="pui-field-group">
+          <span>Role</span>
+          <select class="pui-input">
+            <option>Owner</option>
+            <option>Editor</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="stack">
+        <div class="pui-input-group">
+          <span class="pui-addon">https://</span>
+          <input class="pui-input" value="perfectui.dev" />
+        </div>
+        <div class="pui-input-group">
+          <input class="pui-input" placeholder="Search" />
+          <button class="pui-btn pui-solid pui-theme">Go</button>
+        </div>
+        <label class="pui-field-group">
+          <span>Notes</span>
+          <textarea class="pui-input" rows="2">Resizes vertically.</textarea>
+        </label>
+      </div>
+
+      <div class="stack">
+        <label class="row"
+          ><input type="checkbox" class="pui-checkbox" checked /> Checkbox</label
+        >
+        <label class="row"
+          ><input type="checkbox" class="pui-checkbox pui-success" checked />
+          Checkbox, success</label
+        >
+        <label class="row"
+          ><input type="radio" name="pv" class="pui-radio" checked /> Radio</label
+        >
+        <label class="row"
+          ><input type="radio" name="pv" class="pui-radio" /> Radio, off</label
+        >
+        <label class="row"
+          ><input type="checkbox" class="pui-switch" checked /> Switch</label
+        >
+        <label class="row"
+          ><input type="checkbox" class="pui-switch" /> Switch, off</label
+        >
+      </div>
     </div>
 
     <h2>States</h2>
