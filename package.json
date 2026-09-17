@@ -11,6 +11,10 @@
       "types": "./dist/types/index.d.ts",
       "import": "./dist/js/index.js"
     },
+    "./mode": {
+      "types": "./dist/types/mode.d.ts",
+      "import": "./dist/js/mode.js"
+    },
     "./fallbacks/*": "./dist/js/fallbacks/*.js",
     "./perfectui.css": "./dist/perfectui.css",
     "./core.css": "./dist/css/core.css",

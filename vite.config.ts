@@ -26,7 +26,11 @@ export default defineConfig({
     target: "es2022",
     emptyOutDir: true,
     lib: {
-      entry: { index: src("src/js/index.ts"), ...fallbacks },
+      entry: {
+        index: src("src/js/index.ts"),
+        mode: src("src/js/mode.ts"),
+        ...fallbacks
+      },
       formats: ["es"]
     },
     rollupOptions: {

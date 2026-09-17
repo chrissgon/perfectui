@@ -55,6 +55,10 @@ Goal kept: **bare minimum, lightweight, customizable**. Tailwind is an optional 
 | 27  | Tests                         | Playwright (dev only).                                                                                                                                                                           |
 | 28  | Release                       | `1.0.0-beta` first, then `1.0.0`.                                                                                                                                                                |
 | 29  | Docs for AI                   | `ARCHITECTURE.md` in English at repo root + `CLAUDE.md`.                                                                                                                                         |
+| 30  | Color tones                   | Tone chosen per mode by contrast (≥ 4.5:1 against `--pui-bg`): v0 tone `700` in light, `500` in dark. Keeping `500` in both modes was rejected (white on `#07b6f0` is 2.34:1).                   |
+| 31  | Version bump                  | `package.json` stays `0.23.0` during the migration. Version is bumped only at release (Phase 8), with the tag.                                                                                   |
+| 32  | Tooling                       | ESLint rebuilt as a plain flat config on `typescript-eslint`; the `@eslint/compat` + `eslintrc` shims and `eslint-plugin-import` were dropped.                                                   |
+| 33  | Tabs component                | Out of scope for `1.0.0` (item dropped from `todo.txt`).                                                                                                                                        |
 
 ---
 
@@ -63,9 +67,10 @@ Goal kept: **bare minimum, lightweight, customizable**. Tailwind is an optional 
 | Phase             | Status                                                                                                                          |
 | ----------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | 0 — Prepare       | ✅ Baseline measured: `perfectui.css` **6005 B** gzip, `perfectui.js` **1587 B** gzip (+ Poppins). ⏳ Notify users: maintainer. |
-| 1 — Build         | ✅ Done in a sandbox clone, delivered as **`perfectui-phase-1.patch`** (not pushed).                                            |
-| 2 — Tokens & mode | ⏭️ Next                                                                                                                         |
-| 3 – 8             | Pending                                                                                                                         |
+| 1 — Build         | ✅ Applied on branch `v1` (commit `337e7fb`).                                                                                   |
+| 2 — Tokens & mode | ✅ Done. `perfectui.css` 338 B gzip, `js/mode.js` 309 B, `js/index.js` 154 B.                                                   |
+| 3 — Lego pieces   | ⏭️ Next                                                                                                                         |
+| 4 – 8             | Pending                                                                                                                         |
 
 ### What Phase 1 changed (patch)
 
@@ -78,58 +83,52 @@ Goal kept: **bare minimum, lightweight, customizable**. Tailwind is an optional 
 - `tsconfig.json`.
 - Verified: build OK, `tsc` OK, JS import in Node (SSR) OK.
 
+### What Phase 2 added
+
+- `src/css/tokens.css`: semantic colors with `light-dark()`, the 4 base tokens, and the `data-pui-mode` rules.
+- `src/js/mode.ts`: `setMode` / `getMode`, cookie `pui-mode`, SSR-safe.
+- `./mode` export in `package.json` and a `mode` entry in `vite.config.ts`.
+- Verified: build OK, `tsc` OK, `eslint` OK, both JS entries imported in Node (SSR) without throwing.
+
 ### Known issues
 
-- `bun.lock` is outdated after the patch → run `bun install`.
-- ESLint was **already broken** in `0.23.0` (`eslint/config` export not found; `eslint` is not a direct devDependency). Not fixed yet.
-- `package.json` still at version `0.23.0` (decide when to bump to `1.0.0-alpha.0`).
-- The library has **no styles** between Phase 1 and Phase 4. Expected on branch `v1`.
-- devDependency `install` looks accidental (unrelated package). Confirm before removing.
+- The library has **no styles** between Phase 1 and Phase 4 (only tokens). Expected on branch `v1`.
+- Importing `core.css` sets `color-scheme: light dark` on `:root`. Apps that are not dark-ready will follow the OS in dark mode unless they render `<html data-pui-mode="light">`. Must be called out in the docs (Phase 7).
+- `lightningcss` moves the `@layer` order statement to the end of the minified file and drops names already declared by a block. The resulting order is still correct for `core.css`; re-check it in Phase 4 when component files are loaded on their own.
+- Nothing is pushed yet: branch `v1` is local only.
 
 ---
 
 ## 4. Next steps (in Claude Code)
 
-1. **Set up the repo**
-   ```bash
-   git checkout main && git pull
-   git checkout -b v1
-   git am perfectui-phase-1.patch
-   bun install
-   ```
-2. Copy `ARCHITECTURE.md`, `CLAUDE.md` and `HANDOFF.md` to the repo root. Commit them.
-3. Make the `senior-frontend-architect` skill available in Claude Code.
-4. Ask the maintainer:
-   1. Fix ESLint now or later?
-   2. Bump version to `1.0.0-alpha.0` now?
-   3. Remove the `install` devDependency?
-5. **Phase 2** (ARCHITECTURE.md §4, §4.1, §7):
-   - Fill `tokens.css` (initial colors from v0 `_variables.scss`, `light-dark()`).
-   - Mode rules for `data-pui-mode`.
-   - `src/js/mode.ts` (`setMode`, `getMode`, cookie) + `./mode` export.
+1. **Phase 3 — Lego pieces** (ARCHITECTURE.md §3, §3.1, §5):
+   - `colors.css`: `pui-theme`, `pui-success`, `pui-error`, `pui-warn`, `pui-muted`, `pui-surface`, `pui-inverse` — variables only.
+   - `styles.css`: `pui-solid`, `pui-soft`, `pui-outline`, `pui-link`, reading the contract.
+   - `states.css`: disabled, `aria-invalid`, focus ring — scoped to `pui-` classes.
+   - Open point to settle there: `pui-solid:hover` mixes `--pui-color` with `--pui-text`, which is a no-op for `pui-inverse` (the two are the same color). Needs a different derivation.
    - Stop and report.
-6. Continue phases 3 → 8 one at a time.
+2. Continue phases 4 → 8 one at a time.
 
 ### Prompt to start in Claude Code
 
 ```
 Read CLAUDE.md, ARCHITECTURE.md and HANDOFF.md.
-Confirm the repo state (branch v1, Phase 1 applied, bun install done).
-Ask me the pending questions from HANDOFF.md §4.4.
-Then execute Phase 2 using the senior-frontend-architect skill, and stop when it is done.
+Confirm the repo state (branch v1, phases 1 and 2 done).
+Then execute Phase 3 using the senior-frontend-architect skill, and stop when it is done.
 ```
 
 ---
 
 ## 5. Files from the planning session
 
-| File                        | Purpose                                                                  |
-| --------------------------- | ------------------------------------------------------------------------ |
-| `ARCHITECTURE.md`           | Rules, design, structure, checklist (source of truth)                    |
-| `CLAUDE.md`                 | Instructions loaded by Claude Code every session                         |
-| `HANDOFF.md`                | This file: history, status, next steps                                   |
-| `perfectui-phase-1.patch`   | Phase 1 commit (`git am`)                                                |
-| `pui-token-scale-test.html` | Visual test of the approved token multipliers (reference for Phases 2–4) |
+| File                            | Purpose                                                                  |
+| ------------------------------- | ------------------------------------------------------------------------ |
+| `ARCHITECTURE.md`               | Rules, design, structure, checklist (source of truth)                    |
+| `CLAUDE.md`                     | Instructions loaded by Claude Code every session                         |
+| `HANDOFF.md`                    | This file: history, status, next steps                                   |
+| `tests/manual/token-scale.html` | Visual test of the approved token multipliers (reference for Phases 3–4) |
+
+The Phase 1 patch was applied as commit `337e7fb`; the planning folder was removed.
 
 ## 6. Links
 

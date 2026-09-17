@@ -174,7 +174,7 @@ File: `src/css/tokens.css`. Semantic names only. No palettes (the old `--theme50
 
 - Theming = user overrides these variables in their own CSS. **No JS theming API** (`setThemeColor` is removed).
 - Hover/soft/focus shades are derived with `color-mix()`. Do not add tone variables.
-- Take initial values from the current `_variables.scss` (theme500, green500, etc.) so the look stays familiar.
+- Values come from the v0 `_variables.scss` palette, but the **tone is picked per mode by contrast**, not by keeping a single tone: every state color must reach at least **4.5:1 against `--pui-bg`** in its own mode. Because `--pui-on-color` is `--pui-bg` (§3.1), that single check covers both directions — the color as text on the page, and the page color as text on a solid fill. In practice this means the v0 tone `700` in light mode (what v0 already used for text: `contentTheme`, `contentError`…) and `500` in dark mode. Keeping `500` in both modes was rejected: white on `#07b6f0` is 2.34:1.
 - Naming rule: **semantic purpose**, never color names or numbers. Do not use `accent` (it means "brand color" in most systems).
 
 ### 4.1 Non-color tokens (base + `calc()`)
@@ -628,7 +628,7 @@ None at the moment. If a new question appears, add it here and ask the maintaine
 
 - [x] **Phase 0 — Prepare:** branch `v1`; gzip baseline of `0.23.0`: `perfectui.css` 6005 B, `perfectui.js` 1587 B (plus external Poppins download). _Notify existing users: pending (maintainer)._
 - [x] **Phase 1 — Build:** _(delivered as `perfectui-phase-1.patch`; apply it first — see HANDOFF.md)_ removed Sass, reset and font; Vite ESM lib for JS (`src/js` → `dist/js`, types in `dist/types`); `scripts/build-css.mjs` (lightningcss bundle + minify, per-file output); `scripts/size.mjs`; `exports` + `sideEffects`; `tsconfig.json`. Note: `./mode` export is added in Phase 2 together with `mode.ts`.
-- [ ] **Phase 2 — Tokens & mode:** `layers.css`, `tokens.css` (`light-dark`, 4 base tokens), mode rules, `mode.ts` with cookie. Use the approved multipliers from §4.1.
+- [x] **Phase 2 — Tokens & mode:** `tokens.css` (semantic colors with `light-dark()`, 4 base tokens, `data-pui-mode` rules), `src/js/mode.ts` (`setMode`/`getMode` + cookie), `./mode` export and Vite entry. `layers.css` already shipped in Phase 1.
 - [ ] **Phase 3 — Lego pieces:** `styles.css`, `colors.css`, `states.css`.
 - [ ] **Phase 4 — Components (one PR each):**
   - [ ] button, badge, chip
