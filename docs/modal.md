@@ -78,9 +78,9 @@ modal.addEventListener("close", () => console.log("closed"));
 
 ### Moving between two modals
 
-A button carries one command, so opening the next modal does not close the one
-you are in: they stack, and closing the second reveals the first. When you want
-a real swap, close the current one on the same click:
+A button carries one command, so opening the next modal leaves the one you are
+in open behind it, and closing the new one reveals the old. Close it on the
+same click and you get a swap, which is what a multi-step flow wants:
 
 ```html
 <dialog class="pui-modal" id="first" closedby="any">
@@ -99,8 +99,12 @@ a real swap, close the current one on the same click:
 </dialog>
 ```
 
+Stacking is the browser's own behavior, not something the library adds, so this
+is the line that turns it into a swap.
+
 If inline handlers are not allowed by your content security policy, the same
-thing written once for the whole page:
+thing written once for the whole page, which makes swapping the default
+everywhere:
 
 ```js
 document.addEventListener("click", (event) => {

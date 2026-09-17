@@ -87,6 +87,24 @@ test("a direction class moves the dropdown to the other side", async ({
   expect(panel.y + panel.height).toBeLessThanOrEqual(trigger.y + 1);
 });
 
+test("an alignment class moves the dropdown along the other axis", async ({
+  page
+}) => {
+  await gotoOverlays(page);
+  await page.locator("#open-menu-end").click();
+  await expect(page.locator("#menu-end")).toBeVisible();
+
+  const trigger = (await page.locator("#open-menu-end").boundingBox())!;
+  const panel = (await page.locator("#menu-end").boundingBox())!;
+
+  // A panel is never narrower than its trigger, so alignment only shows when
+  // it is wider: the far edges line up while the near ones do not.
+  expect(panel.width).toBeGreaterThan(trigger.width);
+  expect(
+    Math.abs(panel.x + panel.width - (trigger.x + trigger.width))
+  ).toBeLessThan(2);
+});
+
 test("interestfor shows a tooltip above its trigger on hover", async ({
   page
 }) => {

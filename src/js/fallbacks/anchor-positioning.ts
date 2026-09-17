@@ -14,10 +14,13 @@
  */
 
 type Side = "top" | "bottom" | "start" | "end";
+type Align = "start" | "center" | "end";
 
 const GAP = 4;
 
 const SIDES: Side[] = ["top", "bottom", "start", "end"];
+
+const ALIGNMENTS: Align[] = ["start", "center", "end"];
 
 const OPPOSITE: Record<Side, Side> = {
   top: "bottom",
@@ -44,6 +47,14 @@ function sideOf(popover: HTMLElement, isHint: boolean): Side {
     if (popover.classList.contains(`pui-${side}`)) return side;
   }
   return isHint ? "top" : "bottom";
+}
+
+/** A tooltip is centered on its trigger by default, a menu starts with it. */
+function alignOf(popover: HTMLElement, isHint: boolean): Align {
+  for (const align of ALIGNMENTS) {
+    if (popover.classList.contains(`pui-align-${align}`)) return align;
+  }
+  return isHint ? "center" : "start";
 }
 
 const clamp = (value: number, min: number, max: number) =>
@@ -82,8 +93,15 @@ function place(popover: HTMLElement): void {
 
   if (side === "top" || side === "bottom") {
     top = side === "top" ? a.top - p.height - GAP : a.bottom + GAP;
-    // A tooltip is centered on its trigger; a menu lines up with its edge.
-    left = isHint ? a.left + (a.width - p.width) / 2 : a.left;
+
+    const align = alignOf(popover, isHint);
+    const atEnd = (align === "end") !== rtl;
+    left =
+      align === "center"
+        ? a.left + (a.width - p.width) / 2
+        : atEnd
+          ? a.right - p.width
+          : a.left;
   } else {
     // "start" is the left side in a left-to-right page and the right side in a
     // right-to-left one.

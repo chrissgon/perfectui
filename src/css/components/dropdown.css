@@ -9,6 +9,9 @@
 
 @layer pui.components {
   .pui-dropdown {
+    /* min-width below matches the anchor's width, which only lands exactly
+       with border-box: otherwise the padding and border are added on top. */
+    box-sizing: border-box;
     width: max-content;
     margin: 0;
     padding: var(--pui-space);
@@ -50,6 +53,26 @@
       position-try-fallbacks: flip-inline;
       margin: 0 0 0 var(--pui-space);
       min-width: 0;
+    }
+
+    /* Alignment along the other axis, for the panel that opens above or below.
+       The default lines the panel up with the trigger's starting edge, which
+       is what a menu under a button wants; a menu at the end of a header wants
+       the opposite. */
+    .pui-dropdown.pui-align-center {
+      position-area: block-end;
+    }
+
+    .pui-dropdown.pui-align-end {
+      position-area: block-end span-inline-start;
+    }
+
+    .pui-dropdown.pui-top.pui-align-center {
+      position-area: block-start;
+    }
+
+    .pui-dropdown.pui-top.pui-align-end {
+      position-area: block-start span-inline-start;
     }
   }
 }

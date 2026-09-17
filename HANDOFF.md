@@ -98,9 +98,9 @@ Four defects found by the maintainer in the manual pages, three of them in the l
 
 Parity gaps against `0.23.0` were reviewed at the same time. Kept as they were: the form combinations (verified), tooltip styles (`pui-solid pui-inverse` replaces `tooltip-black`), the modal's card-in-a-container shape, native closing, and nested accordions. Added on request:
 
-- **Direction classes** for the dropdown and the tooltip, honored by both the CSS and the JS fallback.
+- **Direction classes** for the dropdown and the tooltip, honored by both the CSS and the JS fallback, plus `pui-align-center` and `pui-align-end` for the axis perpendicular to the side — what a menu at the end of a header needs.
 - **`pui-accordion-icon`**, a hook to replace the drawn chevron with your own icon.
-- **A documented recipe** for moving between two modals: a button carries one command, so the swap needs the current dialog closed on the same click. Not shipped as library JS, since that would be behavior rather than emulation (hard rule 7).
+- **A documented recipe** for moving between two modals, presented as the recommended pattern rather than as an alternative: stacking is the browser's own behavior when a second dialog opens, so there is no library code to remove, only a line to add that closes the first. The stacking example was dropped from the review page: a button carries one command, so the swap needs the current dialog closed on the same click. Not shipped as library JS, since that would be behavior rather than emulation (hard rule 7).
 
 Dropped by the maintainer's decision: `accordion-accented` and `accordion-aligned`.
 

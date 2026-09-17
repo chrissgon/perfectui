@@ -41,6 +41,25 @@ Three classes move it elsewhere:
 
 Each one flips to the opposite side when the preferred one does not fit, so a menu never opens off screen.
 
+### Alignment
+
+A panel that opens above or below lines up with the trigger's starting edge. Two classes move it along that axis:
+
+```html
+<div class="pui-dropdown pui-align-center" id="menu" popover>Centered</div>
+<div class="pui-dropdown pui-align-end" id="menu" popover>
+  Aligned to the end
+</div>
+```
+
+| Class              | Where it lines up                |
+| ------------------ | -------------------------------- |
+| _(none)_           | with the trigger's starting edge |
+| `pui-align-center` | centered on the trigger          |
+| `pui-align-end`    | with the trigger's ending edge   |
+
+`pui-align-end` is what a menu at the end of a header wants, so it opens inward instead of running off the page.
+
 Placement uses CSS anchor positioning. Browsers that do not have it yet get the same placement, including the direction classes, from the fallback in the script.
 
 ### Anything can go inside

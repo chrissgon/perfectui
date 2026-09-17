@@ -160,6 +160,47 @@
       </div>
 
       <p style="margin-top: 2rem">
+        Alignment on the other axis, for a panel that opens above or below. The
+        default lines up with the trigger's starting edge;
+        <code>pui-align-center</code> and <code>pui-align-end</code> move it.
+        The wide triggers make the difference visible.
+      </p>
+      <div class="row">
+        <button
+          class="pui-btn pui-outline pui-surface"
+          popovertarget="a-start"
+          style="width: 18rem"
+        >
+          default, aligned to the start
+        </button>
+        <div class="pui-dropdown" id="a-start" popover>Narrow panel</div>
+      </div>
+      <div class="row" style="margin-top: 0.75rem">
+        <button
+          class="pui-btn pui-outline pui-surface"
+          popovertarget="a-center"
+          style="width: 18rem"
+        >
+          pui-align-center
+        </button>
+        <div class="pui-dropdown pui-align-center" id="a-center" popover>
+          Narrow panel
+        </div>
+      </div>
+      <div class="row" style="margin-top: 0.75rem">
+        <button
+          class="pui-btn pui-outline pui-surface"
+          popovertarget="a-end"
+          style="width: 18rem"
+        >
+          pui-align-end
+        </button>
+        <div class="pui-dropdown pui-align-end" id="a-end" popover>
+          Narrow panel
+        </div>
+      </div>
+
+      <p style="margin-top: 2rem">
         This one asks for <code>pui-start</code> while sitting against the left
         edge, so there is no room on that side and it opens on the other. Widen
         the window and it goes back to the side it asked for.
@@ -256,21 +297,14 @@
     <section class="case">
       <h2>4 — moving between modals</h2>
       <p>
-        A button carries one command, so opening the next modal does not close
-        the one you are in. <strong>Stacking</strong> is what you get for free:
-        the second opens on top, and closing it reveals the first.
-        <strong>Swapping</strong> needs the current dialog closed on the same
-        click, which is the recipe in the docs.
+        A button carries one command, so opening the next modal leaves the one
+        you are in open behind it. Closing it on the same click is the
+        recommended pattern, and it is what both buttons below do — the first
+        with an attribute, the second with a listener for a strict content
+        security policy.
       </p>
 
       <div class="row">
-        <button
-          class="pui-btn pui-outline pui-surface"
-          commandfor="stack-one"
-          command="show-modal"
-        >
-          Stacking
-        </button>
         <button
           class="pui-btn pui-solid pui-theme"
           commandfor="swap-one"
@@ -355,48 +389,6 @@
         </details>
       </div>
     </section>
-
-    <!-- stacking: the second modal opens on top of the first -->
-    <dialog class="pui-modal" id="stack-one" closedby="any">
-      <div class="pui-card">
-        <div class="pui-card-header">First modal</div>
-        <div class="pui-card-content">
-          <span>Open the second one and this stays behind it.</span>
-          <div class="row">
-            <button
-              class="pui-btn pui-solid pui-theme"
-              commandfor="stack-two"
-              command="show-modal"
-            >
-              Open the second
-            </button>
-            <button
-              class="pui-btn pui-outline pui-surface"
-              commandfor="stack-one"
-              command="close"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      </div>
-    </dialog>
-
-    <dialog class="pui-modal" id="stack-two" closedby="any">
-      <div class="pui-card">
-        <div class="pui-card-header">Second modal</div>
-        <div class="pui-card-content">
-          <span>Close this one and the first is still there.</span>
-          <button
-            class="pui-btn pui-outline pui-surface"
-            commandfor="stack-two"
-            command="close"
-          >
-            Close
-          </button>
-        </div>
-      </div>
-    </dialog>
 
     <!-- swapping with an attribute: the command opens the next one, the click
          handler closes the one we are in -->
