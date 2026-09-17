@@ -26,4 +26,10 @@
       font-weight: 600;
     }
   }
+
+  /* Same two modifiers as the list, on body rows only. */
+  .pui-table.pui-striped tbody tr:nth-child(even),
+  .pui-table.pui-hoverable tbody tr:hover {
+    background-color: var(--pui-bg-muted);
+  }
 }

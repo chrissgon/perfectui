@@ -18,4 +18,12 @@
     border: var(--pui-border-width) solid transparent;
     border-radius: var(--pui-radius);
   }
+
+  /* The two modifiers that composition cannot express, because they need a
+     structural selector. A selected item is pui-soft + a color, and a bordered
+     one is pui-outline + a color (§6). */
+  .pui-list.pui-striped > .pui-list-item:nth-child(even),
+  .pui-list.pui-hoverable > .pui-list-item:hover {
+    background-color: var(--pui-bg-muted);
+  }
 }

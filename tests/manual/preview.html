@@ -229,6 +229,9 @@
       A card is a <em>surface</em>: it uses the page tokens directly, so it
       works with no extra classes, and a style class still overrides it.
       Timeline icons are colorable elements — give them a style and a color.
+      The table below carries <code>pui-striped</code> and
+      <code>pui-hoverable</code>, the only two modifiers that composition
+      cannot express.
     </p>
     <div class="grid">
       <div class="pui-card">
@@ -252,7 +255,7 @@
 
       <div class="pui-card">
         <div class="pui-card-header">A table inside a card</div>
-        <table class="pui-table">
+        <table class="pui-table pui-striped pui-hoverable">
           <thead>
             <tr>
               <th>#</th>

@@ -70,7 +70,7 @@ Goal kept: **bare minimum, lightweight, customizable**. Tailwind is an optional 
 | 1 — Build         | ✅ Applied on branch `v1` (commit `337e7fb`).                                                                                   |
 | 2 — Tokens & mode | ✅ Done. `perfectui.css` 338 B gzip, `js/mode.js` 309 B, `js/index.js` 154 B.                                                   |
 | 3 — Lego pieces   | ✅ Done. `perfectui.css` 833 B gzip.                                                                                            |
-| 4 — Components    | 🚧 button, chip, badge, card, list, table, timeline done. `perfectui.css` 1417 B gzip.                                          |
+| 4 — Components    | 🚧 button, chip, badge, card, list, table, timeline done. `perfectui.css` 1464 B gzip.                                          |
 | 5 – 8             | Pending                                                                                                                         |
 
 ### What Phase 1 changed (patch)
@@ -118,10 +118,11 @@ Goal kept: **bare minimum, lightweight, customizable**. Tailwind is an optional 
 
 ## 4. Next steps (in Claude Code)
 
-1. **Pending question for the maintainer:** which v0 modifiers survive? `list-bordered`, `list-hoverable`, `list-striped`, `unmarker`, `.active`, `table-bordered`, `table-borderless`, `table-striped`, `table-hoverable`, `table-responsive`, and the horizontal timeline (`timeline.group-row`). §6 only lists the base classes, so none of them are implemented yet.
-2. **Phase 4, next group:** form controls — field group, input, input group, addon, select, textarea, checkbox, radio, switch (§6, §6.1).
-3. Then: group/float, accordion, modal, dropdown, tooltip.
-4. Continue phases 5 → 8 one at a time.
+1. **Phase 4, next group:** form controls — field group, input, input group, addon, select, textarea, checkbox, radio, switch (§6, §6.1).
+2. Then: group/float (which also unlocks the horizontal timeline), accordion, modal, dropdown, tooltip.
+3. Continue phases 5 → 8 one at a time.
+
+Recipes to carry into the docs (Phase 7), replacing v0 modifiers: selected item = `pui-list-item pui-soft pui-theme`; bordered item = `pui-list-item pui-outline pui-surface`; unmarked list = `list-style: none`; bordered/borderless table and responsive table = one rule of author CSS.
 
 ### Prompt to start in Claude Code
 
