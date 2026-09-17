@@ -414,7 +414,15 @@ if (typeof document !== "undefined") {
 }
 ```
 
-> ⚠️ Detection expressions must be verified against MDN/spec at implementation time. Property names can change while features are experimental.
+> ⚠️ Detection expressions must be verified against MDN/spec at implementation time. Property names can change while features are experimental. The shipped registry was verified in Chrome 153 in September 2026.
+
+**How the anchor fallback finds its anchor.** It never stores state and adds no
+attribute: on a popover's `toggle` event it looks up
+`[popovertarget="<id>"], [interestfor="<id>"], [commandfor="<id>"]`, which are
+the native attributes already pointing at that popover. A popover whose
+`popover` attribute reads `hint` is treated as a tooltip and prefers to sit
+above its anchor; anything else prefers below. Either flips when the preferred
+side does not fit, which is what `position-try-fallbacks` does natively.
 
 ### 8.3 Rules for every fallback module
 
@@ -424,6 +432,16 @@ if (typeof document !== "undefined") {
 4. Idempotent: guard against double registration (e.g. a module-level flag).
 5. No exports needed; no global variables; nothing on `window`.
 6. Each module must be importable alone: `@chrissgon/perfectui/fallbacks/<feature>`.
+
+### 8.5 Why there is no `popover-hint` fallback
+
+The registry in §8.2 listed one. It was not written, because there is nothing
+useful for it to do: when a browser does not know `popover="hint"`, the invalid
+value falls back to `auto`, so the tooltip still opens, still light-dismisses
+and still sits in the top layer. The only thing lost is that showing the tooltip
+closes an open `auto` popover, and restoring that would mean reimplementing the
+top layer, which is not possible from script. The degradation is documented
+instead.
 
 ### 8.4 Checkbox `indeterminate`
 
@@ -609,7 +627,7 @@ None at the moment. If a new question appears, add it here and ask the maintaine
   - [x] modal (`dialog`, `commandfor`, `closedby`)
   - [x] dropdown (`popover`)
   - [x] tooltip (`popover="hint"`, `interestfor`)
-- [ ] **Phase 5 — JS:** loader + fallbacks; delete old `index.ts` logic and `constants.ts`.
+- [x] **Phase 5 — JS:** registry filled and five fallbacks written (`command-for`, `dialog-closedby`, `interest-for`, `anchor-positioning`, `checkbox-indeterminate`). The old `index.ts` logic and `constants.ts` were already removed in Phase 1. `popover-hint` was **not** written — see §8.5.
 - [ ] **Phase 6 — Tests:** Playwright suites (§12); compare size with baseline.
 - [ ] **Phase 7 — Docs:** update `/docs`; update site repo `chrissgon/perfectui-doc` (e.g. `Atom.ThemeColorPicker.vue`, `Atom.DarkMode.vue`); write `MIGRATION.md` from §13.
 - [ ] **Phase 8 — Release:** `1.0.0-beta.x` → feedback from existing users → `1.0.0`.

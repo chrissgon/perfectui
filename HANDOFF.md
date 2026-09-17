@@ -71,8 +71,9 @@ Goal kept: **bare minimum, lightweight, customizable**. Tailwind is an optional 
 | 2 — Tokens & mode | ✅ Done. `perfectui.css` 338 B gzip, `js/mode.js` 309 B, `js/index.js` 154 B.                                                   |
 | 3 — Lego pieces   | ✅ Done. `perfectui.css` 833 B gzip.                                                                                            |
 | 4 — Components    | ✅ Done. `perfectui.css` 2922 B gzip, still under half the 0.23.0 baseline. `perfectui.css` 1464 B gzip.                        |
-| 5 — JS fallbacks  | ⏭️ Next                                                                                                                         |
-| 6 – 8             | Pending                                                                                                                         |
+| 5 — JS fallbacks  | ✅ Done. `js/index.js` 487 B gzip; fallbacks 331–487 B each, downloaded only when missing.                                                                                                                         |
+| 6 — Tests         | ⏭️ Next
+| 7 – 8             | Pending                                                                                                                         |
 
 ### What Phase 1 changed (patch)
 
@@ -84,6 +85,15 @@ Goal kept: **bare minimum, lightweight, customizable**. Tailwind is an optional 
 - `package.json`: `exports`, `files`, `sideEffects`, scripts `build`, `size`; devDep `lightningcss`.
 - `tsconfig.json`.
 - Verified: build OK, `tsc` OK, JS import in Node (SSR) OK.
+
+### What Phase 5 added
+
+- Registry filled in `src/js/index.ts` and five fallbacks in `src/js/fallbacks/`.
+- Verified in Chrome 153: four of the five features are supported, so **nothing is downloaded** except `checkbox-indeterminate`, which has no native equivalent and always loads. Checked through `performance.getEntriesByType("resource")`.
+- The anchor fallback was verified in isolation, on a popover with no CSS anchor rules: a menu lands below its trigger aligned to its start edge, a `popover="hint"` lands above and centered, and a panel with no room below flips above.
+- Every module imports cleanly in Node, so SSR stays safe.
+- `popover-hint` was deliberately not written (ARCHITECTURE.md §8.5).
+- **Still unverified:** `command-for`, `dialog-closedby` and `interest-for` behavior. Chrome supports all three natively, so the fallback path cannot be isolated here — the Blink flags that would disable them are not exposed. Phase 6 covers it: Playwright drives WebKit and Gecko, which genuinely lack them.
 
 ### What Phase 4 added so far
 
