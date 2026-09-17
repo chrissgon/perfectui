@@ -70,8 +70,8 @@ Goal kept: **bare minimum, lightweight, customizable**. Tailwind is an optional 
 | 1 — Build         | ✅ Applied on branch `v1` (commit `337e7fb`).                                                                                   |
 | 2 — Tokens & mode | ✅ Done. `perfectui.css` 338 B gzip, `js/mode.js` 309 B, `js/index.js` 154 B.                                                   |
 | 3 — Lego pieces   | ✅ Done. `perfectui.css` 833 B gzip.                                                                                            |
-| 4 — Components    | ✅ Done. `perfectui.css` 2922 B gzip, still under half the 0.23.0 baseline. `perfectui.css` 1464 B gzip.                                       |
-| 5 — JS fallbacks  | ⏭️ Next
+| 4 — Components    | ✅ Done. `perfectui.css` 2922 B gzip, still under half the 0.23.0 baseline. `perfectui.css` 1464 B gzip.                        |
+| 5 — JS fallbacks  | ⏭️ Next                                                                                                                         |
 | 6 – 8             | Pending                                                                                                                         |
 
 ### What Phase 1 changed (patch)
