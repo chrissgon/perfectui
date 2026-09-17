@@ -16,21 +16,18 @@
     /* Border */
     --pui-border: light-dark(#d1d5db, #374151);
 
-    /* Label for fills that are light in both modes. Fixed, not a light-dark()
-       pair: the fill does not change with the mode, so its label must not
-       either (§3.1). */
-    --pui-on-light: #000;
+    /* States: v0 tone 600 in light, 500 in dark (muted keeps 500/400).
 
-    /* States, in two families.
-
-       Cyan, green and amber are light hues: a white label never reaches 4.5:1
-       on them, so they keep the v0 tone in both modes and take --pui-on-light
-       as their label. Red and gray are mid-dark: they stay a light-dark() pair
-       with the page background as label. Either way the label clears 4.5:1 on
-       the fill, and the ink derived in pui.styles clears 4.5:1 on the page. */
-    --pui-theme: #07b6f0;
-    --pui-success: #22c55e;
-    --pui-warn: #f59e0b;
+       The label on a solid fill is always the page background, which is what
+       gives the palette its v0 look. In light mode that leaves theme, success
+       and warn between 3.19:1 and 3.50:1 on pui-solid — above the 3:1 floor
+       for interface elements, below the 4.5:1 of WCAG AA. Deliberate call by
+       the maintainer: appearance first, and the tokens are one override away
+       for anyone who needs AA. Everything else, including every text use and
+       the whole dark mode, stays at or above 4.5:1. */
+    --pui-theme: light-dark(#0092cd, #07b6f0);
+    --pui-success: light-dark(#16a34a, #22c55e);
+    --pui-warn: light-dark(#d97706, #f59e0b);
     --pui-error: light-dark(#dc2626, #ef4444);
     --pui-muted: light-dark(#6b7280, #9ca3af);
 

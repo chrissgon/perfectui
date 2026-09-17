@@ -135,10 +135,9 @@ File: `src/css/tokens.css`. Semantic names only. No palettes (the old `--theme50
 
 - Theming = user overrides these variables in their own CSS. **No JS theming API** (`setThemeColor` is removed).
 - Hover/soft/focus shades are derived with `color-mix()`. Do not add tone variables.
-- Values come from the v0 palette, and the tone is chosen so that **the label on a fill always clears 4.5:1**. That splits the state colors into two families:
-  - **Light hues** (`theme`, `success`, `warn`): cyan, green and amber are light by nature, and a white label never reaches 4.5:1 on them. They keep the v0 `500` tone **in both modes** and take `--pui-on-light` (a fixed `#000`) as their label. This is what makes the palette look like v0 while passing AA.
-  - **Mid-dark hues** (`error`, `muted`): red and gray take a white label comfortably, so they stay `light-dark()` pairs — v0 `600`/`500` for error, `500`/`400` for muted — with `--pui-bg` as their label.
-- Because a fill can now be light in a dark page, the readable text tone is **derived, not stored**: `pui.styles` moves the color 35% toward `--pui-text` before using it as text (§3.1). That single derivation replaces v0's `contentTheme`, `contentError`, … variables.
+- Values come from the v0 palette: tone `600` in light mode and `500` in dark (`muted` keeps `500`/`400`). `--pui-on-color` is always `--pui-bg`, so a solid fill carries a white label in light mode and a dark one in dark mode, exactly like `0.23.0`.
+- **Known contrast trade-off.** In light mode, `pui-solid` with `theme` (3.50:1), `success` (3.30:1) and `warn` (3.19:1) sits above the 3:1 floor for interface elements but below WCAG AA's 4.5:1 for text. This is a deliberate decision by the maintainer: the v0 appearance is worth more than the last step of contrast, and a project that needs AA overrides three tokens. Do not "fix" it by darkening the tokens. Everything else — every text use, every hover, and the whole dark mode — stays at or above 4.5:1.
+- The readable text tone is **derived, not stored**: `pui.styles` moves the color 25% toward `--pui-text` before using it as text (§3.1), which is the minimum that keeps every color readable on the page and on the tint of `pui-soft`. That one derivation replaces v0's `contentTheme`, `contentError`, … variables.
 - Naming rule: **semantic purpose**, never color names or numbers. Do not use `accent` (it means "brand color" in most systems).
 
 ### 4.1 Non-color tokens (base + `calc()`)

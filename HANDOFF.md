@@ -86,11 +86,11 @@ Goal kept: **bare minimum, lightweight, customizable**. Tailwind is an optional 
 
 ### What Phase 3 added
 
-- `src/css/colors.css`: the 7 color classes, variables only. `theme`, `success` and `warn` label with `--pui-on-light`; `error` and `muted` with `--pui-bg`.
+- `src/css/colors.css`: the 7 color classes, variables only.
 - `src/css/styles.css`: `pui-solid`, `pui-soft`, `pui-outline`, `pui-link`, with hover and ink derived from the contract.
 - `src/css/states.css`: disabled, `:focus-visible` ring and `aria-invalid`.
 - `tests/manual/preview.html`: manual preview of everything that exists, with a mode switch. Open it with `bun run dev` (live) or straight from the file system.
-- Contrast measured for 7 colors x 4 styles x hover in both modes: no combination below 4.5:1.
+- Contrast measured for 7 colors x 4 styles x hover in both modes: only the three light-mode `pui-solid` fills noted in decision 37 sit below 4.5:1.
 
 ### What Phase 2 added
 

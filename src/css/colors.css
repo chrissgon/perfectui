@@ -1,17 +1,13 @@
-/* Color classes. They only set the contract variables (§3.1); no painting.
-
-   theme, success and warn are light fills in both modes, so their label is
-   --pui-on-light. error and muted are mid-dark, so their label is the page
-   background, which flips with the mode. */
+/* Color classes. They only set the contract variables (§3.1); no painting. */
 @layer pui.colors {
   .pui-theme {
     --pui-color: var(--pui-theme);
-    --pui-on-color: var(--pui-on-light);
+    --pui-on-color: var(--pui-bg);
   }
 
   .pui-success {
     --pui-color: var(--pui-success);
-    --pui-on-color: var(--pui-on-light);
+    --pui-on-color: var(--pui-bg);
   }
 
   .pui-error {
@@ -21,7 +17,7 @@
 
   .pui-warn {
     --pui-color: var(--pui-warn);
-    --pui-on-color: var(--pui-on-light);
+    --pui-on-color: var(--pui-bg);
   }
 
   .pui-muted {

@@ -169,12 +169,12 @@
 
     <h2>Color tokens</h2>
     <p>
-      Page colors are <code>light-dark()</code> pairs. State colors come in two
-      families: cyan, green and amber are light hues, so they keep one bright
-      value in both modes and take a fixed dark label
-      (<code>--pui-on-light</code>); red and gray are mid-dark, so they flip
-      with the mode and take the page background as label. Every label clears
-      4.5:1 on its fill.
+      Every value is a <code>light-dark()</code> pair: v0 tone 600 in light,
+      500 in dark. The label on a solid fill is always the page background,
+      which is what gives the palette its v0 look. In light mode that leaves
+      <code>pui-solid</code> with theme, success and warn between 3.19:1 and
+      3.50:1 — above the 3:1 floor for interface elements, below WCAG AA. Text
+      uses a deeper derived tone and stays at or above 4.5:1 everywhere.
     </p>
     <div class="swatches" id="swatches"></div>
 
