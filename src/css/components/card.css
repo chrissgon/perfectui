@@ -1,0 +1,26 @@
+/* Card shape. A card is a *surface*: it uses the page tokens directly instead
+   of the color contract, so it is usable with no extra classes. A style class
+   still wins over it, because pui.styles comes after pui.components.
+   Requires core.css. */
+@import "../layers.css";
+
+@layer pui.components {
+  .pui-card {
+    overflow: hidden;
+    border: var(--pui-border-width) solid var(--pui-border);
+    border-radius: calc(var(--pui-radius) * 1.5);
+    font-size: var(--pui-font-size);
+  }
+
+  .pui-card-header {
+    padding: calc(var(--pui-space) * 2) calc(var(--pui-space) * 4);
+    background-color: var(--pui-bg-muted);
+    color: var(--pui-text-muted);
+  }
+
+  .pui-card-content {
+    display: grid;
+    gap: calc(var(--pui-space) * 3);
+    padding: calc(var(--pui-space) * 4);
+  }
+}

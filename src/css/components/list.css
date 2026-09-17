@@ -1,0 +1,21 @@
+/* List shape. The class carries the UA reset for <ul>/<ol>, which is allowed
+   because the reset is scoped to the class, not to the element (hard rule 5).
+   Requires core.css. */
+@import "../layers.css";
+
+@layer pui.components {
+  .pui-list {
+    margin: 0;
+    padding: 0;
+    list-style-position: inside;
+    font-size: var(--pui-font-size);
+  }
+
+  /* The transparent border is what lets a style class paint this item: style
+     classes only set border-color, they never introduce a border. */
+  .pui-list-item {
+    padding: calc(var(--pui-space) * 2) calc(var(--pui-space) * 4);
+    border: var(--pui-border-width) solid transparent;
+    border-radius: var(--pui-radius);
+  }
+}

@@ -162,6 +162,8 @@ Multipliers (**approved by the maintainer** after visual review in `pui-token-sc
 
 Rule: multipliers are the only "magic numbers" allowed inside components.
 
+Components outside the approved table reuse its steps rather than inventing new ones: `pui-list-item` uses the `pui-btn` padding, `pui-table` cells use the same, `pui-card-content` gaps use `space x 3`. The timeline adds two of its own — icon `font x 1.75` (the v0 icon was 25px against a 14px base) and the rule offset at half that.
+
 ---
 
 ## 5. Cascade layers
@@ -216,6 +218,7 @@ Rules:
 - Field group uses **real elements**, not pseudo-elements (see §6.1).
 - Helper classes are allowed **only if they are used together with components**: `pui-rounded`, `pui-rounded-full`. They live in `pui.utilities`, a layer of their own: a helper and a component class have the same specificity, so inside `pui.components` the winner would depend on the user's import order.
 - Accessibility is part of the component: visible `:focus-visible`, respect `prefers-reduced-motion`, use logical properties (`margin-inline`, `inset-inline-start`).
+- **Surfaces vs colorable elements.** A container that is not meant to be recolored — `pui-card`, `pui-table` cells, the timeline rule — reads the page tokens (`--pui-border`, `--pui-bg-muted`) directly, so it looks right with no extra classes. It stays composable anyway: `pui.styles` comes after `pui.components`, so `pui-card pui-soft pui-theme` still recolors the card. Elements meant to be recolored (`pui-btn`, `pui-chip`, `pui-badge`, `pui-list-item`, `pui-checkpoint-icon`) carry `border: var(--pui-border-width) solid transparent` so that a style class, which only ever sets `border-color`, has something to paint.
 
 ### Target HTML examples
 
@@ -597,7 +600,7 @@ None at the moment. If a new question appears, add it here and ask the maintaine
 - [x] **Phase 3 — Lego pieces:** `colors.css` (7 color classes), `styles.css` (4 style classes, derived hover and ink), `states.css` (disabled, focus ring, `aria-invalid`). Contract extended with `--pui-ink` and `--pui-shade` (§3.1). Preview page at `tests/manual/preview.html`.
 - [ ] **Phase 4 — Components (one PR each):**
   - [x] button, badge, chip — `pui-rounded`/`pui-rounded-full` shipped with them, in `pui.utilities`
-  - [ ] card, list, table, timeline
+  - [x] card, list, table, timeline
   - [ ] form (field group, input, input group, select, textarea, checkbox, radio, switch)
   - [ ] group, float
   - [ ] accordion (`details name`)

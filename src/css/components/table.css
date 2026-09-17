@@ -1,0 +1,29 @@
+/* Table shape. Cells are matched by element: a class on every <td> is not a
+   realistic API, and the selectors stay scoped under .pui-table.
+   Requires core.css. */
+@import "../layers.css";
+
+@layer pui.components {
+  .pui-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--pui-font-size);
+
+    & :is(th, td) {
+      padding: calc(var(--pui-space) * 2) calc(var(--pui-space) * 4);
+      border-bottom: var(--pui-border-width) solid var(--pui-border);
+      text-align: start;
+    }
+
+    /* The last row sits on the container's edge, so it needs no rule of its
+       own. Keeping it makes a table inside a card look doubled. */
+    & tbody tr:last-child :is(th, td) {
+      border-bottom: none;
+    }
+
+    & thead :is(th, td) {
+      color: var(--pui-text-muted);
+      font-weight: 600;
+    }
+  }
+}

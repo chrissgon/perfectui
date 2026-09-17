@@ -114,6 +114,17 @@
         font-family: ui-monospace, monospace;
       }
 
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+        gap: 1.5rem;
+        align-items: start;
+      }
+
+      figure {
+        margin: 0;
+      }
+
       .row {
         display: flex;
         flex-wrap: wrap;
@@ -211,6 +222,71 @@
       <span class="pui-chip pui-soft pui-success pui-rounded-full">Active</span>
       <span class="pui-badge pui-solid pui-error pui-rounded-full">3</span>
       <a class="pui-btn pui-link pui-theme" href="#">A link as a button</a>
+    </div>
+
+    <h2>Containers</h2>
+    <p>
+      A card is a <em>surface</em>: it uses the page tokens directly, so it
+      works with no extra classes, and a style class still overrides it.
+      Timeline icons are colorable elements — give them a style and a color.
+    </p>
+    <div class="grid">
+      <div class="pui-card">
+        <div class="pui-card-header">Card header</div>
+        <div class="pui-card-content">
+          <span>Content is a grid, so children are spaced without margins.</span>
+          <div class="row">
+            <button class="pui-btn pui-solid pui-theme">Save</button>
+            <button class="pui-btn pui-outline pui-surface">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <ul class="pui-list">
+        <li class="pui-list-item">A plain list item</li>
+        <li class="pui-list-item pui-soft pui-theme">A selected one</li>
+        <li class="pui-list-item pui-outline pui-surface">A bordered one</li>
+      </ul>
+
+      <div class="pui-card">
+        <div class="pui-card-header">A table inside a card</div>
+        <table class="pui-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Mark</td>
+              <td><span class="pui-badge pui-soft pui-success">active</span></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Jacob</td>
+              <td><span class="pui-badge pui-soft pui-warn">pending</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <figure class="pui-timeline">
+        <figcaption class="pui-checkpoint">
+          <i class="pui-checkpoint-icon pui-solid pui-success">&check;</i>
+          <span>Released v1.0.0</span>
+        </figcaption>
+        <figcaption class="pui-checkpoint">
+          <i class="pui-checkpoint-icon pui-solid pui-error">!</i>
+          <span>Quick bug fix</span>
+        </figcaption>
+        <figcaption class="pui-checkpoint">
+          <i class="pui-checkpoint-icon pui-outline pui-muted">3</i>
+          <span>Planning</span>
+        </figcaption>
+      </figure>
     </div>
 
     <h2>States</h2>

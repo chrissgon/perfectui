@@ -70,7 +70,7 @@ Goal kept: **bare minimum, lightweight, customizable**. Tailwind is an optional 
 | 1 — Build         | ✅ Applied on branch `v1` (commit `337e7fb`).                                                                                   |
 | 2 — Tokens & mode | ✅ Done. `perfectui.css` 338 B gzip, `js/mode.js` 309 B, `js/index.js` 154 B.                                                   |
 | 3 — Lego pieces   | ✅ Done. `perfectui.css` 833 B gzip.                                                                                            |
-| 4 — Components    | 🚧 button, chip, badge done. `perfectui.css` 1068 B gzip.                                                                       |
+| 4 — Components    | 🚧 button, chip, badge, card, list, table, timeline done. `perfectui.css` 1417 B gzip.                                                                       |
 | 5 – 8             | Pending                                                                                                                         |
 
 ### What Phase 1 changed (patch)
@@ -87,6 +87,8 @@ Goal kept: **bare minimum, lightweight, customizable**. Tailwind is an optional 
 ### What Phase 4 added so far
 
 - `src/css/components/{button,chip,badge}.css`, following the multipliers approved in §4.1.
+- `src/css/components/{card,list,table,timeline}.css`. Card follows the proportions approved in `tests/manual/token-scale.html`; the others reuse the same steps (§4.1).
+- Rule written down in §6: containers read the page tokens directly, while colorable elements carry a transparent border so a style class has something to paint.
 - `src/css/utilities.css` with `pui-rounded` and `pui-rounded-full`, in the new `pui.utilities` layer.
 - Each component file imports `../layers.css`, so it carries the layer order when loaded on its own.
 - Verified: layer order comes out correct both in the bundle and in a standalone component file, which closes the lightningcss question from Phase 2. Checked in both modes: shapes, pill helper, `<a class="pui-btn">`, disabled, `aria-invalid`, focus ring, and the bare classes with no style or color.
@@ -116,12 +118,10 @@ Goal kept: **bare minimum, lightweight, customizable**. Tailwind is an optional 
 
 ## 4. Next steps (in Claude Code)
 
-1. **Phase 4, next group:** card, list, table, timeline (ARCHITECTURE.md §4.1, §6).
-   - `pui-card` uses `radius x 1.5`; header and content have their own padding.
-   - Keep adding each shape to `tests/manual/preview.html` as it lands.
-   - Stop and report after the group.
-2. Then: form controls, group/float, accordion, modal, dropdown, tooltip.
-3. Continue phases 5 → 8 one at a time.
+1. **Pending question for the maintainer:** which v0 modifiers survive? `list-bordered`, `list-hoverable`, `list-striped`, `unmarker`, `.active`, `table-bordered`, `table-borderless`, `table-striped`, `table-hoverable`, `table-responsive`, and the horizontal timeline (`timeline.group-row`). §6 only lists the base classes, so none of them are implemented yet.
+2. **Phase 4, next group:** form controls — field group, input, input group, addon, select, textarea, checkbox, radio, switch (§6, §6.1).
+3. Then: group/float, accordion, modal, dropdown, tooltip.
+4. Continue phases 5 → 8 one at a time.
 
 ### Prompt to start in Claude Code
 
