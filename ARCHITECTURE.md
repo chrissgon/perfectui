@@ -551,11 +551,15 @@ import { setMode } from "@chrissgon/perfectui/mode";
 
 ## 12. Testing
 
-- **Playwright** (dev only). Nothing test-related ships in `dist`.
+- **Playwright** (dev only). Nothing test-related ships in `dist`. `bun run test` builds, runs the SSR check, then the suites.
+- Two projects, Chromium and WebKit. The same specs run on both: Chromium takes the native path, WebKit the fallback path for whatever it is missing. Identical assertions on both engines is the promise the fallbacks exist to keep. Firefox can be added with one entry in `playwright.config.ts` once its browser build is installed.
+- The server only serves; the `test` script builds. A `webServer` that also builds is skipped when a server is already running, which silently tests a stale `dist`.
 - For each fallback: run tests **twice** — native path and forced-fallback path (stub `supported()` to `false`).
 - Dynamic DOM test: insert components after load and verify behavior (no re-init).
 - SSR safety test: import every JS entry in Node; must not throw.
-- Visual check of every component × style × color in light and dark mode.
+- Visual check of every component × style × color in light and dark mode: `tests/manual/preview.html` and `tests/manual/table.html`, opened straight from the file system.
+
+**What the suites cover.** Mode switching and persistence against the system preference; the style + color contract and the fact that unlayered author CSS beats every layer; `aria-invalid` reaching both the control and its message; group border overlap; the table's last-row and `tfoot` rules; and, for the JS: which fallbacks are downloaded per engine, `commandfor` open and close, `closedby="any"` light dismiss, dropdown and tooltip placement, the `indeterminate` attribute, and a component inserted after load working with no re-initialisation.
 
 ---
 
@@ -628,7 +632,7 @@ None at the moment. If a new question appears, add it here and ask the maintaine
   - [x] dropdown (`popover`)
   - [x] tooltip (`popover="hint"`, `interestfor`)
 - [x] **Phase 5 — JS:** registry filled and five fallbacks written (`command-for`, `dialog-closedby`, `interest-for`, `anchor-positioning`, `checkbox-indeterminate`). The old `index.ts` logic and `constants.ts` were already removed in Phase 1. `popover-hint` was **not** written — see §8.5.
-- [ ] **Phase 6 — Tests:** Playwright suites (§12); compare size with baseline.
+- [x] **Phase 6 — Tests:** 16 Playwright tests running on two engines (32 runs), plus an SSR check. Sizes below.
 - [ ] **Phase 7 — Docs:** update `/docs`; update site repo `chrissgon/perfectui-doc` (e.g. `Atom.ThemeColorPicker.vue`, `Atom.DarkMode.vue`); write `MIGRATION.md` from §13.
 - [ ] **Phase 8 — Release:** `1.0.0-beta.x` → feedback from existing users → `1.0.0`.
 

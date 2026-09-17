@@ -35,12 +35,16 @@
     "prepare": "husky",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "test": "bun run build && node scripts/ssr-check.mjs && playwright test",
+    "test:ssr": "node scripts/ssr-check.mjs",
+    "test:e2e": "bun run build && playwright test"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.4.1",
     "@eslint/js": "^9.23.0",
+    "@playwright/test": "^1.63.0",
     "@types/node": "^20.10.4",
     "eslint": "^9.23.0",
     "globals": "^15.15.0",
@@ -52,7 +56,7 @@
     "vite": "^5.2.8",
     "vite-plugin-dts": "^3.6.4"
   },
-  "author": "Christopher Gonçalves <chrissgon.dev@gmail.com>",
+  "author": "Christopher Gon\u00e7alves <chrissgon.dev@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/chrissgon/perfectui.git"

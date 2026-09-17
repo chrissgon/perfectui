@@ -9,5 +9,5 @@
     "skipLibCheck": true,
     "types": ["node"]
   },
-  "include": ["src/js", "vite.config.ts"]
+  "include": ["src/js", "vite.config.ts", "tests", "playwright.config.ts"]
 }

@@ -4,3 +4,5 @@ dist
 index.html
 .npmrc
 .DS_Store
+test-results
+playwright-report

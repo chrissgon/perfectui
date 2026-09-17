@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>overlays fixture</title>
+    <link rel="stylesheet" href="/dist/perfectui.css" />
+    <script type="module" src="/dist/js/index.js"></script>
+  </head>
+  <body style="margin: 0; padding: 120px 40px 300px">
+    <button class="pui-btn pui-solid pui-theme" id="open-modal" commandfor="modal" command="show-modal">Open</button>
+    <dialog class="pui-modal" id="modal" closedby="any">
+      <div class="pui-card">
+        <div class="pui-card-content">
+          <span id="modal-text">Modal content</span>
+          <button class="pui-btn pui-outline pui-surface" id="close-modal" commandfor="modal" command="close">Close</button>
+        </div>
+      </div>
+    </dialog>
+
+    <button class="pui-btn pui-outline pui-surface" id="open-menu" popovertarget="menu">Menu</button>
+    <div class="pui-dropdown" id="menu" popover>
+      <ul class="pui-list" style="list-style: none">
+        <li class="pui-list-item">Profile</li>
+      </ul>
+    </div>
+
+    <button class="pui-btn pui-outline pui-surface" id="open-tip" interestfor="tip">Tooltip</button>
+    <div class="pui-tooltip" id="tip" popover="hint">Help text</div>
+
+    <input type="checkbox" class="pui-checkbox" id="indeterminate-box" indeterminate />
+
+    <div id="dynamic"></div>
+  </body>
+</html>

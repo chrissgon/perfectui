@@ -72,8 +72,9 @@ Goal kept: **bare minimum, lightweight, customizable**. Tailwind is an optional 
 | 3 — Lego pieces   | ✅ Done. `perfectui.css` 833 B gzip.                                                                                            |
 | 4 — Components    | ✅ Done. `perfectui.css` 2922 B gzip, still under half the 0.23.0 baseline. `perfectui.css` 1464 B gzip.                        |
 | 5 — JS fallbacks  | ✅ Done. `js/index.js` 487 B gzip; fallbacks 331–487 B each, downloaded only when missing.                                      |
-| 6 — Tests         | ⏭️ Next                                                                                                                         |
-| 7 – 8             | Pending                                                                                                                         |
+| 6 — Tests         | ✅ Done. 16 tests x 2 engines, all green, plus the SSR check.                                                                                                                         |
+| 7 — Docs          | ⏭️ Next
+| 8 — Release       | Pending                                                                                                                         |
 
 ### What Phase 1 changed (patch)
 
@@ -85,6 +86,13 @@ Goal kept: **bare minimum, lightweight, customizable**. Tailwind is an optional 
 - `package.json`: `exports`, `files`, `sideEffects`, scripts `build`, `size`; devDep `lightningcss`.
 - `tsconfig.json`.
 - Verified: build OK, `tsc` OK, JS import in Node (SSR) OK.
+
+### What Phase 6 added
+
+- `playwright.config.ts` with two projects, Chromium and WebKit, running the same specs; `scripts/serve.mjs` (no dependency) and `scripts/ssr-check.mjs`.
+- `tests/fixtures/*.html` load the built `dist`, so the suites exercise what a user downloads.
+- **Support correction.** WebKit 26.6 already has `commandfor`, `<dialog closedby>`, `popover="hint"` and CSS anchor positioning. The only thing it lacks is `interestfor`, so in current browsers the loader downloads just `interest-for.js` and `checkbox-indeterminate.js`. The webstatus.dev table recorded in §9 lags behind Safari — trust the measurement.
+- **Bug the suites caught.** The `interest-for` fallback showed the tooltip with `showPopover()`, which leaves the popover with no invoker and therefore no anchor, so the CSS placement was ignored and the tooltip appeared in the wrong place. It now passes `source` and, for browsers that ignore that option but do have anchor positioning, wires `anchor-name` and `position-anchor` by hand.
 
 ### What Phase 5 added
 
