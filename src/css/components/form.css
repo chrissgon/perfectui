@@ -51,18 +51,22 @@
     resize: vertical;
   }
 
-  /* The arrow is two triangles in currentColor, so it follows the text color
-     in both modes without shipping an image. */
+  /* The arrow is drawn in currentColor, so it follows the text color in both
+     modes without shipping an image. One conic gradient rather than two linear
+     ones: two halves have to meet on a diagonal, and at this size they miss by
+     a subpixel and the tip comes out clipped. Its size matches the accordion
+     chevron, which is built from borders. */
   select.pui-input {
     padding-inline-end: calc(var(--pui-space) * 7);
     background-repeat: no-repeat;
-    background-image:
-      linear-gradient(45deg, transparent 50%, currentColor 50%),
-      linear-gradient(135deg, currentColor 50%, transparent 50%);
-    background-size: 5px 5px;
-    background-position:
-      right calc(var(--pui-space) * 4) center,
-      right calc(var(--pui-space) * 2.75) center;
+    background-image: conic-gradient(
+      from 315deg at 50% 100%,
+      currentColor 0 90deg,
+      transparent 0
+    );
+    background-size: calc(var(--pui-font-size) * 0.6)
+      calc(var(--pui-font-size) * 0.3);
+    background-position: right calc(var(--pui-space) * 3) center;
   }
 
   /* --- input group + addon ----------------------------------------------
