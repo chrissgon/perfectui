@@ -16,13 +16,22 @@
     /* Border */
     --pui-border: light-dark(#d1d5db, #374151);
 
-    /* States. Each value keeps at least 4.5:1 against --pui-bg in its own
-       mode, so it works as text on the page *and* as a solid fill behind
-       --pui-on-color (which is --pui-bg, see §3.1). */
-    --pui-theme: light-dark(#0074a6, #07b6f0);
-    --pui-success: light-dark(#15803d, #22c55e);
-    --pui-error: light-dark(#b91c1c, #ef4444);
-    --pui-warn: light-dark(#b45309, #f59e0b);
+    /* Label for fills that are light in both modes. Fixed, not a light-dark()
+       pair: the fill does not change with the mode, so its label must not
+       either (§3.1). */
+    --pui-on-light: #000;
+
+    /* States, in two families.
+
+       Cyan, green and amber are light hues: a white label never reaches 4.5:1
+       on them, so they keep the v0 tone in both modes and take --pui-on-light
+       as their label. Red and gray are mid-dark: they stay a light-dark() pair
+       with the page background as label. Either way the label clears 4.5:1 on
+       the fill, and the ink derived in pui.styles clears 4.5:1 on the page. */
+    --pui-theme: #07b6f0;
+    --pui-success: #22c55e;
+    --pui-warn: #f59e0b;
+    --pui-error: light-dark(#dc2626, #ef4444);
     --pui-muted: light-dark(#6b7280, #9ca3af);
 
     /* Non-color: one base per concept. Components scale these with calc()

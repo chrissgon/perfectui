@@ -169,10 +169,12 @@
 
     <h2>Color tokens</h2>
     <p>
-      Every value is a <code>light-dark()</code> pair. The tone is chosen per
-      mode so the color keeps at least 4.5:1 against <code>--pui-bg</code>,
-      which makes it readable both as text on the page and as a fill behind
-      <code>--pui-on-color</code>.
+      Page colors are <code>light-dark()</code> pairs. State colors come in two
+      families: cyan, green and amber are light hues, so they keep one bright
+      value in both modes and take a fixed dark label
+      (<code>--pui-on-light</code>); red and gray are mid-dark, so they flip
+      with the mode and take the page background as label. Every label clears
+      4.5:1 on its fill.
     </p>
     <div class="swatches" id="swatches"></div>
 

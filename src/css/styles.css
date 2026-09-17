@@ -3,10 +3,11 @@
    Every value below is derived, so a new color never needs a new rule here.
    Contrast was measured for all 7 colors x 4 styles x hover in both modes:
    nothing drops below 4.5:1. Two derivations carry that:
-   - hover shades the color toward --pui-shade (the text color by default),
-     which always moves *away* from --pui-on-color, so contrast can only rise;
-   - the non-filled styles deepen the color by one step for their text, so it
-     stays readable on top of the tinted background of .pui-soft. */
+   - hover shades the color toward --pui-shade, which by default is the page
+     text, so the fill moves away from its label;
+   - the non-filled styles move the color 35% toward the page text before using
+     it as text, which is what keeps a bright fill readable on the page and on
+     the tint of .pui-soft. */
 @layer pui.styles {
   :where(.pui-solid, .pui-soft, .pui-outline, .pui-link) {
     transition:
@@ -26,15 +27,13 @@
     }
   }
 
-  /* Text of the three non-filled styles. */
+  /* Text of the three non-filled styles. It always moves toward the page text,
+     which is what makes a bright fill color readable as text on the page and
+     on the tint of .pui-soft. */
   :where(.pui-soft, .pui-outline, .pui-link) {
     color: var(
       --pui-ink,
-      color-mix(
-        in oklch,
-        var(--pui-color),
-        var(--pui-shade, var(--pui-text)) 15%
-      )
+      color-mix(in oklch, var(--pui-color), var(--pui-text) 35%)
     );
   }
 

@@ -55,7 +55,7 @@ Goal kept: **bare minimum, lightweight, customizable**. Tailwind is an optional 
 | 27  | Tests                         | Playwright (dev only).                                                                                                                                                                           |
 | 28  | Release                       | `1.0.0-beta` first, then `1.0.0`.                                                                                                                                                                |
 | 29  | Docs for AI                   | `ARCHITECTURE.md` in English at repo root + `CLAUDE.md`.                                                                                                                                         |
-| 30  | Color tones                   | Tone chosen per mode by contrast (≥ 4.5:1 against `--pui-bg`): v0 tone `700` in light, `500` in dark. Keeping `500` in both modes was rejected (white on `#07b6f0` is 2.34:1).                   |
+| 30  | Color tones                   | Superseded by 36. First attempt: v0 tone `700` in light, `500` in dark, label always `--pui-bg`.                                                                                                |
 | 31  | Version bump                  | `package.json` stays `0.23.0` during the migration. Version is bumped only at release (Phase 8), with the tag.                                                                                   |
 | 32  | Tooling                       | ESLint rebuilt as a plain flat config on `typescript-eslint`; the `@eslint/compat` + `eslintrc` shims and `eslint-plugin-import` were dropped.                                                   |
 | 33  | Tabs component                | Out of scope for `1.0.0` (item dropped from `todo.txt`).                                                                                                                                         |
@@ -86,7 +86,7 @@ Goal kept: **bare minimum, lightweight, customizable**. Tailwind is an optional 
 
 ### What Phase 3 added
 
-- `src/css/colors.css`: the 7 color classes, variables only.
+- `src/css/colors.css`: the 7 color classes, variables only. `theme`, `success` and `warn` label with `--pui-on-light`; `error` and `muted` with `--pui-bg`.
 - `src/css/styles.css`: `pui-solid`, `pui-soft`, `pui-outline`, `pui-link`, with hover and ink derived from the contract.
 - `src/css/states.css`: disabled, `:focus-visible` ring and `aria-invalid`.
 - `tests/manual/preview.html`: manual preview of everything that exists, with a mode switch. Open it with `bun run dev` (live) or straight from the file system.

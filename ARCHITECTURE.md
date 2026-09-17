@@ -135,7 +135,10 @@ File: `src/css/tokens.css`. Semantic names only. No palettes (the old `--theme50
 
 - Theming = user overrides these variables in their own CSS. **No JS theming API** (`setThemeColor` is removed).
 - Hover/soft/focus shades are derived with `color-mix()`. Do not add tone variables.
-- Values come from the v0 `_variables.scss` palette, but the **tone is picked per mode by contrast**, not by keeping a single tone: every state color must reach at least **4.5:1 against `--pui-bg`** in its own mode. Because `--pui-on-color` is `--pui-bg` (§3.1), that single check covers both directions — the color as text on the page, and the page color as text on a solid fill. In practice this means the v0 tone `700` in light mode (what v0 already used for text: `contentTheme`, `contentError`…) and `500` in dark mode. Keeping `500` in both modes was rejected: white on `#07b6f0` is 2.34:1.
+- Values come from the v0 palette, and the tone is chosen so that **the label on a fill always clears 4.5:1**. That splits the state colors into two families:
+  - **Light hues** (`theme`, `success`, `warn`): cyan, green and amber are light by nature, and a white label never reaches 4.5:1 on them. They keep the v0 `500` tone **in both modes** and take `--pui-on-light` (a fixed `#000`) as their label. This is what makes the palette look like v0 while passing AA.
+  - **Mid-dark hues** (`error`, `muted`): red and gray take a white label comfortably, so they stay `light-dark()` pairs — v0 `600`/`500` for error, `500`/`400` for muted — with `--pui-bg` as their label.
+- Because a fill can now be light in a dark page, the readable text tone is **derived, not stored**: `pui.styles` moves the color 35% toward `--pui-text` before using it as text (§3.1). That single derivation replaces v0's `contentTheme`, `contentError`, … variables.
 - Naming rule: **semantic purpose**, never color names or numbers. Do not use `accent` (it means "brand color" in most systems).
 
 ### 4.1 Non-color tokens (base + `calc()`)
