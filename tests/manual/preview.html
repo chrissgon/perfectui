@@ -121,22 +121,6 @@
         align-items: center;
       }
 
-      /* Stand-in for the shape classes, which arrive in Phase 4. It uses the
-         same multipliers approved for pui-btn (ARCHITECTURE.md §4.1) so the
-         proportions already match what the real component will ship. */
-      .demo {
-        padding: calc(var(--pui-space) * 2) calc(var(--pui-space) * 4);
-        /* Width and style only: border-color belongs to the style classes, and
-           this rule is unlayered, so it would beat them. */
-        border-width: var(--pui-border-width);
-        border-style: solid;
-        border-radius: var(--pui-radius);
-        font: inherit;
-        font-size: var(--pui-font-size);
-        cursor: pointer;
-        white-space: nowrap;
-      }
-
       .note {
         border-inline-start: 3px solid var(--pui-warn);
         padding-inline-start: 0.75rem;
@@ -149,19 +133,19 @@
       <div>
         <h1>Perfect UI v1 — preview</h1>
         <p style="margin: 0.25rem 0 0">
-          Phases 2 and 3: tokens, color mode, and the style + color contract.
-          Shapes (<code>pui-btn</code>, <code>pui-card</code>, …) arrive in
-          Phase 4.
+          Phases 2 to 4: tokens, color mode, the style + color contract, and
+          the first shapes — <code>pui-btn</code>, <code>pui-chip</code> and
+          <code>pui-badge</code>.
         </p>
       </div>
       <div class="row">
-        <button class="demo pui-outline pui-surface" data-mode="system">
+        <button class="pui-btn pui-outline pui-surface" data-mode="system">
           System
         </button>
-        <button class="demo pui-outline pui-surface" data-mode="light">
+        <button class="pui-btn pui-outline pui-surface" data-mode="light">
           Light
         </button>
-        <button class="demo pui-outline pui-surface" data-mode="dark">
+        <button class="pui-btn pui-outline pui-surface" data-mode="dark">
           Dark
         </button>
       </div>
@@ -206,6 +190,29 @@
       <tbody id="matrix"></tbody>
     </table>
 
+    <h2>Shapes</h2>
+    <p>
+      Size is expressed by choosing a component, never by a modifier class:
+      <code>pui-btn</code> &gt; <code>pui-chip</code> &gt;
+      <code>pui-badge</code>. All three read the same four base tokens, so they
+      rescale together.
+    </p>
+    <div class="row">
+      <button class="pui-btn pui-solid pui-theme">Save</button>
+      <button class="pui-btn pui-outline pui-surface">Cancel</button>
+      <span class="pui-chip pui-soft pui-success">Active</span>
+      <span class="pui-chip pui-outline pui-muted">Draft</span>
+      <span class="pui-badge pui-solid pui-error">3</span>
+      <span class="pui-badge pui-soft pui-theme">new</span>
+    </div>
+    <p>With <code>pui-rounded-full</code>, the only shape helper that ships:</p>
+    <div class="row">
+      <button class="pui-btn pui-solid pui-theme pui-rounded-full">Save</button>
+      <span class="pui-chip pui-soft pui-success pui-rounded-full">Active</span>
+      <span class="pui-badge pui-solid pui-error pui-rounded-full">3</span>
+      <a class="pui-btn pui-link pui-theme" href="#">A link as a button</a>
+    </div>
+
     <h2>States</h2>
     <p>
       Disabled, invalid and focus live in the last layer. Press
@@ -213,16 +220,16 @@
       color.
     </p>
     <div class="row">
-      <button class="demo pui-solid pui-theme">Focus me</button>
-      <button class="demo pui-solid pui-theme" disabled>disabled</button>
-      <button class="demo pui-outline pui-surface" disabled>disabled</button>
-      <button class="demo pui-soft pui-muted" aria-disabled="true">
+      <button class="pui-btn pui-solid pui-theme">Focus me</button>
+      <button class="pui-btn pui-solid pui-theme" disabled>disabled</button>
+      <button class="pui-btn pui-outline pui-surface" disabled>disabled</button>
+      <button class="pui-btn pui-soft pui-muted" aria-disabled="true">
         aria-disabled
       </button>
-      <button class="demo pui-outline pui-surface" aria-invalid="true">
+      <button class="pui-btn pui-outline pui-surface" aria-invalid="true">
         aria-invalid
       </button>
-      <button class="demo pui-solid pui-error">Focus me</button>
+      <button class="pui-btn pui-solid pui-error">Focus me</button>
     </div>
 
     <h2>Overriding</h2>
@@ -233,8 +240,8 @@
       <code>--pui-color</code>.
     </p>
     <div class="row">
-      <button class="demo pui-solid pui-theme">Default</button>
-      <button class="demo pui-solid pui-theme brand">Overridden</button>
+      <button class="pui-btn pui-solid pui-theme">Default</button>
+      <button class="pui-btn pui-solid pui-theme brand">Overridden</button>
       <style>
         .brand {
           --pui-color: rebeccapurple;
@@ -245,8 +252,9 @@
 
     <h2 class="note">Not implemented yet</h2>
     <p class="note">
-      Components (Phase 4), the fallback loader registry (Phase 5) and the
-      Playwright suites (Phase 6). This page is a manual check, not a test.
+      The remaining components (card, list, table, timeline, forms, overlays),
+      the fallback loader registry (Phase 5) and the Playwright suites
+      (Phase 6). This page is a manual check, not a test.
     </p>
 
     <script type="module">
@@ -312,7 +320,7 @@
           <th>${color}</th>
           ${STYLES.map(
             (style) =>
-              `<td><button class="demo ${style} ${color}">Button</button></td>`
+              `<td><button class="pui-btn ${style} ${color}">Button</button></td>`
           ).join("")}
         </tr>`
       ).join("");

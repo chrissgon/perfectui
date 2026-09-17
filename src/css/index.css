@@ -1,3 +1,6 @@
 /* Full bundle (dist/perfectui.css): core + every component. */
 @import "./core.css";
-/* Component imports are added in Phase 4, one per file in ./components. */
+@import "./components/button.css";
+@import "./components/chip.css";
+@import "./components/badge.css";
+/* More components are added in Phase 4, one per file in ./components. */

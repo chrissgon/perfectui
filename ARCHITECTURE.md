@@ -169,13 +169,14 @@ Rule: multipliers are the only "magic numbers" allowed inside components.
 Declared once, at the top of every entry CSS file (repeating the declaration is safe):
 
 ```css
-@layer pui.tokens, pui.components, pui.styles, pui.colors, pui.states;
+@layer pui.tokens, pui.components, pui.utilities, pui.styles, pui.colors, pui.states;
 ```
 
 | Layer            | Contains                                                                                  |
 | ---------------- | ----------------------------------------------------------------------------------------- |
 | `pui.tokens`     | `:root` variables, `color-scheme`, mode rules                                             |
 | `pui.components` | Shape classes (`pui-btn`, `pui-card`…)                                                    |
+| `pui.utilities`  | Shape helpers (`pui-rounded`, `pui-rounded-full`)                                         |
 | `pui.styles`     | `pui-solid`, `pui-soft`, `pui-outline`, `pui-link`                                        |
 | `pui.colors`     | `pui-theme`, `pui-surface`… (variables only)                                              |
 | `pui.states`     | `:disabled` / `[disabled]` (scoped to `pui-` classes only), `[aria-invalid]`, focus rings |
@@ -213,7 +214,7 @@ Rules:
 - Size scale is expressed by **component choice**: `pui-btn` > `pui-chip` > `pui-badge`.
 - Positioning of overlays (dropdown, tooltip): **CSS anchor positioning** (decided). Add `anchor-positioning` to the fallback registry (§8.2) for browsers without support.
 - Field group uses **real elements**, not pseudo-elements (see §6.1).
-- Helper classes are allowed **only if they are used together with components**: `pui-rounded`, `pui-rounded-full`.
+- Helper classes are allowed **only if they are used together with components**: `pui-rounded`, `pui-rounded-full`. They live in `pui.utilities`, a layer of their own: a helper and a component class have the same specificity, so inside `pui.components` the winner would depend on the user's import order.
 - Accessibility is part of the component: visible `:focus-visible`, respect `prefers-reduced-motion`, use logical properties (`margin-inline`, `inset-inline-start`).
 
 ### Target HTML examples
@@ -456,6 +457,7 @@ src/
     styles.css            # pui-solid, pui-soft, pui-outline, pui-link
     colors.css            # pui-theme … pui-inverse
     states.css            # disabled, invalid, focus
+    utilities.css         # pui-rounded, pui-rounded-full
     components/
       button.css chip.css badge.css card.css list.css table.css
       timeline.css group.css float.css accordion.css modal.css
@@ -594,7 +596,7 @@ None at the moment. If a new question appears, add it here and ask the maintaine
 - [x] **Phase 2 — Tokens & mode:** `tokens.css` (semantic colors with `light-dark()`, 4 base tokens, `data-pui-mode` rules), `src/js/mode.ts` (`setMode`/`getMode` + cookie), `./mode` export and Vite entry. `layers.css` already shipped in Phase 1.
 - [x] **Phase 3 — Lego pieces:** `colors.css` (7 color classes), `styles.css` (4 style classes, derived hover and ink), `states.css` (disabled, focus ring, `aria-invalid`). Contract extended with `--pui-ink` and `--pui-shade` (§3.1). Preview page at `tests/manual/preview.html`.
 - [ ] **Phase 4 — Components (one PR each):**
-  - [ ] button, badge, chip
+  - [x] button, badge, chip — `pui-rounded`/`pui-rounded-full` shipped with them, in `pui.utilities`
   - [ ] card, list, table, timeline
   - [ ] form (field group, input, input group, select, textarea, checkbox, radio, switch)
   - [ ] group, float

@@ -70,7 +70,7 @@ Goal kept: **bare minimum, lightweight, customizable**. Tailwind is an optional 
 | 1 — Build         | ✅ Applied on branch `v1` (commit `337e7fb`).                                                                                   |
 | 2 — Tokens & mode | ✅ Done. `perfectui.css` 338 B gzip, `js/mode.js` 309 B, `js/index.js` 154 B.                                                   |
 | 3 — Lego pieces   | ✅ Done. `perfectui.css` 833 B gzip.                                                                                            |
-| 4 — Components    | ⏭️ Next                                                                                                                         |
+| 4 — Components    | 🚧 button, chip, badge done. `perfectui.css` 1068 B gzip.                                                                                                                         |
 | 5 – 8             | Pending                                                                                                                         |
 
 ### What Phase 1 changed (patch)
@@ -83,6 +83,13 @@ Goal kept: **bare minimum, lightweight, customizable**. Tailwind is an optional 
 - `package.json`: `exports`, `files`, `sideEffects`, scripts `build`, `size`; devDep `lightningcss`.
 - `tsconfig.json`.
 - Verified: build OK, `tsc` OK, JS import in Node (SSR) OK.
+
+### What Phase 4 added so far
+
+- `src/css/components/{button,chip,badge}.css`, following the multipliers approved in §4.1.
+- `src/css/utilities.css` with `pui-rounded` and `pui-rounded-full`, in the new `pui.utilities` layer.
+- Each component file imports `../layers.css`, so it carries the layer order when loaded on its own.
+- Verified: layer order comes out correct both in the bundle and in a standalone component file, which closes the lightningcss question from Phase 2. Checked in both modes: shapes, pill helper, `<a class="pui-btn">`, disabled, `aria-invalid`, focus ring, and the bare classes with no style or color.
 
 ### What Phase 3 added
 
@@ -103,28 +110,25 @@ Goal kept: **bare minimum, lightweight, customizable**. Tailwind is an optional 
 
 - The library has **no styles** between Phase 1 and Phase 4 (only tokens). Expected on branch `v1`.
 - Importing `core.css` sets `color-scheme: light dark` on `:root`. Apps that are not dark-ready will follow the OS in dark mode unless they render `<html data-pui-mode="light">`. Must be called out in the docs (Phase 7).
-- `lightningcss` moves the `@layer` order statement to the end of the minified file and drops names already declared by a block. The resulting order is still correct for `core.css`; re-check it in Phase 4 when component files are loaded on their own.
 - Nothing is pushed yet: branch `v1` is local only.
 
 ---
 
 ## 4. Next steps (in Claude Code)
 
-1. **Phase 4 — Components, one group at a time** (ARCHITECTURE.md §4.1, §6):
-   - button, badge, chip first, using the approved multipliers.
-   - Replace the `.demo` stand-in in `tests/manual/preview.html` with the real
-     shape classes as each one lands, so the page keeps showing what exists.
-   - Re-check the `@layer` order in a component file loaded on its own, without
-     `core.css` (see Known issues).
-   - Stop and report after each group.
-2. Continue phases 5 → 8 one at a time.
+1. **Phase 4, next group:** card, list, table, timeline (ARCHITECTURE.md §4.1, §6).
+   - `pui-card` uses `radius x 1.5`; header and content have their own padding.
+   - Keep adding each shape to `tests/manual/preview.html` as it lands.
+   - Stop and report after the group.
+2. Then: form controls, group/float, accordion, modal, dropdown, tooltip.
+3. Continue phases 5 → 8 one at a time.
 
 ### Prompt to start in Claude Code
 
 ```
 Read CLAUDE.md, ARCHITECTURE.md and HANDOFF.md.
-Confirm the repo state (branch v1, phases 1 to 3 done).
-Then execute Phase 4 using the senior-frontend-architect skill, one component group at a time, and stop when it is done.
+Confirm the repo state (branch v1, phases 1 to 3 done, Phase 4 started: button, chip, badge).
+Then continue Phase 4 using the senior-frontend-architect skill, one component group at a time, and stop after each group.
 ```
 
 ---

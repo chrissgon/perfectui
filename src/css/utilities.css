@@ -1,0 +1,16 @@
+/* The only helper classes the library ships. Allowed because they are used
+   together with components (§6): a pill-shaped chip or badge, or squaring a
+   corner back off.
+
+   They need their own layer: a helper and a component class have the same
+   specificity, so inside pui.components the component would win or lose by
+   source order alone, which changes with the import order of the user. */
+@layer pui.utilities {
+  .pui-rounded {
+    border-radius: var(--pui-radius);
+  }
+
+  .pui-rounded-full {
+    border-radius: 9999px;
+  }
+}
