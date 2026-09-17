@@ -27,6 +27,18 @@
       color: var(--pui-text-muted);
       font-weight: 600;
     }
+
+    /* A footer is a summary band. Without it the last row loses its bottom
+       rule to the one above and reads as if it had fallen off the table. The
+       border-top collapses with the body's last border, so this adds a tone,
+       not a second line. */
+    & tfoot {
+      background-color: var(--pui-bg-muted);
+    }
+
+    & tfoot :is(th, td) {
+      border-top: var(--pui-border-width) solid var(--pui-border);
+    }
   }
 
   /* Same two modifiers as the list, on body rows only. */
