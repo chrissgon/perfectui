@@ -7,6 +7,10 @@
 @layer pui.components {
   .pui-card {
     overflow: hidden;
+    /* Without this a card is transparent, which only looks right while it sits
+       directly on the page. Over a modal backdrop, or on a tinted section, the
+       page shows through it. */
+    background-color: var(--pui-bg);
     border: var(--pui-border-width) solid var(--pui-border);
     border-radius: calc(var(--pui-radius) * 1.5);
     font-size: var(--pui-font-size);

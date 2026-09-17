@@ -33,15 +33,19 @@
         display: none;
       }
 
-      /* Chevron drawn with borders, so it follows the text color. */
+      /* Chevron drawn with borders, so it follows the text color. The bottom
+         border is zero on purpose: that makes the element's box exactly the
+         triangle, so rotating it 180deg spins it in place instead of swinging
+         it around a box that is twice as tall. */
       &::after {
         content: "";
         flex: none;
         width: 0;
         height: 0;
-        border: calc(var(--pui-font-size) * 0.3) solid transparent;
-        border-block-start-color: currentColor;
-        margin-block-start: calc(var(--pui-font-size) * 0.3);
+        border-style: solid;
+        border-width: calc(var(--pui-font-size) * 0.3)
+          calc(var(--pui-font-size) * 0.3) 0;
+        border-color: currentColor transparent transparent;
         transition: rotate 0.15s ease;
       }
     }

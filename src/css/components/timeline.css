@@ -21,7 +21,8 @@
     &:not(:last-child)::before {
       content: "";
       position: absolute;
-      inset-block: calc(var(--pui-font-size) * 1.75 + var(--pui-space)) 0;
+      inset-block: calc(var(--pui-font-size) * 1.75 + var(--pui-space))
+        var(--pui-space);
       inset-inline-start: calc(var(--pui-font-size) * 0.875);
       border-inline-start: var(--pui-border-width) solid var(--pui-border);
     }
@@ -45,7 +46,8 @@
 
       &:not(:last-child)::before {
         inset-block: calc(var(--pui-font-size) * 0.875) auto;
-        inset-inline: calc(var(--pui-font-size) * 1.75 + var(--pui-space)) 0;
+        inset-inline: calc(var(--pui-font-size) * 1.75 + var(--pui-space))
+          var(--pui-space);
         border-inline-start: none;
         border-block-start: var(--pui-border-width) solid var(--pui-border);
       }
