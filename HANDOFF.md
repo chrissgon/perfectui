@@ -106,6 +106,8 @@ Dropped by the maintainer's decision: `accordion-accented` and `accordion-aligne
 
 Two more found afterwards. The accordion looked, in the maintainer's words, like nothing but a thin grey line: it was the only container without a header band, so it read as off-pattern next to a card. The `<summary>` now carries the same band, padding and hover as `pui-card-header`, chosen from a rendered comparison of the alternatives, and its content picked up the top padding it was missing.
 
+A third: a control inside an input group had its focus ring cut in half, because the group hid its overflow to keep its corners. Drawing the ring inside the control looked worse — on a solid fill it vanishes entirely — so both the input group and the accordion item stopped clipping and hand their corners to their children instead. Same fix, same reason, in two components.
+
 And: inside a group, hovering a child raised it with `z-index`, which flipped the ownership of the shared one-pixel edge and made the border look like it moved as the pointer crossed. Measured first — the geometry never changed, so it was paint order, not layout. Only focus raises a child now, which is the case the rule was written for.
 
 ### What Phase 7 added (this repo only)

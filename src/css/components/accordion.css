@@ -12,8 +12,9 @@
     font-size: var(--pui-font-size);
   }
 
+  /* The summary carries the corners itself instead of the item clipping them,
+     so that a focus ring on the summary is not cut in half. */
   .pui-accordion-item {
-    overflow: hidden;
     border: var(--pui-border-width) solid var(--pui-edge, var(--pui-border));
     border-radius: var(--pui-radius);
 
@@ -27,6 +28,7 @@
       gap: calc(var(--pui-space) * 2);
       padding: calc(var(--pui-space) * 2) calc(var(--pui-space) * 4);
       background-color: var(--pui-bg-muted);
+      border-radius: inherit;
       cursor: pointer;
       user-select: none;
       transition: background-color 0.15s ease;
@@ -57,6 +59,11 @@
         border-color: currentColor transparent transparent;
         transition: rotate 0.15s ease;
       }
+    }
+
+    &[open] > summary {
+      border-end-start-radius: 0;
+      border-end-end-radius: 0;
     }
 
     &[open] > summary::after {
