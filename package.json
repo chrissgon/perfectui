@@ -6,12 +6,28 @@
   "private": false,
   "license": "MIT",
   "type": "module",
-  "main": "dist/perfectui.js",
-  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/js/index.js"
+    },
+    "./fallbacks/*": "./dist/js/fallbacks/*.js",
+    "./perfectui.css": "./dist/perfectui.css",
+    "./core.css": "./dist/css/core.css",
+    "./components/*": "./dist/css/components/*.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "**/*.css",
+    "./dist/js/index.js",
+    "./dist/js/fallbacks/*.js"
+  ],
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
+    "build": "vite build && node scripts/build-css.mjs",
+    "size": "node scripts/size.mjs",
     "prepare": "husky",
     "lint": "eslint ./src --fix",
     "format": "prettier --write ."
@@ -26,8 +42,8 @@
     "eslint-plugin-import": "^2.29.1",
     "husky": "^9.1.5",
     "install": "^0.13.0",
+    "lightningcss": "^1.33.0",
     "prettier": "^3.2.5",
-    "sass": "^1.58.0",
     "typescript": "^5.4.3",
     "vite": "^5.2.8",
     "vite-plugin-dts": "^3.6.4"

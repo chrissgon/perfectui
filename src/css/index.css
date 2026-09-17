@@ -1,0 +1,3 @@
+/* Full bundle (dist/perfectui.css): core + every component. */
+@import "./core.css";
+/* Component imports are added in Phase 4, one per file in ./components. */
