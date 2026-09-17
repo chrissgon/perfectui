@@ -605,10 +605,10 @@ None at the moment. If a new question appears, add it here and ask the maintaine
   - [x] card, list, table, timeline (+ `pui-striped`, `pui-hoverable`; horizontal timeline waits for `pui-group-row`)
   - [x] form (field group, input, input group, addon, select, textarea, checkbox, radio, switch)
   - [x] group, float (+ the horizontal timeline, which depends on `pui-group-row`)
-  - [ ] accordion (`details name`)
-  - [ ] modal (`dialog`, `commandfor`, `closedby`)
-  - [ ] dropdown (`popover`)
-  - [ ] tooltip (`popover="hint"`, `interestfor`)
+  - [x] accordion (`details name`)
+  - [x] modal (`dialog`, `commandfor`, `closedby`)
+  - [x] dropdown (`popover`)
+  - [x] tooltip (`popover="hint"`, `interestfor`)
 - [ ] **Phase 5 — JS:** loader + fallbacks; delete old `index.ts` logic and `constants.ts`.
 - [ ] **Phase 6 — Tests:** Playwright suites (§12); compare size with baseline.
 - [ ] **Phase 7 — Docs:** update `/docs`; update site repo `chrissgon/perfectui-doc` (e.g. `Atom.ThemeColorPicker.vue`, `Atom.DarkMode.vue`); write `MIGRATION.md` from §13.

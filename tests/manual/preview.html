@@ -388,6 +388,92 @@
       </div>
     </div>
 
+    <h2>Overlays and disclosure</h2>
+    <p>
+      These four are native HTML behavior, not JavaScript:
+      <code>&lt;details name&gt;</code> for the exclusive accordion,
+      <code>popover</code> for the dropdown, <code>interestfor</code> plus
+      <code>popover="hint"</code> for the tooltip, and
+      <code>&lt;dialog closedby&gt;</code> plus <code>commandfor</code> for the
+      modal. Click them: nothing here is wired up with script.
+    </p>
+    <div class="grid">
+      <div class="pui-accordion">
+        <details class="pui-accordion-item" name="pv-faq" open>
+          <summary>Does it need JavaScript?</summary>
+          <p>Only to emulate what a browser is missing.</p>
+        </details>
+        <details class="pui-accordion-item" name="pv-faq">
+          <summary>Is Tailwind required?</summary>
+          <p>No, it is an optional complement.</p>
+        </details>
+        <details class="pui-accordion-item" name="pv-faq">
+          <summary>How big is it?</summary>
+          <p>Smaller than the 0.23.0 build it replaces.</p>
+        </details>
+      </div>
+
+      <div class="stack">
+        <div class="row">
+          <button class="pui-btn pui-outline pui-surface" popovertarget="pv-menu">
+            Dropdown
+          </button>
+          <div class="pui-dropdown" id="pv-menu" popover>
+            <ul class="pui-list" style="list-style: none">
+              <li class="pui-list-item">Profile</li>
+              <li class="pui-list-item">Billing</li>
+              <li class="pui-list-item">Sign out</li>
+            </ul>
+          </div>
+
+          <button class="pui-btn pui-outline pui-surface" interestfor="pv-tip">
+            Tooltip
+          </button>
+          <div class="pui-tooltip" id="pv-tip" popover="hint">
+            Hover, focus or long press.
+          </div>
+
+          <button
+            class="pui-btn pui-solid pui-theme"
+            commandfor="pv-modal"
+            command="show-modal"
+          >
+            Modal
+          </button>
+        </div>
+        <small style="color: var(--pui-text-muted)">
+          The dropdown and tooltip are placed with CSS anchor positioning, which
+          is Chromium-only today. Elsewhere they stay centered until the Phase 5
+          fallback lands.
+        </small>
+      </div>
+    </div>
+
+    <dialog class="pui-modal" id="pv-modal" closedby="any">
+      <div class="pui-card">
+        <div class="pui-card-header">Delete project</div>
+        <div class="pui-card-content">
+          <span>This cannot be undone.</span>
+          <div class="pui-group-row" style="justify-content: flex-end">
+            <button
+              class="pui-btn pui-outline pui-surface"
+              commandfor="pv-modal"
+              command="close"
+            >
+              Cancel
+            </button>
+            <button
+              class="pui-btn pui-solid pui-error"
+              commandfor="pv-modal"
+              command="close"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </dialog>
+
     <h2>States</h2>
     <p>
       Disabled, invalid and focus live in the last layer. Press

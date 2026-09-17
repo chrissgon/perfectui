@@ -1,0 +1,25 @@
+/* Modal. The behavior is the native <dialog>: `commandfor` opens it and
+   `closedby="any"` gives it light dismiss, both without JS. Requires core.css.
+
+   The dialog itself is only a frame — put a pui-card inside it for the
+   surface, so a modal is composed from pieces that already exist. */
+@import "../layers.css";
+
+@layer pui.components {
+  .pui-modal {
+    max-width: min(32rem, calc(100vw - var(--pui-space) * 8));
+    max-height: calc(100dvh - var(--pui-space) * 8);
+    /* Without this the content spills past the max height and cannot be
+       reached: a <dialog> does not scroll on its own. */
+    overflow: auto;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: inherit;
+    font-size: var(--pui-font-size);
+
+    &::backdrop {
+      background-color: rgb(0 0 0 / 50%);
+    }
+  }
+}

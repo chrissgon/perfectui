@@ -1,0 +1,63 @@
+/* Accordion. Exclusive opening is native: give the items the same `name` on
+   <details> and the browser closes the others. Zero JS. Requires core.css.
+
+   The container only spaces the items. Add pui-group-col to join them into one
+   block instead. */
+@import "../layers.css";
+
+@layer pui.components {
+  .pui-accordion {
+    display: grid;
+    gap: var(--pui-space);
+    font-size: var(--pui-font-size);
+  }
+
+  .pui-accordion-item {
+    overflow: hidden;
+    border: var(--pui-border-width) solid var(--pui-edge, var(--pui-border));
+    border-radius: var(--pui-radius);
+
+    & > summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: calc(var(--pui-space) * 2);
+      padding: calc(var(--pui-space) * 2) calc(var(--pui-space) * 4);
+      cursor: pointer;
+      user-select: none;
+      /* Hide the default marker: `list-style` covers Chrome and Firefox, the
+         pseudo-element covers Safari. */
+      list-style: none;
+
+      &::-webkit-details-marker {
+        display: none;
+      }
+
+      /* Chevron drawn with borders, so it follows the text color. */
+      &::after {
+        content: "";
+        flex: none;
+        width: 0;
+        height: 0;
+        border: calc(var(--pui-font-size) * 0.3) solid transparent;
+        border-block-start-color: currentColor;
+        margin-block-start: calc(var(--pui-font-size) * 0.3);
+        transition: rotate 0.15s ease;
+      }
+    }
+
+    &[open] > summary::after {
+      rotate: 180deg;
+    }
+
+    & > :not(summary) {
+      padding: 0 calc(var(--pui-space) * 4) calc(var(--pui-space) * 4);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pui-accordion-item > summary::after {
+      transition: none;
+    }
+  }
+}

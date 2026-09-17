@@ -1,0 +1,32 @@
+/* Dropdown. The behavior is the native popover API: `popovertarget` on the
+   trigger, `popover` on the panel. Requires core.css.
+
+   Placement uses CSS anchor positioning, which a popover invoked by
+   `popovertarget` gets for free through its implicit anchor. It is guarded by
+   @supports so that browsers without it keep the centered UA position until
+   the Phase 5 fallback positions the panel itself. */
+@import "../layers.css";
+
+@layer pui.components {
+  .pui-dropdown {
+    width: max-content;
+    margin: 0;
+    padding: var(--pui-space);
+    border: var(--pui-border-width) solid var(--pui-border);
+    border-radius: var(--pui-radius);
+    background-color: var(--pui-bg);
+    color: inherit;
+    font-size: var(--pui-font-size);
+  }
+
+  @supports (position-area: block-end) {
+    .pui-dropdown {
+      position: absolute;
+      inset: auto;
+      position-area: block-end span-inline-end;
+      position-try-fallbacks: flip-block, flip-inline;
+      margin-block-start: var(--pui-space);
+      min-width: anchor-size(inline);
+    }
+  }
+}

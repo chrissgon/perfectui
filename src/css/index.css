@@ -10,4 +10,7 @@
 @import "./components/form.css";
 @import "./components/group.css";
 @import "./components/float.css";
-/* More components are added in Phase 4, one per file in ./components. */
+@import "./components/accordion.css";
+@import "./components/modal.css";
+@import "./components/dropdown.css";
+@import "./components/tooltip.css";
