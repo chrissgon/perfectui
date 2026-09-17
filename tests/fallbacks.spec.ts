@@ -18,7 +18,10 @@ async function gotoOverlays(page: Page): Promise<string[]> {
   return downloaded;
 }
 
-test("only the missing fallbacks are downloaded", async ({ page, browserName }) => {
+test("only the missing fallbacks are downloaded", async ({
+  page,
+  browserName
+}) => {
   const downloaded = await gotoOverlays(page);
 
   // No native attribute exists for this one, so every browser loads it.
@@ -70,7 +73,9 @@ test("a dropdown opens below its trigger", async ({ page }) => {
   expect(Math.abs(panel.x - trigger.x)).toBeLessThan(4);
 });
 
-test("interestfor shows a tooltip above its trigger on hover", async ({ page }) => {
+test("interestfor shows a tooltip above its trigger on hover", async ({
+  page
+}) => {
   await gotoOverlays(page);
   await page.locator("#open-tip").hover();
 
@@ -89,11 +94,17 @@ test("the indeterminate attribute sets the property", async ({ page }) => {
 
   // Once the user acts, the attribute has served its purpose.
   await box.click();
-  await expect(box).toHaveAttribute("indeterminate", /.*/).catch(() => {});
-  expect(await box.evaluate((el) => el.hasAttribute("indeterminate"))).toBe(false);
+  await expect(box)
+    .toHaveAttribute("indeterminate", /.*/)
+    .catch(() => {});
+  expect(await box.evaluate((el) => el.hasAttribute("indeterminate"))).toBe(
+    false
+  );
 });
 
-test("components inserted after load need no re-initialisation", async ({ page }) => {
+test("components inserted after load need no re-initialisation", async ({
+  page
+}) => {
   await gotoOverlays(page);
 
   await page.evaluate(() => {

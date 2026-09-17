@@ -10,6 +10,7 @@ const entries = [
 const loaded = await Promise.all(entries.map((entry) => import(entry)));
 
 const { getMode } = loaded[1];
-if (getMode() !== "system") throw new Error("getMode() should be 'system' without a DOM");
+if (getMode() !== "system")
+  throw new Error("getMode() should be 'system' without a DOM");
 
 console.log(`ssr: ${entries.length} entries imported in Node, no DOM required`);

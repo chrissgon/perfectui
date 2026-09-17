@@ -16,7 +16,10 @@ test("no attribute follows the system", async ({ page }) => {
   expect(await background(page)).toBe("rgb(0, 0, 0)");
 });
 
-test("setMode writes the attribute and the cookie", async ({ page, context }) => {
+test("setMode writes the attribute and the cookie", async ({
+  page,
+  context
+}) => {
   await page.evaluate(() => window.pui.setMode("dark"));
 
   await expect(page.locator("html")).toHaveAttribute("data-pui-mode", "dark");
@@ -27,12 +30,17 @@ test("setMode writes the attribute and the cookie", async ({ page, context }) =>
   expect(await page.evaluate(() => window.pui.getMode())).toBe("dark");
 });
 
-test("setMode('system') clears both, even against the system preference", async ({ page, context }) => {
+test("setMode('system') clears both, even against the system preference", async ({
+  page,
+  context
+}) => {
   await page.evaluate(() => window.pui.setMode("dark"));
   await page.evaluate(() => window.pui.setMode("system"));
 
   await expect(page.locator("html")).not.toHaveAttribute("data-pui-mode", /.*/);
-  expect((await context.cookies()).find((c) => c.name === "pui-mode")).toBeUndefined();
+  expect(
+    (await context.cookies()).find((c) => c.name === "pui-mode")
+  ).toBeUndefined();
   expect(await page.evaluate(() => window.pui.getMode())).toBe("system");
   expect(await background(page)).toBe("rgb(255, 255, 255)");
 });
