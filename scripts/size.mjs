@@ -13,10 +13,17 @@ function walk(dir) {
 }
 
 const files = walk("dist").filter((f) => /\.(css|js)$/.test(f));
-const rows = files.map((f) => ({ file: f, gzip: gzipSync(readFileSync(f), { level: 9 }).length }));
+const rows = files.map((f) => ({
+  file: f,
+  gzip: gzipSync(readFileSync(f), { level: 9 }).length
+}));
 for (const r of rows) console.log(`${String(r.gzip).padStart(6)} B  ${r.file}`);
 
-const full = (name) => rows.find((r) => r.file === join("dist", name))?.gzip ?? 0;
-const loader = rows.find((r) => r.file === join("dist", "js/index.js"))?.gzip ?? 0;
-console.log(`\nperfectui.css ${full("perfectui.css")} B (baseline ${BASELINE.css} B)`);
+const full = (name) =>
+  rows.find((r) => r.file === join("dist", name))?.gzip ?? 0;
+const loader =
+  rows.find((r) => r.file === join("dist", "js/index.js"))?.gzip ?? 0;
+console.log(
+  `\nperfectui.css ${full("perfectui.css")} B (baseline ${BASELINE.css} B)`
+);
 console.log(`js/index.js   ${loader} B (baseline ${BASELINE.js} B)`);

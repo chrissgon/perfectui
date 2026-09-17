@@ -11,12 +11,17 @@ const fallbacks = existsSync(fallbacksDir)
   ? Object.fromEntries(
       readdirSync(fallbacksDir)
         .filter((f) => f.endsWith(".ts"))
-        .map((f) => [`fallbacks/${f.replace(/\.ts$/, "")}`, `${fallbacksDir}/${f}`])
+        .map((f) => [
+          `fallbacks/${f.replace(/\.ts$/, "")}`,
+          `${fallbacksDir}/${f}`
+        ])
     )
   : {};
 
 export default defineConfig({
-  plugins: [dts({ outDir: "dist/types", entryRoot: "src/js", include: ["src/js"] })],
+  plugins: [
+    dts({ outDir: "dist/types", entryRoot: "src/js", include: ["src/js"] })
+  ],
   build: {
     target: "es2022",
     emptyOutDir: true,
