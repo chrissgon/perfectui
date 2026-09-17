@@ -623,7 +623,7 @@ None at the moment. If a new question appears, add it here and ask the maintaine
 - [x] **Phase 1 — Build:** _(delivered as `perfectui-phase-1.patch`; apply it first — see HANDOFF.md)_ removed Sass, reset and font; Vite ESM lib for JS (`src/js` → `dist/js`, types in `dist/types`); `scripts/build-css.mjs` (lightningcss bundle + minify, per-file output); `scripts/size.mjs`; `exports` + `sideEffects`; `tsconfig.json`. Note: `./mode` export is added in Phase 2 together with `mode.ts`.
 - [x] **Phase 2 — Tokens & mode:** `tokens.css` (semantic colors with `light-dark()`, 4 base tokens, `data-pui-mode` rules), `src/js/mode.ts` (`setMode`/`getMode` + cookie), `./mode` export and Vite entry. `layers.css` already shipped in Phase 1.
 - [x] **Phase 3 — Lego pieces:** `colors.css` (7 color classes), `styles.css` (4 style classes, derived hover and ink), `states.css` (disabled, focus ring, `aria-invalid`). Contract extended with `--pui-ink` and `--pui-shade` (§3.1). Preview page at `tests/manual/preview.html`.
-- [ ] **Phase 4 — Components (one PR each):**
+- [x] **Phase 4 — Components:** every component in §6, plus the direction and alignment classes on the overlays.
   - [x] button, badge, chip — `pui-rounded`/`pui-rounded-full` shipped with them, in `pui.utilities`
   - [x] card, list, table, timeline (+ `pui-striped`, `pui-hoverable`; horizontal timeline waits for `pui-group-row`)
   - [x] form (field group, input, input group, addon, select, textarea, checkbox, radio, switch)
