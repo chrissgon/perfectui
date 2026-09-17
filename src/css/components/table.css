@@ -15,9 +15,11 @@
       text-align: start;
     }
 
-    /* The last row sits on the container's edge, so it needs no rule of its
-       own. Keeping it makes a table inside a card look doubled. */
-    & tbody tr:last-child :is(th, td) {
+    /* The very last row sits on the container's edge, so it needs no rule of
+       its own: keeping it makes a table inside a card look doubled. Matching
+       the table's last row group rather than tbody keeps the separation
+       between the body and a tfoot. */
+    & > :last-child > tr:last-child > :is(th, td) {
       border-bottom: none;
     }
 

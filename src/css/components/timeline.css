@@ -21,7 +21,7 @@
     &:not(:last-child)::before {
       content: "";
       position: absolute;
-      inset-block: calc(var(--pui-font-size) * 1.75) 0;
+      inset-block: calc(var(--pui-font-size) * 1.75 + var(--pui-space)) 0;
       inset-inline-start: calc(var(--pui-font-size) * 0.875);
       border-inline-start: var(--pui-border-width) solid var(--pui-border);
     }
@@ -33,6 +33,10 @@
 
   .pui-checkpoint-icon {
     flex: none;
+    /* The icon is one of the few elements with a fixed size, so it cannot rely
+       on the page's box-sizing: with content-box the border would push it past
+       the size the connecting line is positioned against. */
+    box-sizing: border-box;
     display: inline-flex;
     align-items: center;
     justify-content: center;

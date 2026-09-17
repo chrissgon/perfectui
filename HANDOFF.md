@@ -89,6 +89,9 @@ Goal kept: **bare minimum, lightweight, customizable**. Tailwind is an optional 
 - `src/css/components/{button,chip,badge}.css`, following the multipliers approved in §4.1.
 - `src/css/components/{card,list,table,timeline}.css`. Card follows the proportions approved in `tests/manual/token-scale.html`; the others reuse the same steps (§4.1).
 - Rule written down in §6: containers read the page tokens directly, while colorable elements carry a transparent border so a style class has something to paint.
+- `tests/manual/table.html`: 18 table cases for manual review, including the recipes that replace the v0 modifiers.
+- Two fixes found through that page: the timeline icon needed `box-sizing: border-box` (with `content-box` the border pushed it 2px past the point the connecting line starts from), and the last-row border rule now matches the table's last row group instead of `tbody`, so a `tfoot` no longer ends with a stray rule.
+- `tests/manual/preview.html` had its own `th, td` rule leaking into `.pui-table`, which added a border under the last row. The page's documentation tables are now scoped to `.doc`. Worth remembering for Phase 7: unlayered author CSS beating the library is the feature, and it is also the easiest way to misjudge a component.
 - `src/css/utilities.css` with `pui-rounded` and `pui-rounded-full`, in the new `pui.utilities` layer.
 - Each component file imports `../layers.css`, so it carries the layer order when loaded on its own.
 - Verified: layer order comes out correct both in the bundle and in a standalone component file, which closes the lightningcss question from Phase 2. Checked in both modes: shapes, pill helper, `<a class="pui-btn">`, disabled, `aria-invalid`, focus ring, and the bare classes with no style or color.

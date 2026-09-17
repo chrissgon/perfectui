@@ -67,13 +67,15 @@
         padding: 0.1em 0.35em;
       }
 
-      table {
+      /* Scoped to the page's own documentation tables. Unscoped, this block
+         is unlayered author CSS and would beat .pui-table, which is exactly
+         the override story the library promises. */
+      table.doc {
         border-collapse: collapse;
         width: 100%;
       }
 
-      th,
-      td {
+      .doc :is(th, td) {
         text-align: left;
         padding: 0.6rem 0.75rem;
         border-bottom: var(--pui-border-width) solid var(--pui-border);
@@ -83,11 +85,11 @@
         vertical-align: middle;
       }
 
-      thead th {
+      .doc thead th {
         color: var(--pui-text);
       }
 
-      tbody th {
+      .doc tbody th {
         font-family: ui-monospace, monospace;
       }
 
@@ -178,7 +180,7 @@
       Only four exist. Components derive every size from them with
       <code>calc()</code>, so changing one rescales the library.
     </p>
-    <table>
+    <table class="doc">
       <tbody id="base-tokens"></tbody>
     </table>
 
@@ -188,7 +190,7 @@
       the same element with two classes swapped. Hover them: the hover tone is
       derived with <code>color-mix()</code>, never hardcoded.
     </p>
-    <table>
+    <table class="doc">
       <thead>
         <tr>
           <th>color \ style</th>

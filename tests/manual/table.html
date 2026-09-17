@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Perfect UI v1 — table review</title>
+
+    <script>
+      (function (m) {
+        if (m) document.documentElement.setAttribute("data-pui-mode", m[1]);
+      })(document.cookie.match(/(?:^|; )pui-mode=(light|dark)/));
+    </script>
+
+    <link rel="stylesheet" href="../../src/css/index.css" />
+
+    <style>
+      /* Every rule here is scoped to a page class. Bare element selectors like
+         `th, td` would be unlayered author CSS and would beat .pui-table — the
+         override story works, which makes it easy to break the thing you are
+         trying to review. */
+      body {
+        margin: 0;
+        padding: 2rem clamp(1rem, 4vw, 3rem) 6rem;
+        background: var(--pui-bg);
+        color: var(--pui-text);
+        font: 16px/1.5 system-ui, sans-serif;
+      }
+
+      .page-head {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        align-items: baseline;
+        justify-content: space-between;
+        border-bottom: var(--pui-border-width) solid var(--pui-border);
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .page-head h1 {
+        font-size: 1.25rem;
+        margin: 0;
+      }
+
+      .case {
+        margin-top: 2.5rem;
+      }
+
+      .case > h2 {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--pui-text-muted);
+        margin: 0 0 0.35rem;
+      }
+
+      .case > p {
+        color: var(--pui-text-muted);
+        font-size: 0.875rem;
+        margin: 0 0 1rem;
+        max-width: 70ch;
+      }
+
+      .case code {
+        font-family: ui-monospace, monospace;
+        font-size: 0.85em;
+        background: var(--pui-bg-muted);
+        border-radius: 4px;
+        padding: 0.1em 0.35em;
+      }
+
+      .cols {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(23rem, 1fr));
+        gap: 2rem;
+        align-items: start;
+      }
+
+      .row {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+      }
+
+      /* --- recipes: what the docs will tell users to write themselves ----- */
+
+      /* bordered: grid lines on every cell */
+      .recipe-bordered .pui-table {
+        border: var(--pui-border-width) solid var(--pui-border);
+        border-radius: var(--pui-radius);
+        overflow: hidden;
+      }
+      .recipe-bordered .pui-table :is(th, td) {
+        border: var(--pui-border-width) solid var(--pui-border);
+      }
+
+      /* borderless */
+      .recipe-borderless .pui-table :is(th, td) {
+        border: none;
+      }
+
+      /* compact: half the vertical padding */
+      .recipe-compact .pui-table :is(th, td) {
+        padding-block: var(--pui-space);
+      }
+
+      /* responsive: the scroll container is the parent, not the table */
+      .recipe-responsive {
+        overflow-x: auto;
+      }
+      .recipe-responsive .pui-table {
+        min-width: 44rem;
+      }
+
+      /* numeric column aligned to the end */
+      .recipe-numeric .pui-table :is(th, td):last-child {
+        text-align: end;
+        font-variant-numeric: tabular-nums;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="page-head">
+      <div>
+        <h1>Perfect UI v1 — table review</h1>
+        <p style="margin: 0.25rem 0 0; color: var(--pui-text-muted)">
+          Every table below is the same <code>pui-table</code> class. The
+          modifiers are <code>pui-striped</code> and <code>pui-hoverable</code>;
+          everything else is author CSS, shown as a recipe.
+        </p>
+      </div>
+      <div class="row">
+        <button class="pui-btn pui-outline pui-surface" data-mode="system">
+          System
+        </button>
+        <button class="pui-btn pui-outline pui-surface" data-mode="light">
+          Light
+        </button>
+        <button class="pui-btn pui-outline pui-surface" data-mode="dark">
+          Dark
+        </button>
+      </div>
+    </header>
+
+    <div class="cols">
+      <section class="case">
+        <h2>1 — plain</h2>
+        <p>Header row, body rows, and no border under the last row.</p>
+        <table class="pui-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Mark</td>
+              <td>Owner</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Jacob</td>
+              <td>Editor</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Larry</td>
+              <td>Viewer</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="case">
+        <h2>2 — striped</h2>
+        <p>Even body rows only, so the header keeps its own tone.</p>
+        <table class="pui-table pui-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Mark</td>
+              <td>Owner</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Jacob</td>
+              <td>Editor</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Larry</td>
+              <td>Viewer</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Ana</td>
+              <td>Viewer</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="case">
+        <h2>3 — hoverable (move the pointer over it)</h2>
+        <p>The only case on this page that a screenshot cannot show.</p>
+        <table class="pui-table pui-hoverable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Mark</td>
+              <td>Owner</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Jacob</td>
+              <td>Editor</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Larry</td>
+              <td>Viewer</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="case">
+        <h2>4 — striped + hoverable</h2>
+        <p>Hover wins over the stripe: same declaration, later selector.</p>
+        <table class="pui-table pui-striped pui-hoverable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Mark</td>
+              <td>Owner</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Jacob</td>
+              <td>Editor</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Larry</td>
+              <td>Viewer</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Ana</td>
+              <td>Viewer</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="case">
+        <h2>5 — no thead</h2>
+        <p>
+          A data table without a header row. The first row should not look
+          special.
+        </p>
+        <table class="pui-table">
+          <tbody>
+            <tr>
+              <td>Plan</td>
+              <td>Pro</td>
+            </tr>
+            <tr>
+              <td>Seats</td>
+              <td>12</td>
+            </tr>
+            <tr>
+              <td>Renews</td>
+              <td>March 2027</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="case">
+        <h2>6 — with tfoot</h2>
+        <p>
+          Check whether the footer needs a rule of its own: today it is an
+          ordinary row group.
+        </p>
+        <table class="pui-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Licence</td>
+              <td>120.00</td>
+            </tr>
+            <tr>
+              <td>Support</td>
+              <td>40.00</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th>Total</th>
+              <th>160.00</th>
+            </tr>
+          </tfoot>
+        </table>
+      </section>
+
+      <section class="case">
+        <h2>7 — row headers (th in the body)</h2>
+        <p>
+          <code>&lt;th scope="row"&gt;</code> is bold and muted like the head.
+          Worth deciding if that is right.
+        </p>
+        <table class="pui-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="case">
+        <h2>8 — components inside cells</h2>
+        <p>Badges, chips and buttons keep their own spacing.</p>
+        <table class="pui-table pui-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Mark</td>
+              <td><span class="pui-badge pui-soft pui-success">active</span></td>
+              <td><button class="pui-btn pui-link pui-theme">Edit</button></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Jacob</td>
+              <td><span class="pui-badge pui-soft pui-warn">pending</span></td>
+              <td><button class="pui-btn pui-link pui-theme">Edit</button></td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Larry</td>
+              <td><span class="pui-badge pui-soft pui-error">blocked</span></td>
+              <td><button class="pui-btn pui-link pui-theme">Edit</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="case">
+        <h2>9 — a row carrying a style class</h2>
+        <p>
+          <code>pui-soft pui-error</code> on the <code>&lt;tr&gt;</code>. The
+          style layer beats both the stripe and the cell rules.
+        </p>
+        <table class="pui-table pui-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Mark</td>
+              <td>ok</td>
+            </tr>
+            <tr class="pui-soft pui-error">
+              <td>2</td>
+              <td>Jacob</td>
+              <td>failed</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Larry</td>
+              <td>ok</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="case">
+        <h2>10 — inside a card, with a header</h2>
+        <p>The card supplies the outer border; the table supplies the rules.</p>
+        <div class="pui-card">
+          <div class="pui-card-header">Users</div>
+          <table class="pui-table pui-striped pui-hoverable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Mark</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Jacob</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="case">
+        <h2>11 — inside a card, no card header</h2>
+        <p>The table head sits directly against the card's top edge.</p>
+        <div class="pui-card">
+          <table class="pui-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Mark</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Jacob</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="case recipe-numeric">
+        <h2>12 — recipe: numbers aligned to the end</h2>
+        <p><code>text-align: end</code> plus <code>tabular-nums</code>.</p>
+        <table class="pui-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Licence</td>
+              <td>1200.00</td>
+            </tr>
+            <tr>
+              <td>Support</td>
+              <td>40.50</td>
+            </tr>
+            <tr>
+              <td>Training</td>
+              <td>9.99</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="case recipe-bordered">
+        <h2>13 — recipe: bordered (was table-bordered)</h2>
+        <p>Grid lines on every cell, from three rules of author CSS.</p>
+        <table class="pui-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Mark</td>
+              <td>Owner</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Jacob</td>
+              <td>Editor</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="case recipe-borderless">
+        <h2>14 — recipe: borderless (was table-borderless)</h2>
+        <p>One rule, no <code>!important</code> needed.</p>
+        <table class="pui-table pui-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Mark</td>
+              <td>Owner</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Jacob</td>
+              <td>Editor</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="case recipe-compact">
+        <h2>15 — recipe: compact rows</h2>
+        <p>
+          Overriding one token-derived value, in case the default padding feels
+          tall.
+        </p>
+        <table class="pui-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Mark</td>
+              <td>Owner</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Jacob</td>
+              <td>Editor</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Larry</td>
+              <td>Viewer</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="case">
+        <h2>16 — long content</h2>
+        <p>Wrapping, and a cell holding a paragraph rather than a word.</p>
+        <table class="pui-table">
+          <thead>
+            <tr>
+              <th>Change</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>v1.0.0</td>
+              <td>
+                Removed the reset, the font import and every palette variable.
+                Every class is now prefixed and lives inside a cascade layer.
+              </td>
+            </tr>
+            <tr>
+              <td>v0.23.0</td>
+              <td>Last SCSS release.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="case">
+        <h2>17 — empty state</h2>
+        <p>A single spanning cell.</p>
+        <table class="pui-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="3" style="text-align: center">Nothing here yet</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+
+    <section class="case recipe-responsive">
+      <h2>18 — recipe: responsive (was table-responsive)</h2>
+      <p>
+        The scroll container is the parent. Narrow the window to see it
+        scroll.
+      </p>
+      <table class="pui-table pui-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Team</th>
+            <th>Created</th>
+            <th>Last seen</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Mark Otto</td>
+            <td>mark@example.com</td>
+            <td>Owner</td>
+            <td>Platform</td>
+            <td>2024-01-12</td>
+            <td>2 minutes ago</td>
+            <td><span class="pui-badge pui-soft pui-success">active</span></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Jacob Thornton</td>
+            <td>jacob@example.com</td>
+            <td>Editor</td>
+            <td>Design</td>
+            <td>2024-03-04</td>
+            <td>yesterday</td>
+            <td><span class="pui-badge pui-soft pui-warn">pending</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <script type="module">
+      for (const button of document.querySelectorAll("[data-mode]")) {
+        button.addEventListener("click", () => {
+          const mode = button.dataset.mode;
+          if (mode === "system") {
+            document.documentElement.removeAttribute("data-pui-mode");
+            document.cookie = "pui-mode=; path=/; max-age=0; SameSite=Lax";
+          } else {
+            document.documentElement.setAttribute("data-pui-mode", mode);
+            document.cookie = `pui-mode=${mode}; path=/; max-age=31536000; SameSite=Lax`;
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
