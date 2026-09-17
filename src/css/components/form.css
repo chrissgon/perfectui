@@ -100,7 +100,9 @@
     }
 
     & > :last-child {
-      border-start-end-radius: calc(var(--pui-radius) - var(--pui-border-width));
+      border-start-end-radius: calc(
+        var(--pui-radius) - var(--pui-border-width)
+      );
       border-end-end-radius: calc(var(--pui-radius) - var(--pui-border-width));
     }
   }
