@@ -8,4 +8,6 @@
 @import "./components/table.css";
 @import "./components/timeline.css";
 @import "./components/form.css";
+@import "./components/group.css";
+@import "./components/float.css";
 /* More components are added in Phase 4, one per file in ./components. */

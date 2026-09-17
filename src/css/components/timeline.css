@@ -31,6 +31,31 @@
     }
   }
 
+  /* --- horizontal ---------------------------------------------------------
+     Combined with pui-group-row (§6). The group's joining rules are meant for
+     controls, so the checkpoints opt out of the negative margin, and the rule
+     turns from vertical to horizontal. */
+  .pui-timeline.pui-group-row {
+    & > .pui-checkpoint {
+      flex: 1;
+      flex-direction: column;
+      padding-bottom: 0;
+      padding-inline-end: calc(var(--pui-space) * 4);
+      margin-inline-start: 0;
+
+      &:not(:last-child)::before {
+        inset-block: calc(var(--pui-font-size) * 0.875) auto;
+        inset-inline: calc(var(--pui-font-size) * 1.75 + var(--pui-space)) 0;
+        border-inline-start: none;
+        border-block-start: var(--pui-border-width) solid var(--pui-border);
+      }
+
+      &:last-child {
+        padding-inline-end: 0;
+      }
+    }
+  }
+
   .pui-checkpoint-icon {
     flex: none;
     /* The icon is one of the few elements with a fixed size, so it cannot rely

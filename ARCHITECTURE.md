@@ -218,6 +218,7 @@ Rules:
 - Field group uses **real elements**, not pseudo-elements (see §6.1).
 - Helper classes are allowed **only if they are used together with components**: `pui-rounded`, `pui-rounded-full`. They live in `pui.utilities`, a layer of their own: a helper and a component class have the same specificity, so inside `pui.components` the winner would depend on the user's import order.
 - Accessibility is part of the component: visible `:focus-visible`, respect `prefers-reduced-motion`, use logical properties (`margin-inline`, `inset-inline-start`).
+- **Groups take no child class.** `pui-group-row`, `pui-group-col` and `pui-group-responsive` style their direct children, so v0's `group-item` (and its `[class*="item"]` escape hatch) is gone. They overlap borders with a negative margin instead of removing them, which keeps `pui-outline` working on every child, and raise the hovered or focused child with `z-index` so its own border and ring stay visible.
 - **Modifiers.** The library ships exactly two, `pui-striped` and `pui-hoverable`, on `pui-list` and `pui-table`. They exist because they need a structural selector (`:nth-child`, `:hover` on a child) that the user cannot express by composing classes. Everything else v0 had is composition or one line of author CSS, and belongs in the docs as a recipe rather than in the bundle: a selected item is `pui-list-item pui-soft pui-theme`, a bordered one is `pui-list-item pui-outline pui-surface`, an unmarked list is `list-style: none`, a responsive table is `overflow-x: auto` on the parent. Each modifier lives in its own component file, so importing only `table.css` still brings them.
 - **Surfaces vs colorable elements.** A container that is not meant to be recolored — `pui-card`, `pui-table` cells, the timeline rule — reads the page tokens (`--pui-border`, `--pui-bg-muted`) directly, so it looks right with no extra classes. It stays composable anyway: `pui.styles` comes after `pui.components`, so `pui-card pui-soft pui-theme` still recolors the card. Elements meant to be recolored (`pui-btn`, `pui-chip`, `pui-badge`, `pui-list-item`, `pui-checkpoint-icon`) carry `border: var(--pui-border-width) solid transparent` so that a style class, which only ever sets `border-color`, has something to paint.
 
@@ -603,7 +604,7 @@ None at the moment. If a new question appears, add it here and ask the maintaine
   - [x] button, badge, chip — `pui-rounded`/`pui-rounded-full` shipped with them, in `pui.utilities`
   - [x] card, list, table, timeline (+ `pui-striped`, `pui-hoverable`; horizontal timeline waits for `pui-group-row`)
   - [x] form (field group, input, input group, addon, select, textarea, checkbox, radio, switch)
-  - [ ] group, float
+  - [x] group, float (+ the horizontal timeline, which depends on `pui-group-row`)
   - [ ] accordion (`details name`)
   - [ ] modal (`dialog`, `commandfor`, `closedby`)
   - [ ] dropdown (`popover`)

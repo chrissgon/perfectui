@@ -1,0 +1,90 @@
+/* Group: joins children into one control, removing the inner corners and the
+   doubled border between them. Requires core.css.
+
+   Children need no class of their own: v0's `group-item` (and its
+   `[class*="item"]` escape hatch) is gone. Borders are overlapped with a
+   negative margin rather than removed, so pui-outline still has a border to
+   paint on every child. */
+@import "../layers.css";
+
+@layer pui.components {
+  .pui-group-row,
+  .pui-group-col,
+  .pui-group-responsive {
+    display: flex;
+  }
+
+  .pui-group-col {
+    flex-direction: column;
+  }
+
+  /* --- row ---------------------------------------------------------------- */
+  :is(.pui-group-row, .pui-group-responsive) > * {
+    border-radius: 0;
+
+    &:first-child {
+      border-start-start-radius: var(--pui-radius);
+      border-end-start-radius: var(--pui-radius);
+    }
+
+    &:last-child {
+      border-start-end-radius: var(--pui-radius);
+      border-end-end-radius: var(--pui-radius);
+    }
+
+    & + * {
+      margin-inline-start: calc(var(--pui-border-width) * -1);
+    }
+  }
+
+  /* --- column ------------------------------------------------------------- */
+  .pui-group-col > * {
+    border-radius: 0;
+
+    &:first-child {
+      border-start-start-radius: var(--pui-radius);
+      border-start-end-radius: var(--pui-radius);
+    }
+
+    &:last-child {
+      border-end-start-radius: var(--pui-radius);
+      border-end-end-radius: var(--pui-radius);
+    }
+
+    & + * {
+      margin-block-start: calc(var(--pui-border-width) * -1);
+    }
+  }
+
+  /* --- responsive ---------------------------------------------------------
+     The one hardcoded breakpoint in the library: a media query cannot read a
+     custom property. Same value as v0. */
+  @media (width < 1024px) {
+    .pui-group-responsive {
+      flex-direction: column;
+    }
+
+    .pui-group-responsive > * {
+      &:first-child {
+        border-radius: var(--pui-radius) var(--pui-radius) 0 0;
+      }
+
+      &:last-child {
+        border-radius: 0 0 var(--pui-radius) var(--pui-radius);
+      }
+
+      & + * {
+        margin-inline-start: 0;
+        margin-block-start: calc(var(--pui-border-width) * -1);
+      }
+    }
+  }
+
+  /* A child keeps its own border and ring visible while it is the one being
+     used, instead of being covered by the overlap of the next one. */
+  :is(.pui-group-row, .pui-group-col, .pui-group-responsive)
+    > *:is(:hover, :focus-visible, :focus-within) {
+    position: relative;
+    z-index: 1;
+  }
+}

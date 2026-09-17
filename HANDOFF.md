@@ -70,7 +70,7 @@ Goal kept: **bare minimum, lightweight, customizable**. Tailwind is an optional 
 | 1 — Build         | ✅ Applied on branch `v1` (commit `337e7fb`).                                                                                   |
 | 2 — Tokens & mode | ✅ Done. `perfectui.css` 338 B gzip, `js/mode.js` 309 B, `js/index.js` 154 B.                                                   |
 | 3 — Lego pieces   | ✅ Done. `perfectui.css` 833 B gzip.                                                                                            |
-| 4 — Components    | 🚧 button, chip, badge, card, list, table, timeline, forms done. `perfectui.css` 1464 B gzip.                                   |
+| 4 — Components    | 🚧 everything except the four overlay/disclosure components. `perfectui.css` 1464 B gzip.                                   |
 | 5 – 8             | Pending                                                                                                                         |
 
 ### What Phase 1 changed (patch)
@@ -89,6 +89,7 @@ Goal kept: **bare minimum, lightweight, customizable**. Tailwind is an optional 
 - `src/css/components/{button,chip,badge}.css`, following the multipliers approved in §4.1.
 - `src/css/components/{card,list,table,timeline}.css`. Card follows the proportions approved in `tests/manual/token-scale.html`; the others reuse the same steps (§4.1).
 - Rule written down in §6: containers read the page tokens directly, while colorable elements carry a transparent border so a style class has something to paint.
+- `src/css/components/{group,float}.css`, and the horizontal timeline that depends on `pui-group-row`. Groups style their direct children, so `group-item` is gone; borders overlap with a negative margin so `pui-outline` keeps working inside a group.
 - `src/css/components/form.css`: field group (§6.1), input, textarea, select, input group, addon, checkbox, radio, switch.
 - Form controls read `var(--pui-edge, var(--pui-border))` for their border, which is what makes `aria-invalid` work with no class: `pui.states` already points `--pui-edge` at the error color.
 - The select arrow, radio dot and switch knob are drawn with gradients instead of data URIs, so they follow the color mode. The check mark stays an SVG: drawing it with gradients came out crooked.
