@@ -189,6 +189,26 @@ And: inside a group, hovering a child raised it with `z-index`, which flipped th
 
 Recipes to carry into the docs (Phase 7), replacing v0 modifiers: selected item = `pui-list-item pui-soft pui-theme`; bordered item = `pui-list-item pui-outline pui-surface`; unmarked list = `list-style: none`; bordered/borderless table and responsive table = one rule of author CSS.
 
+### Releasing
+
+`changelogen` infers the next version from the commit types, and from a `0.x`
+version it lands on `0.23.1-beta.0` rather than `1.0.0-beta.0` — checked, not
+assumed. So `1.0.0` is set explicitly:
+
+```bash
+npm version 1.0.0-beta.0 --no-git-tag-version
+bun run changelog                       # writes CHANGELOG.md for the range
+git add -A && git commit -m "chore: release v1.0.0-beta.0"
+git tag v1.0.0-beta.0
+git push --follow-tags                  # the tag is what triggers the publish
+```
+
+`.github/workflows/publish.yml` reads the version back and publishes a
+prerelease under the `beta` dist-tag, so `latest` — and with it `npm i` and the
+CDN's `@latest` — stays on `0.23.0` until a stable version is tagged. For
+`1.0.0` itself the same steps run without `-beta.0`, and the workflow picks
+`latest` on its own.
+
 ### Prompt to start in Claude Code
 
 ```

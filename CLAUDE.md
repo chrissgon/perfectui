@@ -23,6 +23,8 @@ The project is migrating from `0.23.0` (SCSS) to `1.0.0` (native CSS + native HT
 
 - Package manager: **bun**.
 - Commits: Conventional Commits (commitlint is configured). Breaking changes use `!` and `BREAKING CHANGE:`.
+- `pre-commit` runs lint-staged, which formats and lints **only the staged files** and stages the result back. Do not run `bun run format` before committing to compensate; that is what produced a long tail of `style:` commits before lint-staged existed.
+- CI runs lint, typecheck, build, size and the Playwright suites on every push and pull request.
 - Branch for the migration: `v1`.
 - Do not change the approved size multipliers (ARCHITECTURE.md §4.1) without asking.
 

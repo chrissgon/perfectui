@@ -38,7 +38,10 @@
     "format": "prettier --write .",
     "test": "bun run build && node scripts/ssr-check.mjs && playwright test",
     "test:ssr": "node scripts/ssr-check.mjs",
-    "test:e2e": "bun run build && playwright test"
+    "test:e2e": "bun run build && playwright test",
+    "typecheck": "tsc --noEmit",
+    "changelog": "changelogen --output CHANGELOG.md",
+    "release": "changelogen --release --output CHANGELOG.md"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",
@@ -46,10 +49,12 @@
     "@eslint/js": "^9.23.0",
     "@playwright/test": "^1.63.0",
     "@types/node": "^20.10.4",
+    "changelogen": "^0.6.2",
     "eslint": "^9.23.0",
     "globals": "^15.15.0",
     "husky": "^9.1.5",
     "lightningcss": "^1.33.0",
+    "lint-staged": "^17.5.1",
     "prettier": "^3.2.5",
     "typescript": "^5.4.3",
     "typescript-eslint": "^8.26.0",
@@ -60,5 +65,14 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/chrissgon/perfectui.git"
+  },
+  "lint-staged": {
+    "*.{ts,mjs,js}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{css,html,md,json,yml}": [
+      "prettier --write"
+    ]
   }
 }
