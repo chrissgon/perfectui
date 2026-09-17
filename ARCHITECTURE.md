@@ -37,42 +37,66 @@ Perfect UI provides **the bare minimum to build applications**, while being **li
 
 Every visual element is built from **3 independent pieces**:
 
-| Piece | Responsibility | Examples |
-|---|---|---|
-| **Shape** (component) | Size, spacing, radius, layout of its parts. **No colors.** | `pui-btn`, `pui-chip`, `pui-badge`, `pui-card` |
-| **Style** | *How* color is applied (fill, soft fill, border, text). | `pui-solid`, `pui-soft`, `pui-outline`, `pui-link` |
-| **Color** | *Which* color. Only sets variables. | `pui-theme`, `pui-success`, `pui-error`, `pui-warn`, `pui-muted`, `pui-surface`, `pui-inverse` |
+| Piece                 | Responsibility                                             | Examples                                                                                       |
+| --------------------- | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| **Shape** (component) | Size, spacing, radius, layout of its parts. **No colors.** | `pui-btn`, `pui-chip`, `pui-badge`, `pui-card`                                                 |
+| **Style**             | _How_ color is applied (fill, soft fill, border, text).    | `pui-solid`, `pui-soft`, `pui-outline`, `pui-link`                                             |
+| **Color**             | _Which_ color. Only sets variables.                        | `pui-theme`, `pui-success`, `pui-error`, `pui-warn`, `pui-muted`, `pui-surface`, `pui-inverse` |
 
 ```html
 <button class="pui-btn pui-solid pui-theme">Save</button>
 <span class="pui-chip pui-soft pui-success">Active</span>
 <span class="pui-badge pui-solid pui-error">3</span>
-<button class="pui-btn pui-solid pui-surface">Cancel</button>   <!-- old style-white -->
-<button class="pui-btn pui-solid pui-inverse">Continue</button> <!-- old style-black -->
+<button class="pui-btn pui-solid pui-surface">Cancel</button>
+<!-- old style-white -->
+<button class="pui-btn pui-solid pui-inverse">Continue</button>
+<!-- old style-black -->
 ```
 
 ### 3.1 The contract between pieces
 
 Color classes **only set these variables**. Style classes **only read them**.
 
-| Variable | Meaning |
-|---|---|
-| `--pui-color` | Main color of the element |
+| Variable         | Meaning                                        |
+| ---------------- | ---------------------------------------------- |
+| `--pui-color`    | Main color of the element                      |
 | `--pui-on-color` | Text/icon color placed on top of `--pui-color` |
-| `--pui-edge` | Border color (defaults to `--pui-color`) |
+| `--pui-edge`     | Border color (defaults to `--pui-color`)       |
 
 ```css
 @layer pui.colors {
-  .pui-theme   { --pui-color: var(--pui-theme);   --pui-on-color: var(--pui-bg); }
-  .pui-success { --pui-color: var(--pui-success); --pui-on-color: var(--pui-bg); }
-  .pui-error   { --pui-color: var(--pui-error);   --pui-on-color: var(--pui-bg); }
-  .pui-warn    { --pui-color: var(--pui-warn);    --pui-on-color: var(--pui-bg); }
-  .pui-muted   { --pui-color: var(--pui-muted);   --pui-on-color: var(--pui-bg); } /* old "secondary" */
+  .pui-theme {
+    --pui-color: var(--pui-theme);
+    --pui-on-color: var(--pui-bg);
+  }
+  .pui-success {
+    --pui-color: var(--pui-success);
+    --pui-on-color: var(--pui-bg);
+  }
+  .pui-error {
+    --pui-color: var(--pui-error);
+    --pui-on-color: var(--pui-bg);
+  }
+  .pui-warn {
+    --pui-color: var(--pui-warn);
+    --pui-on-color: var(--pui-bg);
+  }
+  .pui-muted {
+    --pui-color: var(--pui-muted);
+    --pui-on-color: var(--pui-bg);
+  } /* old "secondary" */
 
   /* aligned with the page background */
-  .pui-surface { --pui-color: var(--pui-bg);   --pui-on-color: var(--pui-text); --pui-edge: var(--pui-border); }
+  .pui-surface {
+    --pui-color: var(--pui-bg);
+    --pui-on-color: var(--pui-text);
+    --pui-edge: var(--pui-border);
+  }
   /* opposite of the page background */
-  .pui-inverse { --pui-color: var(--pui-text); --pui-on-color: var(--pui-bg); }
+  .pui-inverse {
+    --pui-color: var(--pui-text);
+    --pui-on-color: var(--pui-bg);
+  }
 }
 
 @layer pui.styles {
@@ -80,7 +104,9 @@ Color classes **only set these variables**. Style classes **only read them**.
     background: var(--pui-color);
     color: var(--pui-on-color);
     border-color: var(--pui-edge, var(--pui-color));
-    &:hover { background: color-mix(in oklch, var(--pui-color), var(--pui-text) 12%); }
+    &:hover {
+      background: color-mix(in oklch, var(--pui-color), var(--pui-text) 12%);
+    }
   }
   .pui-soft {
     background: color-mix(in oklch, var(--pui-color) 15%, transparent);
@@ -96,7 +122,9 @@ Color classes **only set these variables**. Style classes **only read them**.
     background: transparent;
     color: var(--pui-color);
     border-color: transparent;
-    &:hover { text-decoration: underline; }
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
 ```
@@ -117,28 +145,28 @@ File: `src/css/tokens.css`. Semantic names only. No palettes (the old `--theme50
     color-scheme: light dark;
 
     /* backgrounds */
-    --pui-bg:          light-dark(#fff, #000);   /* page */
-    --pui-bg-muted:    light-dark(…, …);         /* cards, hover areas */
-    --pui-bg-emphasis: light-dark(…, …);         /* stronger third level */
+    --pui-bg: light-dark(#fff, #000); /* page */
+    --pui-bg-muted: light-dark(…, …); /* cards, hover areas */
+    --pui-bg-emphasis: light-dark(…, …); /* stronger third level */
 
     /* text */
-    --pui-text:        light-dark(#000, #fff);
-    --pui-text-muted:  light-dark(…, …);
+    --pui-text: light-dark(#000, #fff);
+    --pui-text-muted: light-dark(…, …);
 
     /* border */
-    --pui-border:      light-dark(…, …);
+    --pui-border: light-dark(…, …);
 
     /* states */
-    --pui-theme:       light-dark(…, …);
-    --pui-success:     light-dark(…, …);
-    --pui-error:       light-dark(…, …);
-    --pui-warn:        light-dark(…, …);
-    --pui-muted:       light-dark(…, …);   /* old "secondary" (gray) */
+    --pui-theme: light-dark(…, …);
+    --pui-success: light-dark(…, …);
+    --pui-error: light-dark(…, …);
+    --pui-warn: light-dark(…, …);
+    --pui-muted: light-dark(…, …); /* old "secondary" (gray) */
 
     /* non-color: one base per concept */
-    --pui-radius:       0.375rem;
-    --pui-space:        0.25rem;   /* base unit */
-    --pui-font-size:    0.875rem;  /* base text size */
+    --pui-radius: 0.375rem;
+    --pui-space: 0.25rem; /* base unit */
+    --pui-font-size: 0.875rem; /* base text size */
     --pui-border-width: 1px;
   }
 }
@@ -158,16 +186,16 @@ File: `src/css/tokens.css`. Semantic names only. No palettes (the old `--theme50
 
 Multipliers (**approved by the maintainer** after visual review in `pui-token-scale-test.html`). Do not change them without asking:
 
-| Component | Padding (block · inline) | Font size | Radius |
-|---|---|---|---|
-| `pui-btn` | `space×2 · space×4` | `font×1` | `radius` |
-| `pui-chip` | `space×1 · space×3` | `font×1` | `radius` |
-| `pui-badge` | `space×0.5 · space×1.75` | `font×0.857` | `radius` |
-| `pui-input` | `space×1.5 · space×3` | `font×1` | `radius` |
-| `pui-tooltip` | `space×1.25 · space×2.5` | `font×0.857` | `radius` |
-| `pui-card-header` | `space×2 · space×4` | `font×1` | `radius×1.5` (card) |
-| `pui-card-content` | `space×4` | `font×1` | — |
-| `pui-checkbox` / `pui-radio` | size `font×1.143` | — | `radius×0.5` |
+| Component                    | Padding (block · inline) | Font size    | Radius              |
+| ---------------------------- | ------------------------ | ------------ | ------------------- |
+| `pui-btn`                    | `space×2 · space×4`      | `font×1`     | `radius`            |
+| `pui-chip`                   | `space×1 · space×3`      | `font×1`     | `radius`            |
+| `pui-badge`                  | `space×0.5 · space×1.75` | `font×0.857` | `radius`            |
+| `pui-input`                  | `space×1.5 · space×3`    | `font×1`     | `radius`            |
+| `pui-tooltip`                | `space×1.25 · space×2.5` | `font×0.857` | `radius`            |
+| `pui-card-header`            | `space×2 · space×4`      | `font×1`     | `radius×1.5` (card) |
+| `pui-card-content`           | `space×4`                | `font×1`     | —                   |
+| `pui-checkbox` / `pui-radio` | size `font×1.143`        | —            | `radius×0.5`        |
 
 Rule: multipliers are the only "magic numbers" allowed inside components.
 
@@ -181,13 +209,13 @@ Declared once, at the top of every entry CSS file (repeating the declaration is 
 @layer pui.tokens, pui.components, pui.styles, pui.colors, pui.states;
 ```
 
-| Layer | Contains |
-|---|---|
-| `pui.tokens` | `:root` variables, `color-scheme`, mode rules |
-| `pui.components` | Shape classes (`pui-btn`, `pui-card`…) |
-| `pui.styles` | `pui-solid`, `pui-soft`, `pui-outline`, `pui-link` |
-| `pui.colors` | `pui-theme`, `pui-surface`… (variables only) |
-| `pui.states` | `:disabled` / `[disabled]` (scoped to `pui-` classes only), `[aria-invalid]`, focus rings |
+| Layer            | Contains                                                                                  |
+| ---------------- | ----------------------------------------------------------------------------------------- |
+| `pui.tokens`     | `:root` variables, `color-scheme`, mode rules                                             |
+| `pui.components` | Shape classes (`pui-btn`, `pui-card`…)                                                    |
+| `pui.styles`     | `pui-solid`, `pui-soft`, `pui-outline`, `pui-link`                                        |
+| `pui.colors`     | `pui-theme`, `pui-surface`… (variables only)                                              |
+| `pui.states`     | `:disabled` / `[disabled]` (scoped to `pui-` classes only), `[aria-invalid]`, focus rings |
 
 Any **unlayered** user CSS (including Tailwind utilities) wins over all of these without `!important`.
 
@@ -197,27 +225,28 @@ Any **unlayered** user CSS (including Tailwind utilities) wins over all of these
 
 All current components are kept. Shape classes only (colors come from §3).
 
-| Group | Component | Class(es) | Native base | JS? |
-|---|---|---|---|---|
-| Actions | Button | `pui-btn` | `<button>` | no |
-| Actions | Chip *(new)* | `pui-chip` | any | no |
-| Display | Badge | `pui-badge` | any | no |
-| Display | Card | `pui-card`, `pui-card-header`, `pui-card-content` | any | no |
-| Display | List | `pui-list`, `pui-list-item` | `<ul>/<ol>` | no |
-| Display | Table | `pui-table` | `<table>` | no |
-| Display | Timeline | `pui-timeline` | any | no |
-| Layout | Group | `pui-group-row`, `pui-group-col`, `pui-group-responsive` | any | no |
-| Layout | Float | `pui-float` | any | no |
-| Disclosure | Accordion | `pui-accordion`, `pui-accordion-item` | `<details name="…">` | **no** (native exclusive) |
-| Overlay | Modal | `pui-modal` | `<dialog closedby>` + `commandfor` | fallback only |
-| Overlay | Dropdown | `pui-dropdown` | `popover` + `popovertarget` | no |
-| Overlay | Tooltip | `pui-tooltip` | `popover="hint"` + `interestfor` | fallback only |
-| Forms | Field group | `pui-field-group` (label `> span`, message `> small`) | `<label>` | no |
-| Forms | Input / Textarea / Select | `pui-input` | native controls | no |
-| Forms | Input group / Addon | `pui-input-group`, `pui-addon` | any | no |
-| Forms | Checkbox / Radio / Switch | `pui-checkbox`, `pui-radio`, `pui-switch` | `<input>` | checkbox `indeterminate` only |
+| Group      | Component                 | Class(es)                                                | Native base                        | JS?                           |
+| ---------- | ------------------------- | -------------------------------------------------------- | ---------------------------------- | ----------------------------- |
+| Actions    | Button                    | `pui-btn`                                                | `<button>`                         | no                            |
+| Actions    | Chip _(new)_              | `pui-chip`                                               | any                                | no                            |
+| Display    | Badge                     | `pui-badge`                                              | any                                | no                            |
+| Display    | Card                      | `pui-card`, `pui-card-header`, `pui-card-content`        | any                                | no                            |
+| Display    | List                      | `pui-list`, `pui-list-item`                              | `<ul>/<ol>`                        | no                            |
+| Display    | Table                     | `pui-table`                                              | `<table>`                          | no                            |
+| Display    | Timeline                  | `pui-timeline`                                           | any                                | no                            |
+| Layout     | Group                     | `pui-group-row`, `pui-group-col`, `pui-group-responsive` | any                                | no                            |
+| Layout     | Float                     | `pui-float`                                              | any                                | no                            |
+| Disclosure | Accordion                 | `pui-accordion`, `pui-accordion-item`                    | `<details name="…">`               | **no** (native exclusive)     |
+| Overlay    | Modal                     | `pui-modal`                                              | `<dialog closedby>` + `commandfor` | fallback only                 |
+| Overlay    | Dropdown                  | `pui-dropdown`                                           | `popover` + `popovertarget`        | no                            |
+| Overlay    | Tooltip                   | `pui-tooltip`                                            | `popover="hint"` + `interestfor`   | fallback only                 |
+| Forms      | Field group               | `pui-field-group` (label `> span`, message `> small`)    | `<label>`                          | no                            |
+| Forms      | Input / Textarea / Select | `pui-input`                                              | native controls                    | no                            |
+| Forms      | Input group / Addon       | `pui-input-group`, `pui-addon`                           | any                                | no                            |
+| Forms      | Checkbox / Radio / Switch | `pui-checkbox`, `pui-radio`, `pui-switch`                | `<input>`                          | checkbox `indeterminate` only |
 
 Rules:
+
 - Size scale is expressed by **component choice**: `pui-btn` > `pui-chip` > `pui-badge`.
 - Positioning of overlays (dropdown, tooltip): **CSS anchor positioning** (decided). Add `anchor-positioning` to the fallback registry (§8.2) for browsers without support.
 - Field group uses **real elements**, not pseudo-elements (see §6.1).
@@ -229,16 +258,30 @@ Rules:
 ```html
 <!-- Accordion: only one open at a time, zero JS -->
 <div class="pui-accordion">
-  <details class="pui-accordion-item" name="faq"><summary>One</summary>…</details>
-  <details class="pui-accordion-item" name="faq"><summary>Two</summary>…</details>
+  <details class="pui-accordion-item" name="faq">
+    <summary>One</summary>
+    …
+  </details>
+  <details class="pui-accordion-item" name="faq">
+    <summary>Two</summary>
+    …
+  </details>
 </div>
 
 <!-- Modal -->
-<button class="pui-btn pui-solid pui-theme" commandfor="m1" command="show-modal">Open</button>
+<button
+  class="pui-btn pui-solid pui-theme"
+  commandfor="m1"
+  command="show-modal"
+>
+  Open
+</button>
 <dialog class="pui-modal" id="m1" closedby="any">
   <div class="pui-card">
     …
-    <button class="pui-btn pui-link pui-error" commandfor="m1" command="close">Close</button>
+    <button class="pui-btn pui-link pui-error" commandfor="m1" command="close">
+      Close
+    </button>
   </div>
 </dialog>
 
@@ -253,12 +296,12 @@ Rules:
 <!-- Field group -->
 <label class="pui-field-group">
   <span>Email</span>
-  <input class="pui-input" type="email" aria-describedby="email-msg">
+  <input class="pui-input" type="email" aria-describedby="email-msg" />
   <small id="email-msg">Optional</small>
 </label>
 
 <!-- Checkbox indeterminate -->
-<input type="checkbox" class="pui-checkbox" indeterminate>
+<input type="checkbox" class="pui-checkbox" indeterminate />
 ```
 
 ### 6.1 Field group accessibility (decision)
@@ -276,9 +319,15 @@ Rules:
 
 ```css
 @layer pui.tokens {
-  :root { color-scheme: light dark; }            /* default: follow system */
-  [data-pui-mode="light"] { color-scheme: light; }
-  [data-pui-mode="dark"]  { color-scheme: dark; }
+  :root {
+    color-scheme: light dark;
+  } /* default: follow system */
+  [data-pui-mode="light"] {
+    color-scheme: light;
+  }
+  [data-pui-mode="dark"] {
+    color-scheme: dark;
+  }
 }
 ```
 
@@ -290,10 +339,10 @@ Rules:
 
 Mode is persisted in a **cookie** (not `localStorage`) so the server can read it during SSR.
 
-| Property | Value |
-|---|---|
-| Name | `pui-mode` |
-| Values | `light`, `dark` (no cookie = `system`) |
+| Property   | Value                                                                       |
+| ---------- | --------------------------------------------------------------------------- |
+| Name       | `pui-mode`                                                                  |
+| Values     | `light`, `dark` (no cookie = `system`)                                      |
 | Attributes | `path=/; max-age=31536000; SameSite=Lax` (not `HttpOnly`, JS must write it) |
 
 ### 7.3 `setMode` (file `src/js/mode.ts`, separate entry)
@@ -327,8 +376,9 @@ export function getMode(): Mode {
 
 ```html
 <script>
-  (function(m){ if(m) document.documentElement.setAttribute("data-pui-mode", m[1]); })
-  (document.cookie.match(/(?:^|; )pui-mode=(light|dark)/));
+  (function (m) {
+    if (m) document.documentElement.setAttribute("data-pui-mode", m[1]);
+  })(document.cookie.match(/(?:^|; )pui-mode=(light|dark)/));
 </script>
 ```
 
@@ -347,18 +397,22 @@ export function getMode(): Mode {
 File: `src/js/index.ts` — the only file that runs eagerly. It only detects support and dynamically imports what is missing.
 
 ```ts
-type Feature = { name: string; supported: () => boolean; load: () => Promise<unknown> };
+type Feature = {
+  name: string;
+  supported: () => boolean;
+  load: () => Promise<unknown>;
+};
 
 const features: Feature[] = [
   {
     name: "command-for",
     supported: () => "commandForElement" in HTMLButtonElement.prototype,
-    load: () => import("./fallbacks/command-for"),
+    load: () => import("./fallbacks/command-for")
   },
   {
     name: "dialog-closedby",
     supported: () => "closedBy" in HTMLDialogElement.prototype,
-    load: () => import("./fallbacks/dialog-closedby"),
+    load: () => import("./fallbacks/dialog-closedby")
   },
   {
     name: "popover-hint",
@@ -367,23 +421,23 @@ const features: Feature[] = [
       el.setAttribute("popover", "hint");
       return el.popover === "hint";
     },
-    load: () => import("./fallbacks/popover-hint"),
+    load: () => import("./fallbacks/popover-hint")
   },
   {
     name: "interest-for",
     supported: () => "interestForElement" in HTMLButtonElement.prototype,
-    load: () => import("./fallbacks/interest-for"),
+    load: () => import("./fallbacks/interest-for")
   },
   {
     name: "anchor-positioning",
     supported: () => CSS.supports("anchor-name: --a"),
-    load: () => import("./fallbacks/anchor-positioning"),
+    load: () => import("./fallbacks/anchor-positioning")
   },
   {
     name: "checkbox-indeterminate-attribute",
     supported: () => false, // No native HTML attribute exists. Replace with real detection if it ever ships.
-    load: () => import("./fallbacks/checkbox-indeterminate"),
-  },
+    load: () => import("./fallbacks/checkbox-indeterminate")
+  }
 ];
 
 if (typeof document !== "undefined") {
@@ -411,21 +465,21 @@ if (typeof document !== "undefined") {
 
 ## 9. Browser features used
 
-| Feature | Used for | Fallback? |
-|---|---|---|
-| `@layer` | Override-friendly CSS | no |
-| Native CSS nesting | Authoring | no |
-| `light-dark()`, `color-scheme` | Modes | no |
-| `color-mix()` | Derived shades | no |
-| `:has()`, `:focus-visible` | States | no |
-| `<details name>` | Exclusive accordion | no |
-| `popover`, `popovertarget` | Dropdown | no |
-| `<dialog>` + `showModal` | Modal | no |
-| `commandfor` / `command` | Open/close without JS | **yes** |
-| `<dialog closedby>` | Light dismiss | **yes** |
-| `popover="hint"` | Tooltip | **yes** |
-| `interestfor` | Tooltip on hover/focus/touch | **yes** |
-| CSS anchor positioning | Overlay placement | **yes** |
+| Feature                        | Used for                     | Fallback? |
+| ------------------------------ | ---------------------------- | --------- |
+| `@layer`                       | Override-friendly CSS        | no        |
+| Native CSS nesting             | Authoring                    | no        |
+| `light-dark()`, `color-scheme` | Modes                        | no        |
+| `color-mix()`                  | Derived shades               | no        |
+| `:has()`, `:focus-visible`     | States                       | no        |
+| `<details name>`               | Exclusive accordion          | no        |
+| `popover`, `popovertarget`     | Dropdown                     | no        |
+| `<dialog>` + `showModal`       | Modal                        | no        |
+| `commandfor` / `command`       | Open/close without JS        | **yes**   |
+| `<dialog closedby>`            | Light dismiss                | **yes**   |
+| `popover="hint"`               | Tooltip                      | **yes**   |
+| `interestfor`                  | Tooltip on hover/focus/touch | **yes**   |
+| CSS anchor positioning         | Overlay placement            | **yes**   |
 
 ---
 
@@ -480,12 +534,15 @@ dist/
 {
   "type": "module",
   "exports": {
-    ".":               { "types": "./dist/types/index.d.ts", "import": "./dist/js/index.js" },
-    "./mode":          { "types": "./dist/types/mode.d.ts",  "import": "./dist/js/mode.js" },
-    "./fallbacks/*":   "./dist/js/fallbacks/*.js",
+    ".": { "types": "./dist/types/index.d.ts", "import": "./dist/js/index.js" },
+    "./mode": {
+      "types": "./dist/types/mode.d.ts",
+      "import": "./dist/js/mode.js"
+    },
+    "./fallbacks/*": "./dist/js/fallbacks/*.js",
     "./perfectui.css": "./dist/perfectui.css",
-    "./core.css":      "./dist/css/core.css",
-    "./components/*":  "./dist/css/components/*.css"
+    "./core.css": "./dist/css/core.css",
+    "./components/*": "./dist/css/components/*.css"
   },
   "sideEffects": ["**/*.css", "./dist/js/index.js", "./dist/js/fallbacks/*.js"]
 }
@@ -496,7 +553,7 @@ Usage:
 ```js
 import "@chrissgon/perfectui/core.css";
 import "@chrissgon/perfectui/components/button.css";
-import "@chrissgon/perfectui";            // loader (only if using overlays/checkbox)
+import "@chrissgon/perfectui"; // loader (only if using overlays/checkbox)
 import { setMode } from "@chrissgon/perfectui/mode";
 ```
 
@@ -516,48 +573,48 @@ import { setMode } from "@chrissgon/perfectui/mode";
 
 ## 13. Removed from v0 (breaking)
 
-| v0 | v1 |
-|---|---|
-| SCSS, `_mixins`, `_variables` | Native CSS |
-| `_reset.scss` | Removed (no reset) |
-| Poppins `@import` | Removed |
-| `--theme50…950`, gray/red/amber/green palettes | Semantic tokens (§4) |
-| `setThemeColor`, `IThemeColor` | Override CSS variables |
-| `setMode` toggling `.dark` | `setMode` sets `data-pui-mode` + cookie |
-| `loadFunctions`, `IFunctions`, `MutationObserver` | Native HTML + fallback loader |
-| `Accordion()`, `Dropdown()`, `Modal()`, `Checkbox()` | Native attributes |
-| `window.perfectui`, `document.perfectui` | ESM imports only |
-| UMD/global script | `<script type="module">` |
-| `.bg-*`, `.text-*`, `.border-*` utilities | Removed |
-| `spacing-*`, `overflow-hidden`, `hr.vertical` | Removed (not used with components) |
-| `rounded`, `rounded-full` | `pui-rounded`, `pui-rounded-full` |
-| `--fontXS…9XL`, `--spacingXS…XL`, `--roundedFull` | 4 base tokens + `calc()` (§4.1) |
-| `data-label` / `data-message` pseudo-elements | Real `<span>` / `<small>` (§6.1) |
-| `body *` font/color, `ul`, `ol`, `hr`, `a` global rules | Removed |
-| `!important` | Removed (`@layer`) |
+| v0                                                      | v1                                      |
+| ------------------------------------------------------- | --------------------------------------- |
+| SCSS, `_mixins`, `_variables`                           | Native CSS                              |
+| `_reset.scss`                                           | Removed (no reset)                      |
+| Poppins `@import`                                       | Removed                                 |
+| `--theme50…950`, gray/red/amber/green palettes          | Semantic tokens (§4)                    |
+| `setThemeColor`, `IThemeColor`                          | Override CSS variables                  |
+| `setMode` toggling `.dark`                              | `setMode` sets `data-pui-mode` + cookie |
+| `loadFunctions`, `IFunctions`, `MutationObserver`       | Native HTML + fallback loader           |
+| `Accordion()`, `Dropdown()`, `Modal()`, `Checkbox()`    | Native attributes                       |
+| `window.perfectui`, `document.perfectui`                | ESM imports only                        |
+| UMD/global script                                       | `<script type="module">`                |
+| `.bg-*`, `.text-*`, `.border-*` utilities               | Removed                                 |
+| `spacing-*`, `overflow-hidden`, `hr.vertical`           | Removed (not used with components)      |
+| `rounded`, `rounded-full`                               | `pui-rounded`, `pui-rounded-full`       |
+| `--fontXS…9XL`, `--spacingXS…XL`, `--roundedFull`       | 4 base tokens + `calc()` (§4.1)         |
+| `data-label` / `data-message` pseudo-elements           | Real `<span>` / `<small>` (§6.1)        |
+| `body *` font/color, `ul`, `ol`, `hr`, `a` global rules | Removed                                 |
+| `!important`                                            | Removed (`@layer`)                      |
 
 ### Class migration map
 
-| v0 | v1 |
-|---|---|
-| `btn` | `pui-btn` |
-| `badge` | `pui-badge` (+ new `pui-chip`) |
-| `style-solid-primary` | `pui-solid pui-theme` |
-| `style-soft-success` | `pui-soft pui-success` |
-| `style-outline-error` | `pui-outline pui-error` |
-| `style-link-warn` | `pui-link pui-warn` |
-| `style-*-secondary` | `pui-<style> pui-muted` |
-| `style-white` | `pui-solid pui-surface` |
-| `style-black` | `pui-solid pui-inverse` |
-| `modal` + `data-modal="id"` | `pui-modal` + `commandfor="id" command="show-modal"` |
-| `data-autoclose` | `commandfor="id" command="close"` |
-| `modal.static-backdrop` | `pui-modal` without `closedby="any"` |
-| `dropdown-trigger` > `dropdown.visible` | `popovertarget` + `pui-dropdown[popover]` |
-| `.ignore` (dropdown) | not needed (clicks inside a popover do not close it) |
-| `tooltip` + `data-tooltip` | `interestfor` + `pui-tooltip[popover="hint"]` |
-| `accordion-item` (JS exclusive) | `<details name>` |
-| `checkbox[indeterminate]` | `pui-checkbox[indeterminate]` |
-| `.dark` on `<html>` | `data-pui-mode="dark"` |
+| v0                                      | v1                                                   |
+| --------------------------------------- | ---------------------------------------------------- |
+| `btn`                                   | `pui-btn`                                            |
+| `badge`                                 | `pui-badge` (+ new `pui-chip`)                       |
+| `style-solid-primary`                   | `pui-solid pui-theme`                                |
+| `style-soft-success`                    | `pui-soft pui-success`                               |
+| `style-outline-error`                   | `pui-outline pui-error`                              |
+| `style-link-warn`                       | `pui-link pui-warn`                                  |
+| `style-*-secondary`                     | `pui-<style> pui-muted`                              |
+| `style-white`                           | `pui-solid pui-surface`                              |
+| `style-black`                           | `pui-solid pui-inverse`                              |
+| `modal` + `data-modal="id"`             | `pui-modal` + `commandfor="id" command="show-modal"` |
+| `data-autoclose`                        | `commandfor="id" command="close"`                    |
+| `modal.static-backdrop`                 | `pui-modal` without `closedby="any"`                 |
+| `dropdown-trigger` > `dropdown.visible` | `popovertarget` + `pui-dropdown[popover]`            |
+| `.ignore` (dropdown)                    | not needed (clicks inside a popover do not close it) |
+| `tooltip` + `data-tooltip`              | `interestfor` + `pui-tooltip[popover="hint"]`        |
+| `accordion-item` (JS exclusive)         | `<details name>`                                     |
+| `checkbox[indeterminate]`               | `pui-checkbox[indeterminate]`                        |
+| `.dark` on `<html>`                     | `data-pui-mode="dark"`                               |
 
 ---
 
@@ -569,8 +626,8 @@ None at the moment. If a new question appears, add it here and ask the maintaine
 
 ## 15. Migration phases (checklist)
 
-- [x] **Phase 0 — Prepare:** branch `v1`; gzip baseline of `0.23.0`: `perfectui.css` 6005 B, `perfectui.js` 1587 B (plus external Poppins download). *Notify existing users: pending (maintainer).*
-- [x] **Phase 1 — Build:** removed Sass, reset and font; Vite ESM lib for JS (`src/js` → `dist/js`, types in `dist/types`); `scripts/build-css.mjs` (lightningcss bundle + minify, per-file output); `scripts/size.mjs`; `exports` + `sideEffects`; `tsconfig.json`. Note: `./mode` export is added in Phase 2 together with `mode.ts`.
+- [x] **Phase 0 — Prepare:** branch `v1`; gzip baseline of `0.23.0`: `perfectui.css` 6005 B, `perfectui.js` 1587 B (plus external Poppins download). _Notify existing users: pending (maintainer)._
+- [x] **Phase 1 — Build:** _(delivered as `perfectui-phase-1.patch`; apply it first — see HANDOFF.md)_ removed Sass, reset and font; Vite ESM lib for JS (`src/js` → `dist/js`, types in `dist/types`); `scripts/build-css.mjs` (lightningcss bundle + minify, per-file output); `scripts/size.mjs`; `exports` + `sideEffects`; `tsconfig.json`. Note: `./mode` export is added in Phase 2 together with `mode.ts`.
 - [ ] **Phase 2 — Tokens & mode:** `layers.css`, `tokens.css` (`light-dark`, 4 base tokens), mode rules, `mode.ts` with cookie. Use the approved multipliers from §4.1.
 - [ ] **Phase 3 — Lego pieces:** `styles.css`, `colors.css`, `states.css`.
 - [ ] **Phase 4 — Components (one PR each):**
