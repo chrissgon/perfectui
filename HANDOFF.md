@@ -58,7 +58,7 @@ Goal kept: **bare minimum, lightweight, customizable**. Tailwind is an optional 
 | 30  | Color tones                   | Tone chosen per mode by contrast (≥ 4.5:1 against `--pui-bg`): v0 tone `700` in light, `500` in dark. Keeping `500` in both modes was rejected (white on `#07b6f0` is 2.34:1).                   |
 | 31  | Version bump                  | `package.json` stays `0.23.0` during the migration. Version is bumped only at release (Phase 8), with the tag.                                                                                   |
 | 32  | Tooling                       | ESLint rebuilt as a plain flat config on `typescript-eslint`; the `@eslint/compat` + `eslintrc` shims and `eslint-plugin-import` were dropped.                                                   |
-| 33  | Tabs component                | Out of scope for `1.0.0` (item dropped from `todo.txt`).                                                                                                                                        |
+| 33  | Tabs component                | Out of scope for `1.0.0` (item dropped from `todo.txt`).                                                                                                                                         |
 
 ---
 
