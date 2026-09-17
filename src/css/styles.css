@@ -30,7 +30,11 @@
   :where(.pui-soft, .pui-outline, .pui-link) {
     color: var(
       --pui-ink,
-      color-mix(in oklch, var(--pui-color), var(--pui-shade, var(--pui-text)) 15%)
+      color-mix(
+        in oklch,
+        var(--pui-color),
+        var(--pui-shade, var(--pui-text)) 15%
+      )
     );
   }
 

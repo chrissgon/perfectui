@@ -58,15 +58,15 @@ Every visual element is built from **3 independent pieces**:
 Color classes **only set these variables**. Style classes **only read them**.
 The implementation lives in `src/css/colors.css` and `src/css/styles.css`.
 
-| Variable         | Set by                    | Meaning                                                            |
-| ---------------- | ------------------------- | ------------------------------------------------------------------ |
-| `--pui-color`    | every color class         | Main color of the element                                          |
-| `--pui-on-color` | every color class         | Text/icon color placed on top of `--pui-color`                     |
-| `--pui-edge`     | optional (`pui-surface`)  | Border color. Defaults to `--pui-color`                            |
-| `--pui-ink`      | optional (`pui-surface`)  | Text color when the color is *not* the fill (soft, outline, link). Defaults to `--pui-color` deepened one step |
-| `--pui-shade`    | optional (`pui-inverse`)  | Color that hover and ink blend toward. Defaults to `--pui-text`     |
+| Variable         | Set by                   | Meaning                                                                                                        |
+| ---------------- | ------------------------ | -------------------------------------------------------------------------------------------------------------- |
+| `--pui-color`    | every color class        | Main color of the element                                                                                      |
+| `--pui-on-color` | every color class        | Text/icon color placed on top of `--pui-color`                                                                 |
+| `--pui-edge`     | optional (`pui-surface`) | Border color. Defaults to `--pui-color`                                                                        |
+| `--pui-ink`      | optional (`pui-surface`) | Text color when the color is _not_ the fill (soft, outline, link). Defaults to `--pui-color` deepened one step |
+| `--pui-shade`    | optional (`pui-inverse`) | Color that hover and ink blend toward. Defaults to `--pui-text`                                                |
 
-The last two exist because two color classes are defined *in terms of the page*:
+The last two exist because two color classes are defined _in terms of the page_:
 `pui-surface` is the background and `pui-inverse` is the text color. Without
 them, `pui-surface` would paint text with the page background (invisible) and
 `pui-inverse` would shade toward the color it already is (a no-op on hover).
@@ -74,7 +74,7 @@ Every other color class is one line, as intended.
 
 **Derivations.** Nothing is hardcoded per color:
 
-- hover blends `--pui-color` toward `--pui-shade`, which always moves *away*
+- hover blends `--pui-color` toward `--pui-shade`, which always moves _away_
   from `--pui-on-color`, so contrast can only rise;
 - soft/outline/link deepen the color by one step for their text, so it stays
   readable on the tinted background of `pui-soft`.
