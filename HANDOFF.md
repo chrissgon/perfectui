@@ -224,12 +224,12 @@ Then continue Phase 4 using the senior-frontend-architect skill, one component g
 
 ## 5. Files from the planning session
 
-| File                            | Purpose                                                                  |
-| ------------------------------- | ------------------------------------------------------------------------ |
-| `ARCHITECTURE.md`               | Rules, design, structure, checklist (source of truth)                    |
-| `CLAUDE.md`                     | Instructions loaded by Claude Code every session                         |
-| `HANDOFF.md`                    | This file: history, status, next steps                                   |
-| `tests/manual/token-scale.html` | Visual test of the approved token multipliers (reference for Phases 3–4) |
+| File                            | Purpose                                                                                                   |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `ARCHITECTURE.md`               | Rules, design, structure, checklist (source of truth)                                                     |
+| `CLAUDE.md`                     | Instructions loaded by Claude Code every session                                                          |
+| `HANDOFF.md`                    | This file: history, status, next steps                                                                    |
+| `tests/manual/token-scale.html` | The token multipliers, now driven by the shipped CSS rather than the inline prototype it was written with |
 
 The Phase 1 patch was applied as commit `337e7fb`; the planning folder was removed.
 
