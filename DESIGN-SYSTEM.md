@@ -136,18 +136,18 @@ Page background #FFFFFF.
 | `pui-solid pui-inverse`   | #000000                  | #FFFFFF | #000000 | #060606                  |
 | `pui-soft pui-theme`      | #0092CD at 15% → #D9EFF8 | #00628B | none    | #0092CD at 22% → #C7E7F4 |
 | `pui-soft pui-success`    | #16A34A at 15% → #DCF1E4 | #0B6E2F | none    | #16A34A at 22% → #CCEBD7 |
-| `pui-soft pui-error`      | #DC2626 at 15% → #FADEDE | #951616 | none    | #DC2626 at 22% → #F7CFCF |
+| `pui-soft pui-error`      | #DC2626 at 15% → #FADFDF | #951616 | none    | #DC2626 at 22% → #F7CFCF |
 | `pui-soft pui-warn`       | #D97706 at 15% → #F9EBDA | #934F03 | none    | #D97706 at 22% → #F7E1C8 |
 | `pui-soft pui-muted`      | #6B7280 at 15% → #E9EAEC | #464B55 | none    | #6B7280 at 22% → #DEE0E3 |
 | `pui-soft pui-surface`    | #FFFFFF at 15% → #FFFFFF | #000000 | none    | #FFFFFF at 22% → #FFFFFF |
 | `pui-soft pui-inverse`    | #000000 at 15% → #D9D9D9 | #000000 | none    | #000000 at 22% → #C7C7C7 |
-| `pui-outline pui-theme`   | none                     | #00628B | #0092CD | #0092CD at 10% → #E6F4FA |
-| `pui-outline pui-success` | none                     | #0B6E2F | #16A34A | #16A34A at 10% → #E8F6ED |
-| `pui-outline pui-error`   | none                     | #951616 | #DC2626 | #DC2626 at 10% → #FCE9E9 |
+| `pui-outline pui-theme`   | none                     | #00628B | #0092CD | #0092CD at 10% → #E5F4FA |
+| `pui-outline pui-success` | none                     | #0B6E2F | #16A34A | #16A34A at 10% → #E7F6ED |
+| `pui-outline pui-error`   | none                     | #951616 | #DC2626 | #DC2626 at 10% → #FBE9E9 |
 | `pui-outline pui-warn`    | none                     | #934F03 | #D97706 | #D97706 at 10% → #FBF1E6 |
 | `pui-outline pui-muted`   | none                     | #464B55 | #6B7280 | #6B7280 at 10% → #F0F1F2 |
 | `pui-outline pui-surface` | none                     | #000000 | #D1D5DB | #FFFFFF at 10% → #FFFFFF |
-| `pui-outline pui-inverse` | none                     | #000000 | #000000 | #000000 at 10% → #E6E6E6 |
+| `pui-outline pui-inverse` | none                     | #000000 | #000000 | #000000 at 10% → #E5E5E5 |
 | `pui-link pui-theme`      | none                     | #00628B | none    | none                     |
 | `pui-link pui-success`    | none                     | #0B6E2F | none    | none                     |
 | `pui-link pui-error`      | none                     | #951616 | none    | none                     |
@@ -162,32 +162,32 @@ Page background #000000.
 
 | Classes                   | Fill                     | Text    | Border  | Fill on hover            |
 | ------------------------- | ------------------------ | ------- | ------- | ------------------------ |
-| `pui-solid pui-theme`     | #0092CD                  | #FFFFFF | #0092CD | #48BFF2                  |
+| `pui-solid pui-theme`     | #07B6F0                  | #000000 | #07B6F0 | #48BFF2                  |
 | `pui-solid pui-success`   | #22C55E                  | #000000 | #22C55E | #50CD73                  |
 | `pui-solid pui-error`     | #EF4444                  | #000000 | #EF4444 | #F5615B                  |
 | `pui-solid pui-warn`      | #F59E0B                  | #000000 | #F59E0B | #F7AA45                  |
-| `pui-solid pui-muted`     | #9CA3AF                  | #000000 | #9CA3AF | #B7A9AD                  |
+| `pui-solid pui-muted`     | #9CA3AF                  | #000000 | #9CA3AF | #A7AEB8                  |
 | `pui-solid pui-surface`   | #000000                  | #FFFFFF | #374151 | #060606                  |
 | `pui-solid pui-inverse`   | #FFFFFF                  | #000000 | #FFFFFF | #D7D7D7                  |
 | `pui-soft pui-theme`      | #07B6F0 at 15% → #011B24 | #6BC9F5 | none    | #07B6F0 at 22% → #022835 |
-| `pui-soft pui-success`    | #22C55E at 15% → #051E0E | #71D588 | none    | #22C55E at 22% → #072B15 |
-| `pui-soft pui-error`      | #EF4444 at 15% → #240A0A | #FA7B73 | none    | #EF4444 at 22% → #350F0F |
+| `pui-soft pui-success`    | #22C55E at 15% → #051D0E | #71D588 | none    | #22C55E at 22% → #072B15 |
+| `pui-soft pui-error`      | #EF4444 at 15% → #240A0A | #FA7B73 | none    | #EF4444 at 22% → #340F0F |
 | `pui-soft pui-warn`       | #F59E0B at 15% → #251802 | #F9B867 | none    | #F59E0B at 22% → #362302 |
-| `pui-soft pui-muted`      | #AE9EA2 at 15% → #1A1818 | #C1B5B8 | none    | #AE9EA2 at 22% → #262324 |
+| `pui-soft pui-muted`      | #9CA3AF at 15% → #17181A | #B4B9C3 | none    | #9CA3AF at 22% → #222426 |
 | `pui-soft pui-surface`    | #000000 at 15% → #000000 | #FFFFFF | none    | #000000 at 22% → #000000 |
 | `pui-soft pui-inverse`    | #FFFFFF at 15% → #262626 | #FFFFFF | none    | #FFFFFF at 22% → #383838 |
-| `pui-outline pui-theme`   | none                     | #6BC9F5 | #07B6F0 | #07B6F0 at 10% → #011218 |
-| `pui-outline pui-success` | none                     | #71D588 | #22C55E | #22C55E at 10% → #031409 |
+| `pui-outline pui-theme`   | none                     | #6BC9F5 | #07B6F0 | #07B6F0 at 10% → #011318 |
+| `pui-outline pui-success` | none                     | #71D588 | #22C55E | #22C55E at 10% → #03140A |
 | `pui-outline pui-error`   | none                     | #FA7B73 | #EF4444 | #EF4444 at 10% → #180707 |
 | `pui-outline pui-warn`    | none                     | #F9B867 | #F59E0B | #F59E0B at 10% → #191001 |
-| `pui-outline pui-muted`   | none                     | #C1B5B8 | #9CA3AF | #AE9EA2 at 10% → #111010 |
+| `pui-outline pui-muted`   | none                     | #B4B9C3 | #9CA3AF | #9CA3AF at 10% → #101112 |
 | `pui-outline pui-surface` | none                     | #FFFFFF | #374151 | #000000 at 10% → #000000 |
 | `pui-outline pui-inverse` | none                     | #FFFFFF | #FFFFFF | #FFFFFF at 10% → #1A1A1A |
 | `pui-link pui-theme`      | none                     | #6BC9F5 | none    | none                     |
 | `pui-link pui-success`    | none                     | #71D588 | none    | none                     |
 | `pui-link pui-error`      | none                     | #FA7B73 | none    | none                     |
 | `pui-link pui-warn`       | none                     | #F9B867 | none    | none                     |
-| `pui-link pui-muted`      | none                     | #C1B5B8 | none    | none                     |
+| `pui-link pui-muted`      | none                     | #B4B9C3 | none    | none                     |
 | `pui-link pui-surface`    | none                     | #FFFFFF | none    | none                     |
 | `pui-link pui-inverse`    | none                     | #FFFFFF | none    | none                     |
 

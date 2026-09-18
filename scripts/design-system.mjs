@@ -23,7 +23,15 @@ const page = await (await chromium.launch()).newPage();
 await page.setViewportSize({ width: 1200, height: 900 });
 
 await page.setContent(`<!doctype html><html><head>
-<link rel="stylesheet" href="http://localhost:8151/src/css/index.css"></head>
+<link rel="stylesheet" href="http://localhost:8151/src/css/index.css">
+<style>
+  /* Switching the color mode animates every color for 150ms, and a computed
+     style read during that window returns the interpolated value: the first
+     element measured after a mode switch came out with the previous mode's
+     colors. A measurement harness has no business animating. */
+  *, *::before, *::after { transition: none !important; }
+</style>
+</head>
 <body style="margin:0;padding:20px">
   ${STYLES.map((s) => COLORS.map((c) => `<button class="pui-btn pui-${s} pui-${c}" id="b-${s}-${c}">x</button>`).join("")).join("")}
   <button class="pui-btn pui-solid pui-theme" id="m-btn">Save</button>
@@ -47,13 +55,70 @@ await page.setContent(`<!doctype html><html><head>
 </body></html>`);
 await page.waitForLoadState("networkidle");
 
+/**
+ * color-mix() computes to oklch(), which this document cannot contain. Rather
+ * than reimplement the conversion — the first attempt dropped the hue whenever
+ * Chrome serialized it as `none`, turning greys pink — the browser resolves its
+ * own colors through a canvas, and composites the tinted ones over the page for
+ * the flattened value.
+ */
+await page.evaluate(() => {
+  const canvas = document.createElement("canvas");
+  canvas.width = canvas.height = 1;
+  const ctx = canvas.getContext("2d");
+
+  const draw = (...colors) => {
+    ctx.clearRect(0, 0, 1, 1);
+    for (const color of colors) {
+      ctx.fillStyle = color;
+      ctx.fillRect(0, 0, 1, 1);
+    }
+    const [r, g, b, a] = ctx.getImageData(0, 0, 1, 1).data;
+    const hex =
+      "#" +
+      [r, g, b]
+        .map((v) => v.toString(16).padStart(2, "0"))
+        .join("")
+        .toUpperCase();
+    return { hex, alpha: a / 255 };
+  };
+
+  window.__resolve = (value) => {
+    if (!value || value === "transparent")
+      return { hex: "transparent", alpha: 0 };
+    const probe = draw(value);
+    if (probe.alpha === 0) return { hex: "transparent", alpha: 0 };
+
+    const alpha = Math.round(probe.alpha * 100) / 100;
+    // the same color at full opacity, so the base is exact rather than derived
+    const opaque = value.replace(/\s*\/\s*[\d.]+%?\s*\)/, ")");
+
+    // --pui-bg reads back as light-dark(#fff, #000), which a canvas cannot
+    // parse: it has to be resolved through an element first.
+    const swatch = document.createElement("div");
+    swatch.style.color = "var(--pui-bg)";
+    document.body.append(swatch);
+    const page = getComputedStyle(swatch).color;
+    swatch.remove();
+
+    return {
+      hex: draw(opaque).hex,
+      alpha,
+      over: alpha === 1 ? draw(opaque).hex : draw(page, value).hex
+    };
+  };
+});
+
 const box = (id, props) =>
   page.evaluate(
     ([id, props]) => {
       const el = document.getElementById(id);
       const s = getComputedStyle(el);
       const out = {};
-      for (const p of props) out[p] = s.getPropertyValue(p);
+      for (const p of props) {
+        const value = s.getPropertyValue(p);
+        out[p] = /color/.test(p) ? window.__resolve(value) : value;
+      }
       out.width = el.getBoundingClientRect().width.toFixed(1);
       out.height = el.getBoundingClientRect().height.toFixed(1);
       return out;
@@ -140,7 +205,7 @@ for (const mode of ["light", "dark"]) {
       "muted"
     ]) {
       probe.style.color = `var(--pui-${token})`;
-      out[token] = getComputedStyle(probe).color;
+      out[token] = window.__resolve(getComputedStyle(probe).color);
     }
     probe.remove();
     return out;

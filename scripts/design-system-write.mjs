@@ -5,74 +5,24 @@ const { metrics, palette, combos } = JSON.parse(
   readFileSync("/tmp/design-data.json", "utf8")
 );
 
-/* --- color conversion: everything ends up as hex, because the reader cannot
-       evaluate oklch() or color-mix() ----------------------------------- */
-const linToSrgb = (v) =>
-  v <= 0.0031308 ? 12.92 * v : 1.055 * v ** (1 / 2.4) - 0.055;
-const clamp = (v) => Math.min(255, Math.max(0, Math.round(v * 255)));
-const toHex = (r, g, b) =>
-  "#" +
-  [r, g, b]
-    .map((v) => clamp(v).toString(16).padStart(2, "0"))
-    .join("")
-    .toUpperCase();
+/* --- colors -------------------------------------------------------------
+   Already resolved by the browser during measurement (see design-system.mjs),
+   so there is no conversion left to get wrong here. Each color arrives as
+   { hex, alpha, over }: the base color, its opacity, and what it looks like
+   once composited over the page. */
 
-function oklchToRgb(L, C, H) {
-  const a = C * Math.cos((H * Math.PI) / 180);
-  const b = C * Math.sin((H * Math.PI) / 180);
-  const l = (L + 0.3963377774 * a + 0.2158037573 * b) ** 3;
-  const m = (L - 0.1055613458 * a - 0.0638541728 * b) ** 3;
-  const s = (L - 0.0894841775 * a - 1.291485548 * b) ** 3;
-  return [
-    4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s,
-    -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s,
-    -0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s
-  ].map(linToSrgb);
-}
+const hexOf = (color) => color.hex;
 
-/** Returns { hex, alpha } for any computed color string. */
-function parse(value) {
-  if (!value || value === "transparent")
-    return { hex: "transparent", alpha: 0 };
-  // an achromatic result comes back as `oklch(1 0 none)`: hue is powerless
-  const oklch = value.match(
-    /oklch\(([\d.]+|none)\s+([\d.]+|none)\s+([\d.]+|none)(?:\s*\/\s*([\d.]+))?\)/
-  );
-  if (oklch) {
-    const [, L, C, H, A] = oklch.map((v) => (v === "none" ? "0" : v));
-    const [r, g, b] = oklchToRgb(+L, +C, +H);
-    return { hex: toHex(r, g, b), alpha: A === undefined ? 1 : +A };
-  }
-  const nums = (value.match(/[\d.]+/g) ?? []).map(Number);
-  const [r, g, b, a = 1] = nums;
-  if (a === 0) return { hex: "transparent", alpha: 0 };
-  return { hex: toHex(r / 255, g / 255, b / 255), alpha: a };
-}
-
-const hexToRgb = (h) =>
-  [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16) / 255);
-
-/** What the eye sees once the alpha lands on the page. */
-function flatten(value, bgHex) {
-  const { hex, alpha } = parse(value);
-  if (hex === "transparent") return bgHex;
-  if (alpha === 1) return hex;
-  const fg = hexToRgb(hex);
-  const bg = hexToRgb(bgHex);
-  return toHex(...fg.map((v, i) => v * alpha + bg[i] * (1 - alpha)));
-}
-
-/** "#0092CD" or "#F59E0B at 15%  →  #FDF1E0" */
-function describe(value, bgHex) {
-  const { hex, alpha } = parse(value);
-  if (hex === "transparent") return "none";
-  if (alpha === 1) return hex;
-  return `${hex} at ${Math.round(alpha * 100)}% → ${flatten(value, bgHex)}`;
+/** "#0092CD", or "#F59E0B at 15% → #FDF1E0", or "none". */
+function describe(color) {
+  if (!color || color.hex === "transparent") return "none";
+  if (color.alpha === 1) return color.hex;
+  return `${color.hex} at ${Math.round(color.alpha * 100)}% → ${color.over}`;
 }
 
 /** 11.998px is a computed value, not a specification. */
 const norm = (v) => {
-  if (v === undefined || v === null) return v;
+  if (typeof v !== "string") return v;
   return String(v).replace(/-?[\d.]+/g, (n) => {
     const value = Math.round(parseFloat(n) * 100) / 100;
     return Math.abs(value - Math.round(value)) < 0.06
@@ -97,14 +47,14 @@ const pad = (id) => {
     : `${t} ${r} ${b} ${l}`;
 };
 
-const bgOf = (mode) => parse(palette[mode].bg).hex;
+const bgOf = (mode) => hexOf(palette[mode].bg);
 
 /* --- tables ---------------------------------------------------------------- */
 
 const tokenTable = () => {
   const rows = Object.keys(palette.light).map((t) => {
-    const l = parse(palette.light[t]).hex;
-    const d = parse(palette.dark[t]).hex;
+    const l = hexOf(palette.light[t]);
+    const d = hexOf(palette.dark[t]);
     return `| \`--pui-${t}\` | ${l} | ${d} | ${TOKEN_ROLE[t]} |`;
   });
   return [
@@ -129,7 +79,6 @@ const TOKEN_ROLE = {
 };
 
 const comboTable = (mode) => {
-  const bg = bgOf(mode);
   const rows = [];
   for (const style of ["solid", "soft", "outline", "link"]) {
     for (const color of [
@@ -143,7 +92,7 @@ const comboTable = (mode) => {
     ]) {
       const c = combos[mode][`${style}/${color}`];
       rows.push(
-        `| \`pui-${style} pui-${color}\` | ${describe(c.rest["background-color"], bg)} | ${parse(c.rest.color).hex} | ${describe(c.rest["border-top-color"], bg)} | ${describe(c.hover["background-color"], bg)} |`
+        `| \`pui-${style} pui-${color}\` | ${describe(c.rest["background-color"])} | ${hexOf(c.rest.color)} | ${describe(c.rest["border-top-color"])} | ${describe(c.hover["background-color"])} |`
       );
     }
   }
@@ -243,13 +192,13 @@ which is what makes them work in both modes without a second definition.
 
 | Role | Fill (light) | Fill (dark) | Label on that fill |
 | --- | --- | --- | --- |
-| \`pui-theme\` | ${parse(palette.light.theme).hex} | ${parse(palette.dark.theme).hex} | Page background |
-| \`pui-success\` | ${parse(palette.light.success).hex} | ${parse(palette.dark.success).hex} | Page background |
-| \`pui-error\` | ${parse(palette.light.error).hex} | ${parse(palette.dark.error).hex} | Page background |
-| \`pui-warn\` | ${parse(palette.light.warn).hex} | ${parse(palette.dark.warn).hex} | Page background |
-| \`pui-muted\` | ${parse(palette.light.muted).hex} | ${parse(palette.dark.muted).hex} | Page background |
-| \`pui-surface\` | ${parse(palette.light.bg).hex} | ${parse(palette.dark.bg).hex} | Body text color |
-| \`pui-inverse\` | ${parse(palette.light.text).hex} | ${parse(palette.dark.text).hex} | Page background |
+| \`pui-theme\` | ${hexOf(palette.light.theme)} | ${hexOf(palette.dark.theme)} | Page background |
+| \`pui-success\` | ${hexOf(palette.light.success)} | ${hexOf(palette.dark.success)} | Page background |
+| \`pui-error\` | ${hexOf(palette.light.error)} | ${hexOf(palette.dark.error)} | Page background |
+| \`pui-warn\` | ${hexOf(palette.light.warn)} | ${hexOf(palette.dark.warn)} | Page background |
+| \`pui-muted\` | ${hexOf(palette.light.muted)} | ${hexOf(palette.dark.muted)} | Page background |
+| \`pui-surface\` | ${hexOf(palette.light.bg)} | ${hexOf(palette.dark.bg)} | Body text color |
+| \`pui-inverse\` | ${hexOf(palette.light.text)} | ${hexOf(palette.dark.text)} | Page background |
 
 ## 3. Styles
 
