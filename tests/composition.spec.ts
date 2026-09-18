@@ -28,6 +28,19 @@ test("a style class reads the color the color class sets", async ({ page }) => {
   await expect(page.locator("#outline")).toHaveCSS("border-color", THEME_LIGHT);
 });
 
+test("a derived neutral stays neutral", async ({ page }) => {
+  // The derivations mix in oklab, not oklch. With a hue component in play,
+  // Chrome serializes a near-neutral mix with `none` for the hue, which paints
+  // as hue 0: the muted grey came out pink. The token is bluish, so its text
+  // tone must keep more blue than red.
+  const [red, , blue] = await page.locator("#soft-muted").evaluate((el) =>
+    getComputedStyle(el)
+      .color.match(/[\d.]+/g)!
+      .map(Number)
+  );
+  expect(blue).toBeGreaterThan(red);
+});
+
 test("unlayered author CSS wins over every library layer", async ({ page }) => {
   // through the contract
   await expect(page.locator("#branded")).toHaveCSS(

@@ -112,6 +112,25 @@ A third: a control inside an input group had its focus ring cut in half, because
 
 And: inside a group, hovering a child raised it with `z-index`, which flipped the ownership of the shared one-pixel edge and made the border look like it moved as the pointer crossed. Measured first — the geometry never changed, so it was paint order, not layout. Only focus raises a child now, which is the case the rule was written for.
 
+### Bug found by writing DESIGN-SYSTEM.md
+
+Resolving every color to hex for a design tool surfaced one the eye had missed in
+review: the muted grey's derived tones rendered **pink**. The derivations mixed
+`in oklch`, and Chrome serializes a near-neutral mix with its hue as `none`,
+which paints as hue 0. Confirmed by rendering the swatches rather than by
+reading the serialization, since the same `none` also made the generator's own
+conversion wrong and the two failures looked alike. The mixes interpolate in
+`oklab` now — no hue to lose, identical output for saturated colors — and a test
+asserts the muted text tone keeps more blue than red.
+
+Two bugs in the generator came out of the same investigation: it measured the
+first element of each mode right after switching, while the 150ms colour
+transition was still running, so that row carried the previous mode's values;
+and it passed `light-dark(#fff, #000)` to a canvas, which cannot parse it, so
+the flattened values were wrong. The measurement page disables transitions now,
+and the browser resolves its own colors, which deleted the hand-written oklch
+conversion entirely.
+
 ### What Phase 7 added (this repo only)
 
 - `/docs` rewritten for the v1 API: 26 files, plus new `chip.md` and `float.md`. The index, the root `README.md` and `MIGRATION.md` were written too.

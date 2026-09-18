@@ -72,7 +72,12 @@ them, `pui-surface` would paint text with the page background (invisible) and
 `pui-inverse` would shade toward the color it already is (a no-op on hover).
 Every other color class is one line, as intended.
 
-**Derivations.** Nothing is hardcoded per color:
+**Derivations.** They interpolate **in `oklab`, not `oklch`**. The two describe
+the same space, but `oklch` carries a hue component, and mixing a near-neutral
+color with white or black makes Chrome serialize that hue as `none`, which then
+paints as hue 0 — the muted grey rendered pink. `oklab` has no hue to lose, and
+for a saturated color the result is identical. Found while generating
+`DESIGN-SYSTEM.md`; a test covers it. Nothing is hardcoded per color:
 
 - hover blends `--pui-color` toward `--pui-shade`, which always moves _away_
   from `--pui-on-color`, so contrast can only rise;
