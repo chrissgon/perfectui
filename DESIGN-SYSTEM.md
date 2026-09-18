@@ -5,9 +5,11 @@ for a tool that cannot run CSS. Every size is in pixels and every color is a hex
 value, given for both color modes.
 
 > This file is generated from the shipped stylesheet by
-> `scripts/design-system.mjs`, which measures the real components in a browser.
-> If a value here disagrees with the library, the library is right and this file
-> is stale — regenerate it with `bun run design-system`.
+> `scripts/design-system.mjs`, which measures the real components in a browser,
+> and every number in its prose is then re-checked against a browser by
+> `scripts/design-system-check.mjs`. If a value here disagrees with the library,
+> the library is right and this file is stale — regenerate it with
+> `bun run design-system`.
 
 ## How to read this
 
@@ -396,7 +398,10 @@ Covers the text field, the textarea and the select.
 | Placeholder color | Muted text token |
 
 A select adds a downward triangle in the current text color at the end,
-8px by 4px, 12px from the edge, with the padding on that side raised to 28px.
+8.4px by 4.2px, 12px from the edge, with the padding on that
+side raised to 28px. It is drawn as an image rather than from borders,
+which is why it keeps a fraction of a pixel where the accordion's chevron is
+rounded to whole ones.
 
 ### 4.13 Input group
 
@@ -636,7 +641,9 @@ leave out: `surface` and `inverse` are roles like any other, and `on-fill` and
 over the page background. Use the muted role for a neutral fill instead. The
 tables include it for completeness, which is why its fill equals its background.
 
-**Light mode trades some contrast for the palette.** A solid theme, success or
-warn fill against its white label sits between 3.2:1 and 3.5:1 — above the 3:1
-floor for interface elements, below the 4.5:1 that WCAG AA asks of text. This is
-deliberate. Text styles and the whole of dark mode stay at or above 4.5:1.
+**Light mode trades some contrast for the palette.** Against its white label, a
+solid fill reaches 3.50:1 for theme, 3.30:1 for success, 3.19:1 for warn — above the 3:1 floor for
+interface elements, below the 4.5:1 that WCAG AA asks of text. This is
+deliberate, and the same call covers the white check, dot and knob on a control
+filled with its own color. Every text use, every hover and the whole of dark
+mode stay at or above 4.5:1.

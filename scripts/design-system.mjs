@@ -64,6 +64,7 @@ await page.setContent(`<!doctype html><html><head>
   <span class="pui-chip pui-soft pui-theme" id="m-chip">Chip</span>
   <span class="pui-badge pui-solid pui-error" id="m-badge">3</span>
   <input class="pui-input" id="m-input" value="x">
+  <select class="pui-input" id="m-select"><option>x</option></select>
   <span class="pui-addon" id="m-addon">@</span>
   <div class="pui-card" id="m-card"><div class="pui-card-header" id="m-card-header">h</div><div class="pui-card-content" id="m-card-content">c</div></div>
   <ul class="pui-list" id="m-list"><li class="pui-list-item" id="m-list-item">i</li></ul>
@@ -276,6 +277,30 @@ const glyph = async (id) => {
   );
 };
 
+/* The chevron and the select arrow were the last two values in the document
+   computed from a ratio in the stylesheet rather than measured, and they do not
+   agree: a border width is rounded to whole pixels by the browser, so the
+   chevron built from borders is 8x4, while the arrow drawn as a background
+   image keeps its 8.4x4.2. Read both from the rendered elements. */
+const marks = await page.evaluate(() => {
+  const chevron = getComputedStyle(
+    document.getElementById("m-summary"),
+    "::after"
+  );
+  const select = getComputedStyle(document.getElementById("m-select"));
+  return {
+    chevron: {
+      width: parseFloat(chevron.borderLeftWidth) * 2,
+      height: parseFloat(chevron.borderTopWidth)
+    },
+    arrow: {
+      size: select.backgroundSize,
+      inset: select.backgroundPosition,
+      padding: select.paddingInlineEnd
+    }
+  };
+});
+
 const palette = {};
 const combos = {};
 for (const mode of ["light", "dark"]) {
@@ -341,7 +366,7 @@ for (const id of ["m-checkbox", "m-indeterminate", "m-radio", "m-switch"]) {
 
 writeFileSync(
   "/tmp/design-data.json",
-  JSON.stringify({ metrics, palette, combos, glyphs }, null, 1)
+  JSON.stringify({ metrics, palette, combos, glyphs, marks }, null, 1)
 );
 console.log(
   "measured:",

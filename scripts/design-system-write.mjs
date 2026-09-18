@@ -1,7 +1,7 @@
 /** Turns the measurements into DESIGN-SYSTEM.md. See design-system.mjs. */
 import { readFileSync, writeFileSync } from "node:fs";
 
-const { metrics, palette, combos, glyphs } = JSON.parse(
+const { metrics, palette, combos, glyphs, marks } = JSON.parse(
   readFileSync("/tmp/design-data.json", "utf8")
 );
 
@@ -130,9 +130,11 @@ for a tool that cannot run CSS. Every size is in pixels and every color is a hex
 value, given for both color modes.
 
 > This file is generated from the shipped stylesheet by
-> \`scripts/design-system.mjs\`, which measures the real components in a browser.
-> If a value here disagrees with the library, the library is right and this file
-> is stale — regenerate it with \`bun run design-system\`.
+> \`scripts/design-system.mjs\`, which measures the real components in a browser,
+> and every number in its prose is then re-checked against a browser by
+> \`scripts/design-system-check.mjs\`. If a value here disagrees with the library,
+> the library is right and this file is stale — regenerate it with
+> \`bun run design-system\`.
 
 ## How to read this
 
@@ -368,7 +370,7 @@ inside a card.
 
 Marking the open item is optional — it is one variant of the container, and it
 paints the whole expanded item, summary and panel, with the muted background
-token. The chevron is a solid triangle pointing down, ${Math.round(parseFloat(m("m-btn")["font-size"]) * 0.6)}px wide and ${Math.round(parseFloat(m("m-btn")["font-size"]) * 0.3)}px tall, in the current text
+token. The chevron is a solid triangle pointing down, ${marks.chevron.width}px wide and ${marks.chevron.height}px tall, in the current text
 color. It rotates 180° when the item opens, around its own center.
 
 ### 4.8 Modal
@@ -418,7 +420,10 @@ Covers the text field, the textarea and the select.
 ${size("m-input", { Background: "Transparent", Border: `${m("m-input")["border-top-width"]} solid, border token — the error token when invalid`, "Placeholder color": "Muted text token" })}
 
 A select adds a downward triangle in the current text color at the end,
-${Math.round(parseFloat(m("m-btn")["font-size"]) * 0.6)}px by ${Math.round(parseFloat(m("m-btn")["font-size"]) * 0.3)}px, 12px from the edge, with the padding on that side raised to 28px.
+${marks.arrow.size.replace(" ", " by ")}, 12px from the edge, with the padding on that
+side raised to ${marks.arrow.padding}. It is drawn as an image rather than from borders,
+which is why it keeps a fraction of a pixel where the accordion's chevron is
+rounded to whole ones.
 
 ### 4.13 Input group
 
@@ -486,6 +491,28 @@ Joins neighbouring elements into one control.
 A single element pinned 24px — six spacing units — from the bottom and starting
 edge of the viewport.
 `;
+
+/* The three ratios section 7 quotes. Measured colors in, WCAG's own formula
+   out, so the sentence cannot drift from the palette. */
+const contrast = (a, b) => {
+  const luminance = (hex) => {
+    const channel = (i) => {
+      const v = parseInt(hex.slice(1 + i * 2, 3 + i * 2), 16) / 255;
+      return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
+    };
+    return 0.2126 * channel(0) + 0.7152 * channel(1) + 0.0722 * channel(2);
+  };
+  const [light, dark] = [luminance(a), luminance(b)].sort((x, y) => y - x);
+  return (light + 0.05) / (dark + 0.05);
+};
+
+const solidRatios = ["theme", "success", "warn"].map((role) => {
+  const c = combos.light[`solid/${role}`].rest;
+  return {
+    role,
+    value: contrast(c["background-color"].hex, c.color.hex).toFixed(2)
+  };
+});
 
 /* --- states and figma notes ------------------------------------------------ */
 
@@ -685,10 +712,12 @@ const figma = `
 over the page background. Use the muted role for a neutral fill instead. The
 tables include it for completeness, which is why its fill equals its background.
 
-**Light mode trades some contrast for the palette.** A solid theme, success or
-warn fill against its white label sits between 3.2:1 and 3.5:1 — above the 3:1
-floor for interface elements, below the 4.5:1 that WCAG AA asks of text. This is
-deliberate. Text styles and the whole of dark mode stay at or above 4.5:1.
+**Light mode trades some contrast for the palette.** Against its white label, a
+solid fill reaches ${solidRatios.map((r) => `${r.value}:1 for ${r.role}`).join(", ")} — above the 3:1 floor for
+interface elements, below the 4.5:1 that WCAG AA asks of text. This is
+deliberate, and the same call covers the white check, dot and knob on a control
+filled with its own color. Every text use, every hover and the whole of dark
+mode stay at or above 4.5:1.
 `;
 
 const out = doc + components + states + figma;
