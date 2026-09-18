@@ -33,11 +33,19 @@ test("a derived neutral stays neutral", async ({ page }) => {
   // Chrome serializes a near-neutral mix with `none` for the hue, which paints
   // as hue 0: the muted grey came out pink. The token is bluish, so its text
   // tone must keep more blue than red.
-  const [red, , blue] = await page.locator("#soft-muted").evaluate((el) =>
-    getComputedStyle(el)
-      .color.match(/[\d.]+/g)!
-      .map(Number)
-  );
+  //
+  // The mix computes to `oklab(...)`, whose three numbers are lightness and two
+  // axes, not channels — reading them as RGB is what made the first version of
+  // this test fail. A canvas hands the question back to the engine and answers
+  // in the sRGB the screen actually gets.
+  const [red, , blue] = await page.locator("#soft-muted").evaluate((el) => {
+    const canvas = document.createElement("canvas");
+    canvas.width = canvas.height = 1;
+    const context = canvas.getContext("2d")!;
+    context.fillStyle = getComputedStyle(el).color;
+    context.fillRect(0, 0, 1, 1);
+    return [...context.getImageData(0, 0, 1, 1).data];
+  });
   expect(blue).toBeGreaterThan(red);
 });
 
