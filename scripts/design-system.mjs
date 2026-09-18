@@ -6,7 +6,7 @@
  * transcribing is the point — a hand-written spec drifts from what ships.
  */
 import { chromium } from "@playwright/test";
-import { writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 
 const STYLES = ["solid", "soft", "outline", "link"];
 const COLORS = [
@@ -19,11 +19,37 @@ const COLORS = [
   "inverse"
 ];
 
-const page = await (await chromium.launch()).newPage();
-await page.setViewportSize({ width: 1200, height: 900 });
+/* Four device pixels per CSS pixel: the white marks inside the controls are
+   measured from a raster, and at 1x an anti-aliased edge costs a whole pixel
+   on a 16px control. */
+const SCALE = 4;
+const page = await (
+  await chromium.launch()
+).newPage({
+  viewport: { width: 1200, height: 900 },
+  deviceScaleFactor: SCALE
+});
+
+/* The stylesheet is served from disk rather than by a separate process. It
+   cannot be inlined: index.css and every component file use relative @imports,
+   which only resolve against a URL. Routing keeps the script self-contained —
+   the first version pointed at a dev server, and when that server was not
+   running the page loaded with no CSS at all and the run still reported
+   success, writing a document full of browser defaults. */
+await page.route("http://pui.local/**", (route) => {
+  const path = new URL(route.request().url()).pathname.replace(/^\/+/, "");
+  try {
+    route.fulfill({
+      body: readFileSync(path),
+      contentType: path.endsWith(".css") ? "text/css" : "text/plain"
+    });
+  } catch {
+    route.fulfill({ status: 404, body: "" });
+  }
+});
 
 await page.setContent(`<!doctype html><html><head>
-<link rel="stylesheet" href="http://localhost:8151/src/css/index.css">
+<link rel="stylesheet" href="http://pui.local/src/css/index.css">
 <style>
   /* Switching the color mode animates every color for 150ms, and a computed
      style read during that window returns the interpolated value: the first
@@ -46,6 +72,7 @@ await page.setContent(`<!doctype html><html><head>
   <figure class="pui-timeline" id="m-timeline"><figcaption class="pui-checkpoint" id="m-checkpoint"><i class="pui-checkpoint-icon pui-solid pui-success" id="m-cp-icon">x</i><span>t</span></figcaption></figure>
   <label class="pui-field-group" id="m-field"><span id="m-field-label">L</span><input class="pui-input"><small id="m-field-msg">m</small></label>
   <input type="checkbox" class="pui-checkbox" id="m-checkbox" checked>
+  <input type="checkbox" class="pui-checkbox" id="m-indeterminate">
   <input type="radio" class="pui-radio" id="m-radio" checked>
   <input type="checkbox" class="pui-switch" id="m-switch" checked>
   <div class="pui-dropdown" id="m-dropdown" style="position:static">d</div>
@@ -54,6 +81,16 @@ await page.setContent(`<!doctype html><html><head>
   <button class="pui-btn pui-solid pui-theme pui-rounded-full" id="m-pill">p</button>
 </body></html>`);
 await page.waitForLoadState("networkidle");
+
+/* Nothing below can tell a missing stylesheet from a component that happens to
+   look like a browser default, so the run stops here instead. */
+const applied = await page.evaluate(() => {
+  const s = getComputedStyle(document.getElementById("m-btn"));
+  return `${s.fontSize}/${s.borderRadius}/${s.paddingLeft}`;
+});
+if (applied !== "14px/6px/16px") {
+  throw new Error(`the stylesheet did not apply: button reads ${applied}`);
+}
 
 /**
  * color-mix() computes to oklch(), which this document cannot contain. Rather
@@ -135,6 +172,8 @@ const METRIC_PROPS = [
   "line-height",
   "border-radius",
   "border-top-width",
+  "border-bottom-width",
+  "margin-inline-start",
   "gap",
   "background-color",
   "color",
@@ -178,6 +217,64 @@ for (const id of [
 ]) {
   metrics[id] = await box(id, METRIC_PROPS);
 }
+
+/**
+ * The white mark inside a checked control is painted by a gradient or an SVG,
+ * so its size appears in no computed style: the percentages in the stylesheet
+ * are gradient stops against the box's corner-to-corner radius, which is not
+ * the same as a fraction of its width. Rasterize the control and measure the
+ * light pixels instead. The browser decodes its own screenshot, so this needs
+ * no image library, and it runs in dark mode so that the page showing through
+ * a rounded corner is black rather than white.
+ */
+const glyph = async (id) => {
+  const shot = (await page.locator(`#${id}`).screenshot()).toString("base64");
+  return page.evaluate(
+    async ([b64, scale]) => {
+      const img = new Image();
+      img.src = `data:image/png;base64,${b64}`;
+      await img.decode();
+      const canvas = document.createElement("canvas");
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0);
+      const { data } = ctx.getImageData(0, 0, img.width, img.height);
+
+      // The mark is #fff on the control's own fill. The threshold sits halfway
+      // between the two, read from a pixel at the edge of the fill, so a
+      // half-covered edge pixel falls on the right side of it whatever the
+      // color is.
+      const at = (x, y) => (y * img.width + x) * 4;
+      const edge = at(1, Math.floor(img.height / 2));
+      const mid = [0, 1, 2].map((c) => (data[edge + c] + 255) / 2);
+
+      let minX = Infinity;
+      let maxX = -1;
+      let minY = Infinity;
+      let maxY = -1;
+      for (let y = 0; y < img.height; y++) {
+        for (let x = 0; x < img.width; x++) {
+          const i = at(x, y);
+          if (!mid.every((m, c) => data[i + c] > m)) continue;
+          minX = Math.min(minX, x);
+          maxX = Math.max(maxX, x);
+          minY = Math.min(minY, y);
+          maxY = Math.max(maxY, y);
+        }
+      }
+      if (maxX < 0) return null;
+      const px = (n) => Math.round((n / scale) * 10) / 10;
+      return {
+        width: px(maxX - minX + 1),
+        height: px(maxY - minY + 1),
+        box: px(img.width),
+        inset: px(minX)
+      };
+    },
+    [shot, SCALE]
+  );
+};
 
 const palette = {};
 const combos = {};
@@ -233,9 +330,18 @@ for (const mode of ["light", "dark"]) {
   await page.mouse.move(0, 0);
 }
 
+await page.evaluate(() => {
+  document.documentElement.setAttribute("data-pui-mode", "dark");
+  document.getElementById("m-indeterminate").indeterminate = true;
+});
+const glyphs = {};
+for (const id of ["m-checkbox", "m-indeterminate", "m-radio", "m-switch"]) {
+  glyphs[id] = await glyph(id);
+}
+
 writeFileSync(
   "/tmp/design-data.json",
-  JSON.stringify({ metrics, palette, combos }, null, 1)
+  JSON.stringify({ metrics, palette, combos, glyphs }, null, 1)
 );
 console.log(
   "measured:",

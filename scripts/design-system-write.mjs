@@ -1,7 +1,7 @@
 /** Turns the measurements into DESIGN-SYSTEM.md. See design-system.mjs. */
 import { readFileSync, writeFileSync } from "node:fs";
 
-const { metrics, palette, combos } = JSON.parse(
+const { metrics, palette, combos, glyphs } = JSON.parse(
   readFileSync("/tmp/design-data.json", "utf8")
 );
 
@@ -49,6 +49,23 @@ const pad = (id) => {
 
 const bgOf = (mode) => hexOf(palette[mode].bg);
 
+/**
+ * The size of a white mark, measured from the rendered control rather than
+ * copied from the stylesheet: the percentages there are gradient stops against
+ * the box's corner-to-corner radius, so "34%" is not 34% of the width.
+ */
+const mark = (id) => {
+  const g = glyphs[id];
+  if (!g) return "not measured";
+  const size =
+    g.width === g.height
+      ? `${g.width}px across`
+      : `${g.width}px by ${g.height}px`;
+  const centered = Math.abs(g.inset - (g.box - g.width) / 2) < 0.6;
+  const end = Math.round((g.box - g.width - g.inset) * 10) / 10;
+  return centered ? `${size}, centered` : `${size}, ${end}px from the end`;
+};
+
 /* --- tables ---------------------------------------------------------------- */
 
 const tokenTable = () => {
@@ -67,7 +84,8 @@ const tokenTable = () => {
 const TOKEN_ROLE = {
   bg: "Page background, and the label on a solid fill",
   "bg-muted": "Card headers, table footers, addons, stripes, hover rows",
-  "bg-emphasis": "A third level, used for the accordion summary on hover",
+  "bg-emphasis":
+    "A third level, for authors — no component in the library uses it",
   text: "Body text",
   "text-muted": "Secondary text: help messages, table headers, card headers",
   border: "Every border that is not carrying a color",
@@ -163,16 +181,18 @@ scale.
 | 3 | 12px | Chip and input horizontal padding, addon padding, card content gap |
 | 4 | 16px | Button, list item, table cell and card header horizontal padding; card content padding |
 | 6 | 24px | Distance from the viewport edge for a floating element |
+| 7 | 28px | End padding of a select, which holds the arrow |
+| 8 | 32px | Margin a modal keeps from the viewport edge |
 
 ### 1.4 Typography
 
-The library sets no font family: it inherits from the page. Only sizes and
-weights are specified.
+The library sets no font family and no weight for body text: both inherit from
+the page. Only sizes, line heights and the one bold weight are specified.
 
 | Role | Size | Weight | Line height | Used by |
 | --- | --- | --- | --- | --- |
-| Body | ${m("m-btn")["font-size"]} | 400 | ${m("m-btn")["line-height"]} | Buttons, chips, inputs, list items, table cells, card content |
-| Small | ${m("m-badge")["font-size"]} | 400 | ${m("m-badge")["line-height"]} | Badges, tooltips, field labels and messages |
+| Body | ${m("m-btn")["font-size"]} | inherited | ${m("m-btn")["line-height"]} | Buttons, chips, inputs, list items, table cells, card content |
+| Small | ${m("m-badge")["font-size"]} | inherited | ${m("m-badge")["line-height"]} | Badges, tooltips, field labels and messages |
 | Table header | ${m("m-th")["font-size"]} | ${m("m-th")["font-weight"]} | ${m("m-th")["line-height"]} | Column headers |
 
 ### 1.5 Radii
@@ -320,7 +340,7 @@ token, and hoverable, where the hovered item does.
 | Part | Property | Value |
 | --- | --- | --- |
 | Cell | Padding | ${pad("m-td")} |
-| Cell | Border below | ${m("m-td")["border-top-width"]} solid, border token |
+| Cell | Border below | ${m("m-td")["border-bottom-width"]} solid, border token |
 | Cell | Text alignment | Start |
 | Header cell | Font weight | ${m("m-th")["font-weight"]} |
 | Header cell | Text color | Muted text token |
@@ -415,10 +435,10 @@ A control and one or more addons fused into a single field.
 
 | Control | Width | Height | Radius | Checked mark |
 | --- | --- | --- | --- | --- |
-| Checkbox | ${m("m-checkbox").width}px | ${m("m-checkbox").height}px | ${m("m-checkbox")["border-radius"]} | White check |
-| Checkbox, indeterminate | ${m("m-checkbox").width}px | ${m("m-checkbox").height}px | ${m("m-checkbox")["border-radius"]} | White bar, 55% of the width |
-| Radio | ${m("m-radio").width}px | ${m("m-radio").height}px | Full | White dot, 34% of the width |
-| Switch | ${m("m-switch").width}px | ${m("m-switch").height}px | Full | White knob at the end, 42% of the height as a radius |
+| Checkbox | ${m("m-checkbox").width}px | ${m("m-checkbox").height}px | ${m("m-checkbox")["border-radius"]} | White check, ${mark("m-checkbox")} |
+| Checkbox, indeterminate | ${m("m-checkbox").width}px | ${m("m-checkbox").height}px | ${m("m-checkbox")["border-radius"]} | White bar, ${mark("m-indeterminate")} |
+| Radio | ${m("m-radio").width}px | ${m("m-radio").height}px | Full | White dot, ${mark("m-radio")} |
+| Switch | ${m("m-switch").width}px | ${m("m-switch").height}px | Full | White knob, ${mark("m-switch")} |
 
 Unchecked: transparent fill, ${m("m-checkbox")["border-top-width"]} border in the border token. The switch shows its
 knob in the border token at the start. Checked: the fill and the border both take
@@ -453,7 +473,7 @@ Joins neighbouring elements into one control.
 
 | Property | Value |
 | --- | --- |
-| Overlap between children | ${m("m-group-second")["margin-left"] ?? "-1px"} — one border width, so two borders read as one line |
+| Overlap between children | ${m("m-group-second")["margin-inline-start"]} — one border width, so two borders read as one line |
 | Inner corners | Squared |
 | Outer corners | The default radius, on the first and last child only |
 | Direction | Row or column; the responsive variant is a row above 1024px and a column below |
@@ -465,6 +485,70 @@ edge of the viewport.
 `;
 
 /* --- states and figma notes ------------------------------------------------ */
+
+/* --- figma variables -------------------------------------------------------
+   Every value here is one the browser already measured, addressed by a name a
+   design tool can create mechanically. The five slots per role are the same
+   five for all seven roles, so no role needs an exception. */
+
+const ROLES = [
+  "theme",
+  "success",
+  "error",
+  "warn",
+  "muted",
+  "surface",
+  "inverse"
+];
+
+const SLOT = {
+  fill: (mode, role) => combos[mode][`solid/${role}`].rest["background-color"],
+  "on-fill": (mode, role) => combos[mode][`solid/${role}`].rest.color,
+  "fill-hover": (mode, role) =>
+    combos[mode][`solid/${role}`].hover["background-color"],
+  edge: (mode, role) => combos[mode][`solid/${role}`].rest["border-top-color"],
+  ink: (mode, role) => combos[mode][`link/${role}`].rest.color
+};
+
+const PAGE = {
+  "page/bg": "bg",
+  "page/bg-muted": "bg-muted",
+  "page/bg-emphasis": "bg-emphasis",
+  "page/text": "text",
+  "page/text-muted": "text-muted",
+  "page/border": "border"
+};
+
+const PAGE_USE = {
+  "page/bg": "Page, card and overlay background",
+  "page/bg-muted": "Card header, table footer, addon, stripe, hovered row",
+  "page/bg-emphasis": "Nothing in the library — yours to use",
+  "page/text": "Body text",
+  "page/text-muted": "Label, help message, table header, card header",
+  "page/border": "Every border that carries no role color"
+};
+
+const pageVariables = () =>
+  [
+    "| Variable | Light | Dark | Used for |",
+    "| --- | --- | --- | --- |",
+    ...Object.entries(PAGE).map(
+      ([name, token]) =>
+        `| \`${name}\` | ${hexOf(palette.light[token])} | ${hexOf(palette.dark[token])} | ${PAGE_USE[name]} |`
+    )
+  ].join("\n");
+
+const roleVariables = () =>
+  [
+    "| Variable | Light | Dark |",
+    "| --- | --- | --- |",
+    ...ROLES.flatMap((role) =>
+      Object.entries(SLOT).map(
+        ([slot, read]) =>
+          `| \`${role}/${slot}\` | ${hexOf(read("light", role))} | ${hexOf(read("dark", role))} |`
+      )
+    )
+  ].join("\n");
 
 const states = `
 ## 5. Interaction states
@@ -484,29 +568,111 @@ entirely for anyone who asked their system to reduce motion.
 
 ## 6. Building this in Figma
 
-**Variables.** One collection, two modes named light and dark, holding the
-eleven color tokens from section 1.1. Four number variables for the base values.
-Everything else is derived, so do not make a variable for it: a hover tone or a
-soft tint is a value this document already resolved.
+Figma variables carry modes; paint styles do not. So every color here is a
+**variable** in one collection with a light and a dark mode, and components
+reference the variables. Do not create a paint style per style-and-color
+combination: 28 combinations in two modes is 56 styles that all repeat the same
+five facts, and naming them is where a file ends up with \`theme/accent\` beside
+\`success/deepened\`.
 
-**Components.** One component per shape, with two variant properties:
+### 6.1 One collection, two modes
+
+Name the collection \`pui\` and its modes \`light\` and \`dark\`. Six variables
+describe the page.
+
+${pageVariables()}
+
+Each of the seven roles gets the same five variables. Five slots for every
+role means a component never needs a special case.
+
+| Slot | What it paints |
+| --- | --- |
+| \`<role>/fill\` | Solid background, and a checked control |
+| \`<role>/on-fill\` | The label sitting on that fill |
+| \`<role>/fill-hover\` | The solid background under the pointer |
+| \`<role>/edge\` | The border, for solid and outline |
+| \`<role>/ink\` | The text of soft, outline and link |
+
+${roleVariables()}
+
+Number variables, named after the value they hold in pixels, because the
+library has no semantic size scale to borrow names from — a spacing is always
+the 4px unit times something:
+
+| Group | Variables |
+| --- | --- |
+| \`space/\` | 2, 4, 5, 6, 7, 8, 10, 12, 16, 24, 28, 32 |
+| \`radius/\` | 3, 5, 6, 9, full (9999) |
+| \`border/\` | 1 |
+
+### 6.2 The four styles as variable references
+
+This table replaces the 56 paint styles. A style is which slots an element
+reads, and nothing else.
+
+| Style | Fill | Fill opacity | Text | Border |
+| --- | --- | --- | --- | --- |
+| \`solid\` | \`<role>/fill\` | 100% | \`<role>/on-fill\` | \`<role>/edge\` |
+| \`soft\` | \`<role>/fill\` | 15% | \`<role>/ink\` | none |
+| \`outline\` | none | — | \`<role>/ink\` | \`<role>/edge\` |
+| \`link\` | none | — | \`<role>/ink\` | none |
+
+| Style | On hover |
+| --- | --- |
+| \`solid\` | Fill becomes \`<role>/fill-hover\` |
+| \`soft\` | Same fill, opacity 15% → 22% |
+| \`outline\` | Fill appears: \`<role>/fill\` at 10% |
+| \`link\` | Text underlines, 5px below the baseline |
+
+**A tint is an opacity, not a variable.** A soft fill is the role's own color at
+15%, which is what the library does and what keeps it correct when the mode
+changes. Section 3 lists what each tint flattens to over the page, for checking
+your work — not for pasting in as a solid color.
+
+### 6.3 Text styles
+
+| Name | Size | Line height | Weight |
+| --- | --- | --- | --- |
+| \`text/body\` | ${m("m-btn")["font-size"]} | ${m("m-btn")["line-height"]} | inherited |
+| \`text/small\` | ${m("m-badge")["font-size"]} | ${m("m-badge")["line-height"]} | inherited |
+| \`text/strong\` | ${m("m-th")["font-size"]} | normal | ${m("m-th")["font-weight"]} |
+
+### 6.4 Components
+
+One component per shape in section 4, with two variant properties:
 
 - \`style\`: solid, soft, outline, link
 - \`color\`: theme, success, error, warn, muted, surface, inverse
 
-That is 28 variants for a button, and the same 28 for a chip and a badge. Every
-one of them is in the tables in section 3, for both modes.
+Every variant reads the five slots through the table in 6.2, so 28 variants are
+28 references, not 28 hand-picked colors. Hover, focus and disabled are a third
+property or interactive states, never separate components. Every shape is an
+auto-layout frame using the padding and gap from section 4; only the overlays
+are positioned against their trigger.
 
-**States.** Hover, focus and disabled belong as a third property or as
-interactive states, not as separate components.
+### 6.5 Do not create
 
-**Auto layout.** Every shape here is a horizontal or vertical stack with the
-padding and gap given in section 4. Nothing uses absolute positioning except the
-overlays, which are anchored to their trigger.
+- A paint style per style-and-color combination.
+- A variable for a tint or for the flattened hex of one.
+- A 50–950 ramp. Each role is one color per mode.
+- A size scale. A smaller button is a chip, a smaller chip is a badge.
+- A second collection, or a second set of styles, for dark mode.
 
-**What not to build.** There is no size scale: a smaller button is a chip, and a
-smaller chip is a badge. There is no color scale either — no 100 to 900 ramp.
-Each role is one value per mode, and every other tone is derived from it.
+### 6.6 Renaming a file that already exists
+
+A generated file usually names the derived tones by eye. The mapping back:
+
+| Name often generated | Use instead |
+| --- | --- |
+| \`base/*\` | \`page/*\` |
+| \`<role>/accent\`, \`<role>/hover\` | \`<role>/fill-hover\` |
+| \`<role>/deepened\`, \`<role>/dark\` | \`<role>/ink\` |
+| \`<role>/soft\`, \`<role>/subtle\` | Delete it — \`<role>/fill\` at 15% opacity |
+| \`<role>/text\`, \`<role>/contrast\` | \`<role>/on-fill\` if it sits on the fill, \`<role>/ink\` if it sits on the page |
+
+Every role carries all five slots, including the ones a generated file tends to
+leave out: \`surface\` and \`inverse\` are roles like any other, and \`on-fill\` and
+\`edge\` exist for all seven.
 `;
 
 const figma = `
