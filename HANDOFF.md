@@ -64,17 +64,17 @@ Goal kept: **bare minimum, lightweight, customizable**. Tailwind is an optional 
 
 ## 3. Current status
 
-| Phase             | Status                                                                                                                                                |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | --- |
-| 0 — Prepare       | ✅ Baseline measured: `perfectui.css` **6005 B** gzip, `perfectui.js` **1587 B** gzip (+ Poppins). ⏳ Notify users: maintainer.                       |
-| 1 — Build         | ✅ Applied on branch `v1` (commit `337e7fb`).                                                                                                         |
-| 2 — Tokens & mode | ✅ Done. `perfectui.css` 338 B gzip, `js/mode.js` 309 B, `js/index.js` 154 B.                                                                         |
-| 3 — Lego pieces   | ✅ Done. `perfectui.css` 833 B gzip.                                                                                                                  |
-| 4 — Components    | ✅ Done. `perfectui.css` 2922 B gzip, still under half the 0.23.0 baseline. `perfectui.css` 1464 B gzip.                                              |
-| 5 — JS fallbacks  | ✅ Done. `js/index.js` 487 B gzip; fallbacks 331–487 B each, downloaded only when missing.                                                            |
-| 6 — Tests         | ✅ Done. 16 tests x 2 engines, all green, plus the SSR check.                                                                                         |
-| 7 — Docs          | ✅ This repo done. Site repo `perfectui-doc` deferred by the maintainer.                                                                              |
-| 8 — Release       | ⏭️ Next. Nothing is published and nothing is pushed: 46 commits sit on the local `v1` branch, and `package.json` is still at `0.23.0` by decision 31. |     |
+| Phase             | Status                                                                                                                          |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------- | --- |
+| 0 — Prepare       | ✅ Baseline measured: `perfectui.css` **6005 B** gzip, `perfectui.js` **1587 B** gzip (+ Poppins). ⏳ Notify users: maintainer. |
+| 1 — Build         | ✅ Applied on branch `v1` (commit `337e7fb`).                                                                                   |
+| 2 — Tokens & mode | ✅ Done. `perfectui.css` 338 B gzip, `js/mode.js` 309 B, `js/index.js` 154 B.                                                   |
+| 3 — Lego pieces   | ✅ Done. `perfectui.css` 833 B gzip.                                                                                            |
+| 4 — Components    | ✅ Done. `perfectui.css` 2922 B gzip, still under half the 0.23.0 baseline. `perfectui.css` 1464 B gzip.                        |
+| 5 — JS fallbacks  | ✅ Done. `js/index.js` 487 B gzip; fallbacks 331–487 B each, downloaded only when missing.                                      |
+| 6 — Tests         | ✅ Done. 16 tests x 2 engines, all green, plus the SSR check.                                                                   |
+| 7 — Docs          | ✅ This repo done. Site repo `perfectui-doc` deferred by the maintainer.                                                        |
+| 8 — Release       | 🚧 `1.0.0-beta.0` published under the `beta` dist-tag; `latest` stays on `0.23.0`. Awaiting feedback before `1.0.0`.            |     |
 
 ### What Phase 1 changed (patch)
 
