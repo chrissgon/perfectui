@@ -60,6 +60,31 @@ Give the items the same `name`. The browser closes the others for you:
 </div>
 ```
 
+### Marking the open item
+
+`pui-highlighted` on the container gives the expanded item the same background as a card header, so a long list shows where you are. It replaces v0's `accordion-accented`:
+
+```html
+<div class="pui-accordion pui-highlighted">
+  <details class="pui-accordion-item" name="faq" open>
+    <summary>Expanded</summary>
+    <p>This item carries the band.</p>
+  </details>
+  <details class="pui-accordion-item" name="faq">
+    <summary>Collapsed</summary>
+    <p>This one does not.</p>
+  </details>
+</div>
+```
+
+For a different tone, one rule of your own is enough — `--pui-bg-emphasis` is there for a third level:
+
+```css
+.pui-accordion.pui-highlighted > .pui-accordion-item[open] {
+  background-color: var(--pui-bg-emphasis);
+}
+```
+
 ### Your own icon
 
 Put an element with `pui-accordion-icon` in the summary and the drawn chevron

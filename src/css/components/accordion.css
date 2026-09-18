@@ -81,6 +81,15 @@
     }
   }
 
+  /* The third modifier in the library, and it earns its place the same way the
+     other two do: `[open]` is a structural selector, so no combination of
+     classes on the item can say "only while this one is expanded" (§6).
+     It is v0's `accordion-accented`, down to the tone — a card header's, not
+     --pui-bg-emphasis, which stays free for whoever needs a third level. */
+  .pui-accordion.pui-highlighted > .pui-accordion-item[open] {
+    background-color: var(--pui-bg-muted);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .pui-accordion-item > summary::after,
     .pui-accordion-item > summary > .pui-accordion-icon {

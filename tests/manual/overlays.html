@@ -92,8 +92,8 @@
         <p style="margin: 0.25rem 0 0; color: var(--pui-text-muted)">
           The parts that only exist once you click or hover them: overlay
           directions, tooltip styles, moving between modals, and the accordion
-          icon hook. Everything here is native in Chromium. To exercise the
-          fallbacks instead, serve this folder over http and import
+          icon hook and open marker. Everything here is native in Chromium. To
+          exercise the fallbacks instead, serve this folder over http and import
           <code>dist/js/index.js</code>: a module cannot be loaded from a
           file:// page.
         </p>
@@ -386,6 +386,43 @@
           <p style="margin: 0">
             Anything goes, it only has to carry the class.
           </p>
+        </details>
+      </div>
+    </section>
+
+    <section class="case">
+      <h2>7 — marked open item</h2>
+      <p>
+        <code>pui-highlighted</code> on the container gives the expanded item a
+        card header's background. v0 called this
+        <code>accordion-accented</code>. Open each one: only the expanded item
+        carries the band, and it follows the item's corners.
+      </p>
+
+      <div class="pui-accordion pui-highlighted" style="max-width: 28rem">
+        <details class="pui-accordion-item" name="marked" open>
+          <summary>Open, so it carries the band</summary>
+          <p style="margin: 0">The whole item, summary and panel.</p>
+        </details>
+        <details class="pui-accordion-item" name="marked">
+          <summary>Closed</summary>
+          <p style="margin: 0">Nothing painted.</p>
+        </details>
+      </div>
+
+      <p>Joined into one block, the band has no gaps to leak through:</p>
+
+      <div
+        class="pui-accordion pui-highlighted pui-group-col"
+        style="max-width: 28rem"
+      >
+        <details class="pui-accordion-item" name="marked-joined" open>
+          <summary>First, open</summary>
+          <p style="margin: 0">Squared corners inside the group.</p>
+        </details>
+        <details class="pui-accordion-item" name="marked-joined">
+          <summary>Second</summary>
+          <p style="margin: 0">Closed.</p>
         </details>
       </div>
     </section>

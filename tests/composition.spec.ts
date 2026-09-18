@@ -49,6 +49,19 @@ test("a derived neutral stays neutral", async ({ page }) => {
   expect(blue).toBeGreaterThan(red);
 });
 
+test("pui-highlighted paints the open item only", async ({ page }) => {
+  // The modifier exists because `[open]` cannot be composed: it has to be a
+  // selector. So the pair of assertions is the whole feature.
+  await expect(page.locator("#open-item")).toHaveCSS(
+    "background-color",
+    "rgb(243, 244, 246)"
+  );
+  await expect(page.locator("#closed-item")).toHaveCSS(
+    "background-color",
+    "rgba(0, 0, 0, 0)"
+  );
+});
+
 test("unlayered author CSS wins over every library layer", async ({ page }) => {
   // through the contract
   await expect(page.locator("#branded")).toHaveCSS(

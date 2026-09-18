@@ -364,8 +364,11 @@ inside a card.
 | Summary | Layout | Label at the start, chevron at the end |
 | Summary | Corner radius | ${m("m-summary")["border-radius"]} (one border width less than the item) |
 | Panel | Padding | ${pad("m-acc-panel")} |
+| Item, open | Background | None, or the muted background token with the marked variant |
 
-The chevron is a solid triangle pointing down, ${Math.round(parseFloat(m("m-btn")["font-size"]) * 0.6)}px wide and ${Math.round(parseFloat(m("m-btn")["font-size"]) * 0.3)}px tall, in the current text
+Marking the open item is optional — it is one variant of the container, and it
+paints the whole expanded item, summary and panel, with the muted background
+token. The chevron is a solid triangle pointing down, ${Math.round(parseFloat(m("m-btn")["font-size"]) * 0.6)}px wide and ${Math.round(parseFloat(m("m-btn")["font-size"]) * 0.3)}px tall, in the current text
 color. It rotates 180° when the item opens, around its own center.
 
 ### 4.8 Modal
