@@ -1,0 +1,53 @@
+/* Tooltip. The behavior is native: `interestfor` on the trigger shows it on
+   hover, focus and long press, and `popover="hint"` lets it appear without
+   closing an open menu. Requires core.css.
+
+   Both are Chromium-only today, so the Phase 5 fallbacks matter here more than
+   anywhere else. Where `popover="hint"` is unknown the attribute falls back to
+   `auto`, which still works. */
+@import "../layers.css";
+
+@layer pui.components {
+  .pui-tooltip {
+    width: max-content;
+    max-width: 20rem;
+    margin: 0;
+    padding: calc(var(--pui-space) * 1.25) calc(var(--pui-space) * 2.5);
+    border: var(--pui-border-width) solid var(--pui-border);
+    border-radius: var(--pui-radius);
+    background-color: var(--pui-bg);
+    color: inherit;
+    font-size: calc(var(--pui-font-size) * 0.857);
+    /* A tooltip is never a pointer target. */
+    pointer-events: none;
+  }
+
+  @supports (position-area: block-start) {
+    .pui-tooltip {
+      position: absolute;
+      inset: auto;
+      margin: 0;
+      position-area: block-start;
+      position-try-fallbacks: flip-block;
+      margin-block-end: var(--pui-space);
+    }
+
+    /* Directions, centered on the trigger on the other axis. */
+    .pui-tooltip.pui-bottom {
+      position-area: block-end;
+      margin: var(--pui-space) 0 0;
+    }
+
+    .pui-tooltip.pui-start {
+      position-area: inline-start;
+      position-try-fallbacks: flip-inline;
+      margin: 0 var(--pui-space) 0 0;
+    }
+
+    .pui-tooltip.pui-end {
+      position-area: inline-end;
+      position-try-fallbacks: flip-inline;
+      margin: 0 0 0 var(--pui-space);
+    }
+  }
+}

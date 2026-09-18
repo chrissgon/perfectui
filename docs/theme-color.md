@@ -1,50 +1,87 @@
 #### Customization
 
-# Define your own color palette
+# Theme Color
 
-Perfect UI allows you to define your own color palette, automatically adjusting all components to it.
+Theming is CSS. There is no JavaScript API: you override the custom properties you want, wherever you want.
 
-### How it works
-
-To better adapt to your visual identity, Perfect UI provides the `setThemeColor` method that allows you to define your color palette, setting it as the default for the entire application.
-
-```ts
-import { setThemeColor } from "@chrissgon/perfectui";
-
-const palette = {
-  50: [240, 250, 255],
-  100: [223, 244, 255],
-  200: [184, 235, 255],
-  300: [121, 220, 255],
-  400: [52, 204, 254],
-  500: [7, 182, 240],
-  600: [0, 146, 205],
-  700: [0, 116, 166],
-  800: [3, 98, 137],
-  900: [9, 81, 113],
-  950: [6, 51, 75]
-};
-
-setThemeColor(palette);
+```css
+:root {
+  --pui-theme: #7c3aed;
+}
 ```
 
-The `setThemeColor` method expects to receive an object that satisfies the `IThemeColor` interface.
+That single line repaints every component that uses the theme color, in both modes, including hover tones and the soft and outline variants — they are all derived from it with `color-mix()`.
 
-> ⚠️ Attention needed:
-> To satisfy the interface, you need to enter a shade from 50 to 950 in RGB!
+### The tokens
 
-```ts
-export interface IThemeColor {
-  50: number[];
-  100: number[];
-  200: number[];
-  300: number[];
-  400: number[];
-  500: number[];
-  600: number[];
-  700: number[];
-  800: number[];
-  900: number[];
-  950: number[];
+```css
+:root {
+  /* surfaces */
+  --pui-bg: light-dark(#fff, #000);
+  --pui-bg-muted: light-dark(#f3f4f6, #111827);
+  --pui-bg-emphasis: light-dark(#e5e7eb, #1f2937);
+
+  /* text */
+  --pui-text: light-dark(#000, #fff);
+  --pui-text-muted: light-dark(#6b7280, #9ca3af);
+
+  /* border */
+  --pui-border: light-dark(#d1d5db, #374151);
+
+  /* state colors */
+  --pui-theme: light-dark(#0092cd, #07b6f0);
+  --pui-success: light-dark(#16a34a, #22c55e);
+  --pui-error: light-dark(#dc2626, #ef4444);
+  --pui-warn: light-dark(#d97706, #f59e0b);
+  --pui-muted: light-dark(#6b7280, #9ca3af);
+
+  /* everything that is not a color */
+  --pui-radius: 0.375rem;
+  --pui-space: 0.25rem;
+  --pui-font-size: 0.875rem;
+  --pui-border-width: 1px;
+}
+```
+
+### One value per mode
+
+Use `light-dark()` when the two modes need different values:
+
+```css
+:root {
+  --pui-theme: light-dark(#6d28d9, #a78bfa);
+}
+```
+
+### Rescaling the library
+
+Only four tokens are not colors, and every component derives its size from them. Changing one rescales everything at once:
+
+```css
+:root {
+  --pui-radius: 0; /* square corners everywhere */
+  --pui-font-size: 1rem; /* a larger library */
+  --pui-space: 0.3rem; /* roomier components */
+}
+```
+
+### Theming one region
+
+The tokens are ordinary custom properties, so they cascade:
+
+```html
+<section style="--pui-theme: #059669">
+  <button class="pui-btn pui-solid pui-theme">Green in here only</button>
+</section>
+```
+
+### Overriding a dark brand color
+
+A solid fill puts the page background on top of your color as its label. If you replace a color with a **dark** one, set the label color too:
+
+```css
+.pui-theme {
+  --pui-color: #1e1b4b;
+  --pui-on-color: #fff;
 }
 ```

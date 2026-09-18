@@ -2,51 +2,40 @@
 
 # Input
 
-A basic widget for getting the user input is a text field.
-
-### Basic
-
-To create inputs, simply add the `.input` class to the `input` element.
+One class for every text control: `<input>`, `<textarea>` and `<select>`.
 
 ```html
-<input class="input" />
-```
-
-Also possible add a placeholder.
-
-```html
-<input class="input" placeholder="This is placeholder" />
+<input class="pui-input" type="text" placeholder="Your name" />
 ```
 
 ### Types
 
-The most commonly used input types.
+Every native type works, and each keeps its own keyboard and picker:
 
 ```html
-<form class="flex flex-col gap-3">
-  <label class="field-group">
-    <input class="input" placeholder="Text" />
-  </label>
-  <label class="field-group">
-    <input class="input" type="number" placeholder="Number" />
-  </label>
-  <label class="field-group">
-    <input class="input" type="email" placeholder="Email" />
-  </label>
-  <label class="field-group">
-    <input class="input" type="password" placeholder="Password" />
-  </label>
-  <label class="field-group">
-    <input class="input" type="search" placeholder="Search" />
-  </label>
-  <label class="field-group">
-    <input class="input" type="week" placeholder="Week" />
-  </label>
-  <label class="field-group">
-    <input class="input" type="month" placeholder="Month" />
-  </label>
-  <label class="field-group">
-    <input class="input" type="date" placeholder="Date" />
-  </label>
-</form>
+<input class="pui-input" type="email" placeholder="you@example.com" />
+<input class="pui-input" type="password" />
+<input class="pui-input" type="number" />
+<input class="pui-input" type="date" />
+<input class="pui-input" type="search" />
+```
+
+### With a label
+
+See [Field Group](https://github.com/chrissgon/perfectui/blob/main/docs/field-group.md).
+
+### States
+
+```html
+<input class="pui-input" disabled value="Disabled" />
+<input class="pui-input" readonly value="Read only" />
+<input class="pui-input" aria-invalid="true" value="Invalid" />
+```
+
+### Full width
+
+Inputs size themselves to their content box, so width is yours to decide:
+
+```html
+<input class="pui-input" style="width: 100%" />
 ```

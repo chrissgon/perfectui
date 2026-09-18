@@ -1,0 +1,28 @@
+/* States. Last layer, so these win over shape, style and color rules without
+   any specificity tricks. Scoped to elements that carry a pui- class, never to
+   bare elements (hard rule 5). */
+@layer pui.states {
+  :where([class^="pui-"], [class*=" pui-"]) {
+    &:disabled,
+    &[disabled],
+    &[aria-disabled="true"] {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    /* Keyboard focus only. The ring takes the element's own color when it has
+       one, so an error control focuses red. */
+    &:focus-visible {
+      outline: 2px solid var(--pui-color, var(--pui-theme));
+      outline-offset: 2px;
+    }
+
+    /* Invalid re-points the contract to the error color, so whatever style is
+       applied turns red without a dedicated class (§6.1). */
+    &[aria-invalid="true"] {
+      --pui-color: var(--pui-error);
+      --pui-edge: var(--pui-error);
+      --pui-ink: var(--pui-error);
+    }
+  }
+}

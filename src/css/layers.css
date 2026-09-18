@@ -1,0 +1,3 @@
+/* Cascade layer order. Must be the first rule of every entry file. See ARCHITECTURE.md §5. */
+@layer pui.tokens, pui.components, pui.utilities, pui.styles, pui.colors,
+  pui.states;

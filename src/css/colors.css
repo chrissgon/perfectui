@@ -1,0 +1,44 @@
+/* Color classes. They only set the contract variables (§3.1); no painting. */
+@layer pui.colors {
+  .pui-theme {
+    --pui-color: var(--pui-theme);
+    --pui-on-color: var(--pui-bg);
+  }
+
+  .pui-success {
+    --pui-color: var(--pui-success);
+    --pui-on-color: var(--pui-bg);
+  }
+
+  .pui-error {
+    --pui-color: var(--pui-error);
+    --pui-on-color: var(--pui-bg);
+  }
+
+  .pui-warn {
+    --pui-color: var(--pui-warn);
+    --pui-on-color: var(--pui-bg);
+  }
+
+  .pui-muted {
+    --pui-color: var(--pui-muted);
+    --pui-on-color: var(--pui-bg);
+  }
+
+  /* Aligned with the page background. Its color *is* --pui-bg, so it also has
+     to say which ink to use when the color is not the fill. */
+  .pui-surface {
+    --pui-color: var(--pui-bg);
+    --pui-on-color: var(--pui-text);
+    --pui-edge: var(--pui-border);
+    --pui-ink: var(--pui-text);
+  }
+
+  /* Opposite of the page background. Its color *is* --pui-text, so shading
+     toward the text would be a no-op: it shades toward the background. */
+  .pui-inverse {
+    --pui-color: var(--pui-text);
+    --pui-on-color: var(--pui-bg);
+    --pui-shade: var(--pui-bg);
+  }
+}

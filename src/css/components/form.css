@@ -1,0 +1,233 @@
+/* Form controls. Requires core.css.
+
+   Two things are worth knowing before changing this file:
+
+   - Borders read `var(--pui-edge, var(--pui-border))`. That is what makes
+     aria-invalid work with no extra class: pui.states points --pui-edge at the
+     error color, and every control here picks it up.
+   - The select arrow, the radio dot and the switch knob are drawn with
+     gradients rather than data URIs, because a color baked into a data URI
+     cannot follow the color mode. */
+@import "../layers.css";
+
+@layer pui.components {
+  /* --- field group (§6.1) ------------------------------------------------
+     Label and message are real elements, matched by tag so the user writes no
+     extra classes: <span> is the label, <small> is the message. */
+  .pui-field-group {
+    display: grid;
+    gap: var(--pui-space);
+    font-size: var(--pui-font-size);
+
+    & > span {
+      font-size: calc(var(--pui-font-size) * 0.857);
+    }
+
+    & > small {
+      font-size: calc(var(--pui-font-size) * 0.857);
+      color: var(--pui-text-muted);
+    }
+  }
+
+  /* --- text controls ----------------------------------------------------- */
+  .pui-input {
+    appearance: none;
+    min-width: 0;
+    padding: calc(var(--pui-space) * 1.5) calc(var(--pui-space) * 3);
+    border: var(--pui-border-width) solid var(--pui-edge, var(--pui-border));
+    border-radius: var(--pui-radius);
+    background-color: transparent;
+    color: inherit;
+    font: inherit;
+    font-size: var(--pui-font-size);
+    line-height: 1.25;
+
+    &::placeholder {
+      color: var(--pui-text-muted);
+    }
+  }
+
+  textarea.pui-input {
+    resize: vertical;
+  }
+
+  /* The arrow is drawn in currentColor, so it follows the text color in both
+     modes without shipping an image. One conic gradient rather than two linear
+     ones: two halves have to meet on a diagonal, and at this size they miss by
+     a subpixel and the tip comes out clipped. Its size matches the accordion
+     chevron, which is built from borders. */
+  select.pui-input {
+    padding-inline-end: calc(var(--pui-space) * 7);
+    background-repeat: no-repeat;
+    background-image: conic-gradient(
+      from 315deg at 50% 100%,
+      currentColor 0 90deg,
+      transparent 0
+    );
+    background-size: calc(var(--pui-font-size) * 0.6)
+      calc(var(--pui-font-size) * 0.3);
+    background-position: right calc(var(--pui-space) * 3) center;
+  }
+
+  /* --- input group + addon ----------------------------------------------
+     The group owns the border and the radius; the controls inside drop theirs
+     so the whole thing reads as one field. */
+  /* The corners are handed to the children rather than clipped with
+     overflow: hidden. Clipping would also cut the focus ring of a control
+     inside the group, and a ring drawn within the control instead disappears
+     against a solid fill. */
+  .pui-input-group {
+    display: flex;
+    align-items: stretch;
+    border: var(--pui-border-width) solid var(--pui-edge, var(--pui-border));
+    border-radius: var(--pui-radius);
+    font-size: var(--pui-font-size);
+
+    & > .pui-input {
+      flex: 1;
+    }
+
+    /* Anything dropped into the group gives up its own frame: the group is one
+       field with one border and one radius. */
+    & > * {
+      border: none;
+      border-radius: 0;
+    }
+
+    & > :first-child {
+      border-start-start-radius: calc(
+        var(--pui-radius) - var(--pui-border-width)
+      );
+      border-end-start-radius: calc(
+        var(--pui-radius) - var(--pui-border-width)
+      );
+    }
+
+    & > :last-child {
+      border-start-end-radius: calc(
+        var(--pui-radius) - var(--pui-border-width)
+      );
+      border-end-end-radius: calc(var(--pui-radius) - var(--pui-border-width));
+    }
+  }
+
+  .pui-addon {
+    display: flex;
+    align-items: center;
+    padding-inline: calc(var(--pui-space) * 3);
+    background-color: var(--pui-bg-muted);
+    color: var(--pui-text-muted);
+    white-space: nowrap;
+  }
+
+  .pui-input-group > .pui-addon:first-child {
+    border-inline-end: var(--pui-border-width) solid var(--pui-border);
+  }
+
+  .pui-input-group > .pui-addon:last-child {
+    border-inline-start: var(--pui-border-width) solid var(--pui-border);
+  }
+
+  /* --- checkbox, radio, switch ------------------------------------------- */
+  .pui-checkbox,
+  .pui-radio,
+  .pui-switch {
+    appearance: none;
+    /* These are the only controls with a fixed size, so they cannot rely on
+       the page's box-sizing. */
+    box-sizing: border-box;
+    flex: none;
+    margin: 0;
+    border: var(--pui-border-width) solid var(--pui-edge, var(--pui-border));
+    background-color: transparent;
+    background-repeat: no-repeat;
+    cursor: pointer;
+  }
+
+  .pui-checkbox,
+  .pui-radio {
+    width: calc(var(--pui-font-size) * 1.143);
+    height: calc(var(--pui-font-size) * 1.143);
+    background-position: center;
+  }
+
+  .pui-checkbox {
+    border-radius: calc(var(--pui-radius) * 0.5);
+  }
+
+  .pui-radio {
+    border-radius: 9999px;
+  }
+
+  /* One rule for every checked control: the fill is the element's own color,
+     so <input class="pui-checkbox pui-success"> is green with no extra work. */
+  :is(.pui-checkbox, .pui-radio, .pui-switch):is(:checked, :indeterminate) {
+    background-color: var(--pui-color, var(--pui-theme));
+    border-color: var(--pui-color, var(--pui-theme));
+  }
+
+  .pui-checkbox:checked {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
+    background-size: 100%;
+  }
+
+  .pui-checkbox:indeterminate {
+    background-image: linear-gradient(#fff, #fff);
+    background-size: 55% calc(var(--pui-border-width) * 2);
+    background-position: center;
+  }
+
+  .pui-radio:checked {
+    background-image: radial-gradient(circle, #fff 0 34%, transparent 35%);
+    background-size: 100%;
+  }
+
+  .pui-switch {
+    width: calc(var(--pui-font-size) * 2.286);
+    height: calc(var(--pui-font-size) * 1.143);
+    border-radius: 9999px;
+    background-image: radial-gradient(
+      circle,
+      var(--pui-border) 0 42%,
+      transparent 43%
+    );
+    background-size: calc(var(--pui-font-size) * 1.143) 100%;
+    background-position: left center;
+    transition:
+      background-color 0.15s ease,
+      background-position 0.15s ease,
+      border-color 0.15s ease;
+
+    &:checked {
+      background-image: radial-gradient(circle, #fff 0 42%, transparent 43%);
+      background-position: right center;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pui-switch {
+      transition: none;
+    }
+  }
+}
+
+@layer pui.states {
+  /* An input group is one field, so the group draws the ring and the control
+     inside does not. */
+  .pui-input-group > .pui-input:focus-visible {
+    outline: none;
+  }
+
+  /* Scoped to the field itself: a button inside the group keeps its own ring
+     instead of lighting up the whole field. */
+  .pui-input-group:has(> .pui-input:focus-visible) {
+    outline: 2px solid var(--pui-color, var(--pui-theme));
+    outline-offset: 2px;
+  }
+
+  /* The invalid control colors its own border through --pui-edge; the group's
+     message follows it (§6.1). */
+  .pui-field-group:has([aria-invalid="true"]) > small {
+    color: var(--pui-error);
+  }
+}

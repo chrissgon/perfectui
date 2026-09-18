@@ -1,0 +1,51 @@
+name: ci
+
+on:
+  push:
+    branches: [main, v1]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - run: bun run lint
+      - run: bun run typecheck
+      - run: bun run build
+      # Hard rule 12: every change reports the gzip size of dist.
+      - run: bun run size
+      # The documented import specifiers have to resolve through exports.
+      - run: bun run test:exports
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: oven-sh/setup-bun@v2
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - run: bun install --frozen-lockfile
+
+      # The browsers are the slow part, and they only change when Playwright does.
+      - name: Cache Playwright browsers
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('bun.lock') }}
+
+      # Chromium has every feature the library uses and WebKit is missing some,
+      # which is exactly what the suites are written to compare (§12).
+      - run: bunx playwright install --with-deps chromium webkit
+
+      - run: bun run test
+
+      - if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-report
+          path: playwright-report
+          retention-days: 7

@@ -2,37 +2,60 @@
 
 # Dark Mode
 
-Implement different modes in your application easily with Perfect UI through auxiliary methods.
+Perfect UI follows the operating system by default. There is nothing to configure and nothing to import: colors are declared with `light-dark()`, and the browser resolves them.
 
-### How it works
+### The switch
 
-Perfect ui provides methods to make customization easier. You can set the mode using the `setMode` function.
-
-```ts
-import { setMode } from "@chrissgon/perfectui";
-
-setMode("dark"); // system, light or dark
-```
-
-### Mode button
-
-You can implement a mode button in your application for the user to change according to their preference.
+An explicit choice is a single attribute on `<html>`:
 
 ```html
-<!-- switch button -->
-<label class="field-group gap-2 w-fit">
-  <i class="bi-sun"></i>
-  <input type="checkbox" class="switch" id="mode" />
-  <i class="bi-moon"></i>
-</label>
+<html data-pui-mode="dark">
+  <!-- ... -->
+</html>
+```
 
-<!-- script -->
-<script type="module">
-  import { setMode } from "https://cdn.jsdelivr.net/npm/@chrissgon/perfectui@latest/dist/perfectui.js";
+| Value        | Result             |
+| ------------ | ------------------ |
+| `light`      | always light       |
+| `dark`       | always dark        |
+| no attribute | follows the system |
 
-  document.getElementById("mode").addEventListener("change", (e) => {
-    const dark = e.target.checked;
-    setMode(dark ? "dark" : "light");
-  });
+### Switching from JavaScript
+
+```js
+import { setMode, getMode } from "@chrissgon/perfectui/mode";
+
+setMode("dark"); // sets the attribute and remembers the choice
+setMode("light");
+setMode(); // clears both, back to the system preference
+
+getMode(); // "system" | "light" | "dark"
+```
+
+`setMode` persists the choice in a cookie named `pui-mode`, not in `localStorage`. A cookie travels with the request, which is what lets a server render the right mode on the first paint.
+
+### Avoiding the flash
+
+If the page is rendered by a server, read the cookie and render the attribute:
+
+```js
+// any server framework
+const mode = cookies.get("pui-mode"); // "light" | "dark" | undefined
+```
+
+```html
+<html data-pui-mode="{{ mode }}"></html>
+```
+
+For a static site, put this in the `<head>` **before** the stylesheet:
+
+```html
+<script>
+  (function (m) {
+    if (m) document.documentElement.setAttribute("data-pui-mode", m[1]);
+  })(document.cookie.match(/(?:^|; )pui-mode=(light|dark)/));
 </script>
 ```
+
+> ⚠️ Attention needed:
+> Importing Perfect UI's CSS declares `color-scheme: light dark` on the page, which is what makes the system mode work. If your app is not ready for dark mode yet, render `<html data-pui-mode="light">` and it will stay light.

@@ -1,0 +1,103 @@
+/* Accordion. Exclusive opening is native: give the items the same `name` on
+   <details> and the browser closes the others. Zero JS. Requires core.css.
+
+   The container only spaces the items. Add pui-group-col to join them into one
+   block instead. */
+@import "../layers.css";
+
+@layer pui.components {
+  .pui-accordion {
+    display: grid;
+    gap: var(--pui-space);
+    font-size: var(--pui-font-size);
+  }
+
+  /* No overflow clipping: it would cut the summary's focus ring in half. */
+  .pui-accordion-item {
+    border: var(--pui-border-width) solid var(--pui-edge, var(--pui-border));
+    border-radius: var(--pui-radius);
+
+    & > summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: calc(var(--pui-space) * 2);
+      padding: calc(var(--pui-space) * 2) calc(var(--pui-space) * 4);
+      /* Nothing is painted with this: it is what shapes the focus ring, which
+         follows the radius of the element it surrounds. One border width is
+         taken off so the ring's corner ends up concentric with the item's.
+         `inherit` cannot be used — a <summary> is slotted into the shadow root
+         of <details>, so it inherits from that slot, not from the item. */
+      border-radius: calc(var(--pui-radius) - var(--pui-border-width));
+      cursor: pointer;
+      user-select: none;
+      /* Hide the default marker: `list-style` covers Chrome and Firefox, the
+         pseudo-element covers Safari. */
+      list-style: none;
+
+      &::-webkit-details-marker {
+        display: none;
+      }
+
+      /* Chevron drawn with borders, so it follows the text color. The bottom
+         border is zero on purpose: that makes the element's box exactly the
+         triangle, so rotating it 180deg spins it in place instead of swinging
+         it around a box that is twice as tall. */
+      &::after {
+        content: "";
+        flex: none;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: calc(var(--pui-font-size) * 0.3)
+          calc(var(--pui-font-size) * 0.3) 0;
+        border-color: currentColor transparent transparent;
+        transition: rotate 0.15s ease;
+      }
+    }
+
+    &[open] > summary::after {
+      rotate: 180deg;
+    }
+
+    /* Bring your own icon: put pui-accordion-icon inside the summary and the
+       drawn chevron steps aside. Rotation and placement stay ours. */
+    & > summary:has(.pui-accordion-icon)::after {
+      content: none;
+    }
+
+    & > summary > .pui-accordion-icon {
+      flex: none;
+      margin-inline-start: auto;
+      transition: rotate 0.15s ease;
+    }
+
+    &[open] > summary > .pui-accordion-icon {
+      rotate: 180deg;
+    }
+
+    & > :not(summary) {
+      padding: 0 calc(var(--pui-space) * 4) calc(var(--pui-space) * 4);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pui-accordion-item > summary::after,
+    .pui-accordion-item > summary > .pui-accordion-icon {
+      transition: none;
+    }
+  }
+}
+
+@layer pui.states {
+  /* The class is on the <details>, not on the <summary>, so the library's own
+     focus rule never reaches the element the user actually focuses, and the
+     browser's default ring shows through instead. */
+  .pui-accordion-item > summary:focus-visible {
+    outline: 2px solid var(--pui-color, var(--pui-theme));
+    /* The summary sits inside the item's border, so the offset carries that
+       border width as well. Without it the ring hugs this component one pixel
+       tighter than every other one. */
+    outline-offset: calc(2px + var(--pui-border-width));
+  }
+}

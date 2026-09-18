@@ -2,59 +2,30 @@
 
 # Textarea
 
-A textarea is an element on a webpage that you can type into.
-
-### Basic
-
-To create textareas, simply add the `.input` class to the `textarea` element.
+The same `pui-input` class, on a `<textarea>`.
 
 ```html
-<textarea class="input"></textarea>
+<textarea class="pui-input" rows="3" placeholder="Your message"></textarea>
 ```
 
-### Placeholder
+It resizes vertically only, so a textarea cannot break the layout sideways.
 
-Basic textarea with placeholder.
-
-```html
-<textarea class="input" placeholder="This is placeholder"></textarea>
-```
-
-### Label/Message
-
-You can use [Field Group](https://github.com/chrissgon/perfectui/blob/main/docs/field-group.md) with `textarea` to create complex elements.
+### With a label
 
 ```html
-<label
-  class="field-group field-group-error"
-  data-label="Observation"
-  data-message="Required"
->
-  <textarea class="input" placeholder="Let your observation"></textarea>
-  <span class="addon bi-pencil-fill"></span>
+<label class="pui-field-group">
+  <span>Notes</span>
+  <textarea class="pui-input" rows="4" aria-describedby="notes-help"></textarea>
+  <small id="notes-help">Markdown is supported.</small>
 </label>
 ```
 
-### Simple usage
+### Growing with its content
 
-A textarea example with copy button, character counter, label and message.
+Browsers can size a textarea to its text, no script needed:
 
-```html
-<label
-  class="field-group"
-  data-label="Leave your question"
-  data-message="We'll get back to you soon."
->
-  <div class="input input-group relative">
-    <textarea
-      type="text"
-      id="message"
-      class="input w-full h-full"
-      placeholder="Say hi, we'll be happy to chat with you"
-    ></textarea>
-    <i class="btn bi bi-clipboard"></i>
-    <span id="counter" class="badge absolute -top-3 -right-3">0/100</span>
-  </div>
-  <span class="addon bi-pencil-fill"></span>
-</label>
+```css
+.pui-input {
+  field-sizing: content;
+}
 ```

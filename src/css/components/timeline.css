@@ -1,0 +1,77 @@
+/* Timeline shape. The connecting line is drawn by the checkpoint itself, so a
+   timeline is any number of checkpoints with no wrapper markup in between.
+   The icon is a colorable element: give it a style and a color class.
+   Requires core.css. */
+@import "../layers.css";
+
+@layer pui.components {
+  .pui-timeline {
+    display: grid;
+    font-size: var(--pui-font-size);
+  }
+
+  .pui-checkpoint {
+    position: relative;
+    display: flex;
+    gap: calc(var(--pui-space) * 3);
+    padding-bottom: calc(var(--pui-space) * 4);
+
+    /* Vertical line, from below the icon to the next checkpoint. Logical
+       properties keep it on the correct side in RTL. */
+    &:not(:last-child)::before {
+      content: "";
+      position: absolute;
+      inset-block: calc(var(--pui-font-size) * 1.75 + var(--pui-space))
+        var(--pui-space);
+      inset-inline-start: calc(var(--pui-font-size) * 0.875);
+      border-inline-start: var(--pui-border-width) solid var(--pui-border);
+    }
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+
+  /* --- horizontal ---------------------------------------------------------
+     Combined with pui-group-row (§6). The group's joining rules are meant for
+     controls, so the checkpoints opt out of the negative margin, and the rule
+     turns from vertical to horizontal. */
+  .pui-timeline.pui-group-row {
+    & > .pui-checkpoint {
+      flex: 1;
+      flex-direction: column;
+      padding-bottom: 0;
+      padding-inline-end: calc(var(--pui-space) * 4);
+      margin-inline-start: 0;
+
+      &:not(:last-child)::before {
+        inset-block: calc(var(--pui-font-size) * 0.875) auto;
+        inset-inline: calc(var(--pui-font-size) * 1.75 + var(--pui-space))
+          var(--pui-space);
+        border-inline-start: none;
+        border-block-start: var(--pui-border-width) solid var(--pui-border);
+      }
+
+      &:last-child {
+        padding-inline-end: 0;
+      }
+    }
+  }
+
+  .pui-checkpoint-icon {
+    flex: none;
+    /* The icon is one of the few elements with a fixed size, so it cannot rely
+       on the page's box-sizing: with content-box the border would push it past
+       the size the connecting line is positioned against. */
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(var(--pui-font-size) * 1.75);
+    height: calc(var(--pui-font-size) * 1.75);
+    border: var(--pui-border-width) solid transparent;
+    border-radius: 9999px;
+    background-color: var(--pui-bg);
+    font-size: calc(var(--pui-font-size) * 0.857);
+  }
+}

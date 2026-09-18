@@ -1,0 +1,7 @@
+/* Core: required by every component file. See ARCHITECTURE.md §11. */
+@import "./layers.css";
+@import "./tokens.css";
+@import "./styles.css";
+@import "./colors.css";
+@import "./states.css";
+@import "./utilities.css";

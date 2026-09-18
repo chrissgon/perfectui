@@ -1,0 +1,78 @@
+/* Dropdown. The behavior is the native popover API: `popovertarget` on the
+   trigger, `popover` on the panel. Requires core.css.
+
+   Placement uses CSS anchor positioning, which a popover invoked by
+   `popovertarget` gets for free through its implicit anchor. It is guarded by
+   @supports so that browsers without it keep the centered UA position until
+   the Phase 5 fallback positions the panel itself. */
+@import "../layers.css";
+
+@layer pui.components {
+  .pui-dropdown {
+    /* min-width below matches the anchor's width, which only lands exactly
+       with border-box: otherwise the padding and border are added on top. */
+    box-sizing: border-box;
+    width: max-content;
+    margin: 0;
+    padding: var(--pui-space);
+    border: var(--pui-border-width) solid var(--pui-border);
+    border-radius: var(--pui-radius);
+    background-color: var(--pui-bg);
+    color: inherit;
+    font-size: var(--pui-font-size);
+  }
+
+  @supports (position-area: block-end) {
+    .pui-dropdown {
+      position: absolute;
+      inset: auto;
+      margin: 0;
+      position-area: block-end span-inline-end;
+      position-try-fallbacks: flip-block, flip-inline;
+      margin-block-start: var(--pui-space);
+      min-width: anchor-size(inline);
+    }
+
+    /* Directions. The gap always sits on the side facing the trigger, and the
+       flip goes back to where the panel came from. */
+    .pui-dropdown.pui-top {
+      position-area: block-start span-inline-end;
+      position-try-fallbacks: flip-block;
+      margin: 0 0 var(--pui-space);
+    }
+
+    .pui-dropdown.pui-start {
+      position-area: inline-start span-block-end;
+      position-try-fallbacks: flip-inline;
+      margin: 0 var(--pui-space) 0 0;
+      min-width: 0;
+    }
+
+    .pui-dropdown.pui-end {
+      position-area: inline-end span-block-end;
+      position-try-fallbacks: flip-inline;
+      margin: 0 0 0 var(--pui-space);
+      min-width: 0;
+    }
+
+    /* Alignment along the other axis, for the panel that opens above or below.
+       The default lines the panel up with the trigger's starting edge, which
+       is what a menu under a button wants; a menu at the end of a header wants
+       the opposite. */
+    .pui-dropdown.pui-align-center {
+      position-area: block-end;
+    }
+
+    .pui-dropdown.pui-align-end {
+      position-area: block-end span-inline-start;
+    }
+
+    .pui-dropdown.pui-top.pui-align-center {
+      position-area: block-start;
+    }
+
+    .pui-dropdown.pui-top.pui-align-end {
+      position-area: block-start span-inline-start;
+    }
+  }
+}

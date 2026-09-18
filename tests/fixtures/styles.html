@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Playwright fixture, served over http by the test run. For reviewing
+         components by hand, open tests/manual/index.html instead. -->
+    <meta charset="utf-8" />
+    <title>styles fixture</title>
+    <link rel="stylesheet" href="../../dist/perfectui.css" />
+    <style>
+      /* Unlayered author CSS: the override story of §5. */
+      .brand {
+        --pui-color: rgb(102, 51, 153);
+      }
+      .hard-override {
+        background-color: rgb(1, 2, 3);
+      }
+    </style>
+  </head>
+  <body style="margin: 0; padding: 20px">
+    <button class="pui-btn pui-solid pui-theme" id="solid">Solid</button>
+    <button class="pui-btn pui-soft pui-theme" id="soft">Soft</button>
+    <button class="pui-btn pui-outline pui-theme" id="outline">Outline</button>
+    <button class="pui-btn pui-solid pui-theme brand" id="branded">
+      Branded
+    </button>
+    <button class="pui-btn pui-solid pui-theme hard-override" id="overridden">
+      Overridden
+    </button>
+
+    <div class="pui-group-row" id="group">
+      <button class="pui-btn pui-outline pui-surface" id="group-first">
+        One
+      </button>
+      <button class="pui-btn pui-outline pui-surface" id="group-second">
+        Two
+      </button>
+    </div>
+
+    <label class="pui-field-group" id="field">
+      <span>Email</span>
+      <input
+        class="pui-input"
+        id="input"
+        aria-invalid="true"
+        aria-describedby="msg"
+      />
+      <small id="msg">Invalid</small>
+    </label>
+
+    <div class="pui-accordion">
+      <details class="pui-accordion-item">
+        <summary id="summary">A focusable summary</summary>
+        <p>Body</p>
+      </details>
+    </div>
+
+    <table class="pui-table" id="table">
+      <thead>
+        <tr>
+          <th>Head</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Body</td>
+        </tr>
+        <tr>
+          <td id="last-body">Last body</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th id="foot">Total</th>
+        </tr>
+      </tfoot>
+    </table>
+  </body>
+</html>

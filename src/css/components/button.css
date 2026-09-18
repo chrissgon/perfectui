@@ -1,0 +1,27 @@
+/* Button shape. Colors come from a style class plus a color class (§3).
+   Requires core.css. */
+@import "../layers.css";
+
+@layer pui.components {
+  .pui-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--pui-space);
+    padding: calc(var(--pui-space) * 2) calc(var(--pui-space) * 4);
+    border: var(--pui-border-width) solid transparent;
+    border-radius: var(--pui-radius);
+    font: inherit;
+    font-size: var(--pui-font-size);
+    line-height: 1.25;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+
+    /* Normalize the two elements this class is used on: <button> brings UA
+       chrome, <a> brings an underline. Style classes paint over both. */
+    background-color: transparent;
+    color: inherit;
+    text-decoration: none;
+  }
+}

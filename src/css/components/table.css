@@ -1,0 +1,49 @@
+/* Table shape. Cells are matched by element: a class on every <td> is not a
+   realistic API, and the selectors stay scoped under .pui-table.
+   Requires core.css. */
+@import "../layers.css";
+
+@layer pui.components {
+  .pui-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--pui-font-size);
+
+    & :is(th, td) {
+      padding: calc(var(--pui-space) * 2) calc(var(--pui-space) * 4);
+      border-bottom: var(--pui-border-width) solid var(--pui-border);
+      text-align: start;
+    }
+
+    /* The very last row sits on the container's edge, so it needs no rule of
+       its own: keeping it makes a table inside a card look doubled. Matching
+       the table's last row group rather than tbody keeps the separation
+       between the body and a tfoot. */
+    & > :last-child > tr:last-child > :is(th, td) {
+      border-bottom: none;
+    }
+
+    & thead :is(th, td) {
+      color: var(--pui-text-muted);
+      font-weight: 600;
+    }
+
+    /* A footer is a summary band. Without it the last row loses its bottom
+       rule to the one above and reads as if it had fallen off the table. The
+       border-top collapses with the body's last border, so this adds a tone,
+       not a second line. */
+    & tfoot {
+      background-color: var(--pui-bg-muted);
+    }
+
+    & tfoot :is(th, td) {
+      border-top: var(--pui-border-width) solid var(--pui-border);
+    }
+  }
+
+  /* Same two modifiers as the list, on body rows only. */
+  .pui-table.pui-striped tbody tr:nth-child(even),
+  .pui-table.pui-hoverable tbody tr:hover {
+    background-color: var(--pui-bg-muted);
+  }
+}

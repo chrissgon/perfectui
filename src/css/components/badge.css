@@ -1,0 +1,17 @@
+/* Badge shape: the smallest of the three (§6). Requires core.css. */
+@import "../layers.css";
+
+@layer pui.components {
+  .pui-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--pui-space);
+    padding: calc(var(--pui-space) * 0.5) calc(var(--pui-space) * 1.75);
+    border: var(--pui-border-width) solid transparent;
+    border-radius: var(--pui-radius);
+    font: inherit;
+    font-size: calc(var(--pui-font-size) * 0.857);
+    line-height: 1.25;
+    white-space: nowrap;
+  }
+}

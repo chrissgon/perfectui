@@ -2,438 +2,144 @@
 
 # Table
 
-Documentation and examples of tables using Perfect UI.
-
-### Basic
-
-Using the most basic table markup, here's how the tables look. All the examples are responsive - the tables allow them to be scrolled horizontally with ease.
-
-To create a table, simply add the `.table` class.
-
-To make your table responsive, simply add `.table-responsive` to its parent.
+One class on the `<table>`. The cells are styled from there, so no class goes on a `<th>` or a `<td>`.
 
 ```html
-<table class="table">
+<table class="pui-table">
   <thead>
     <tr>
       <th>#</th>
-      <th>First</th>
-      <th>Last</th>
-      <th>Handle</th>
-      <th>Action</th>
+      <th>Name</th>
+      <th>Role</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>1</th>
+      <td>1</td>
       <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td><button class="style-link-error">Delete</button></td>
+      <td>Owner</td>
     </tr>
     <tr>
-      <th>2</th>
+      <td>2</td>
       <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-      <td><button class="style-link-error">Delete</button></td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-      <td><button class="style-link-error">Delete</button></td>
+      <td>Editor</td>
     </tr>
   </tbody>
 </table>
 ```
 
-### Bordered
+The last row of the table never draws a rule, so a table can sit flush inside a card.
 
-Add border on all sides of the table and cells.
-
-To create a bordered table, simply add the `.table-bordered` class.
+### Striped and hoverable
 
 ```html
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>First</th>
-      <th>Last</th>
-      <th>Handle</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td><button class="style-link-error">Delete</button></td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-      <td><button class="style-link-error">Delete</button></td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-      <td><button class="style-link-error">Delete</button></td>
-    </tr>
-  </tbody>
+<table class="pui-table pui-striped">
+  <!-- ... -->
+</table>
+
+<table class="pui-table pui-hoverable">
+  <!-- ... -->
+</table>
+
+<table class="pui-table pui-striped pui-hoverable">
+  <!-- ... -->
 </table>
 ```
 
-### Striped
+### A footer
 
-Add zebra-striping to any table row.
-
-To create a striped table, simply add the `.table-striped` class.
+A `<tfoot>` is rendered as a summary band, so a total reads as part of the table:
 
 ```html
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>First</th>
-      <th>Last</th>
-      <th>Handle</th>
-      <th>Action</th>
-    </tr>
-  </thead>
+<table class="pui-table">
   <tbody>
     <tr>
-      <th>1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td><button class="style-link-error">Delete</button></td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-      <td><button class="style-link-error">Delete</button></td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-      <td><button class="style-link-error">Delete</button></td>
-    </tr>
-  </tbody>
-</table>
-```
-
-### Hoverable
-
-To create a hoverable table, simply add the `.table-hoverable` class.
-
-```html
-<table class="table table-hoverable">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>First</th>
-      <th>Last</th>
-      <th>Handle</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td><button class="style-link-error">Delete</button></td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-      <td><button class="style-link-error">Delete</button></td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-      <td><button class="style-link-error">Delete</button></td>
-    </tr>
-  </tbody>
-</table>
-```
-
-These hoverable rows can also be combined with the striped variant:
-
-```html
-<table class="table table-striped table-hoverable">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>First</th>
-      <th>Last</th>
-      <th>Handle</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td><button class="style-link-error">Delete</button></td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-      <td><button class="style-link-error">Delete</button></td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-      <td><button class="style-link-error">Delete</button></td>
-    </tr>
-  </tbody>
-</table>
-```
-
-### Borderless
-
-A table without borders.
-
-To create a borderless table, simply add the `.table-borderless` class.
-
-```html
-<table class="table table-borderless">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>First</th>
-      <th>Last</th>
-      <th>Handle</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td><button class="style-link-error">Delete</button></td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-      <td><button class="style-link-error">Delete</button></td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-      <td><button class="style-link-error">Delete</button></td>
-    </tr>
-  </tbody>
-</table>
-```
-
-### Headless
-
-A table can render without a table header if no `<thead>` is supplied.
-
-```html
-<table class="table">
-  <tbody>
-    <tr>
-      <th>1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td><button class="style-link-error">Delete</button></td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-      <td><button class="style-link-error">Delete</button></td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-      <td><button class="style-link-error">Delete</button></td>
-    </tr>
-  </tbody>
-</table>
-```
-
-### Selection
-
-Rows can be selectable by making first column as a selectable column.
-
-Simply add a `checkbox` in the first column.
-
-```html
-<table class="table">
-  <thead>
-    <tr>
-      <th><input type="checkbox" class="checkbox align-middle" /></th>
-      <th>First</th>
-      <th>Last</th>
-      <th>Handle</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th><input type="checkbox" class="checkbox align-middle" /></th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td><button class="style-link-error">Delete</button></td>
-    </tr>
-    <tr>
-      <th><input type="checkbox" class="checkbox align-middle" /></th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-      <td><button class="style-link-error">Delete</button></td>
-    </tr>
-    <tr>
-      <th><input type="checkbox" class="checkbox align-middle" /></th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-      <td><button class="style-link-error">Delete</button></td>
-    </tr>
-  </tbody>
-</table>
-```
-
-### Search input
-
-Search is used for making dropdown items searchable.
-
-```html
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <td colspan="5">
-        <label class="input-group input !w-96">
-          <i class="bi-search"></i>
-          <input type="text" class="input" placeholder="Seach for items" />
-        </label>
-      </td>
-    </tr>
-    <tr class="bg-secondary">
-      <th><input type="checkbox" class="checkbox align-middle" /></th>
-      <th>First</th>
-      <th>Last</th>
-      <th>Handle</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th><input type="checkbox" class="checkbox align-middle" /></th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td><button class="style-link-error">Delete</button></td>
-    </tr>
-    <tr>
-      <th><input type="checkbox" class="checkbox align-middle" /></th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-      <td><button class="style-link-error">Delete</button></td>
-    </tr>
-    <tr>
-      <th><input type="checkbox" class="checkbox align-middle" /></th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-      <td><button class="style-link-error">Delete</button></td>
-    </tr>
-  </tbody>
-</table>
-```
-
-### Pagination
-
-Example with pagination using [Lists](https://github.com/chrissgon/perfectui/blob/main/docs/list.md).
-
-```html
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <td colspan="5">
-        <label class="input-group input !w-96">
-          <i class="bi-search"></i>
-          <input type="text" class="input" placeholder="Seach for items" />
-        </label>
-      </td>
-    </tr>
-    <tr class="bg-secondary">
-      <th><input type="checkbox" class="checkbox align-middle" /></th>
-      <th>First</th>
-      <th>Last</th>
-      <th>Handle</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th><input type="checkbox" class="checkbox align-middle" /></th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td><button class="style-link-error">Delete</button></td>
-    </tr>
-    <tr>
-      <th><input type="checkbox" class="checkbox align-middle" /></th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-      <td><button class="style-link-error">Delete</button></td>
-    </tr>
-    <tr>
-      <th><input type="checkbox" class="checkbox align-middle" /></th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-      <td><button class="style-link-error">Delete</button></td>
+      <td>Licence</td>
+      <td>120.00</td>
     </tr>
   </tbody>
   <tfoot>
     <tr>
-      <td colspan="5">
-        <ul class="list list-hoverable unmarker group-row">
-          <a class="list-item">
-            <i class="bi-chevron-left"></i>
-          </a>
-          <a class="list-item active">1</a>
-          <a class="list-item">2</a>
-          <a class="list-item">3</a>
-          <a class="list-item">
-            <i class="bi-chevron-right"></i>
-          </a>
-        </ul>
-      </td>
+      <th>Total</th>
+      <th>160.00</th>
     </tr>
   </tfoot>
 </table>
+```
+
+### Components in cells
+
+```html
+<td><span class="pui-badge pui-soft pui-success">active</span></td>
+<td><button class="pui-btn pui-link pui-theme">Edit</button></td>
+```
+
+### Coloring a row
+
+A `<tr>` takes a style and a color like anything else, and wins over the stripe:
+
+```html
+<tr class="pui-soft pui-error">
+  <td>2</td>
+  <td>Jacob</td>
+  <td>failed</td>
+</tr>
+```
+
+### Recipes
+
+These used to be modifier classes. They are one or two rules of your own CSS, which keeps them out of everyone else's bundle.
+
+**Responsive** — the scroll container is the parent, not the table:
+
+```css
+.table-wrapper {
+  overflow-x: auto;
+}
+```
+
+```html
+<div class="table-wrapper">
+  <table class="pui-table">
+    <!-- ... -->
+  </table>
+</div>
+```
+
+**Bordered** — grid lines on every cell:
+
+```css
+.table-bordered {
+  border: var(--pui-border-width) solid var(--pui-border);
+  border-radius: var(--pui-radius);
+  overflow: hidden;
+}
+.table-bordered :is(th, td) {
+  border: var(--pui-border-width) solid var(--pui-border);
+}
+```
+
+**Borderless**:
+
+```css
+.table-borderless :is(th, td) {
+  border: none;
+}
+```
+
+**Compact rows**:
+
+```css
+.table-compact :is(th, td) {
+  padding-block: var(--pui-space);
+}
+```
+
+**Numbers aligned to the end**:
+
+```css
+.table-numeric :is(th, td):last-child {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
 ```

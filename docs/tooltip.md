@@ -2,123 +2,60 @@
 
 # Tooltip
 
-Tooltip is a floating, non-actionable label used to explain a user interface element or feature.
-
-> ⚠️ Requires JS: Note that this component requires use our javascript file to works, else you can skip this message if you are already using Perfect UI as a package.
-
-### Basic
-
-Tooltip are meant to be exactly that, a hint or tip on what a tool or other interaction does. They are meant to clarify or help you use the content that they hover over, not add additional content:
-
-- To create a tooltip, simply add the `.tooltip` class.
-- Provide the tooltip text through the `tooltip` attribute.
+Built on `interestfor` and `popover="hint"`. It appears on hover, on keyboard focus, and on a long press — which is what makes it work on touch screens, unlike the old tooltip.
 
 ```html
-<button class="btn style-white tooltip" data-tooltip="More details here">
-  Tooltip
-  <i class="bi-question-circle"></i>
-</button>
+<button class="pui-btn pui-outline pui-surface" interestfor="help">?</button>
+
+<div class="pui-tooltip" id="help" popover="hint">
+  We never share your email.
+</div>
+```
+
+`interestfor` names the tooltip, and that is the whole API.
+
+> ⚠️ Attention needed:
+> This is the component that most needs the script today: `interestfor` is only in Chromium so far, so everywhere else the fallback provides the hover, focus and long press behavior.
+
+### Placement
+
+The tooltip sits above its trigger and flips below when there is no room. Three classes move it elsewhere:
+
+```html
+<div class="pui-tooltip pui-bottom" id="help" popover="hint">Below</div>
+<div class="pui-tooltip pui-start" id="help" popover="hint">Before</div>
+<div class="pui-tooltip pui-end" id="help" popover="hint">After</div>
+```
+
+| Class        | Where it goes                    |
+| ------------ | -------------------------------- |
+| _(none)_     | above                            |
+| `pui-bottom` | below                            |
+| `pui-start`  | to the left, or the right in RTL |
+| `pui-end`    | to the right, or the left in RTL |
+
+### Styles
+
+A tooltip is an ordinary colorable element, so it takes any style and color pair:
+
+```html
+<div class="pui-tooltip pui-solid pui-inverse" popover="hint">Dark</div>
+<div class="pui-tooltip pui-solid pui-theme" popover="hint">Theme</div>
+<div class="pui-tooltip pui-soft pui-warn" popover="hint">A warning</div>
+```
+
+### On any element
+
+```html
+<span interestfor="definition" tabindex="0">CLS</span>
+<div class="pui-tooltip" id="definition" popover="hint">
+  Cumulative Layout Shift
+</div>
 ```
 
 > ⚠️ Attention needed:
-> The `.tooltip` class uses pseudo elements `::before` and `::after` to works. Make sure you use it with an element that does not use pseudo classes as well.
+> A tooltip has to be reachable by keyboard. If the trigger is not already focusable, give it `tabindex="0"`.
 
-### Directions
+### Why `popover="hint"`
 
-The tooltip has the top direction by default, but you can also use `.tooltip-right`, `.tooltip-left` and `.tooltip-bottom` directions.
-
-```html
-<div class="grid grid-cols-3 gap-y-2 gap-x-2 max-w-60 mx-auto w-fit">
-  <button
-    class="tooltip btn style-white rounded-full col-start-2 w-10 !px-2"
-    data-tooltip="Tooltip on top"
-  >
-    <i class="bi-chevron-up"></i>
-  </button>
-  <button
-    class="tooltip tooltip-left btn style-white rounded-full col-start-1 w-10 !px-2"
-    data-tooltip="Tooltip on left"
-  >
-    <i class="bi-chevron-left"></i>
-  </button>
-  <button
-    class="tooltip tooltip-right btn style-white rounded-full col-start-3 w-10 !px-2"
-    data-tooltip="Tooltip on right"
-  >
-    <i class="bi-chevron-right"></i>
-  </button>
-  <button
-    class="tooltip tooltip-bottom btn style-white rounded-full col-start-2 w-10 !px-2"
-    data-tooltip="Tooltip on bottom"
-  >
-    <i class="bi-chevron-down"></i>
-  </button>
-</div>
-```
-
-### White/Black tooltips
-
-The tooltip has `.tooltip-white` class by default, but if you want use the black style, simply use the `.style-black` class.
-
-```html
-<div class="flex flex-col gap-2 w-fit">
-  <button
-    class="btn style-white tooltip tooltip-right"
-    data-tooltip="More details here"
-  >
-    White Tooltip
-  </button>
-
-  <button
-    class="btn style-white tooltip tooltip-black tooltip-right"
-    data-tooltip="More details here"
-  >
-    Black Tooltip
-  </button>
-</div>
-```
-
-### Simple usage
-
-Tooltip are typically only visible on hover, for that reason if you need to be able to read the content while interacting with other parts of the page then a tooltip will not work.
-
-```html
-<div class="card">
-  <article class="card-content">
-    <ul class="list unmarker">
-      <li class="list-item !flex justify-between">
-        <header>
-          <h4 class="text-base font-medium">Christopher Gonçalves</h4>
-          <small class="text-secondary text-xs"> christopher@gmail.com </small>
-        </header>
-
-        <button class="btn" disabled>
-          Guest <i class="bi-chevron-down"></i>
-        </button>
-      </li>
-      <li class="list-item !flex justify-between">
-        <header>
-          <h4 class="text-base font-medium">Amanda Ketellyn</h4>
-          <small class="text-secondary text-xs">amanda@gmail.com</small>
-        </header>
-
-        <button class="btn" disabled>
-          Guest <i class="bi-chevron-down"></i>
-        </button>
-      </li>
-    </ul>
-  </article>
-
-  <hr />
-
-  <footer class="card-content !px-8">
-    The public share <a href="#" class="text-theme">link settings</a>
-    <span
-      class="tooltip"
-      data-tooltip="The public share link allows people to view the project without giving access to full collaboration features."
-    >
-      <i class="bi-question-circle"></i>
-    </span>
-  </footer>
-</div>
-```
+A hint can appear while a menu is open without closing it, which a regular popover cannot do. Where the browser does not know the value yet it behaves as a normal popover, so the tooltip still works.

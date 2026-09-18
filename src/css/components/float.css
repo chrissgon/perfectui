@@ -1,0 +1,15 @@
+/* Float: pins an element to a corner of the viewport. Requires core.css.
+
+   The default corner is the bottom start one, like v0. Other corners are one
+   declaration of author CSS (`inset-block: 1.5rem auto`), which is why no
+   modifier ships. */
+@import "../layers.css";
+
+@layer pui.components {
+  .pui-float {
+    position: fixed;
+    inset-block-end: calc(var(--pui-space) * 6);
+    inset-inline-start: calc(var(--pui-space) * 6);
+    z-index: 10;
+  }
+}

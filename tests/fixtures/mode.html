@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Playwright fixture, served over http by the test run. For reviewing
+         components by hand, open tests/manual/index.html instead. -->
+    <meta charset="utf-8" />
+    <title>mode fixture</title>
+    <link rel="stylesheet" href="../../dist/perfectui.css" />
+    <script type="module">
+      import { setMode, getMode } from "../../dist/js/mode.js";
+      window.pui = { setMode, getMode };
+    </script>
+  </head>
+  <body
+    style="
+      margin: 0;
+      padding: 20px;
+      background: var(--pui-bg);
+      color: var(--pui-text);
+    "
+  >
+    <span id="probe">probe</span>
+  </body>
+</html>

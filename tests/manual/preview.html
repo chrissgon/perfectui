@@ -1,0 +1,611 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Perfect UI v1 — preview</title>
+
+    <!-- Read the persisted mode before the stylesheet, so there is no flash.
+         This is the snippet documented for static sites (ARCHITECTURE.md §7.4). -->
+    <script>
+      (function (m) {
+        if (m) document.documentElement.setAttribute("data-pui-mode", m[1]);
+      })(document.cookie.match(/(?:^|; )pui-mode=(light|dark)/));
+    </script>
+
+    <!-- The library itself. Everything below this line is the page's own CSS. -->
+    <link rel="stylesheet" href="../../src/css/index.css" />
+
+    <style>
+      /* Page chrome. Unlayered on purpose: it shows that plain author CSS wins
+         over every pui layer without !important. */
+      body {
+        margin: 0;
+        padding: 2rem clamp(1rem, 4vw, 3rem) 4rem;
+        background: var(--pui-bg);
+        color: var(--pui-text);
+        font:
+          16px/1.5 system-ui,
+          sans-serif;
+      }
+
+      header {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        align-items: baseline;
+        justify-content: space-between;
+        border-bottom: var(--pui-border-width) solid var(--pui-border);
+        padding-bottom: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      h1 {
+        font-size: 1.25rem;
+        margin: 0;
+      }
+
+      h2 {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--pui-text-muted);
+        margin: 3rem 0 1rem;
+      }
+
+      p {
+        color: var(--pui-text-muted);
+        font-size: 0.875rem;
+        max-width: 70ch;
+      }
+
+      code {
+        font-family: ui-monospace, monospace;
+        font-size: 0.85em;
+        background: var(--pui-bg-muted);
+        border-radius: 4px;
+        padding: 0.1em 0.35em;
+      }
+
+      /* Scoped to the page's own documentation tables. Unscoped, this block
+         is unlayered author CSS and would beat .pui-table, which is exactly
+         the override story the library promises. */
+      table.doc {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      .doc :is(th, td) {
+        text-align: left;
+        padding: 0.6rem 0.75rem;
+        border-bottom: var(--pui-border-width) solid var(--pui-border);
+        font-size: 0.8rem;
+        font-weight: 400;
+        color: var(--pui-text-muted);
+        vertical-align: middle;
+      }
+
+      .doc thead th {
+        color: var(--pui-text);
+      }
+
+      .doc tbody th {
+        font-family: ui-monospace, monospace;
+      }
+
+      .swatches {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+        gap: 0.75rem;
+      }
+
+      .swatch {
+        border: var(--pui-border-width) solid var(--pui-border);
+        border-radius: var(--pui-radius);
+        overflow: hidden;
+        font-size: 0.75rem;
+      }
+
+      .swatch div {
+        height: 3rem;
+      }
+
+      .swatch span {
+        display: block;
+        padding: 0.4rem 0.5rem;
+        font-family: ui-monospace, monospace;
+      }
+
+      .stack {
+        display: grid;
+        gap: 0.75rem;
+        align-content: start;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+        gap: 1.5rem;
+        align-items: start;
+      }
+
+      figure {
+        margin: 0;
+      }
+
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        align-items: center;
+      }
+
+      .note {
+        border-inline-start: 3px solid var(--pui-warn);
+        padding-inline-start: 0.75rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div>
+        <h1>Perfect UI v1 — preview</h1>
+        <p style="margin: 0.25rem 0 0">
+          Phases 2 to 4: tokens, color mode, the style + color contract, and the
+          first shapes — <code>pui-btn</code>, <code>pui-chip</code> and
+          <code>pui-badge</code>.
+        </p>
+      </div>
+      <div class="row">
+        <button class="pui-btn pui-outline pui-surface" data-mode="system">
+          System
+        </button>
+        <button class="pui-btn pui-outline pui-surface" data-mode="light">
+          Light
+        </button>
+        <button class="pui-btn pui-outline pui-surface" data-mode="dark">
+          Dark
+        </button>
+      </div>
+    </header>
+
+    <h2>Color tokens</h2>
+    <p>
+      Every value is a <code>light-dark()</code> pair: v0 tone 600 in light, 500
+      in dark. The label on a solid fill is always the page background, which is
+      what gives the palette its v0 look. In light mode that leaves
+      <code>pui-solid</code> with theme, success and warn between 3.19:1 and
+      3.50:1 — above the 3:1 floor for interface elements, below WCAG AA. Text
+      uses a deeper derived tone and stays at or above 4.5:1 everywhere.
+    </p>
+    <div class="swatches" id="swatches"></div>
+
+    <h2>Base tokens</h2>
+    <p>
+      Only four exist. Components derive every size from them with
+      <code>calc()</code>, so changing one rescales the library.
+    </p>
+    <table class="doc">
+      <tbody id="base-tokens"></tbody>
+    </table>
+
+    <h2>Styles &times; colors</h2>
+    <p>
+      Shape, style and color are independent classes. The cells below are all
+      the same element with two classes swapped. Hover them: the hover tone is
+      derived with <code>color-mix()</code>, never hardcoded.
+    </p>
+    <table class="doc">
+      <thead>
+        <tr>
+          <th>color \ style</th>
+          <th>pui-solid</th>
+          <th>pui-soft</th>
+          <th>pui-outline</th>
+          <th>pui-link</th>
+        </tr>
+      </thead>
+      <tbody id="matrix"></tbody>
+    </table>
+
+    <h2>Shapes</h2>
+    <p>
+      Size is expressed by choosing a component, never by a modifier class:
+      <code>pui-btn</code> &gt; <code>pui-chip</code> &gt;
+      <code>pui-badge</code>. All three read the same four base tokens, so they
+      rescale together.
+    </p>
+    <div class="row">
+      <button class="pui-btn pui-solid pui-theme">Save</button>
+      <button class="pui-btn pui-outline pui-surface">Cancel</button>
+      <span class="pui-chip pui-soft pui-success">Active</span>
+      <span class="pui-chip pui-outline pui-muted">Draft</span>
+      <span class="pui-badge pui-solid pui-error">3</span>
+      <span class="pui-badge pui-soft pui-theme">new</span>
+    </div>
+    <p>With <code>pui-rounded-full</code>, the only shape helper that ships:</p>
+    <div class="row">
+      <button class="pui-btn pui-solid pui-theme pui-rounded-full">Save</button>
+      <span class="pui-chip pui-soft pui-success pui-rounded-full">Active</span>
+      <span class="pui-badge pui-solid pui-error pui-rounded-full">3</span>
+      <a class="pui-btn pui-link pui-theme" href="#">A link as a button</a>
+    </div>
+
+    <h2>Containers</h2>
+    <p>
+      A card is a <em>surface</em>: it uses the page tokens directly, so it
+      works with no extra classes, and a style class still overrides it.
+      Timeline icons are colorable elements — give them a style and a color. The
+      table below carries <code>pui-striped</code> and
+      <code>pui-hoverable</code>, the only two modifiers that composition cannot
+      express.
+    </p>
+    <div class="grid">
+      <div class="pui-card">
+        <div class="pui-card-header">Card header</div>
+        <div class="pui-card-content">
+          <span
+            >Content is a grid, so children are spaced without margins.</span
+          >
+          <div class="row">
+            <button class="pui-btn pui-solid pui-theme">Save</button>
+            <button class="pui-btn pui-outline pui-surface">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <ul class="pui-list">
+        <li class="pui-list-item">A plain list item</li>
+        <li class="pui-list-item pui-soft pui-theme">A selected one</li>
+        <li class="pui-list-item pui-outline pui-surface">A bordered one</li>
+      </ul>
+
+      <div class="pui-card">
+        <div class="pui-card-header">A table inside a card</div>
+        <table class="pui-table pui-striped pui-hoverable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Mark</td>
+              <td>
+                <span class="pui-badge pui-soft pui-success">active</span>
+              </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Jacob</td>
+              <td><span class="pui-badge pui-soft pui-warn">pending</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <figure class="pui-timeline">
+        <figcaption class="pui-checkpoint">
+          <i class="pui-checkpoint-icon pui-solid pui-success">&check;</i>
+          <span>Released v1.0.0</span>
+        </figcaption>
+        <figcaption class="pui-checkpoint">
+          <i class="pui-checkpoint-icon pui-solid pui-error">!</i>
+          <span>Quick bug fix</span>
+        </figcaption>
+        <figcaption class="pui-checkpoint">
+          <i class="pui-checkpoint-icon pui-outline pui-muted">3</i>
+          <span>Planning</span>
+        </figcaption>
+      </figure>
+    </div>
+
+    <h2>Forms</h2>
+    <p>
+      The label is a real <code>&lt;span&gt;</code> and the message a real
+      <code>&lt;small&gt;</code> tied to the control with
+      <code>aria-describedby</code>, so screen readers announce them and the
+      text can be selected and translated. The error state is
+      <code>aria-invalid</code> on the control — no class — which repoints
+      <code>--pui-edge</code> and turns the message red through
+      <code>:has()</code>.
+    </p>
+    <div class="grid">
+      <div class="stack">
+        <label class="pui-field-group">
+          <span>Email</span>
+          <input
+            class="pui-input"
+            type="email"
+            placeholder="you@example.com"
+            aria-describedby="pv-help"
+          />
+          <small id="pv-help">We never share it.</small>
+        </label>
+
+        <label class="pui-field-group">
+          <span>Password</span>
+          <input
+            class="pui-input"
+            type="password"
+            value="short"
+            aria-invalid="true"
+            aria-describedby="pv-err"
+          />
+          <small id="pv-err">Too short.</small>
+        </label>
+
+        <label class="pui-field-group">
+          <span>Role</span>
+          <select class="pui-input">
+            <option>Owner</option>
+            <option>Editor</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="stack">
+        <div class="pui-input-group">
+          <span class="pui-addon">https://</span>
+          <input class="pui-input" value="perfectui.dev" />
+        </div>
+        <div class="pui-input-group">
+          <input class="pui-input" placeholder="Search" />
+          <button class="pui-btn pui-solid pui-theme">Go</button>
+        </div>
+        <label class="pui-field-group">
+          <span>Notes</span>
+          <textarea class="pui-input" rows="2">Resizes vertically.</textarea>
+        </label>
+      </div>
+
+      <div class="stack">
+        <label class="row"
+          ><input type="checkbox" class="pui-checkbox" checked />
+          Checkbox</label
+        >
+        <label class="row"
+          ><input type="checkbox" class="pui-checkbox pui-success" checked />
+          Checkbox, success</label
+        >
+        <label class="row"
+          ><input type="radio" name="pv" class="pui-radio" checked />
+          Radio</label
+        >
+        <label class="row"
+          ><input type="radio" name="pv" class="pui-radio" /> Radio, off</label
+        >
+        <label class="row"
+          ><input type="checkbox" class="pui-switch" checked /> Switch</label
+        >
+        <label class="row"
+          ><input type="checkbox" class="pui-switch" /> Switch, off</label
+        >
+      </div>
+    </div>
+
+    <h2>Overlays and disclosure</h2>
+    <p>
+      These four are native HTML behavior, not JavaScript:
+      <code>&lt;details name&gt;</code> for the exclusive accordion,
+      <code>popover</code> for the dropdown, <code>interestfor</code> plus
+      <code>popover="hint"</code> for the tooltip, and
+      <code>&lt;dialog closedby&gt;</code> plus <code>commandfor</code> for the
+      modal. Click them: nothing here is wired up with script.
+    </p>
+    <div class="grid">
+      <div class="pui-accordion">
+        <details class="pui-accordion-item" name="pv-faq" open>
+          <summary>Does it need JavaScript?</summary>
+          <p>Only to emulate what a browser is missing.</p>
+        </details>
+        <details class="pui-accordion-item" name="pv-faq">
+          <summary>Is Tailwind required?</summary>
+          <p>No, it is an optional complement.</p>
+        </details>
+        <details class="pui-accordion-item" name="pv-faq">
+          <summary>How big is it?</summary>
+          <p>Smaller than the 0.23.0 build it replaces.</p>
+        </details>
+      </div>
+
+      <div class="stack">
+        <div class="row">
+          <button
+            class="pui-btn pui-outline pui-surface"
+            popovertarget="pv-menu"
+          >
+            Dropdown
+          </button>
+          <div class="pui-dropdown" id="pv-menu" popover>
+            <ul class="pui-list" style="list-style: none">
+              <li class="pui-list-item">Profile</li>
+              <li class="pui-list-item">Billing</li>
+              <li class="pui-list-item">Sign out</li>
+            </ul>
+          </div>
+
+          <button class="pui-btn pui-outline pui-surface" interestfor="pv-tip">
+            Tooltip
+          </button>
+          <div class="pui-tooltip" id="pv-tip" popover="hint">
+            Hover, focus or long press.
+          </div>
+
+          <button
+            class="pui-btn pui-solid pui-theme"
+            commandfor="pv-modal"
+            command="show-modal"
+          >
+            Modal
+          </button>
+        </div>
+        <small style="color: var(--pui-text-muted)">
+          The dropdown and tooltip are placed with CSS anchor positioning, which
+          is Chromium-only today. Elsewhere they stay centered until the Phase 5
+          fallback lands.
+        </small>
+      </div>
+    </div>
+
+    <dialog class="pui-modal" id="pv-modal" closedby="any">
+      <div class="pui-card">
+        <div class="pui-card-header">Delete project</div>
+        <div class="pui-card-content">
+          <span>This cannot be undone.</span>
+          <div class="pui-group-row" style="justify-content: flex-end">
+            <button
+              class="pui-btn pui-outline pui-surface"
+              commandfor="pv-modal"
+              command="close"
+            >
+              Cancel
+            </button>
+            <button
+              class="pui-btn pui-solid pui-error"
+              commandfor="pv-modal"
+              command="close"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </dialog>
+
+    <h2>States</h2>
+    <p>
+      Disabled, invalid and focus live in the last layer. Press
+      <code>Tab</code> to see the focus ring, which takes the element's own
+      color.
+    </p>
+    <div class="row">
+      <button class="pui-btn pui-solid pui-theme">Focus me</button>
+      <button class="pui-btn pui-solid pui-theme" disabled>disabled</button>
+      <button class="pui-btn pui-outline pui-surface" disabled>disabled</button>
+      <button class="pui-btn pui-soft pui-muted" aria-disabled="true">
+        aria-disabled
+      </button>
+      <button class="pui-btn pui-outline pui-surface" aria-invalid="true">
+        aria-invalid
+      </button>
+      <button class="pui-btn pui-solid pui-error">Focus me</button>
+    </div>
+
+    <h2>Overriding</h2>
+    <p>
+      All library CSS lives in <code>@layer pui.*</code>, so any unlayered rule
+      of yours wins with no <code>!important</code>. The button on the right is
+      the same markup with a plain <code>.brand</code> class setting
+      <code>--pui-color</code>.
+    </p>
+    <div class="row">
+      <button class="pui-btn pui-solid pui-theme">Default</button>
+      <button class="pui-btn pui-solid pui-theme brand">Overridden</button>
+      <style>
+        .brand {
+          --pui-color: rebeccapurple;
+          --pui-on-color: white;
+        }
+      </style>
+    </div>
+
+    <h2 class="note">Not implemented yet</h2>
+    <p class="note">
+      The remaining components (card, list, table, timeline, forms, overlays),
+      the fallback loader registry (Phase 5) and the Playwright suites (Phase
+      6). This page is a manual check, not a test.
+    </p>
+
+    <script type="module">
+      const COLORS = [
+        "bg",
+        "bg-muted",
+        "bg-emphasis",
+        "text",
+        "text-muted",
+        "border",
+        "theme",
+        "success",
+        "error",
+        "warn",
+        "muted"
+      ];
+      const BASE = ["radius", "space", "font-size", "border-width"];
+      const STYLES = ["pui-solid", "pui-soft", "pui-outline", "pui-link"];
+      const NAMES = [
+        "pui-theme",
+        "pui-success",
+        "pui-error",
+        "pui-warn",
+        "pui-muted",
+        "pui-surface",
+        "pui-inverse"
+      ];
+
+      const read = (name) =>
+        getComputedStyle(document.documentElement)
+          .getPropertyValue(`--pui-${name}`)
+          .trim();
+
+      function paint() {
+        swatches.innerHTML = COLORS.map(
+          (name) => `
+          <div class="swatch">
+            <div style="background: var(--pui-${name})"></div>
+            <span>--pui-${name}<br /><small data-resolve></small></span>
+          </div>`
+        ).join("");
+
+        // Print what the token resolves to in the current mode. Reading the
+        // custom property would only return the light-dark() pair.
+        for (const swatch of swatches.children) {
+          swatch.querySelector("[data-resolve]").textContent = getComputedStyle(
+            swatch.firstElementChild
+          ).backgroundColor;
+        }
+      }
+
+      document.getElementById("base-tokens").innerHTML = BASE.map(
+        (name) =>
+          `<tr><th>--pui-${name}</th><td>${read(name)}</td>
+           <td style="width: 60%">
+             <div style="height: .75rem; width: calc(${read(name)} * 8); background: var(--pui-theme); border-radius: 2px"></div>
+           </td></tr>`
+      ).join("");
+
+      document.getElementById("matrix").innerHTML = NAMES.map(
+        (color) => `
+        <tr>
+          <th>${color}</th>
+          ${STYLES.map(
+            (style) =>
+              `<td><button class="pui-btn ${style} ${color}">Button</button></td>`
+          ).join("")}
+        </tr>`
+      ).join("");
+
+      // Same behavior as src/js/mode.ts, inlined so the page also works when
+      // opened straight from the file system.
+      for (const button of document.querySelectorAll("[data-mode]")) {
+        button.addEventListener("click", () => {
+          const mode = button.dataset.mode;
+          if (mode === "system") {
+            document.documentElement.removeAttribute("data-pui-mode");
+            document.cookie = "pui-mode=; path=/; max-age=0; SameSite=Lax";
+          } else {
+            document.documentElement.setAttribute("data-pui-mode", mode);
+            document.cookie = `pui-mode=${mode}; path=/; max-age=31536000; SameSite=Lax`;
+          }
+          paint();
+        });
+      }
+
+      paint();
+    </script>
+  </body>
+</html>

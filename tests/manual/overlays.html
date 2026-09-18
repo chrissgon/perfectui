@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Perfect UI v1 — overlay review</title>
+
+    <script>
+      (function (m) {
+        if (m) document.documentElement.setAttribute("data-pui-mode", m[1]);
+      })(document.cookie.match(/(?:^|; )pui-mode=(light|dark)/));
+    </script>
+
+    <link rel="stylesheet" href="../../src/css/index.css" />
+
+    <style>
+      /* Scoped to page classes: bare element selectors here are unlayered and
+         would beat the library. */
+      body {
+        margin: 0;
+        padding: 2rem clamp(1rem, 4vw, 3rem) 8rem;
+        background: var(--pui-bg);
+        color: var(--pui-text);
+        font:
+          16px/1.5 system-ui,
+          sans-serif;
+      }
+
+      .page-head {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        align-items: baseline;
+        justify-content: space-between;
+        border-bottom: var(--pui-border-width) solid var(--pui-border);
+        padding-bottom: 1rem;
+      }
+
+      .page-head h1 {
+        font-size: 1.25rem;
+        margin: 0;
+      }
+
+      .case > h2 {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--pui-text-muted);
+        margin: 2.5rem 0 0.35rem;
+      }
+
+      .case > p {
+        color: var(--pui-text-muted);
+        font-size: 0.875rem;
+        margin: 0 0 1rem;
+        max-width: 72ch;
+      }
+
+      .case code {
+        font-family: ui-monospace, monospace;
+        font-size: 0.85em;
+        background: var(--pui-bg-muted);
+        border-radius: 4px;
+        padding: 0.1em 0.35em;
+      }
+
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        align-items: center;
+      }
+
+      /* Somewhere to aim the directional overlays from, with room on every
+         side: too close to an edge and the overlay flips, which is correct but
+         reads as broken on a review page. */
+      .compass {
+        display: grid;
+        grid-template-columns: repeat(3, max-content);
+        gap: 0.75rem;
+        justify-items: center;
+        align-items: center;
+        margin: 5rem 0 5rem clamp(1rem, 22vw, 16rem);
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="page-head">
+      <div>
+        <h1>Perfect UI v1 — overlay review</h1>
+        <p style="margin: 0.25rem 0 0; color: var(--pui-text-muted)">
+          The parts that only exist once you click or hover them: overlay
+          directions, tooltip styles, moving between modals, and the accordion
+          icon hook. Everything here is native in Chromium. To exercise the
+          fallbacks instead, serve this folder over http and import
+          <code>dist/js/index.js</code>: a module cannot be loaded from a
+          file:// page.
+        </p>
+      </div>
+      <div class="row">
+        <button class="pui-btn pui-outline pui-surface" data-mode="system">
+          System
+        </button>
+        <button class="pui-btn pui-outline pui-surface" data-mode="light">
+          Light
+        </button>
+        <button class="pui-btn pui-outline pui-surface" data-mode="dark">
+          Dark
+        </button>
+      </div>
+    </header>
+
+    <section class="case">
+      <h2>1 — dropdown directions</h2>
+      <p>
+        Click each one. The default opens below, aligned to the trigger's
+        starting edge. <code>pui-top</code>, <code>pui-start</code> and
+        <code>pui-end</code> move it. Each flips to the opposite side when the
+        preferred one does not fit, which the last example shows on purpose.
+      </p>
+
+      <div class="compass">
+        <span></span>
+        <button class="pui-btn pui-outline pui-surface" popovertarget="d-top">
+          pui-top
+        </button>
+        <span></span>
+
+        <button class="pui-btn pui-outline pui-surface" popovertarget="d-start">
+          pui-start
+        </button>
+        <button class="pui-btn pui-solid pui-theme" popovertarget="d-bottom">
+          default
+        </button>
+        <button class="pui-btn pui-outline pui-surface" popovertarget="d-end">
+          pui-end
+        </button>
+
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <div class="pui-dropdown pui-top" id="d-top" popover>
+        Above the trigger
+      </div>
+      <div class="pui-dropdown" id="d-bottom" popover>
+        <ul class="pui-list pui-hoverable" style="list-style: none">
+          <li class="pui-list-item">Profile</li>
+          <li class="pui-list-item">Billing</li>
+          <li class="pui-list-item">Sign out</li>
+        </ul>
+      </div>
+      <div class="pui-dropdown pui-start" id="d-start" popover>
+        Before the trigger
+      </div>
+      <div class="pui-dropdown pui-end" id="d-end" popover>
+        After the trigger
+      </div>
+
+      <p style="margin-top: 2rem">
+        Alignment on the other axis, for a panel that opens above or below. The
+        default lines up with the trigger's starting edge;
+        <code>pui-align-center</code> and <code>pui-align-end</code> move it.
+        The wide triggers make the difference visible.
+      </p>
+      <div class="row">
+        <button
+          class="pui-btn pui-outline pui-surface"
+          popovertarget="a-start"
+          style="width: 18rem"
+        >
+          default, aligned to the start
+        </button>
+        <div class="pui-dropdown" id="a-start" popover>Narrow panel</div>
+      </div>
+      <div class="row" style="margin-top: 0.75rem">
+        <button
+          class="pui-btn pui-outline pui-surface"
+          popovertarget="a-center"
+          style="width: 18rem"
+        >
+          pui-align-center
+        </button>
+        <div class="pui-dropdown pui-align-center" id="a-center" popover>
+          Narrow panel
+        </div>
+      </div>
+      <div class="row" style="margin-top: 0.75rem">
+        <button
+          class="pui-btn pui-outline pui-surface"
+          popovertarget="a-end"
+          style="width: 18rem"
+        >
+          pui-align-end
+        </button>
+        <div class="pui-dropdown pui-align-end" id="a-end" popover>
+          Narrow panel
+        </div>
+      </div>
+
+      <p style="margin-top: 2rem">
+        This one asks for <code>pui-start</code> while sitting against the left
+        edge, so there is no room on that side and it opens on the other. Widen
+        the window and it goes back to the side it asked for.
+      </p>
+      <button class="pui-btn pui-outline pui-surface" popovertarget="d-flip">
+        pui-start, with no room for it
+      </button>
+      <div class="pui-dropdown pui-start" id="d-flip" popover>
+        Flipped to the end side
+      </div>
+    </section>
+
+    <section class="case">
+      <h2>2 — tooltip directions</h2>
+      <p>
+        Hover them, or tab to them and watch the tooltip follow the keyboard. On
+        a touch screen, press and hold. The default sits above; the same three
+        classes move it.
+      </p>
+
+      <div class="compass">
+        <span></span>
+        <button class="pui-btn pui-outline pui-surface" interestfor="t-top">
+          default
+        </button>
+        <span></span>
+
+        <button class="pui-btn pui-outline pui-surface" interestfor="t-start">
+          pui-start
+        </button>
+        <button class="pui-btn pui-outline pui-surface" interestfor="t-bottom">
+          pui-bottom
+        </button>
+        <button class="pui-btn pui-outline pui-surface" interestfor="t-end">
+          pui-end
+        </button>
+
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <div class="pui-tooltip" id="t-top" popover="hint">Above</div>
+      <div class="pui-tooltip pui-bottom" id="t-bottom" popover="hint">
+        Below
+      </div>
+      <div class="pui-tooltip pui-start" id="t-start" popover="hint">
+        Before
+      </div>
+      <div class="pui-tooltip pui-end" id="t-end" popover="hint">After</div>
+    </section>
+
+    <section class="case">
+      <h2>3 — tooltip styles</h2>
+      <p>
+        A tooltip is an ordinary colorable element, so it takes any style and
+        color pair. The second one is what <code>tooltip-black</code> used to
+        be.
+      </p>
+
+      <div class="row">
+        <button class="pui-btn pui-outline pui-surface" interestfor="s-surface">
+          default surface
+        </button>
+        <button class="pui-btn pui-outline pui-surface" interestfor="s-inverse">
+          pui-solid pui-inverse
+        </button>
+        <button class="pui-btn pui-outline pui-surface" interestfor="s-theme">
+          pui-solid pui-theme
+        </button>
+        <button class="pui-btn pui-outline pui-surface" interestfor="s-warn">
+          pui-soft pui-warn
+        </button>
+      </div>
+
+      <div class="pui-tooltip" id="s-surface" popover="hint">
+        The default, a surface with a border
+      </div>
+      <div
+        class="pui-tooltip pui-solid pui-inverse"
+        id="s-inverse"
+        popover="hint"
+      >
+        The old black tooltip
+      </div>
+      <div class="pui-tooltip pui-solid pui-theme" id="s-theme" popover="hint">
+        Solid theme
+      </div>
+      <div class="pui-tooltip pui-soft pui-warn" id="s-warn" popover="hint">
+        Careful with this one
+      </div>
+    </section>
+
+    <section class="case">
+      <h2>4 — moving between modals</h2>
+      <p>
+        A button carries one command, so opening the next modal leaves the one
+        you are in open behind it. Closing it on the same click is the
+        recommended pattern, and it is what both buttons below do — the first
+        with an attribute, the second with a listener for a strict content
+        security policy.
+      </p>
+
+      <div class="row">
+        <button
+          class="pui-btn pui-solid pui-theme"
+          commandfor="swap-one"
+          command="show-modal"
+        >
+          Swapping, with an attribute
+        </button>
+        <button
+          class="pui-btn pui-solid pui-theme"
+          commandfor="csp-one"
+          command="show-modal"
+        >
+          Swapping, with a listener
+        </button>
+      </div>
+    </section>
+
+    <section class="case">
+      <h2>5 — the rest of the modal</h2>
+      <p>
+        <code>closedby="any"</code> dismisses on a click outside; leaving it off
+        gives a static backdrop. Long content scrolls inside the dialog.
+      </p>
+
+      <div class="row">
+        <button
+          class="pui-btn pui-outline pui-surface"
+          commandfor="static"
+          command="show-modal"
+        >
+          Static backdrop
+        </button>
+        <button
+          class="pui-btn pui-outline pui-surface"
+          commandfor="long"
+          command="show-modal"
+        >
+          Long content
+        </button>
+      </div>
+    </section>
+
+    <section class="case">
+      <h2>6 — accordion icon hook</h2>
+      <p>
+        An element with <code>pui-accordion-icon</code> in the summary replaces
+        the drawn chevron. Placement and the rotation on open stay with the
+        library, so any icon set works.
+      </p>
+
+      <div class="pui-accordion" style="max-width: 28rem">
+        <details class="pui-accordion-item" name="icons">
+          <summary>The chevron the library draws</summary>
+          <p style="margin: 0">Nothing extra in the markup.</p>
+        </details>
+        <details class="pui-accordion-item" name="icons">
+          <summary>
+            An inline svg
+            <svg
+              class="pui-accordion-icon"
+              width="14"
+              height="14"
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <path d="M4 6l4 4 4-4" />
+            </svg>
+          </summary>
+          <p style="margin: 0">Rotated on open by the library.</p>
+        </details>
+        <details class="pui-accordion-item" name="icons">
+          <summary>
+            A character
+            <span class="pui-accordion-icon" aria-hidden="true">&#9662;</span>
+          </summary>
+          <p style="margin: 0">
+            Anything goes, it only has to carry the class.
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- swapping with an attribute: the command opens the next one, the click
+         handler closes the one we are in -->
+    <dialog class="pui-modal" id="swap-one" closedby="any">
+      <div class="pui-card">
+        <div class="pui-card-header">Step 1 of 2</div>
+        <div class="pui-card-content">
+          <span>This one closes as the next opens.</span>
+          <button
+            class="pui-btn pui-solid pui-theme"
+            commandfor="swap-two"
+            command="show-modal"
+            onclick="this.closest('dialog').close()"
+          >
+            Continue
+          </button>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="pui-modal" id="swap-two" closedby="any">
+      <div class="pui-card">
+        <div class="pui-card-header">Step 2 of 2</div>
+        <div class="pui-card-content">
+          <span>And back again.</span>
+          <button
+            class="pui-btn pui-outline pui-surface"
+            commandfor="swap-one"
+            command="show-modal"
+            onclick="this.closest('dialog').close()"
+          >
+            Back
+          </button>
+        </div>
+      </div>
+    </dialog>
+
+    <!-- swapping without inline handlers, for a strict content security policy -->
+    <dialog class="pui-modal" id="csp-one" closedby="any" data-swap>
+      <div class="pui-card">
+        <div class="pui-card-header">Step 1 of 2</div>
+        <div class="pui-card-content">
+          <span>Same behaviour, no inline handler.</span>
+          <button
+            class="pui-btn pui-solid pui-theme"
+            commandfor="csp-two"
+            command="show-modal"
+          >
+            Continue
+          </button>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="pui-modal" id="csp-two" closedby="any" data-swap>
+      <div class="pui-card">
+        <div class="pui-card-header">Step 2 of 2</div>
+        <div class="pui-card-content">
+          <span>And back again.</span>
+          <button
+            class="pui-btn pui-outline pui-surface"
+            commandfor="csp-one"
+            command="show-modal"
+          >
+            Back
+          </button>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="pui-modal" id="static">
+      <div class="pui-card">
+        <div class="pui-card-header">Static backdrop</div>
+        <div class="pui-card-content">
+          <span>Clicking outside does nothing. Escape still closes.</span>
+          <button
+            class="pui-btn pui-outline pui-surface"
+            commandfor="static"
+            command="close"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="pui-modal" id="long" closedby="any">
+      <div class="pui-card">
+        <div class="pui-card-header">Long content</div>
+        <div class="pui-card-content">
+          <p style="margin: 0">
+            Narrow the window until this does not fit and the dialog scrolls on
+            its own.
+          </p>
+          <p style="margin: 0">
+            Paragraph two. Lorem ipsum dolor sit amet, consectetur adipiscing
+            elit, sed do eiusmod tempor incididunt ut labore.
+          </p>
+          <p style="margin: 0">
+            Paragraph three. Lorem ipsum dolor sit amet, consectetur adipiscing
+            elit, sed do eiusmod tempor incididunt ut labore.
+          </p>
+          <p style="margin: 0">
+            Paragraph four. Lorem ipsum dolor sit amet, consectetur adipiscing
+            elit, sed do eiusmod tempor incididunt ut labore.
+          </p>
+          <p style="margin: 0">
+            Paragraph five. Lorem ipsum dolor sit amet, consectetur adipiscing
+            elit, sed do eiusmod tempor incididunt ut labore.
+          </p>
+          <button
+            class="pui-btn pui-solid pui-theme"
+            commandfor="long"
+            command="close"
+          >
+            Accept
+          </button>
+        </div>
+      </div>
+    </dialog>
+
+    <script type="module">
+      // The CSP-safe half of the swapping recipe, scoped to the two dialogs
+      // marked with data-swap so it does not touch the stacking example.
+      document.addEventListener("click", (event) => {
+        const button = event.target.closest?.(
+          '[command="show-modal"][commandfor]'
+        );
+        button?.closest("dialog[data-swap]")?.close();
+      });
+
+      for (const button of document.querySelectorAll("[data-mode]")) {
+        button.addEventListener("click", () => {
+          const mode = button.dataset.mode;
+          if (mode === "system") {
+            document.documentElement.removeAttribute("data-pui-mode");
+            document.cookie = "pui-mode=; path=/; max-age=0; SameSite=Lax";
+          } else {
+            document.documentElement.setAttribute("data-pui-mode", mode);
+            document.cookie = `pui-mode=${mode}; path=/; max-age=31536000; SameSite=Lax`;
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

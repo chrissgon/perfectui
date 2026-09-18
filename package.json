@@ -1,34 +1,65 @@
 {
   "name": "@chrissgon/perfectui",
-  "version": "0.23.0",
+  "version": "1.0.0-beta.0",
   "displayName": "Perfect UI",
   "description": "An exceptionally lightweight and highly customizable CSS and JavaScript library for crafting elegant user interfaces.",
   "private": false,
   "license": "MIT",
   "type": "module",
-  "main": "dist/perfectui.js",
-  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/js/index.js"
+    },
+    "./mode": {
+      "types": "./dist/types/mode.d.ts",
+      "import": "./dist/js/mode.js"
+    },
+    "./fallbacks/*": "./dist/js/fallbacks/*.js",
+    "./perfectui.css": "./dist/perfectui.css",
+    "./core.css": "./dist/css/core.css",
+    "./package.json": "./package.json",
+    "./components/*.css": "./dist/css/components/*.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "**/*.css",
+    "./dist/js/index.js",
+    "./dist/js/fallbacks/*.js"
+  ],
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
+    "build": "vite build && node scripts/build-css.mjs",
+    "size": "node scripts/size.mjs",
     "prepare": "husky",
-    "lint": "eslint ./src --fix",
-    "format": "prettier --write ."
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "test": "bun run build && node scripts/ssr-check.mjs && node scripts/exports-check.mjs && playwright test",
+    "test:ssr": "node scripts/ssr-check.mjs",
+    "test:e2e": "bun run build && playwright test",
+    "typecheck": "tsc --noEmit",
+    "changelog": "changelogen --output CHANGELOG.md",
+    "release": "changelogen --release --output CHANGELOG.md",
+    "test:exports": "node scripts/exports-check.mjs"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.4.1",
-    "@eslint/compat": "^1.2.7",
-    "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.23.0",
+    "@playwright/test": "^1.63.0",
     "@types/node": "^20.10.4",
-    "@typescript-eslint/eslint-plugin": "^7.5.0",
-    "eslint-plugin-import": "^2.29.1",
+    "changelogen": "^0.6.2",
+    "eslint": "^9.23.0",
+    "globals": "^15.15.0",
     "husky": "^9.1.5",
-    "install": "^0.13.0",
+    "lightningcss": "^1.33.0",
+    "lint-staged": "^17.5.1",
     "prettier": "^3.2.5",
-    "sass": "^1.58.0",
     "typescript": "^5.4.3",
+    "typescript-eslint": "^8.26.0",
     "vite": "^5.2.8",
     "vite-plugin-dts": "^3.6.4"
   },
@@ -36,5 +67,14 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/chrissgon/perfectui.git"
+  },
+  "lint-staged": {
+    "*.{ts,mjs,js}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{css,html,md,json,yml}": [
+      "prettier --write"
+    ]
   }
 }
