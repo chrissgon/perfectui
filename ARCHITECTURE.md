@@ -636,7 +636,7 @@ None at the moment. If a new question appears, add it here and ask the maintaine
 - [x] **Phase 6 — Tests:** 16 Playwright tests running on two engines (32 runs), plus an SSR check. Sizes below.
 - [x] **Phase 7 — Docs (this repo):** `/docs` rewritten for the v1 API, plus new `chip.md` and `float.md`, the root `README.md`, and `MIGRATION.md` written from §13. Every documented class was cross-checked against the built CSS, and every HTML example was rendered.
 - [ ] **Phase 7 — Docs (site repo):** `chrissgon/perfectui-doc` still targets the v0 API (`Atom.ThemeColorPicker.vue` calls `setThemeColor`, `Atom.DarkMode.vue` toggles `.dark`). Deferred by the maintainer, to be done after this repo.
-- [ ] **Phase 8 — Release:** `1.0.0-beta.x` → feedback from existing users → `1.0.0`.
+- [ ] **Phase 8 — Release:** `1.0.0-beta.0` tagged. Awaiting feedback from existing users before `1.0.0`.
 
 ---
 

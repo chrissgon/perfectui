@@ -191,13 +191,16 @@ Recipes to carry into the docs (Phase 7), replacing v0 modifiers: selected item 
 
 ### Releasing
 
-`changelogen` infers the next version from the commit types, and from a `0.x`
-version it lands on `0.23.1-beta.0` rather than `1.0.0-beta.0` — checked, not
-assumed. So `1.0.0` is set explicitly:
+`changelogen` infers the version from the commit types and cannot be told
+otherwise: from `0.23.0` it lands on `0.23.1-beta.0`, and passing the version to
+`--release` is ignored (it produced `0.24.0`). `--to` needs a ref that already
+exists, so the heading has to be corrected afterwards. All three were tried, not
+assumed. The steps:
 
 ```bash
 npm version 1.0.0-beta.0 --no-git-tag-version
 bun run changelog                       # writes CHANGELOG.md for the range
+# the heading comes out as "v0.23.0...v1"; rename it to the version
 git add -A && git commit -m "chore: release v1.0.0-beta.0"
 git tag v1.0.0-beta.0
 git push --follow-tags                  # the tag is what triggers the publish
