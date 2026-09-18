@@ -104,7 +104,7 @@ Parity gaps against `0.23.0` were reviewed at the same time. Kept as they were: 
 
 Dropped by the maintainer's decision: `accordion-accented` and `accordion-aligned`.
 
-Two more found afterwards. The accordion looked, in the maintainer's words, like nothing but a thin grey line: it was the only container without a header band, so it read as off-pattern next to a card. The `<summary>` now carries the same band, padding and hover as `pui-card-header`, chosen from a rendered comparison of the alternatives, and its content picked up the top padding it was missing.
+Two more found afterwards. The accordion looked, in the maintainer's words, like nothing but a thin grey line. That was read as a missing header band and the `<summary>` was given the same band as `pui-card-header` — the wrong fix: the complaint was about the focus ring's color, and the maintainer asked for the band to be undone. The summary carries no background of its own today. Two consequences worth knowing: the panel kept the top padding it gained, and `--pui-bg-emphasis` became a token no component uses, which is a question for the maintainer rather than something to quietly delete.
 
 The select arrow came out with a clipped tip. It was drawn as two linear gradients, each holding half of the triangle, and two halves that have to meet on a diagonal miss each other by a subpixel at that size. One conic gradient draws the whole shape instead, and it is now sized from the font token so it matches the accordion chevron.
 
