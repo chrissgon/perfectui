@@ -18,7 +18,8 @@
     "./fallbacks/*": "./dist/js/fallbacks/*.js",
     "./perfectui.css": "./dist/perfectui.css",
     "./core.css": "./dist/css/core.css",
-    "./components/*": "./dist/css/components/*.css"
+    "./package.json": "./package.json",
+    "./components/*.css": "./dist/css/components/*.css"
   },
   "files": [
     "dist"
@@ -36,12 +37,13 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
-    "test": "bun run build && node scripts/ssr-check.mjs && playwright test",
+    "test": "bun run build && node scripts/ssr-check.mjs && node scripts/exports-check.mjs && playwright test",
     "test:ssr": "node scripts/ssr-check.mjs",
     "test:e2e": "bun run build && playwright test",
     "typecheck": "tsc --noEmit",
     "changelog": "changelogen --output CHANGELOG.md",
-    "release": "changelogen --release --output CHANGELOG.md"
+    "release": "changelogen --release --output CHANGELOG.md",
+    "test:exports": "node scripts/exports-check.mjs"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",

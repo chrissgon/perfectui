@@ -17,6 +17,8 @@ jobs:
       - run: bun run build
       # Hard rule 12: every change reports the gzip size of dist.
       - run: bun run size
+      # The documented import specifiers have to resolve through exports.
+      - run: bun run test:exports
 
   test:
     runs-on: ubuntu-latest

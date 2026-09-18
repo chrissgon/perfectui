@@ -26,6 +26,7 @@ jobs:
       - run: bun run typecheck
       - run: bun run build
       - run: bun run size
+      - run: bun run test:exports
 
       # A prerelease must not take the latest tag: 1.0.0-beta.0 published
       # without this would become what `npm i` and the CDN's @latest resolve to.
