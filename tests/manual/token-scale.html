@@ -4,200 +4,19 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Perfect UI v1 — token scale test</title>
+
+    <script>
+      (function (m) {
+        if (m) document.documentElement.setAttribute("data-pui-mode", m[1]);
+      })(document.cookie.match(/(?:^|; )pui-mode=(light|dark)/));
+    </script>
+
+    <!-- The library itself. This page used to carry a prototype of it inline,
+         written before the components existed to approve the multipliers; it
+         reads the real thing now, so the ladder below is what actually ships. -->
+    <link rel="stylesheet" href="../../src/css/index.css" />
+
     <style>
-      /* ============ PERFECT UI v1 PROTOTYPE ============ */
-      @layer pui.tokens, pui.components, pui.styles, pui.colors, pui.states;
-
-      @layer pui.tokens {
-        :root {
-          color-scheme: light dark;
-          --pui-radius: 0.375rem;
-          --pui-space: 0.25rem;
-          --pui-font-size: 0.875rem;
-          --pui-border-width: 1px;
-
-          --pui-bg: light-dark(#ffffff, #000000);
-          --pui-bg-muted: light-dark(#f3f4f6, #111827);
-          --pui-bg-emphasis: light-dark(#e5e7eb, #1f2937);
-          --pui-text: light-dark(#000000, #ffffff);
-          --pui-text-muted: light-dark(#6b7280, #9ca3af);
-          --pui-border: light-dark(#d1d5db, #374151);
-          --pui-theme: light-dark(#0092cd, #07b6f0);
-          --pui-success: light-dark(#16a34a, #22c55e);
-          --pui-error: light-dark(#dc2626, #ef4444);
-          --pui-warn: light-dark(#d97706, #f59e0b);
-          --pui-muted: light-dark(#6b7280, #9ca3af);
-        }
-        [data-pui-mode="light"] {
-          color-scheme: light;
-        }
-        [data-pui-mode="dark"] {
-          color-scheme: dark;
-        }
-      }
-
-      @layer pui.components {
-        .pui-btn,
-        .pui-chip,
-        .pui-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: var(--pui-space);
-          border: var(--pui-border-width) solid transparent;
-          border-radius: var(--pui-radius);
-          font: inherit;
-          line-height: 1.25;
-          white-space: nowrap;
-        }
-        .pui-btn {
-          font-size: var(--pui-font-size);
-          padding: calc(var(--pui-space) * 2) calc(var(--pui-space) * 4);
-          cursor: pointer;
-        }
-        .pui-chip {
-          font-size: var(--pui-font-size);
-          padding: calc(var(--pui-space) * 1) calc(var(--pui-space) * 3);
-        }
-        .pui-badge {
-          font-size: calc(var(--pui-font-size) * 0.857);
-          padding: calc(var(--pui-space) * 0.5) calc(var(--pui-space) * 1.75);
-        }
-        .pui-rounded-full {
-          border-radius: 9999px;
-        }
-
-        .pui-card {
-          border: var(--pui-border-width) solid var(--pui-border);
-          border-radius: calc(var(--pui-radius) * 1.5);
-          overflow: hidden;
-          font-size: var(--pui-font-size);
-        }
-        .pui-card-header {
-          padding: calc(var(--pui-space) * 2) calc(var(--pui-space) * 4);
-          background: var(--pui-bg-muted);
-          color: var(--pui-text-muted);
-        }
-        .pui-card-content {
-          padding: calc(var(--pui-space) * 4);
-          display: grid;
-          gap: calc(var(--pui-space) * 3);
-        }
-
-        .pui-field-group {
-          display: grid;
-          gap: var(--pui-space);
-          font-size: var(--pui-font-size);
-        }
-        .pui-field-group > span {
-          font-size: calc(var(--pui-font-size) * 0.857);
-        }
-        .pui-field-group > small {
-          font-size: calc(var(--pui-font-size) * 0.857);
-          color: var(--pui-text-muted);
-        }
-        .pui-input {
-          font: inherit;
-          font-size: var(--pui-font-size);
-          color: var(--pui-text);
-          background: transparent;
-          border: var(--pui-border-width) solid var(--pui-border);
-          border-radius: var(--pui-radius);
-          padding: calc(var(--pui-space) * 1.5) calc(var(--pui-space) * 3);
-          min-width: 0;
-        }
-        .pui-input:focus-visible {
-          outline: none;
-          border-color: var(--pui-theme);
-          box-shadow: 0 0 0 1px var(--pui-theme);
-        }
-
-        .pui-checkbox {
-          appearance: none;
-          margin: 0;
-          width: calc(var(--pui-font-size) * 1.143);
-          height: calc(var(--pui-font-size) * 1.143);
-          border: var(--pui-border-width) solid var(--pui-border);
-          border-radius: calc(var(--pui-radius) * 0.5);
-        }
-        .pui-checkbox:checked {
-          background: var(--pui-theme);
-          border-color: var(--pui-theme);
-        }
-
-        .pui-tooltip-demo {
-          display: inline-block;
-          font-size: calc(var(--pui-font-size) * 0.857);
-          padding: calc(var(--pui-space) * 1.25) calc(var(--pui-space) * 2.5);
-          border: var(--pui-border-width) solid var(--pui-border);
-          border-radius: var(--pui-radius);
-          background: var(--pui-bg);
-          font-weight: 500;
-        }
-      }
-
-      @layer pui.styles {
-        .pui-solid {
-          background: var(--pui-color);
-          color: var(--pui-on-color);
-          border-color: var(--pui-edge, var(--pui-color));
-        }
-        .pui-solid:hover {
-          background: color-mix(
-            in oklch,
-            var(--pui-color),
-            var(--pui-text) 12%
-          );
-        }
-        .pui-soft {
-          background: color-mix(in oklch, var(--pui-color) 15%, transparent);
-          color: var(--pui-color);
-        }
-        .pui-outline {
-          background: transparent;
-          color: var(--pui-color);
-          border-color: var(--pui-edge, var(--pui-color));
-        }
-        .pui-link {
-          background: transparent;
-          color: var(--pui-color);
-        }
-        .pui-link:hover {
-          text-decoration: underline;
-        }
-      }
-
-      @layer pui.colors {
-        .pui-theme {
-          --pui-color: var(--pui-theme);
-          --pui-on-color: var(--pui-bg);
-        }
-        .pui-success {
-          --pui-color: var(--pui-success);
-          --pui-on-color: var(--pui-bg);
-        }
-        .pui-error {
-          --pui-color: var(--pui-error);
-          --pui-on-color: var(--pui-bg);
-        }
-        .pui-warn {
-          --pui-color: var(--pui-warn);
-          --pui-on-color: var(--pui-bg);
-        }
-        .pui-muted {
-          --pui-color: var(--pui-muted);
-          --pui-on-color: var(--pui-bg);
-        }
-        .pui-surface {
-          --pui-color: var(--pui-bg);
-          --pui-on-color: var(--pui-text);
-          --pui-edge: var(--pui-border);
-        }
-        .pui-inverse {
-          --pui-color: var(--pui-text);
-          --pui-on-color: var(--pui-bg);
-        }
-      }
-
       /* ============ TEST PAGE (not part of the library) ============ */
       * {
         box-sizing: border-box;
@@ -454,7 +273,8 @@
           <span class="pui-badge pui-solid pui-theme">12</span>pui-badge
         </div>
         <div class="step">
-          <span class="pui-tooltip-demo">Tooltip text</span>pui-tooltip
+          <span class="pui-tooltip" style="position: static">Tooltip text</span
+          >pui-tooltip
         </div>
       </div>
 
@@ -507,7 +327,7 @@
             ><span class="pui-badge pui-solid pui-theme">12</span>
           </div>
           <input class="pui-input" placeholder="Input" />
-          <span class="pui-tooltip-demo">Tooltip text</span>
+          <span class="pui-tooltip" style="position: static">Tooltip text</span>
         </div>
       </div>
 
