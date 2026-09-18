@@ -18,5 +18,13 @@ export default defineConfig([
     languageOptions: {
       globals: globals.node
     }
+  },
+  {
+    // These drive a browser and carry callbacks that run inside the page, so
+    // they legitimately use both sets of globals.
+    files: ["scripts/design-system*.mjs"],
+    languageOptions: {
+      globals: { ...globals.node, ...globals.browser }
+    }
   }
 ]);

@@ -43,7 +43,8 @@
     "typecheck": "tsc --noEmit",
     "changelog": "changelogen --output CHANGELOG.md",
     "release": "changelogen --release --output CHANGELOG.md",
-    "test:exports": "node scripts/exports-check.mjs"
+    "test:exports": "node scripts/exports-check.mjs",
+    "design-system": "node scripts/design-system.mjs && node scripts/design-system-write.mjs"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",
