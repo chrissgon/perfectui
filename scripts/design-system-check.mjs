@@ -303,6 +303,44 @@ check("§4.16 inner corners are squared", read.groupInner, "0px");
 check("§4.17 float sits 24px from the bottom", read.floatBottom, "24px");
 check("§4.17 float sits 24px from the start", read.floatStart, "24px");
 
+/* --- every class the document names must exist --------------------------- */
+
+// The variant tables name classes, and a document that invents one is worse
+// than a document that omits it: whoever rebuilds this has no way to tell.
+// Token names (`--pui-…`) and attributes (`data-pui-…`) are skipped by the
+// lookbehind.
+console.log("\nclasses named in the document");
+const shipped = readFileSync("dist/perfectui.css", "utf8");
+const named = [...new Set(doc.match(/(?<![-\w])pui-[a-z0-9-]+/g) ?? [])].sort();
+const missing = named.filter((name) => !shipped.includes(`.${name}`));
+if (missing.length === 0) {
+  console.log(`  ok  all ${named.length} exist in the built CSS`);
+} else {
+  for (const name of missing)
+    console.log(`FAIL  .${name} is not in the built CSS`);
+  fails.push(
+    `the document names ${missing.length} class(es) the library does not ship: ${missing.join(", ")}`
+  );
+}
+
+// And the other direction: a class that ships and is never named is a variant
+// nobody rebuilding this would know about.
+const defined = [
+  ...new Set((shipped.match(/\.pui-[a-z0-9-]+/g) ?? []).map((c) => c.slice(1)))
+];
+const unnamed = defined.filter((name) => !named.includes(name)).sort();
+if (unnamed.length === 0) {
+  console.log(
+    `  ok  all ${defined.length} shipped classes are named somewhere`
+  );
+} else {
+  for (const name of unnamed)
+    console.log(`FAIL  .${name} ships but the document never names it`);
+  fails.push(
+    `${unnamed.length} shipped class(es) are missing from the document: ${unnamed.join(", ")}`
+  );
+}
+
 /* --- section 7: the contrast claims ------------------------------------- */
 
 const luminance = (hex) => {

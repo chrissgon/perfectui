@@ -84,7 +84,7 @@ the page. Only sizes, line heights and the one bold weight are specified.
 | Small | 12px | inherited | 15px | Badges, tooltips, field labels and messages |
 | Table header | 14px | 600 | normal | Column headers |
 
-### 1.5 Radii
+### 1.5 Corner radii
 
 | Name | Value | Used by |
 | --- | --- | --- |
@@ -200,7 +200,26 @@ Page background #000000.
 Each one is a shape. Unless stated otherwise it carries no color of its own and
 takes a style and a color class from section 3.
 
-### 4.1 Button
+Every component lists its variants, and each one says where it comes from,
+because they are not all yours to build:
+
+- **class** — a class the library ships. Build it as a variant.
+- **composition** — a style class plus a color class from section 3, which any
+  colorable element accepts. Build it as the two variant properties in 6.4.
+- **shape** — the component's own structure, with nothing added: a card without
+  its header, a chip on a button, an icon beside a label. Draw it, do not make
+  it a class.
+- **HTML** — a native attribute (`open`, `disabled`, `checked`,
+  `aria-invalid`, `name`, `closedby`). A state in Figma, not a class.
+- **author CSS** — a recipe the library deliberately does not ship. Skip it
+  unless the project asks for it; it is one or two declarations of someone's own.
+
+One rule runs through all of them: a **color class alone never paints**. It only
+sets variables, so it needs a style class beside it. The two exceptions are
+noted where they occur — a checked checkbox, radio or switch reads the color
+variable directly, and so does the focus ring.
+
+### 4.1 Button — `pui-btn`
 
 A horizontal row: optional icon, label, optional icon. Centered on both axes.
 
@@ -218,7 +237,19 @@ A horizontal row: optional icon, label, optional icon. Centered on both axes.
 - Add the full radius for a pill: 9999px instead of 6px.
 - Disabled is the same shape at 50% opacity.
 
-### 4.2 Chip
+**Variants.**
+
+| Variant | How | Comes from |
+| --- | --- | --- |
+| Any of the 28 style and color pairs | a style class and a color class | composition |
+| Pill | add `pui-rounded-full` | class |
+| Radius put back inside a group | add `pui-rounded` | class |
+| Disabled | the `disabled` attribute | HTML |
+| With an icon | any element beside the label; the 4px gap spaces it | shape |
+| A link that looks like a button | the same classes on an `<a>` | shape |
+| Joined with its neighbours | wrap them in a group (4.16) | class |
+
+### 4.2 Chip — `pui-chip`
 
 One step smaller than a button. Same shape, less horizontal padding.
 
@@ -232,7 +263,16 @@ One step smaller than a button. Same shape, less horizontal padding.
 | Gap between children | 4px |
 | Height at one line of text | 27.5px |
 
-### 4.3 Badge
+**Variants.**
+
+| Variant | How | Comes from |
+| --- | --- | --- |
+| Any of the 28 style and color pairs | a style class and a color class | composition |
+| Pill | add `pui-rounded-full` | class |
+| Clickable | put the classes on a `<button>` | shape |
+| With a remove button | a `<button>` inside the chip; the gap spaces it | shape |
+
+### 4.3 Badge — `pui-badge`
 
 The smallest of the three. Used for counts and short statuses.
 
@@ -246,7 +286,15 @@ The smallest of the three. Used for counts and short statuses.
 | Gap between children | 4px |
 | Height at one line of text | 21px |
 
-### 4.4 Card
+**Variants.**
+
+| Variant | How | Comes from |
+| --- | --- | --- |
+| Any of the 28 style and color pairs | a style class and a color class | composition |
+| Pill, for a count | add `pui-rounded-full` | class |
+| Inside another component | drop it into a button, a list item or a table cell | shape |
+
+### 4.4 Card — `pui-card`, `pui-card-header`, `pui-card-content`
 
 A surface with its own border and background — it does not need a color class.
 
@@ -266,7 +314,17 @@ A surface with its own border and background — it does not need a color class.
 The content area stacks its children vertically with that gap, so items inside a
 card need no margins of their own.
 
-### 4.5 List
+**Variants.**
+
+| Variant | How | Comes from |
+| --- | --- | --- |
+| Plain surface | nothing — the card already carries a border and a background | shape |
+| Without the header band | leave out the header element | shape |
+| Recolored | a style class and a color class on the card itself | composition |
+| As a modal's surface | put the card inside the dialog (4.8) | shape |
+| With a table or list flush inside | put it straight in the card, with no content wrapper | shape |
+
+### 4.5 List — `pui-list`, `pui-list-item`
 
 **Anatomy:** container → items.
 
@@ -281,7 +339,18 @@ card need no margins of their own.
 Two optional behaviours: striped, where even items take the muted background
 token, and hoverable, where the hovered item does.
 
-### 4.6 Table
+**Variants.**
+
+| Variant | How | Comes from |
+| --- | --- | --- |
+| Striped | add `pui-striped` to the list | class |
+| Hoverable | add `pui-hoverable` to the list | class |
+| Selected item | `pui-soft` and a color class on that item | composition |
+| Bordered item | `pui-outline pui-surface` on that item | composition |
+| No bullets | `list-style: none` | author CSS |
+| As a dropdown menu | put the list inside the panel (4.9) | shape |
+
+### 4.6 Table — `pui-table`
 
 **Anatomy:** header row → body rows → optional footer row. Cells carry no class.
 
@@ -299,7 +368,21 @@ token, and hoverable, where the hovered item does.
 The last row of the table draws no rule, which is what lets a table sit flush
 inside a card.
 
-### 4.7 Accordion
+**Variants.**
+
+| Variant | How | Comes from |
+| --- | --- | --- |
+| Striped | add `pui-striped` to the table; even body rows take the muted background | class |
+| Hoverable | add `pui-hoverable` to the table | class |
+| Summary band at the bottom | add a `<tfoot>` | HTML |
+| Colored row | a style class and a color class on the row | composition |
+| Flush inside a card | put the table straight in the card | shape |
+| Grid lines on every cell | a border on each cell | author CSS |
+| No rules at all | `border: none` on the cells | author CSS |
+| Compact rows | a smaller block padding on the cells | author CSS |
+| Scrolls sideways on a narrow screen | `overflow-x: auto` on the parent | author CSS |
+
+### 4.7 Accordion — `pui-accordion`, `pui-accordion-item`
 
 **Anatomy:** container → items, each an interactive summary row and a panel.
 
@@ -319,7 +402,21 @@ paints the whole expanded item, summary and panel, with the muted background
 token. The chevron is a solid triangle pointing down, 8px wide and 4px tall, in the current text
 color. It rotates 180° when the item opens, around its own center.
 
-### 4.8 Modal
+**Variants.**
+
+| Variant | How | Comes from |
+| --- | --- | --- |
+| Bordered | the default — every item carries a 1px border in the border token | shape |
+| Borderless | `border: none` on the item; the library ships no class for it | author CSS |
+| Joined into one block | add `pui-group-col` to the container: the items lose the 4px gap, share their borders and keep only the outer corners | class |
+| Marked open item | add `pui-highlighted` to the container: the expanded item, summary and panel, takes the muted background | class |
+| One open at a time | the same `name` on every `<details>` | HTML |
+| Open on load | the `open` attribute | HTML |
+| Recolored | a style class and a color class **on the item**. A color class alone does not reach the border: the item reads the border token, and only a style class repaints it | composition |
+| Your own icon | an element with `pui-accordion-icon` inside the summary; the drawn chevron steps aside and the rotation stays | class |
+| Nested | another accordion inside a panel | shape |
+
+### 4.8 Modal — `pui-modal`
 
 **Anatomy:** dimmed backdrop → centered dialog → a card inside it.
 
@@ -331,7 +428,20 @@ color. It rotates 180° when the item opens, around its own center.
 | Dialog | Padding, border, background | none — the card inside provides all three |
 | Dialog | Position | Centered on both axes |
 
-### 4.9 Dropdown
+**Variants.**
+
+
+**Variants.**
+
+| Variant | How | Comes from |
+| --- | --- | --- |
+| Light dismiss | `closedby="any"` — click the backdrop or press Escape | HTML |
+| Static backdrop | leave `closedby` out; only a close button dismisses it | HTML |
+| Opened and closed without script | `commandfor` and `command` on the buttons | HTML |
+| Long content | the dialog scrolls at the viewport height; the card inside does not | shape |
+| Moving between two modals | close the current one on the same click that opens the next | author CSS |
+
+### 4.9 Dropdown — `pui-dropdown`
 
 A panel anchored to the control that opens it.
 
@@ -352,7 +462,18 @@ Placement: below the trigger and aligned to its starting edge by default; above,
 before or after it on request; aligned centered or to the end on request. It
 flips to the opposite side when the preferred one does not fit.
 
-### 4.10 Tooltip
+**Variants.**
+
+| Variant | How | Comes from |
+| --- | --- | --- |
+| Below, aligned to the start | the default | shape |
+| Above, before, after | `pui-top`, `pui-start`, `pui-end` | class |
+| Centered or end-aligned on the other axis | `pui-align-center`, `pui-align-end` | class |
+| Recolored | a style class and a color class on the panel | composition |
+| A menu | a list inside the panel (4.5) | shape |
+| Closes on a click inside | a button with `popovertarget` and `popovertargetaction="hide"` | HTML |
+
+### 4.10 Tooltip — `pui-tooltip`
 
 | Property | Value |
 | --- | --- |
@@ -370,7 +491,17 @@ flips to the opposite side when the preferred one does not fit.
 Placement: above the trigger and centered on it by default; below, before or
 after it on request. Same flipping rule as the dropdown.
 
-### 4.11 Field group
+**Variants.**
+
+| Variant | How | Comes from |
+| --- | --- | --- |
+| Above, centered | the default | shape |
+| Below, before, after | `pui-bottom`, `pui-start`, `pui-end` | class |
+| Dark, v0's black tooltip | `pui-solid pui-inverse` | composition |
+| Any other style and color pair | a style class and a color class | composition |
+| On any element | `interestfor` pointing at it | HTML |
+
+### 4.11 Field group — `pui-field-group`
 
 **Anatomy:** label → control → message, stacked.
 
@@ -381,7 +512,19 @@ after it on request. Same flipping rule as the dropdown.
 | Message | Font size | 12px |
 | Message | Text color | Muted text token, or the error token when the field is invalid |
 
-### 4.12 Input
+**Variants.**
+
+
+**Variants.**
+
+| Variant | How | Comes from |
+| --- | --- | --- |
+| With a message | a `<small>` after the control | shape |
+| Without a label or message | leave the element out; the group only spaces what is there | shape |
+| Invalid | `aria-invalid="true"` on the control: its border, and the message, turn to the error token | HTML |
+| Around any control | an input, a textarea, a select, a checkbox or an input group | shape |
+
+### 4.12 Input — `pui-input`
 
 Covers the text field, the textarea and the select.
 
@@ -403,7 +546,18 @@ side raised to 28px. It is drawn as an image rather than from borders,
 which is why it keeps a fraction of a pixel where the accordion's chevron is
 rounded to whole ones.
 
-### 4.13 Input group
+**Variants.**
+
+| Variant | How | Comes from |
+| --- | --- | --- |
+| Text field | any `<input>` type | shape |
+| Textarea | a `<textarea>`, which also grows vertically | shape |
+| Select | a `<select>`, which adds the arrow and the end padding | shape |
+| Invalid | `aria-invalid="true"`: the border takes the error token | HTML |
+| Disabled | the `disabled` attribute: 50% opacity | HTML |
+| Full width | `width: 100%`; the control does not stretch on its own | author CSS |
+
+### 4.13 Input group — `pui-input-group`, `pui-addon`
 
 A control and one or more addons fused into a single field.
 
@@ -417,7 +571,19 @@ A control and one or more addons fused into a single field.
 | Addon | Text color | Muted text token |
 | Addon | Border facing the control | 1px solid, border token |
 
-### 4.14 Checkbox, radio and switch
+**Variants.**
+
+
+**Variants.**
+
+| Variant | How | Comes from |
+| --- | --- | --- |
+| Addon before, after, or both | put the addon on either side of the control, or one on each | shape |
+| With a button instead of an addon | a button as the last child; it keeps its own colors and its own focus ring | shape |
+| Invalid | `aria-invalid="true"` on the control inside | HTML |
+| Inside a field group | the group takes a label and a message like any control | shape |
+
+### 4.14 Checkbox, radio and switch — `pui-checkbox`, `pui-radio`, `pui-switch`
 
 | Control | Width | Height | Radius | Checked mark |
 | --- | --- | --- | --- | --- |
@@ -430,7 +596,17 @@ Unchecked: transparent fill, 1px border in the border token. The switch shows it
 knob in the border token at the start. Checked: the fill and the border both take
 the element's color, defaulting to the theme color.
 
-### 4.15 Timeline
+**Variants.**
+
+| Variant | How | Comes from |
+| --- | --- | --- |
+| Checked | the `checked` attribute | HTML |
+| Indeterminate, checkbox only | the `indeterminate` attribute | HTML |
+| Disabled | the `disabled` attribute: 50% opacity | HTML |
+| Colored | **a color class on its own is enough here** — a checked control reads the color variable directly, so `pui-success` turns it green with no style class. This is the one place where that works | composition |
+| With a label and a message | wrap it in a field group (4.11) | shape |
+
+### 4.15 Timeline — `pui-timeline`, `pui-checkpoint`, `pui-checkpoint-icon`
 
 **Anatomy:** a vertical stack of checkpoints. Each one is an icon and its
 content side by side, and draws the rule that connects it to the next.
@@ -453,7 +629,16 @@ ordinary colored element: it takes a style and a color like a badge does.
 Combined with a row group, the same structure lays out horizontally: the icon
 sits above its content and the rule runs across instead of down.
 
-### 4.16 Group
+**Variants.**
+
+| Variant | How | Comes from |
+| --- | --- | --- |
+| Vertical | the default | shape |
+| Horizontal | add `pui-group-row` to the timeline | class |
+| Colored checkpoint | a style class and a color class on the icon, as on a badge | composition |
+| An icon instead of text | anything inside the icon element; it centers its content | shape |
+
+### 4.16 Group — `pui-group-row`, `pui-group-col`, `pui-group-responsive`
 
 Joins neighbouring elements into one control.
 
@@ -464,10 +649,31 @@ Joins neighbouring elements into one control.
 | Outer corners | The default radius, on the first and last child only |
 | Direction | Row or column; the responsive variant is a row above 1024px and a column below |
 
-### 4.17 Float
+**Variants.**
+
+
+**Variants.**
+
+| Variant | How | Comes from |
+| --- | --- | --- |
+| Row | `pui-group-row` | class |
+| Column | `pui-group-col` | class |
+| Row above 1024px, column below | `pui-group-responsive` | class |
+| One child detached again | `pui-rounded` on that child puts its radius back | class |
+| Any components mixed | buttons, inputs, addons and selects share the same joining rules | shape |
+
+### 4.17 Float — `pui-float`
 
 A single element pinned 24px — six spacing units — from the bottom and starting
 edge of the viewport.
+
+**Variants.**
+
+| Variant | How | Comes from |
+| --- | --- | --- |
+| Bottom start | the default | shape |
+| Any other corner | one `inset-block` or `inset-inline` declaration | author CSS |
+| Around any element | a button, a card, a group — the class only positions | shape |
 
 ## 5. Interaction states
 
