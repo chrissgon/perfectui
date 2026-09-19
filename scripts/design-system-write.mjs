@@ -508,17 +508,38 @@ because it is both the first child and the last.
 | Panel | Padding | ${pad("m-acc-panel")} |
 | Item, open | Background | None, or the muted background token with the marked variant |
 
+An item's corners depend on where it sits in the block, which is a variant
+property of its own — four positions, not four components:
+
+| Position | Item's corners | Summary's corners, which shape its focus ring |
+| --- | --- | --- |
+| Only item | all four round | all four, one border width less |
+| First of several | top two round | top two, one border width less |
+| In the middle | all four squared | all four squared |
+| Last of several | bottom two round | bottom two while closed, squared once open |
+
+The summary loses its lower corners while its item is open because the panel
+owns the bottom of the block by then. Between two items there is no gap: they
+overlap by one border width, so the two borders paint as a single line, and the
+item holding the keyboard focus is raised above its neighbour or the ring would
+be drawn under it.
+
 Marking the open item is optional — it is one variant of the container, and it
 paints the whole expanded item, summary and panel, with the muted background
-token. The chevron is a solid triangle pointing down, ${marks.chevron.width}px wide and ${marks.chevron.height}px tall, in the current text
+token, out to whichever corners that item kept. The chevron is a solid triangle pointing down, ${marks.chevron.width}px wide and ${marks.chevron.height}px tall, in the current text
 color. It rotates 180° when the item opens, around its own center.
 
 **Variants.**
 
 ${variants([
   [
+    "One block",
+    "the default — consecutive items overlap their borders into one line and only the ends of the block are round",
+    "shape"
+  ],
+  [
     "Bordered",
-    "the default — every item carries a 1px border in the border token",
+    "also the default — every item carries a 1px border in the border token",
     "shape"
   ],
   [
@@ -527,9 +548,9 @@ ${variants([
     "author CSS"
   ],
   [
-    "Joined into one block",
-    "add `pui-group-col` to the container: the items lose the 4px gap, share their borders and keep only the outer corners",
-    "class"
+    "Spaced apart",
+    "a gap on the container, with the items' negative margin and full radius put back; the library ships no class for it",
+    "author CSS"
   ],
   [
     "Marked open item",
@@ -967,7 +988,7 @@ Five states, applied the same way everywhere.
 | State | What changes |
 | --- | --- |
 | Hover | A solid fill moves 12% toward the page text color. A soft fill goes from 15% to 22%. An outline picks up a 10% tint. A link underlines, 0.3rem below the text. |
-| Focus | A 2px ring in the element's own color — the theme color when it has none — 2px outside the element, following its corner radius. Keyboard focus only. |
+| Focus | A 2px ring in the element's own color — the theme color when it has none — 2px outside the element, following its corner radius. Keyboard focus only. Two components measure the gap from inside their own border and so sit 3px out: an accordion's summary and a control inside an input group, which hands its ring to the group. |
 | Disabled | The whole element at 50% opacity, cursor not allowed. Nothing else changes. |
 | Invalid | The control's border, its text and its message all take the error token. |
 | Checked | A checkbox, radio or switch fills with its own color, defaulting to the theme color. |
@@ -1054,7 +1075,9 @@ One component per shape in section 4, with two variant properties:
 - \`color\`: theme, success, error, warn, muted, surface, inverse
 
 Every variant reads the five slots through the table in 6.2, so 28 variants are
-28 references, not 28 hand-picked colors. Hover, focus and disabled are a third
+28 references, not 28 hand-picked colors. One component needs a third property:
+an accordion item takes \`position\` — only, first, middle, last — because its
+corners depend on where it sits in the block (4.7). Hover, focus and disabled are a third
 property or interactive states, never separate components. Every shape is an
 auto-layout frame using the padding and gap from section 4; only the overlays
 are positioned against their trigger.
