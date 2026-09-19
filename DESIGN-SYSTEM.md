@@ -89,7 +89,7 @@ the page. Only sizes, line heights and the one bold weight are specified.
 | Name | Value | Used by |
 | --- | --- | --- |
 | Default | 6px | Buttons, chips, badges, inputs, list items, accordion items, dropdowns, tooltips |
-| Inner | 5px | An element inside a bordered container, so its corner stays concentric |
+| Inner | 5px 5px 0px 0px | An element inside a bordered container, so its corner stays concentric |
 | Large | 9px | Cards |
 | Small | 3px | Checkboxes |
 | Full | 9999px | Pills, radios, switches, timeline icons |
@@ -385,15 +385,18 @@ inside a card.
 ### 4.7 Accordion — `pui-accordion`, `pui-accordion-item`
 
 **Anatomy:** container → items, each an interactive summary row and a panel.
+Consecutive items form **one block**: they share the line between them and only
+the two ends of the block stay round. A lone item keeps all four corners,
+because it is both the first child and the last.
 
 | Part | Property | Value |
 | --- | --- | --- |
-| Container | Gap between items | 4px |
+| Container | Space between items | -1px — they overlap by one border width, so two borders read as one line |
 | Item | Border | 1px solid, border token |
-| Item | Corner radius | 6px |
+| Item | Corner radius | 6px at the two ends of the block, squared where two items meet |
 | Summary | Padding | 8px 16px |
 | Summary | Layout | Label at the start, chevron at the end |
-| Summary | Corner radius | 5px (one border width less than the item) |
+| Summary | Corner radius | Its item's, less one border width (5px 5px 0px 0px where the item is round) |
 | Panel | Padding | 0px 16px 16px 16px |
 | Item, open | Background | None, or the muted background token with the marked variant |
 
@@ -565,7 +568,7 @@ A control and one or more addons fused into a single field.
 | --- | --- | --- |
 | Group | Border | 1px solid, border token |
 | Group | Corner radius | 6px |
-| Children | Border and radius | None, except the outer corners of the first and last child, which take 5px |
+| Children | Border and radius | None, except the outer corners of the first and last child, which take 5px 5px 0px 0px |
 | Addon | Horizontal padding | 12px |
 | Addon | Background | Muted background token |
 | Addon | Text color | Muted text token |

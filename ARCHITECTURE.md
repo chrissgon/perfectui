@@ -231,7 +231,7 @@ Rules:
 ### Target HTML examples
 
 ```html
-<!-- Accordion: only one open at a time, zero JS -->
+<!-- Accordion: one block, only one open at a time, zero JS -->
 <div class="pui-accordion">
   <details class="pui-accordion-item" name="faq">
     <summary>One</summary>

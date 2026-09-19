@@ -493,15 +493,18 @@ ${variants([
 ### 4.7 Accordion — \`pui-accordion\`, \`pui-accordion-item\`
 
 **Anatomy:** container → items, each an interactive summary row and a panel.
+Consecutive items form **one block**: they share the line between them and only
+the two ends of the block stay round. A lone item keeps all four corners,
+because it is both the first child and the last.
 
 | Part | Property | Value |
 | --- | --- | --- |
-| Container | Gap between items | ${m("m-accordion").gap} |
+| Container | Space between items | ${m("m-acc-item2")["margin-block-start"]} — they overlap by one border width, so two borders read as one line |
 | Item | Border | ${m("m-acc-item")["border-top-width"]} solid, border token |
-| Item | Corner radius | ${m("m-acc-item")["border-radius"]} |
+| Item | Corner radius | ${m("m-btn")["border-radius"]} at the two ends of the block, squared where two items meet |
 | Summary | Padding | ${pad("m-summary")} |
 | Summary | Layout | Label at the start, chevron at the end |
-| Summary | Corner radius | ${m("m-summary")["border-radius"]} (one border width less than the item) |
+| Summary | Corner radius | Its item's, less one border width (${m("m-summary")["border-radius"]} where the item is round) |
 | Panel | Padding | ${pad("m-acc-panel")} |
 | Item, open | Background | None, or the muted background token with the marked variant |
 

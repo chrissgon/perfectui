@@ -396,7 +396,8 @@
         <code>pui-highlighted</code> on the container gives the expanded item a
         card header's background. v0 called this
         <code>accordion-accented</code>. Open each one: only the expanded item
-        carries the band, and it follows the item's corners.
+        carries the band, it follows the item's corners, and consecutive items
+        share the line between them.
       </p>
 
       <div class="pui-accordion pui-highlighted" style="max-width: 28rem">
@@ -410,19 +411,15 @@
         </details>
       </div>
 
-      <p>Joined into one block, the band has no gaps to leak through:</p>
+      <p>
+        A lone item keeps all four corners, because it is both the first child
+        and the last:
+      </p>
 
-      <div
-        class="pui-accordion pui-highlighted pui-group-col"
-        style="max-width: 28rem"
-      >
-        <details class="pui-accordion-item" name="marked-joined" open>
-          <summary>First, open</summary>
-          <p style="margin: 0">Squared corners inside the group.</p>
-        </details>
-        <details class="pui-accordion-item" name="marked-joined">
-          <summary>Second</summary>
-          <p style="margin: 0">Closed.</p>
+      <div class="pui-accordion pui-highlighted" style="max-width: 28rem">
+        <details class="pui-accordion-item" name="marked-alone" open>
+          <summary>On its own</summary>
+          <p style="margin: 0">All four corners, band and all.</p>
         </details>
       </div>
     </section>

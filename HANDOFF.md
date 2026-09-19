@@ -59,6 +59,7 @@ Goal kept: **bare minimum, lightweight, customizable**. Tailwind is an optional 
 | 31  | Version bump                  | `package.json` stays `0.23.0` during the migration. Version is bumped only at release (Phase 8), with the tag.                                                                                                                     |
 | 32  | Tooling                       | ESLint rebuilt as a plain flat config on `typescript-eslint`; the `@eslint/compat` + `eslintrc` shims and `eslint-plugin-import` were dropped.                                                                                     |
 | 33  | Tabs component                | Out of scope for `1.0.0` (item dropped from `todo.txt`).                                                                                                                                                                           |
+| 35  | Accordion block               | Consecutive items join by default — shared border, round only at the ends. v1 shipped a 4px gap and asked for `pui-group-col`; the maintainer's reference was v0's joined look. Spacing them apart is author CSS now.              |
 | 34  | Open accordion item           | `pui-highlighted` on the container, v0's `accordion-accented`, painting the open item with `--pui-bg-muted`. Named for its purpose: `pui-accent` was rejected in decision 9 and `pui-emphasis` would name a token it does not use. |
 
 ---

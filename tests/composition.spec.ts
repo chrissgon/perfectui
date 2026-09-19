@@ -62,6 +62,36 @@ test("pui-highlighted paints the open item only", async ({ page }) => {
   );
 });
 
+test("consecutive accordion items read as one block", async ({ page }) => {
+  // The pair in the fixture is first and last, so between them every corner is
+  // squared and the two borders overlap into one line.
+  await expect(page.locator("#open-item")).toHaveCSS(
+    "margin-block-start",
+    "-1px"
+  );
+  await expect(page.locator("#closed-item")).toHaveCSS(
+    "border-start-start-radius",
+    "6px"
+  );
+  await expect(page.locator("#closed-item")).toHaveCSS(
+    "border-end-start-radius",
+    "0px"
+  );
+  await expect(page.locator("#open-item")).toHaveCSS(
+    "border-start-start-radius",
+    "0px"
+  );
+  await expect(page.locator("#open-item")).toHaveCSS(
+    "border-end-start-radius",
+    "6px"
+  );
+  // A lone item is both the first child and the last, so it keeps all four.
+  await expect(page.locator("#summary").locator("..")).toHaveCSS(
+    "border-radius",
+    "6px"
+  );
+});
+
 test("unlayered author CSS wins over every library layer", async ({ page }) => {
   // through the contract
   await expect(page.locator("#branded")).toHaveCSS(

@@ -43,21 +43,20 @@ Give the items the same `name`. The browser closes the others for you:
 </details>
 ```
 
-### Joined items
+### One block
 
-`pui-accordion` spaces the items. Add `pui-group-col` to join them into a single block:
+Consecutive items share the line between them, and only the outer corners stay round — an accordion reads as one block, not as a stack of cards. Nothing to add: this is what the first example already does. A lone item keeps all four corners, since it is both the first child and the last.
 
-```html
-<div class="pui-accordion pui-group-col">
-  <details class="pui-accordion-item" name="faq">
-    <summary>First</summary>
-    <p>One</p>
-  </details>
-  <details class="pui-accordion-item" name="faq">
-    <summary>Second</summary>
-    <p>Two</p>
-  </details>
-</div>
+Spacing them apart instead is two rules of your own:
+
+```css
+.accordion-spaced {
+  gap: var(--pui-space);
+}
+.accordion-spaced > .pui-accordion-item {
+  margin-block-start: 0;
+  border-radius: var(--pui-radius);
+}
 ```
 
 ### Marking the open item

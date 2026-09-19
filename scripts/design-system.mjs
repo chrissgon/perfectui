@@ -69,7 +69,7 @@ await page.setContent(`<!doctype html><html><head>
   <div class="pui-card" id="m-card"><div class="pui-card-header" id="m-card-header">h</div><div class="pui-card-content" id="m-card-content">c</div></div>
   <ul class="pui-list" id="m-list"><li class="pui-list-item" id="m-list-item">i</li></ul>
   <table class="pui-table" id="m-table"><thead><tr><th id="m-th">h</th></tr></thead><tbody><tr><td id="m-td">c</td></tr></tbody><tfoot><tr><th id="m-tf">f</th></tr></tfoot></table>
-  <div class="pui-accordion" id="m-accordion"><details class="pui-accordion-item" id="m-acc-item" open><summary id="m-summary">s</summary><p id="m-acc-panel">p</p></details></div>
+  <div class="pui-accordion" id="m-accordion"><details class="pui-accordion-item" id="m-acc-item" open><summary id="m-summary">s</summary><p id="m-acc-panel">p</p></details><details class="pui-accordion-item" id="m-acc-item2"><summary>s</summary><p>p</p></details></div>
   <figure class="pui-timeline" id="m-timeline"><figcaption class="pui-checkpoint" id="m-checkpoint"><i class="pui-checkpoint-icon pui-solid pui-success" id="m-cp-icon">x</i><span>t</span></figcaption></figure>
   <label class="pui-field-group" id="m-field"><span id="m-field-label">L</span><input class="pui-input"><small id="m-field-msg">m</small></label>
   <input type="checkbox" class="pui-checkbox" id="m-checkbox" checked>
@@ -175,6 +175,7 @@ const METRIC_PROPS = [
   "border-top-width",
   "border-bottom-width",
   "margin-inline-start",
+  "margin-block-start",
   "gap",
   "background-color",
   "color",
@@ -200,6 +201,7 @@ for (const id of [
   "m-tf",
   "m-accordion",
   "m-acc-item",
+  "m-acc-item2",
   "m-summary",
   "m-acc-panel",
   "m-timeline",

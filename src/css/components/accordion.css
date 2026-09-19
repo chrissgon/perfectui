@@ -1,21 +1,40 @@
 /* Accordion. Exclusive opening is native: give the items the same `name` on
    <details> and the browser closes the others. Zero JS. Requires core.css.
 
-   The container only spaces the items. Add pui-group-col to join them into one
-   block instead. */
+   Consecutive items read as one block: they share the 1px line between them,
+   and only the outer corners stay round. Spacing them apart instead is two
+   declarations of author CSS, documented in docs/accordion.md. */
 @import "../layers.css";
 
 @layer pui.components {
   .pui-accordion {
     display: grid;
-    gap: var(--pui-space);
     font-size: var(--pui-font-size);
   }
 
   /* No overflow clipping: it would cut the summary's focus ring in half. */
   .pui-accordion-item {
     border: var(--pui-border-width) solid var(--pui-edge, var(--pui-border));
-    border-radius: var(--pui-radius);
+    /* Squared by default, rounded again at the two ends below, so a lone item
+       still gets all four corners: it is both the first child and the last. */
+    border-radius: 0;
+
+    /* Same joining as pui-group-col, on the accordion's own children so that
+       importing this file alone is enough. The borders overlap rather than one
+       of them being removed, which keeps a recolored item's own border whole. */
+    & + .pui-accordion-item {
+      margin-block-start: calc(var(--pui-border-width) * -1);
+    }
+
+    &:first-child {
+      border-start-start-radius: var(--pui-radius);
+      border-start-end-radius: var(--pui-radius);
+    }
+
+    &:last-child {
+      border-end-start-radius: var(--pui-radius);
+      border-end-end-radius: var(--pui-radius);
+    }
 
     & > summary {
       display: flex;
@@ -25,10 +44,11 @@
       padding: calc(var(--pui-space) * 2) calc(var(--pui-space) * 4);
       /* Nothing is painted with this: it is what shapes the focus ring, which
          follows the radius of the element it surrounds. One border width is
-         taken off so the ring's corner ends up concentric with the item's.
-         `inherit` cannot be used — a <summary> is slotted into the shadow root
-         of <details>, so it inherits from that slot, not from the item. */
-      border-radius: calc(var(--pui-radius) - var(--pui-border-width));
+         taken off so the ring's corner ends up concentric with the item's, and
+         the corners it takes are the ones its item kept. `inherit` cannot be
+         used — a <summary> is slotted into the shadow root of <details>, so it
+         inherits from that slot, not from the item. */
+      border-radius: 0;
       cursor: pointer;
       user-select: none;
       /* Hide the default marker: `list-style` covers Chrome and Firefox, the
@@ -54,6 +74,24 @@
         border-color: currentColor transparent transparent;
         transition: rotate 0.15s ease;
       }
+    }
+
+    &:first-child > summary {
+      border-start-start-radius: calc(
+        var(--pui-radius) - var(--pui-border-width)
+      );
+      border-start-end-radius: calc(
+        var(--pui-radius) - var(--pui-border-width)
+      );
+    }
+
+    /* Only while closed: once the item is open the panel owns the bottom of it
+       and the summary's lower corners are in the middle of the block. */
+    &:last-child:not([open]) > summary {
+      border-end-start-radius: calc(
+        var(--pui-radius) - var(--pui-border-width)
+      );
+      border-end-end-radius: calc(var(--pui-radius) - var(--pui-border-width));
     }
 
     &[open] > summary::after {
@@ -99,6 +137,14 @@
 }
 
 @layer pui.states {
+  /* The item that owns the focus is raised, or the ring is painted under the
+     neighbour that overlaps it by a border width. Same reason as in a group,
+     and hover is left out of it there for a reason too. */
+  .pui-accordion-item:has(> summary:focus-visible) {
+    position: relative;
+    z-index: 1;
+  }
+
   /* The class is on the <details>, not on the <summary>, so the library's own
      focus rule never reaches the element the user actually focuses, and the
      browser's default ring shows through instead. */
