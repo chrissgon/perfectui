@@ -1,3 +1,5 @@
+> Project conventions now live in `AGENTS.md`, which any AI tool reads. This file is kept for history and is no longer updated.
+
 # Perfect UI — instructions for Claude Code
 
 Perfect UI is a lightweight, customizable CSS/JS library that provides the bare minimum to build applications.
