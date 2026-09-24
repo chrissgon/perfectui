@@ -64,20 +64,16 @@ Anything can go in a group, in any order:
 
 ### Other components
 
-An accordion joins the same way:
+A list of items joins the same way:
 
 ```html
-<div class="pui-accordion pui-group-col">
-  <details class="pui-accordion-item" name="faq">
-    <summary>First question</summary>
-    <p>First answer</p>
-  </details>
-  <details class="pui-accordion-item" name="faq">
-    <summary>Second question</summary>
-    <p>Second answer</p>
-  </details>
-</div>
+<ul class="pui-group-col" style="list-style: none; padding: 0">
+  <li class="pui-list-item pui-outline pui-surface">First</li>
+  <li class="pui-list-item pui-outline pui-surface">Second</li>
+</ul>
 ```
+
+An accordion needs nothing: it already joins its own items.
 
 And a timeline turns horizontal:
 

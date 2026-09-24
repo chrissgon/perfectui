@@ -1,5 +1,11 @@
 /* Style classes. They only read the contract variables (§3.1); no sizes.
 
+   The mixes interpolate in oklab, not oklch. Both describe the same space, but
+   oklch carries a hue component, and mixing a near-neutral color with white or
+   black makes Chrome serialize that hue as `none` — which then paints as hue 0.
+   The muted grey came out pink. oklab has no hue to lose, and for a saturated
+   color the two are identical.
+
    Every value below is derived, so a new color never needs a new rule here.
    Contrast was measured for all 7 colors x 4 styles x hover in both modes:
    nothing drops below 4.5:1. Two derivations carry that:
@@ -33,7 +39,7 @@
   :where(.pui-soft, .pui-outline, .pui-link) {
     color: var(
       --pui-ink,
-      color-mix(in oklch, var(--pui-color), var(--pui-text) 25%)
+      color-mix(in oklab, var(--pui-color), var(--pui-text) 25%)
     );
   }
 
@@ -44,7 +50,7 @@
 
     &:hover {
       background-color: color-mix(
-        in oklch,
+        in oklab,
         var(--pui-color),
         var(--pui-shade, var(--pui-text)) 12%
       );
@@ -52,11 +58,11 @@
   }
 
   .pui-soft {
-    background-color: color-mix(in oklch, var(--pui-color) 15%, transparent);
+    background-color: color-mix(in oklab, var(--pui-color) 15%, transparent);
     border-color: transparent;
 
     &:hover {
-      background-color: color-mix(in oklch, var(--pui-color) 22%, transparent);
+      background-color: color-mix(in oklab, var(--pui-color) 22%, transparent);
     }
   }
 
@@ -65,7 +71,7 @@
     border-color: var(--pui-edge, var(--pui-color));
 
     &:hover {
-      background-color: color-mix(in oklch, var(--pui-color) 10%, transparent);
+      background-color: color-mix(in oklab, var(--pui-color) 10%, transparent);
     }
   }
 

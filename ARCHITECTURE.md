@@ -72,7 +72,12 @@ them, `pui-surface` would paint text with the page background (invisible) and
 `pui-inverse` would shade toward the color it already is (a no-op on hover).
 Every other color class is one line, as intended.
 
-**Derivations.** Nothing is hardcoded per color:
+**Derivations.** They interpolate **in `oklab`, not `oklch`**. The two describe
+the same space, but `oklch` carries a hue component, and mixing a near-neutral
+color with white or black makes Chrome serialize that hue as `none`, which then
+paints as hue 0 — the muted grey rendered pink. `oklab` has no hue to lose, and
+for a saturated color the result is identical. Found while generating
+`DESIGN-SYSTEM.md`; a test covers it. Nothing is hardcoded per color:
 
 - hover blends `--pui-color` toward `--pui-shade`, which always moves _away_
   from `--pui-on-color`, so contrast can only rise;
@@ -108,7 +113,7 @@ File: `src/css/tokens.css`. Semantic names only. No palettes (the old `--theme50
     /* backgrounds */
     --pui-bg: light-dark(#fff, #000); /* page */
     --pui-bg-muted: light-dark(…, …); /* cards, hover areas */
-    --pui-bg-emphasis: light-dark(…, …); /* stronger third level */
+    --pui-bg-emphasis: light-dark(…, …); /* third level, for authors */
 
     /* text */
     --pui-text: light-dark(#000, #fff);
@@ -191,25 +196,25 @@ Any **unlayered** user CSS (including Tailwind utilities) wins over all of these
 
 All current components are kept. Shape classes only (colors come from §3).
 
-| Group      | Component                 | Class(es)                                                | Native base                        | JS?                           |
-| ---------- | ------------------------- | -------------------------------------------------------- | ---------------------------------- | ----------------------------- |
-| Actions    | Button                    | `pui-btn`                                                | `<button>`                         | no                            |
-| Actions    | Chip _(new)_              | `pui-chip`                                               | any                                | no                            |
-| Display    | Badge                     | `pui-badge`                                              | any                                | no                            |
-| Display    | Card                      | `pui-card`, `pui-card-header`, `pui-card-content`        | any                                | no                            |
-| Display    | List                      | `pui-list`, `pui-list-item`                              | `<ul>/<ol>`                        | no                            |
-| Display    | Table                     | `pui-table`                                              | `<table>`                          | no                            |
-| Display    | Timeline                  | `pui-timeline`                                           | any                                | no                            |
-| Layout     | Group                     | `pui-group-row`, `pui-group-col`, `pui-group-responsive` | any                                | no                            |
-| Layout     | Float                     | `pui-float`                                              | any                                | no                            |
-| Disclosure | Accordion                 | `pui-accordion`, `pui-accordion-item`                    | `<details name="…">`               | **no** (native exclusive)     |
-| Overlay    | Modal                     | `pui-modal`                                              | `<dialog closedby>` + `commandfor` | fallback only                 |
-| Overlay    | Dropdown                  | `pui-dropdown`                                           | `popover` + `popovertarget`        | no                            |
-| Overlay    | Tooltip                   | `pui-tooltip`                                            | `popover="hint"` + `interestfor`   | fallback only                 |
-| Forms      | Field group               | `pui-field-group` (label `> span`, message `> small`)    | `<label>`                          | no                            |
-| Forms      | Input / Textarea / Select | `pui-input`                                              | native controls                    | no                            |
-| Forms      | Input group / Addon       | `pui-input-group`, `pui-addon`                           | any                                | no                            |
-| Forms      | Checkbox / Radio / Switch | `pui-checkbox`, `pui-radio`, `pui-switch`                | `<input>`                          | checkbox `indeterminate` only |
+| Group      | Component                 | Class(es)                                                   | Native base                        | JS?                           |
+| ---------- | ------------------------- | ----------------------------------------------------------- | ---------------------------------- | ----------------------------- |
+| Actions    | Button                    | `pui-btn`                                                   | `<button>`                         | no                            |
+| Actions    | Chip _(new)_              | `pui-chip`                                                  | any                                | no                            |
+| Display    | Badge                     | `pui-badge`                                                 | any                                | no                            |
+| Display    | Card                      | `pui-card`, `pui-card-header`, `pui-card-content`           | any                                | no                            |
+| Display    | List                      | `pui-list`, `pui-list-item`                                 | `<ul>/<ol>`                        | no                            |
+| Display    | Table                     | `pui-table`                                                 | `<table>`                          | no                            |
+| Display    | Timeline                  | `pui-timeline`                                              | any                                | no                            |
+| Layout     | Group                     | `pui-group-row`, `pui-group-col`, `pui-group-responsive`    | any                                | no                            |
+| Layout     | Float                     | `pui-float`                                                 | any                                | no                            |
+| Disclosure | Accordion                 | `pui-accordion`, `pui-accordion-item` (+ `pui-highlighted`) | `<details name="…">`               | **no** (native exclusive)     |
+| Overlay    | Modal                     | `pui-modal`                                                 | `<dialog closedby>` + `commandfor` | fallback only                 |
+| Overlay    | Dropdown                  | `pui-dropdown`                                              | `popover` + `popovertarget`        | no                            |
+| Overlay    | Tooltip                   | `pui-tooltip`                                               | `popover="hint"` + `interestfor`   | fallback only                 |
+| Forms      | Field group               | `pui-field-group` (label `> span`, message `> small`)       | `<label>`                          | no                            |
+| Forms      | Input / Textarea / Select | `pui-input`                                                 | native controls                    | no                            |
+| Forms      | Input group / Addon       | `pui-input-group`, `pui-addon`                              | any                                | no                            |
+| Forms      | Checkbox / Radio / Switch | `pui-checkbox`, `pui-radio`, `pui-switch`                   | `<input>`                          | checkbox `indeterminate` only |
 
 Rules:
 
@@ -220,13 +225,13 @@ Rules:
 - Accessibility is part of the component: visible `:focus-visible`, respect `prefers-reduced-motion`, use logical properties (`margin-inline`, `inset-inline-start`).
 - **Groups take no child class.** `pui-group-row`, `pui-group-col` and `pui-group-responsive` style their direct children, so v0's `group-item` (and its `[class*="item"]` escape hatch) is gone. They overlap borders with a negative margin instead of removing them, which keeps `pui-outline` working on every child, and raise the hovered or focused child with `z-index` so its own border and ring stay visible.
 - **Overlay placement.** `pui-dropdown` and `pui-tooltip` take a direction class — `pui-top`, `pui-bottom`, `pui-start`, `pui-end` — each flipping to the opposite side when the preferred one does not fit. The CSS rules live behind `@supports`, and `fallbacks/anchor-positioning.ts` reads the same classes, so both paths place an overlay the same way. The classes are inert on their own, like `pui-striped`.
-- **Modifiers.** The library ships exactly two, `pui-striped` and `pui-hoverable`, on `pui-list` and `pui-table`. They exist because they need a structural selector (`:nth-child`, `:hover` on a child) that the user cannot express by composing classes. Everything else v0 had is composition or one line of author CSS, and belongs in the docs as a recipe rather than in the bundle: a selected item is `pui-list-item pui-soft pui-theme`, a bordered one is `pui-list-item pui-outline pui-surface`, an unmarked list is `list-style: none`, a responsive table is `overflow-x: auto` on the parent. Each modifier lives in its own component file, so importing only `table.css` still brings them.
+- **Modifiers.** The library ships exactly three: `pui-striped` and `pui-hoverable` on `pui-list` and `pui-table`, and `pui-highlighted` on `pui-accordion`. They exist because they need a structural selector (`:nth-child`, `:hover` on a child, `[open]`) that the user cannot express by composing classes. Everything else v0 had is composition or one line of author CSS, and belongs in the docs as a recipe rather than in the bundle: a selected item is `pui-list-item pui-soft pui-theme`, a bordered one is `pui-list-item pui-outline pui-surface`, an unmarked list is `list-style: none`, a responsive table is `overflow-x: auto` on the parent. Each modifier lives in its own component file, so importing only `table.css` still brings them.
 - **Surfaces vs colorable elements.** A container that is not meant to be recolored — `pui-card`, `pui-table` cells, the timeline rule — reads the page tokens (`--pui-border`, `--pui-bg-muted`) directly, so it looks right with no extra classes. It stays composable anyway: `pui.styles` comes after `pui.components`, so `pui-card pui-soft pui-theme` still recolors the card. Elements meant to be recolored (`pui-btn`, `pui-chip`, `pui-badge`, `pui-list-item`, `pui-checkpoint-icon`) carry `border: var(--pui-border-width) solid transparent` so that a style class, which only ever sets `border-color`, has something to paint.
 
 ### Target HTML examples
 
 ```html
-<!-- Accordion: only one open at a time, zero JS -->
+<!-- Accordion: one block, only one open at a time, zero JS -->
 <div class="pui-accordion">
   <details class="pui-accordion-item" name="faq">
     <summary>One</summary>

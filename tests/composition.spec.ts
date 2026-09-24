@@ -28,6 +28,70 @@ test("a style class reads the color the color class sets", async ({ page }) => {
   await expect(page.locator("#outline")).toHaveCSS("border-color", THEME_LIGHT);
 });
 
+test("a derived neutral stays neutral", async ({ page }) => {
+  // The derivations mix in oklab, not oklch. With a hue component in play,
+  // Chrome serializes a near-neutral mix with `none` for the hue, which paints
+  // as hue 0: the muted grey came out pink. The token is bluish, so its text
+  // tone must keep more blue than red.
+  //
+  // The mix computes to `oklab(...)`, whose three numbers are lightness and two
+  // axes, not channels — reading them as RGB is what made the first version of
+  // this test fail. A canvas hands the question back to the engine and answers
+  // in the sRGB the screen actually gets.
+  const [red, , blue] = await page.locator("#soft-muted").evaluate((el) => {
+    const canvas = document.createElement("canvas");
+    canvas.width = canvas.height = 1;
+    const context = canvas.getContext("2d")!;
+    context.fillStyle = getComputedStyle(el).color;
+    context.fillRect(0, 0, 1, 1);
+    return [...context.getImageData(0, 0, 1, 1).data];
+  });
+  expect(blue).toBeGreaterThan(red);
+});
+
+test("pui-highlighted paints the open item only", async ({ page }) => {
+  // The modifier exists because `[open]` cannot be composed: it has to be a
+  // selector. So the pair of assertions is the whole feature.
+  await expect(page.locator("#open-item")).toHaveCSS(
+    "background-color",
+    "rgb(243, 244, 246)"
+  );
+  await expect(page.locator("#closed-item")).toHaveCSS(
+    "background-color",
+    "rgba(0, 0, 0, 0)"
+  );
+});
+
+test("consecutive accordion items read as one block", async ({ page }) => {
+  // The pair in the fixture is first and last, so between them every corner is
+  // squared and the two borders overlap into one line.
+  await expect(page.locator("#open-item")).toHaveCSS(
+    "margin-block-start",
+    "-1px"
+  );
+  await expect(page.locator("#closed-item")).toHaveCSS(
+    "border-start-start-radius",
+    "6px"
+  );
+  await expect(page.locator("#closed-item")).toHaveCSS(
+    "border-end-start-radius",
+    "0px"
+  );
+  await expect(page.locator("#open-item")).toHaveCSS(
+    "border-start-start-radius",
+    "0px"
+  );
+  await expect(page.locator("#open-item")).toHaveCSS(
+    "border-end-start-radius",
+    "6px"
+  );
+  // A lone item is both the first child and the last, so it keeps all four.
+  await expect(page.locator("#summary").locator("..")).toHaveCSS(
+    "border-radius",
+    "6px"
+  );
+});
+
 test("unlayered author CSS wins over every library layer", async ({ page }) => {
   // through the contract
   await expect(page.locator("#branded")).toHaveCSS(
