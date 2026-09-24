@@ -560,11 +560,6 @@ ${variants([
   ["One open at a time", "the same `name` on every `<details>`", "HTML"],
   ["Open on load", "the `open` attribute", "HTML"],
   [
-    "Recolored",
-    "a style class and a color class **on the item**. A color class alone does not reach the border: the item reads the border token, and only a style class repaints it",
-    "composition"
-  ],
-  [
     "Your own icon",
     "an element with `pui-accordion-icon` inside the summary; the drawn chevron steps aside and the rotation stays",
     "class"
@@ -637,7 +632,6 @@ ${variants([
     "`pui-align-center`, `pui-align-end`",
     "class"
   ],
-  ["Recolored", "a style class and a color class on the panel", "composition"],
   ["A menu", "a list inside the panel (4.5)", "shape"],
   [
     "Closes on a click inside",
