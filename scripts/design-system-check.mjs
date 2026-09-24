@@ -435,6 +435,16 @@ for (const mode of ["light", "dark"]) {
     });
   }
 }
+// The page tokens pair up too: muted text sits on the muted background in the
+// card header and the addon.
+for (const mode of ["light", "dark"]) {
+  for (const bg of ["bg", "bg-muted"]) {
+    textCases.push({
+      name: `${mode} muted text on ${bg}`,
+      value: ratio(palette[mode]["text-muted"].hex, palette[mode][bg].hex)
+    });
+  }
+}
 const degenerate = ["light soft surface", "dark soft surface"];
 const belowAA = textCases.filter(
   (c) => c.value < 4.5 && !degenerate.some((d) => c.name.startsWith(d))

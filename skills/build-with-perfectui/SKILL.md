@@ -67,7 +67,7 @@ All colours are `light-dark()` pairs; the page declares `color-scheme: light dar
 | `--pui-bg-muted`     | #f3f4f6  | #111827 | card headers, addons, stripes, hover rows |
 | `--pui-bg-emphasis`  | #e5e7eb  | #1f2937 | third level (code blocks)                 |
 | `--pui-text`         | #000000  | #ffffff | text                                      |
-| `--pui-text-muted`   | #6b7280  | #9ca3af | secondary text                            |
+| `--pui-text-muted`   | #676d7b  | #9ca3af | secondary text                            |
 | `--pui-border`       | #d1d5db  | #374151 | borders                                   |
 | `--pui-theme`        | #0092cd  | #07b6f0 | brand colour                              |
 | `--pui-success`      | #16a34a  | #22c55e | positive                                  |
@@ -235,7 +235,7 @@ Every rule lives in `@layer pui.*`, so your own CSS and any Tailwind utility win
 - Never add JavaScript to open, close or position a modal, dropdown, tooltip or accordion; the attributes do it. Never call an initialiser.
 - Never add a CSS reset, a shadow or a font import "for the library"; it needs none.
 - Never use `!important` against the library; the layer already gives your CSS priority.
-- Never write text in a colour that is not `--pui-text`, `--pui-text-muted` or a role's ink; never put muted text on a muted background.
+- Never write text in a colour that is not `--pui-text`, `--pui-text-muted` or a role's ink; never put muted text on `--pui-bg-emphasis`, where it drops below 4.5:1.
 
 ## Examples
 

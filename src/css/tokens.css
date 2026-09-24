@@ -9,9 +9,11 @@
     --pui-bg-muted: light-dark(#f3f4f6, #111827);
     --pui-bg-emphasis: light-dark(#e5e7eb, #1f2937);
 
-    /* Text */
+    /* Text. Muted is a shade darker than v0's #6b7280 in light mode so that it
+       keeps 4.5:1 on --pui-bg-muted too, where the card header and the addon
+       put it; #6b7280 reached 4.39:1 there. */
     --pui-text: light-dark(#000, #fff);
-    --pui-text-muted: light-dark(#6b7280, #9ca3af);
+    --pui-text-muted: light-dark(#676d7b, #9ca3af);
 
     /* Border */
     --pui-border: light-dark(#d1d5db, #374151);
