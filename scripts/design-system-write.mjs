@@ -1,5 +1,6 @@
-/** Turns the measurements into DESIGN-SYSTEM.md. See design-system.mjs. */
+/** Turns the measurements into design-system/DESIGN-SYSTEM.md. See design-system.mjs. */
 import { readFileSync, writeFileSync } from "node:fs";
+import { EXAMPLES, ICONS } from "./design-system-examples.mjs";
 
 const { metrics, palette, combos, glyphs, marks } = JSON.parse(
   readFileSync("/tmp/design-data.json", "utf8")
@@ -123,6 +124,17 @@ const comboTable = (mode) => {
 
 /* --- the document ---------------------------------------------------------- */
 
+/** The icons the examples use, and the file for each in both sets (1.6). */
+const iconTable = () =>
+  [
+    "| Class | Lucide file | Bootstrap Icons file |",
+    "| --- | --- | --- |",
+    ...Object.entries(ICONS).map(
+      ([name, bootstrap]) =>
+        `| \`icon-${name}\` | \`${name}.svg\` | \`${bootstrap}.svg\` |`
+    )
+  ].join("\n");
+
 const doc = `# Perfect UI — design system specification
 
 Everything needed to rebuild Perfect UI \`1.0.0\` as a design library, written
@@ -206,6 +218,101 @@ the page. Only sizes, line heights and the one bold weight are specified.
 | Large | ${m("m-card")["border-radius"]} | Cards |
 | Small | ${m("m-checkbox")["border-radius"]} | Checkboxes |
 | Full | 9999px | Pills, radios, switches, timeline icons |
+
+### 1.6 Icons
+
+Perfect UI ships no icons and downloads none. Two free sets fit it. Pick one
+per project; nothing in the library depends on the choice.
+
+| | Lucide | Bootstrap Icons |
+| --- | --- | --- |
+| Package | \`lucide-static\`, ISC license | \`bootstrap-icons\`, MIT license |
+| Icons in the set | 2,000+ | 2,000+ |
+| Drawing | 2px outlines on a 24px grid, drawn here at 16px | Filled shapes on a 16px grid, most with a \`-fill\` twin |
+| Figma | The Lucide plugin, with the same names | The Bootstrap Icons file on Figma Community |
+| Suits | The outline, soft and link styles, next to 1px borders | Solid buttons, and the sharpest result at 16px |
+
+**One file per icon, never the whole set.** Both packages also ship an icon
+font with every icon in it: 131 KB for Bootstrap Icons and 287 KB for Lucide,
+each many times the size of Perfect UI itself. Lucide's
+\`<i data-lucide>\` markup also needs a script. A single SVG is about 0.3 KB
+gzipped, so a product with twenty icons pays about 6 KB, and only for those
+twenty.
+
+Each icon is an SVG used as a CSS mask and painted with the current text color.
+This is your stylesheet, not the library's:
+
+\`\`\`css
+.icon {
+  display: inline-block;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  vertical-align: -0.125em;
+  background-color: currentColor;
+  mask-position: center;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+}
+
+/* One rule per icon you use. */
+.icon-mail {
+  mask-image: url("/icons/mail.svg");
+}
+.icon-bell {
+  mask-image: url("/icons/bell.svg");
+}
+\`\`\`
+
+\`\`\`html
+<i class="icon icon-mail"></i>
+\`\`\`
+
+Because the icon is painted with \`currentColor\`, it takes the color of whatever
+it sits in: the label color on a solid button, the ink on a soft one, the error
+color in an invalid field's message. No component needs a colored copy of an
+icon.
+
+**Getting only the icons you use.** Pick one of three ways:
+
+1. **Copy them from the package.** Install the set as a development dependency,
+   so nothing from it ships, and copy only the files you use into your project:
+
+   \`\`\`sh
+   npm i -D lucide-static
+   cp node_modules/lucide-static/icons/{mail,bell,x}.svg public/icons/
+
+   npm i -D bootstrap-icons
+   cp node_modules/bootstrap-icons/icons/{envelope,bell,x}.svg public/icons/
+   \`\`\`
+
+2. **Download them one by one.** No install: fetch each file from the CDN, with
+   the version pinned:
+
+   \`\`\`sh
+   curl -o public/icons/mail.svg https://cdn.jsdelivr.net/npm/lucide-static@1.48.0/icons/mail.svg
+   curl -o public/icons/envelope.svg https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/icons/envelope.svg
+   \`\`\`
+
+3. **Let the bundler inline them.** Keep the files next to your stylesheet and
+   point \`url()\` at them with a relative path, such as \`url("./icons/mail.svg")\`.
+   Vite inlines any file under 4 KB into the CSS by default, so the icons cost
+   no request of their own.
+
+Serve the files from your own site. A mask image from another origin only loads
+when that server allows it (CORS), and each icon becomes a separate request.
+
+**Accessibility.** The icon element is empty, so screen readers skip it. A
+button that shows only an icon needs an \`aria-label\`, as in the tooltip example
+(4.10).
+
+**In Figma.** Place the icon as a 16px instance and bind its fill (Bootstrap
+Icons) or its stroke (Lucide) to the same variable as the text beside it.
+
+**Names.** The examples in section 4 name their classes after Lucide. To use
+Bootstrap Icons, keep the class and point it at the other file:
+
+${iconTable()}
 
 ## 2. Color roles
 
@@ -307,6 +414,10 @@ sets variables, so it needs a style class beside it. The two exceptions are
 noted where they occur — a checked checkbox, radio or switch reads the color
 variable directly, and so does the focus ring.
 
+Every component ends with **examples**: the screens it usually appears in, as
+markup. Their icons are the \`icon icon-*\` classes from 1.6: your own CSS, one
+file per icon, from Lucide or Bootstrap Icons. The library ships none.
+
 ### 4.1 Button — \`pui-btn\`
 
 A horizontal row: optional icon, label, optional icon. Centered on both axes.
@@ -402,6 +513,16 @@ A surface with its own border and background — it does not need a color class.
 The content area stacks its children vertically with that gap, so items inside a
 card need no margins of their own.
 
+**Alert.** The library has no alert component: **an alert is a card with a
+style class and a color class**. \`pui-soft pui-warn\` on the card gives a warning
+alert, \`pui-solid pui-error\` a loud error, \`pui-outline pui-success\` a quiet
+confirmation. The style class repaints the frame's fill, border and text; the
+content area keeps its padding and gap. Leave the header band out, because it
+keeps its own muted background. Add \`role="alert"\` for a message that
+interrupts and \`role="status"\` for one that does not. In Figma, build it as the
+card component with the style and color properties, not as a component of its
+own.
+
 **Variants.**
 
 ${variants([
@@ -412,8 +533,8 @@ ${variants([
   ],
   ["Without the header band", "leave out the header element", "shape"],
   [
-    "Recolored",
-    "a style class and a color class on the card itself",
+    "Alert",
+    "a style class and a color class on the card itself, with no header band",
     "composition"
   ],
   ["As a modal's surface", "put the card inside the dialog (4.8)", "shape"],
@@ -447,7 +568,11 @@ ${variants([
   ["Selected item", "`pui-soft` and a color class on that item", "composition"],
   ["Bordered item", "`pui-outline pui-surface` on that item", "composition"],
   ["No bullets", "`list-style: none`", "author CSS"],
-  ["As a dropdown menu", "put the list inside the panel (4.9)", "shape"]
+  [
+    "As a dropdown menu",
+    "required inside every dropdown panel (4.9), which has no row spacing of its own",
+    "shape"
+  ]
 ])}
 
 ### 4.6 Table — \`pui-table\`
@@ -581,9 +706,6 @@ ${variants([
 
 **Variants.**
 
-
-**Variants.**
-
 ${variants([
   [
     "Light dismiss",
@@ -616,7 +738,29 @@ ${variants([
 
 A panel anchored to the control that opens it.
 
-${size("m-dropdown", { Background: "Page background token", Border: `${m("m-dropdown")["border-top-width"]} solid, border token`, "Minimum width": "The width of its trigger", "Distance from the trigger": "4px" })}
+**Anatomy:** panel → list (4.5) → list items. The list is **required**. The
+panel only has a thin inset; it has no row spacing of its own. The rows get
+their padding and their hover from the list items, because the dropdown reuses
+the list instead of repeating it. Text put straight in the panel sits
+${m("m-dropdown")["padding-top"]} from the border and nothing separates one line
+from the next.
+
+| Part | Property | Value |
+| --- | --- | --- |
+| Panel | Padding | ${pad("m-dropdown")} |
+| Panel | Corner radius | ${m("m-dropdown")["border-radius"]} |
+| Panel | Border | ${m("m-dropdown")["border-top-width"]} solid, border token |
+| Panel | Background | Page background token |
+| Panel | Minimum width | The width of its trigger |
+| Panel | Distance from the trigger | 4px |
+| List | Padding and margin | 0 |
+| Item | Padding | ${pad("m-dd-item")} |
+| Item | Corner radius | ${m("m-dd-item")["border-radius"]} |
+| Item | Line height | ${m("m-dd-item")["line-height"]} |
+| Panel | Height with one item | ${m("m-dropdown").height}px |
+
+Use \`pui-hoverable\` on the list so the item under the pointer takes the muted
+background token, and \`list-style: none\` so the items show no bullets.
 
 Placement: below the trigger and aligned to its starting edge by default; above,
 before or after it on request; aligned centered or to the end on request. It
@@ -632,7 +776,21 @@ ${variants([
     "`pui-align-center`, `pui-align-end`",
     "class"
   ],
-  ["A menu", "a list inside the panel (4.5)", "shape"],
+  [
+    "A menu",
+    "always a list inside the panel (4.5); without it the rows have no spacing",
+    "shape"
+  ],
+  [
+    "Menu with a hover row",
+    "add `pui-hoverable` to the list inside the panel",
+    "class"
+  ],
+  [
+    "Selected option",
+    "`pui-soft` and a color class on that list item",
+    "composition"
+  ],
   [
     "Closes on a click inside",
     'a button with `popovertarget` and `popovertargetaction="hide"`',
@@ -671,9 +829,6 @@ ${variants([
 | Label | Font size | ${m("m-field-label")["font-size"]} |
 | Message | Font size | ${m("m-field-msg")["font-size"]} |
 | Message | Text color | Muted text token, or the error token when the field is invalid |
-
-**Variants.**
-
 
 **Variants.**
 
@@ -740,9 +895,6 @@ A control and one or more addons fused into a single field.
 | Addon | Background | Muted background token |
 | Addon | Text color | Muted text token |
 | Addon | Border facing the control | ${m("m-input")["border-top-width"]} solid, border token |
-
-**Variants.**
-
 
 **Variants.**
 
@@ -842,9 +994,6 @@ Joins neighbouring elements into one control.
 | Inner corners | Squared |
 | Outer corners | The default radius, on the first and last child only |
 | Direction | Row or column; the responsive variant is a row above 1024px and a column below |
-
-**Variants.**
-
 
 **Variants.**
 
@@ -1071,7 +1220,8 @@ One component per shape in section 4, with two variant properties:
 Every variant reads the five slots through the table in 6.2, so 28 variants are
 28 references, not 28 hand-picked colors. One component needs a third property:
 an accordion item takes \`position\` — only, first, middle, last — because its
-corners depend on where it sits in the block (4.7). Hover, focus and disabled are a third
+corners depend on where it sits in the block (4.7). An alert is not a component:
+it is the card with its style and color properties set (4.4). Hover, focus and disabled are a third
 property or interactive states, never separate components. Every shape is an
 auto-layout frame using the padding and gap from section 4; only the overlays
 are positioned against their trigger.
@@ -1116,10 +1266,27 @@ filled with its own color. Every text use, every hover and the whole of dark
 mode stay at or above 4.5:1.
 `;
 
-const out = doc + components + states + figma;
-writeFileSync("DESIGN-SYSTEM.md", out);
+/** Appends each section's examples (design-system-examples.mjs) to its end. */
+const FENCE = "```";
+const withExamples = (text) =>
+  text
+    .split(/\n(?=### 4\.\d+ )/)
+    .map((section) => {
+      const number = section.match(/^### (4\.\d+) /)?.[1];
+      const examples = EXAMPLES[number];
+      if (!examples) return section;
+      const blocks = examples.map(
+        ({ title, intro, html }) =>
+          `**Example: ${title}.** ${intro}\n\n${FENCE}html\n${html}\n${FENCE}`
+      );
+      return `${section.trimEnd()}\n\n${blocks.join("\n\n")}\n`;
+    })
+    .join("\n");
+
+const out = doc + withExamples(components) + states + figma;
+writeFileSync("design-system/DESIGN-SYSTEM.md", out);
 console.log(
-  "wrote DESIGN-SYSTEM.md —",
+  "wrote design-system/DESIGN-SYSTEM.md —",
   out.split("\n").length,
   "lines,",
   out.length,

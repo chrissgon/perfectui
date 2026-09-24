@@ -94,6 +94,142 @@ the page. Only sizes, line heights and the one bold weight are specified.
 | Small | 3px | Checkboxes |
 | Full | 9999px | Pills, radios, switches, timeline icons |
 
+### 1.6 Icons
+
+Perfect UI ships no icons and downloads none. Two free sets fit it. Pick one
+per project; nothing in the library depends on the choice.
+
+| | Lucide | Bootstrap Icons |
+| --- | --- | --- |
+| Package | `lucide-static`, ISC license | `bootstrap-icons`, MIT license |
+| Icons in the set | 2,000+ | 2,000+ |
+| Drawing | 2px outlines on a 24px grid, drawn here at 16px | Filled shapes on a 16px grid, most with a `-fill` twin |
+| Figma | The Lucide plugin, with the same names | The Bootstrap Icons file on Figma Community |
+| Suits | The outline, soft and link styles, next to 1px borders | Solid buttons, and the sharpest result at 16px |
+
+**One file per icon, never the whole set.** Both packages also ship an icon
+font with every icon in it: 131 KB for Bootstrap Icons and 287 KB for Lucide,
+each many times the size of Perfect UI itself. Lucide's
+`<i data-lucide>` markup also needs a script. A single SVG is about 0.3 KB
+gzipped, so a product with twenty icons pays about 6 KB, and only for those
+twenty.
+
+Each icon is an SVG used as a CSS mask and painted with the current text color.
+This is your stylesheet, not the library's:
+
+```css
+.icon {
+  display: inline-block;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  vertical-align: -0.125em;
+  background-color: currentColor;
+  mask-position: center;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+}
+
+/* One rule per icon you use. */
+.icon-mail {
+  mask-image: url("/icons/mail.svg");
+}
+.icon-bell {
+  mask-image: url("/icons/bell.svg");
+}
+```
+
+```html
+<i class="icon icon-mail"></i>
+```
+
+Because the icon is painted with `currentColor`, it takes the color of whatever
+it sits in: the label color on a solid button, the ink on a soft one, the error
+color in an invalid field's message. No component needs a colored copy of an
+icon.
+
+**Getting only the icons you use.** Pick one of three ways:
+
+1. **Copy them from the package.** Install the set as a development dependency,
+   so nothing from it ships, and copy only the files you use into your project:
+
+   ```sh
+   npm i -D lucide-static
+   cp node_modules/lucide-static/icons/{mail,bell,x}.svg public/icons/
+
+   npm i -D bootstrap-icons
+   cp node_modules/bootstrap-icons/icons/{envelope,bell,x}.svg public/icons/
+   ```
+
+2. **Download them one by one.** No install: fetch each file from the CDN, with
+   the version pinned:
+
+   ```sh
+   curl -o public/icons/mail.svg https://cdn.jsdelivr.net/npm/lucide-static@1.48.0/icons/mail.svg
+   curl -o public/icons/envelope.svg https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/icons/envelope.svg
+   ```
+
+3. **Let the bundler inline them.** Keep the files next to your stylesheet and
+   point `url()` at them with a relative path, such as `url("./icons/mail.svg")`.
+   Vite inlines any file under 4 KB into the CSS by default, so the icons cost
+   no request of their own.
+
+Serve the files from your own site. A mask image from another origin only loads
+when that server allows it (CORS), and each icon becomes a separate request.
+
+**Accessibility.** The icon element is empty, so screen readers skip it. A
+button that shows only an icon needs an `aria-label`, as in the tooltip example
+(4.10).
+
+**In Figma.** Place the icon as a 16px instance and bind its fill (Bootstrap
+Icons) or its stroke (Lucide) to the same variable as the text beside it.
+
+**Names.** The examples in section 4 name their classes after Lucide. To use
+Bootstrap Icons, keep the class and point it at the other file:
+
+| Class | Lucide file | Bootstrap Icons file |
+| --- | --- | --- |
+| `icon-bell` | `bell.svg` | `bell.svg` |
+| `icon-bell-ring` | `bell-ring.svg` | `bell-fill.svg` |
+| `icon-bold` | `bold.svg` | `type-bold.svg` |
+| `icon-calendar` | `calendar.svg` | `calendar.svg` |
+| `icon-check` | `check.svg` | `check.svg` |
+| `icon-chevron-down` | `chevron-down.svg` | `chevron-down.svg` |
+| `icon-circle-alert` | `circle-alert.svg` | `exclamation-circle.svg` |
+| `icon-circle-check` | `circle-check.svg` | `check-circle.svg` |
+| `icon-circle-user` | `circle-user.svg` | `person-circle.svg` |
+| `icon-circle-x` | `circle-x.svg` | `x-circle.svg` |
+| `icon-credit-card` | `credit-card.svg` | `credit-card.svg` |
+| `icon-download` | `download.svg` | `download.svg` |
+| `icon-file-text` | `file-text.svg` | `file-earmark-text.svg` |
+| `icon-folder` | `folder.svg` | `folder.svg` |
+| `icon-globe` | `globe.svg` | `globe.svg` |
+| `icon-house` | `house.svg` | `house.svg` |
+| `icon-image` | `image.svg` | `image.svg` |
+| `icon-italic` | `italic.svg` | `type-italic.svg` |
+| `icon-life-buoy` | `life-buoy.svg` | `life-preserver.svg` |
+| `icon-link` | `link.svg` | `link-45deg.svg` |
+| `icon-log-out` | `log-out.svg` | `box-arrow-right.svg` |
+| `icon-mail` | `mail.svg` | `envelope.svg` |
+| `icon-map-pin` | `map-pin.svg` | `geo-alt.svg` |
+| `icon-pencil` | `pencil.svg` | `pencil.svg` |
+| `icon-phone` | `phone.svg` | `telephone.svg` |
+| `icon-search` | `search.svg` | `search.svg` |
+| `icon-send` | `send.svg` | `send.svg` |
+| `icon-settings` | `settings.svg` | `gear.svg` |
+| `icon-share-2` | `share-2.svg` | `share.svg` |
+| `icon-sheet` | `sheet.svg` | `file-earmark-spreadsheet.svg` |
+| `icon-shield` | `shield.svg` | `shield.svg` |
+| `icon-smartphone` | `smartphone.svg` | `phone.svg` |
+| `icon-trash-2` | `trash-2.svg` | `trash.svg` |
+| `icon-triangle-alert` | `triangle-alert.svg` | `exclamation-triangle.svg` |
+| `icon-truck` | `truck.svg` | `truck.svg` |
+| `icon-underline` | `underline.svg` | `type-underline.svg` |
+| `icon-user` | `user.svg` | `person.svg` |
+| `icon-user-plus` | `user-plus.svg` | `person-plus.svg` |
+| `icon-users` | `users.svg` | `people.svg` |
+| `icon-x` | `x.svg` | `x.svg` |
+
 ## 2. Color roles
 
 Seven roles. Five are palette colors; two are defined against the page itself,
@@ -219,6 +355,10 @@ sets variables, so it needs a style class beside it. The two exceptions are
 noted where they occur — a checked checkbox, radio or switch reads the color
 variable directly, and so does the focus ring.
 
+Every component ends with **examples**: the screens it usually appears in, as
+markup. Their icons are the `icon icon-*` classes from 1.6: your own CSS, one
+file per icon, from Lucide or Bootstrap Icons. The library ships none.
+
 ### 4.1 Button — `pui-btn`
 
 A horizontal row: optional icon, label, optional icon. Centered on both axes.
@@ -249,6 +389,26 @@ A horizontal row: optional icon, label, optional icon. Centered on both axes.
 | A link that looks like a button | the same classes on an `<a>` | shape |
 | Joined with its neighbours | wrap them in a group (4.16) | class |
 
+**Example: Sign up.** The main action is solid, the alternative is an outline in the surface role, and the way out is a link. The icon sits beside the label; the button's 4px gap spaces it.
+
+```html
+<button class="pui-btn pui-solid pui-theme" type="submit">
+  <i class="icon icon-user-plus"></i> Create account
+</button>
+<button class="pui-btn pui-outline pui-surface" type="button">
+  <i class="icon icon-mail"></i> Sign up with email
+</button>
+<a class="pui-btn pui-link pui-theme" href="/login">I already have an account</a>
+```
+
+**Example: Destructive confirmation.** A pill for the final step, in the error role.
+
+```html
+<button class="pui-btn pui-solid pui-error pui-rounded-full">
+  <i class="icon icon-trash-2"></i> Delete repository
+</button>
+```
+
 ### 4.2 Chip — `pui-chip`
 
 One step smaller than a button. Same shape, less horizontal padding.
@@ -272,6 +432,22 @@ One step smaller than a button. Same shape, less horizontal padding.
 | Clickable | put the classes on a `<button>` | shape |
 | With a remove button | a `<button>` inside the chip; the gap spaces it | shape |
 
+**Example: Active filters.** Each filter is a soft chip with a remove button inside it. The chip's gap spaces the icon, the label and the button.
+
+```html
+<span class="pui-chip pui-soft pui-theme">
+  <i class="icon icon-map-pin"></i> São Paulo
+  <button type="button" aria-label="Remove São Paulo"><i class="icon icon-x"></i></button>
+</span>
+<span class="pui-chip pui-soft pui-theme">
+  <i class="icon icon-calendar"></i> Last 30 days
+  <button type="button" aria-label="Remove Last 30 days"><i class="icon icon-x"></i></button>
+</span>
+<span class="pui-chip pui-outline pui-success pui-rounded-full">
+  <i class="icon icon-circle-check"></i> Verified
+</span>
+```
+
 ### 4.3 Badge — `pui-badge`
 
 The smallest of the three. Used for counts and short statuses.
@@ -294,6 +470,18 @@ The smallest of the three. Used for counts and short statuses.
 | Pill, for a count | add `pui-rounded-full` | class |
 | Inside another component | drop it into a button, a list item or a table cell | shape |
 
+**Example: Unread count and status.** A pill badge carries a count inside a button. A soft badge labels a status beside a title.
+
+```html
+<button class="pui-btn pui-outline pui-surface">
+  <i class="icon icon-bell"></i> Inbox
+  <span class="pui-badge pui-solid pui-error pui-rounded-full">3</span>
+</button>
+
+<h3>Payment API <span class="pui-badge pui-soft pui-success">Operational</span></h3>
+<h3>Search <span class="pui-badge pui-soft pui-warn">Degraded</span></h3>
+```
+
 ### 4.4 Card — `pui-card`, `pui-card-header`, `pui-card-content`
 
 A surface with its own border and background — it does not need a color class.
@@ -314,15 +502,66 @@ A surface with its own border and background — it does not need a color class.
 The content area stacks its children vertically with that gap, so items inside a
 card need no margins of their own.
 
+**Alert.** The library has no alert component: **an alert is a card with a
+style class and a color class**. `pui-soft pui-warn` on the card gives a warning
+alert, `pui-solid pui-error` a loud error, `pui-outline pui-success` a quiet
+confirmation. The style class repaints the frame's fill, border and text; the
+content area keeps its padding and gap. Leave the header band out, because it
+keeps its own muted background. Add `role="alert"` for a message that
+interrupts and `role="status"` for one that does not. In Figma, build it as the
+card component with the style and color properties, not as a component of its
+own.
+
 **Variants.**
 
 | Variant | How | Comes from |
 | --- | --- | --- |
 | Plain surface | nothing — the card already carries a border and a background | shape |
 | Without the header band | leave out the header element | shape |
-| Recolored | a style class and a color class on the card itself | composition |
+| Alert | a style class and a color class on the card itself, with no header band | composition |
 | As a modal's surface | put the card inside the dialog (4.8) | shape |
 | With a table or list flush inside | put it straight in the card, with no content wrapper | shape |
+
+**Example: Contact info.** A header band names the card; the content area stacks the rows with its 12px gap, so the rows need no margins.
+
+```html
+<div class="pui-card">
+  <div class="pui-card-header">Contact</div>
+  <div class="pui-card-content">
+    <strong>Ana Souza</strong>
+    <span><i class="icon icon-mail"></i> ana@example.com</span>
+    <span><i class="icon icon-phone"></i> +55 11 91234-5678</span>
+    <span><i class="icon icon-map-pin"></i> Av. Paulista, 1000, São Paulo</span>
+    <a class="pui-btn pui-solid pui-theme" href="mailto:ana@example.com">
+      <i class="icon icon-send"></i> Send message
+    </a>
+  </div>
+</div>
+```
+
+**Example: Alerts.** The same card with a style class and a color class, and no header band. The role attribute tells a screen reader whether to interrupt.
+
+```html
+<div class="pui-card pui-soft pui-warn" role="alert">
+  <div class="pui-card-content">
+    <strong><i class="icon icon-triangle-alert"></i> Your trial ends in 3 days</strong>
+    Add a payment method to keep your projects online.
+  </div>
+</div>
+
+<div class="pui-card pui-soft pui-success" role="status">
+  <div class="pui-card-content">
+    <strong><i class="icon icon-circle-check"></i> Changes saved</strong>
+  </div>
+</div>
+
+<div class="pui-card pui-solid pui-error" role="alert">
+  <div class="pui-card-content">
+    <strong><i class="icon icon-circle-x"></i> Payment failed</strong>
+    Your card was declined. Try another one.
+  </div>
+</div>
+```
 
 ### 4.5 List — `pui-list`, `pui-list-item`
 
@@ -348,7 +587,23 @@ token, and hoverable, where the hovered item does.
 | Selected item | `pui-soft` and a color class on that item | composition |
 | Bordered item | `pui-outline pui-surface` on that item | composition |
 | No bullets | `list-style: none` | author CSS |
-| As a dropdown menu | put the list inside the panel (4.9) | shape |
+| As a dropdown menu | required inside every dropdown panel (4.9), which has no row spacing of its own | shape |
+
+**Example: Recent files.** A hoverable list with no bullets. The selected item is soft in the theme role.
+
+```html
+<ul class="pui-list pui-hoverable" style="list-style: none">
+  <li class="pui-list-item pui-soft pui-theme" aria-current="true">
+    <i class="icon icon-file-text"></i> Q3 report.pdf
+  </li>
+  <li class="pui-list-item"><i class="icon icon-image"></i> Team photo.png</li>
+  <li class="pui-list-item"><i class="icon icon-sheet"></i> Budget 2027.xlsx</li>
+  <li class="pui-list-item">
+    <i class="icon icon-folder"></i> Archive
+    <span class="pui-badge pui-soft pui-muted">12</span>
+  </li>
+</ul>
+```
 
 ### 4.6 Table — `pui-table`
 
@@ -381,6 +636,36 @@ inside a card.
 | No rules at all | `border: none` on the cells | author CSS |
 | Compact rows | a smaller block padding on the cells | author CSS |
 | Scrolls sideways on a narrow screen | `overflow-x: auto` on the parent | author CSS |
+
+**Example: Invoices.** A striped table flush inside a card, with a status badge per row, an icon button per row and a footer for the total.
+
+```html
+<div class="pui-card">
+  <div class="pui-card-header">Invoices</div>
+  <table class="pui-table pui-striped">
+    <thead>
+      <tr><th>Invoice</th><th>Date</th><th>Status</th><th>Amount</th><th></th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>#1042</td><td>Sep 1, 2026</td>
+        <td><span class="pui-badge pui-soft pui-success">Paid</span></td>
+        <td>$120.00</td>
+        <td><button class="pui-btn pui-link pui-theme" aria-label="Download #1042"><i class="icon icon-download"></i></button></td>
+      </tr>
+      <tr>
+        <td>#1043</td><td>Sep 15, 2026</td>
+        <td><span class="pui-badge pui-soft pui-warn">Pending</span></td>
+        <td>$80.00</td>
+        <td><button class="pui-btn pui-link pui-theme" aria-label="Download #1043"><i class="icon icon-download"></i></button></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr><th colspan="3">Total</th><th>$200.00</th><th></th></tr>
+    </tfoot>
+  </table>
+</div>
+```
 
 ### 4.7 Accordion — `pui-accordion`, `pui-accordion-item`
 
@@ -435,6 +720,25 @@ color. It rotates 180° when the item opens, around its own center.
 | Your own icon | an element with `pui-accordion-icon` inside the summary; the drawn chevron steps aside and the rotation stays | class |
 | Nested | another accordion inside a panel | shape |
 
+**Example: Frequently asked questions.** The same name on every item keeps one open at a time, and the marked variant shades the open one. The icons sit in the summary before the label.
+
+```html
+<div class="pui-accordion pui-highlighted">
+  <details class="pui-accordion-item" name="faq" open>
+    <summary><i class="icon icon-credit-card"></i> How am I billed?</summary>
+    <p>Monthly, on the day you subscribed. Cancel any time.</p>
+  </details>
+  <details class="pui-accordion-item" name="faq">
+    <summary><i class="icon icon-users"></i> Can I invite my team?</summary>
+    <p>Yes. Every plan includes up to five members.</p>
+  </details>
+  <details class="pui-accordion-item" name="faq">
+    <summary><i class="icon icon-shield"></i> Where is my data stored?</summary>
+    <p>In data centers in the region you pick when you sign up.</p>
+  </details>
+</div>
+```
+
 ### 4.8 Modal — `pui-modal`
 
 **Anatomy:** dimmed backdrop → centered dialog → a card inside it.
@@ -449,9 +753,6 @@ color. It rotates 180° when the item opens, around its own center.
 
 **Variants.**
 
-
-**Variants.**
-
 | Variant | How | Comes from |
 | --- | --- | --- |
 | Light dismiss | `closedby="any"` — click the backdrop or press Escape | HTML |
@@ -460,22 +761,61 @@ color. It rotates 180° when the item opens, around its own center.
 | Long content | the dialog scrolls at the viewport height; the card inside does not | shape |
 | Moving between two modals | close the current one on the same click that opens the next | author CSS |
 
+**Example: Request permission.** A card inside the dialog. The buttons open and close it with no script of yours. The row of actions is the author's own layout, because the content area stacks its children.
+
+```html
+<button class="pui-btn pui-solid pui-theme" commandfor="notify" command="show-modal">
+  <i class="icon icon-bell"></i> Turn on notifications
+</button>
+
+<dialog class="pui-modal" id="notify" closedby="any" aria-labelledby="notify-title">
+  <div class="pui-card">
+    <div class="pui-card-header" id="notify-title">
+      <i class="icon icon-bell-ring"></i> Allow notifications?
+    </div>
+    <div class="pui-card-content">
+      We will let you know when someone mentions you or a build fails.
+      You can change this later in Settings.
+      <div style="display: flex; gap: 8px; justify-content: flex-end">
+        <button class="pui-btn pui-outline pui-surface" commandfor="notify" command="close">
+          Not now
+        </button>
+        <button class="pui-btn pui-solid pui-theme" commandfor="notify" command="close">
+          <i class="icon icon-check"></i> Allow
+        </button>
+      </div>
+    </div>
+  </div>
+</dialog>
+```
+
 ### 4.9 Dropdown — `pui-dropdown`
 
 A panel anchored to the control that opens it.
 
-| Property | Value |
-| --- | --- |
-| Padding | 4px |
-| Font size | 14px |
-| Line height | normal |
-| Corner radius | 6px |
-| Border width | 1px |
-| Height at one line of text | 27px |
-| Background | Page background token |
-| Border | 1px solid, border token |
-| Minimum width | The width of its trigger |
-| Distance from the trigger | 4px |
+**Anatomy:** panel → list (4.5) → list items. The list is **required**. The
+panel only has a thin inset; it has no row spacing of its own. The rows get
+their padding and their hover from the list items, because the dropdown reuses
+the list instead of repeating it. Text put straight in the panel sits
+4px from the border and nothing separates one line
+from the next.
+
+| Part | Property | Value |
+| --- | --- | --- |
+| Panel | Padding | 4px |
+| Panel | Corner radius | 6px |
+| Panel | Border | 1px solid, border token |
+| Panel | Background | Page background token |
+| Panel | Minimum width | The width of its trigger |
+| Panel | Distance from the trigger | 4px |
+| List | Padding and margin | 0 |
+| Item | Padding | 8px 16px |
+| Item | Corner radius | 6px |
+| Item | Line height | normal |
+| Panel | Height with one item | 45px |
+
+Use `pui-hoverable` on the list so the item under the pointer takes the muted
+background token, and `list-style: none` so the items show no bullets.
 
 Placement: below the trigger and aligned to its starting edge by default; above,
 before or after it on request; aligned centered or to the end on request. It
@@ -488,8 +828,27 @@ flips to the opposite side when the preferred one does not fit.
 | Below, aligned to the start | the default | shape |
 | Above, before, after | `pui-top`, `pui-start`, `pui-end` | class |
 | Centered or end-aligned on the other axis | `pui-align-center`, `pui-align-end` | class |
-| A menu | a list inside the panel (4.5) | shape |
+| A menu | always a list inside the panel (4.5); without it the rows have no spacing | shape |
+| Menu with a hover row | add `pui-hoverable` to the list inside the panel | class |
+| Selected option | `pui-soft` and a color class on that list item | composition |
 | Closes on a click inside | a button with `popovertarget` and `popovertargetaction="hide"` | HTML |
+
+**Example: Account menu.** The list inside the panel is required: it gives the rows their padding and their hover. The panel opens under the end of the trigger, as a menu in a page header does.
+
+```html
+<button class="pui-btn pui-outline pui-surface" popovertarget="account">
+  <i class="icon icon-circle-user"></i> Ana <i class="icon icon-chevron-down"></i>
+</button>
+
+<div class="pui-dropdown pui-align-end" id="account" popover>
+  <ul class="pui-list pui-hoverable" style="list-style: none">
+    <li class="pui-list-item"><i class="icon icon-user"></i> Profile</li>
+    <li class="pui-list-item"><i class="icon icon-settings"></i> Settings</li>
+    <li class="pui-list-item"><i class="icon icon-life-buoy"></i> Help</li>
+    <li class="pui-list-item"><i class="icon icon-log-out"></i> Sign out</li>
+  </ul>
+</div>
+```
 
 ### 4.10 Tooltip — `pui-tooltip`
 
@@ -519,6 +878,22 @@ after it on request. Same flipping rule as the dropdown.
 | Any other style and color pair | a style class and a color class | composition |
 | On any element | `interestfor` pointing at it | HTML |
 
+**Example: Icon buttons.** A button with only an icon names itself in a tooltip. The dark variant is the solid inverse pair.
+
+```html
+<button class="pui-btn pui-outline pui-surface" interestfor="copy-tip" aria-label="Copy link">
+  <i class="icon icon-link"></i>
+</button>
+<div class="pui-tooltip" id="copy-tip" popover="hint">Copy link</div>
+
+<button class="pui-btn pui-outline pui-surface" interestfor="share-tip" aria-label="Share">
+  <i class="icon icon-share-2"></i>
+</button>
+<div class="pui-tooltip pui-bottom pui-solid pui-inverse" id="share-tip" popover="hint">
+  Share with your team
+</div>
+```
+
 ### 4.11 Field group — `pui-field-group`
 
 **Anatomy:** label → control → message, stacked.
@@ -532,15 +907,28 @@ after it on request. Same flipping rule as the dropdown.
 
 **Variants.**
 
-
-**Variants.**
-
 | Variant | How | Comes from |
 | --- | --- | --- |
 | With a message | a `<small>` after the control | shape |
 | Without a label or message | leave the element out; the group only spaces what is there | shape |
 | Invalid | `aria-invalid="true"` on the control: its border, and the message, turn to the error token | HTML |
 | Around any control | an input, a textarea, a select, a checkbox or an input group | shape |
+
+**Example: Sign-up fields.** A label, the control and a message, stacked with a 4px gap. The second field is invalid, so its border and its message take the error color.
+
+```html
+<label class="pui-field-group">
+  <span>Email</span>
+  <input class="pui-input" type="email" placeholder="you@example.com" aria-describedby="email-help">
+  <small id="email-help">We never share your email.</small>
+</label>
+
+<label class="pui-field-group">
+  <span>Password</span>
+  <input class="pui-input" type="password" aria-invalid="true" aria-describedby="password-help">
+  <small id="password-help"><i class="icon icon-circle-alert"></i> At least 8 characters.</small>
+</label>
+```
 
 ### 4.12 Input — `pui-input`
 
@@ -575,6 +963,18 @@ rounded to whole ones.
 | Disabled | the `disabled` attribute: 50% opacity | HTML |
 | Full width | `width: 100%`; the control does not stretch on its own | author CSS |
 
+**Example: Contact form.** The same class on a text field, a select and a textarea. Each control is set to full width by the author.
+
+```html
+<input class="pui-input" type="text" placeholder="Your name" style="width: 100%">
+<select class="pui-input" style="width: 100%">
+  <option>Sales</option>
+  <option>Support</option>
+  <option>Billing</option>
+</select>
+<textarea class="pui-input" rows="4" placeholder="How can we help?" style="width: 100%"></textarea>
+```
+
 ### 4.13 Input group — `pui-input-group`, `pui-addon`
 
 A control and one or more addons fused into a single field.
@@ -591,15 +991,28 @@ A control and one or more addons fused into a single field.
 
 **Variants.**
 
-
-**Variants.**
-
 | Variant | How | Comes from |
 | --- | --- | --- |
 | Addon before, after, or both | put the addon on either side of the control, or one on each | shape |
 | With a button instead of an addon | a button as the last child; it keeps its own colors and its own focus ring | shape |
 | Invalid | `aria-invalid="true"` on the control inside | HTML |
 | Inside a field group | the group takes a label and a message like any control | shape |
+
+**Example: Search and website.** An icon in an addon before the control and a button after it. A text addon fixes the part of a value the user does not type.
+
+```html
+<div class="pui-input-group">
+  <span class="pui-addon"><i class="icon icon-search"></i></span>
+  <input class="pui-input" type="search" placeholder="Search projects">
+  <button class="pui-btn pui-solid pui-theme">Search</button>
+</div>
+
+<div class="pui-input-group">
+  <span class="pui-addon">https://</span>
+  <input class="pui-input" value="perfectui.dev">
+  <span class="pui-addon"><i class="icon icon-globe"></i></span>
+</div>
+```
 
 ### 4.14 Checkbox, radio and switch — `pui-checkbox`, `pui-radio`, `pui-switch`
 
@@ -623,6 +1036,18 @@ the element's color, defaulting to the theme color.
 | Disabled | the `disabled` attribute: 50% opacity | HTML |
 | Colored | **a color class on its own is enough here** — a checked control reads the color variable directly, so `pui-success` turns it green with no style class. This is the one place where that works | composition |
 | With a label and a message | wrap it in a field group (4.11) | shape |
+
+**Example: Notification preferences.** Switches for settings that apply at once, radios for one choice among several and a checkbox for consent. The success color on the switch needs no style class.
+
+```html
+<label><input type="checkbox" class="pui-switch" checked> <i class="icon icon-mail"></i> Email</label>
+<label><input type="checkbox" class="pui-switch pui-success" checked> <i class="icon icon-smartphone"></i> Push</label>
+
+<label><input type="radio" class="pui-radio" name="digest" checked> Daily digest</label>
+<label><input type="radio" class="pui-radio" name="digest"> Weekly digest</label>
+
+<label><input type="checkbox" class="pui-checkbox"> I agree to the terms of service</label>
+```
 
 ### 4.15 Timeline — `pui-timeline`, `pui-checkpoint`, `pui-checkpoint-icon`
 
@@ -656,6 +1081,25 @@ sits above its content and the rule runs across instead of down.
 | Colored checkpoint | a style class and a color class on the icon, as on a badge | composition |
 | An icon instead of text | anything inside the icon element; it centers its content | shape |
 
+**Example: Order tracking.** Each checkpoint icon is colored like a badge and holds an icon of its own. Steps not reached yet are an outline in the muted role.
+
+```html
+<figure class="pui-timeline">
+  <figcaption class="pui-checkpoint">
+    <i class="pui-checkpoint-icon pui-solid pui-success"><i class="icon icon-check"></i></i>
+    <article><strong>Order placed</strong><p>Sep 20, 10:14</p></article>
+  </figcaption>
+  <figcaption class="pui-checkpoint">
+    <i class="pui-checkpoint-icon pui-solid pui-theme"><i class="icon icon-truck"></i></i>
+    <article><strong>Shipped</strong><p>Sep 22, 08:30</p></article>
+  </figcaption>
+  <figcaption class="pui-checkpoint">
+    <i class="pui-checkpoint-icon pui-outline pui-muted"><i class="icon icon-house"></i></i>
+    <article><strong>Delivered</strong><p>Expected Sep 25</p></article>
+  </figcaption>
+</figure>
+```
+
 ### 4.16 Group — `pui-group-row`, `pui-group-col`, `pui-group-responsive`
 
 Joins neighbouring elements into one control.
@@ -669,9 +1113,6 @@ Joins neighbouring elements into one control.
 
 **Variants.**
 
-
-**Variants.**
-
 | Variant | How | Comes from |
 | --- | --- | --- |
 | Row | `pui-group-row` | class |
@@ -679,6 +1120,21 @@ Joins neighbouring elements into one control.
 | Row above 1024px, column below | `pui-group-responsive` | class |
 | One child detached again | `pui-rounded` on that child puts its radius back | class |
 | Any components mixed | buttons, inputs, addons and selects share the same joining rules | shape |
+
+**Example: Toolbar and newsletter.** Icon buttons joined into one control, and an input fused with its button.
+
+```html
+<div class="pui-group-row" role="toolbar" aria-label="Formatting">
+  <button class="pui-btn pui-outline pui-surface" aria-label="Bold"><i class="icon icon-bold"></i></button>
+  <button class="pui-btn pui-outline pui-surface" aria-label="Italic"><i class="icon icon-italic"></i></button>
+  <button class="pui-btn pui-outline pui-surface" aria-label="Underline"><i class="icon icon-underline"></i></button>
+</div>
+
+<div class="pui-group-row">
+  <input class="pui-input" type="email" placeholder="you@example.com" aria-label="Email">
+  <button class="pui-btn pui-solid pui-theme"><i class="icon icon-send"></i> Subscribe</button>
+</div>
+```
 
 ### 4.17 Float — `pui-float`
 
@@ -692,6 +1148,14 @@ edge of the viewport.
 | Bottom start | the default | shape |
 | Any other corner | one `inset-block` or `inset-inline` declaration | author CSS |
 | Around any element | a button, a card, a group — the class only positions | shape |
+
+**Example: Compose button.** A pill button pinned to the corner of the viewport.
+
+```html
+<button class="pui-btn pui-solid pui-theme pui-rounded-full pui-float">
+  <i class="icon icon-pencil"></i> New message
+</button>
+```
 
 ## 5. Interaction states
 
@@ -832,7 +1296,8 @@ One component per shape in section 4, with two variant properties:
 Every variant reads the five slots through the table in 6.2, so 28 variants are
 28 references, not 28 hand-picked colors. One component needs a third property:
 an accordion item takes `position` — only, first, middle, last — because its
-corners depend on where it sits in the block (4.7). Hover, focus and disabled are a third
+corners depend on where it sits in the block (4.7). An alert is not a component:
+it is the card with its style and color properties set (4.4). Hover, focus and disabled are a third
 property or interactive states, never separate components. Every shape is an
 auto-layout frame using the padding and gap from section 4; only the overlays
 are positioned against their trigger.

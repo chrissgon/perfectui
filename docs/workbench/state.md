@@ -11,13 +11,13 @@
 
 ## Artifacts
 
-| Artifact | Owner skill | Status | Updated |
-|----------|-------------|--------|---------|
-| docs/engineering/architecture.md (at ARCHITECTURE.md) | existing | approved | 2026-09-23 |
-| docs/design/design-system.md (at DESIGN-SYSTEM.md) | existing | approved | 2026-09-23 |
-| docs/engineering/plans/handoff.md (at HANDOFF.md) | existing | approved | 2026-09-23 |
-| docs/engineering/plans/migration.md (at MIGRATION.md) | existing | approved | 2026-09-23 |
-| docs/workbench/research/css-library-alternatives.md | core-research | approved | 2026-09-23 |
+| Artifact                                                         | Owner skill   | Status   | Updated    |
+| ---------------------------------------------------------------- | ------------- | -------- | ---------- |
+| docs/engineering/architecture.md (at ARCHITECTURE.md)            | existing      | approved | 2026-09-23 |
+| docs/design/design-system.md (at design-system/DESIGN-SYSTEM.md) | existing      | approved | 2026-09-24 |
+| docs/engineering/plans/handoff.md (at HANDOFF.md)                | existing      | approved | 2026-09-23 |
+| docs/engineering/plans/migration.md (at MIGRATION.md)            | existing      | approved | 2026-09-23 |
+| docs/workbench/research/css-library-alternatives.md              | core-research | approved | 2026-09-23 |
 
 ## Decisions
 
@@ -29,4 +29,4 @@
 ## Approvals
 
 | Scope | What | Approved | Expires | Status |
-|-------|------|----------|---------|--------|
+| ----- | ---- | -------- | ------- | ------ |

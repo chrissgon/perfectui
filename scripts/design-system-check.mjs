@@ -1,5 +1,5 @@
 /**
- * Checks the claims DESIGN-SYSTEM.md makes that are not measured values.
+ * Checks the claims design-system/DESIGN-SYSTEM.md makes that are not measured values.
  *
  * The document is generated from measurements, so its tables are as right as
  * the harness. Its prose is not: every sentence that names a number — the
@@ -16,7 +16,7 @@ import { readFileSync } from "node:fs";
 const { palette, combos } = JSON.parse(
   readFileSync("/tmp/design-data.json", "utf8")
 );
-const doc = readFileSync("DESIGN-SYSTEM.md", "utf8");
+const doc = readFileSync("design-system/DESIGN-SYSTEM.md", "utf8");
 
 /** The number the document prints, so the check is against its own words. */
 const printed = (pattern) => doc.match(pattern)?.[1];
@@ -340,6 +340,47 @@ if (unnamed.length === 0) {
     `${unnamed.length} shipped class(es) are missing from the document: ${unnamed.join(", ")}`
   );
 }
+
+/* --- every component shows where it is used ------------------------------ */
+
+console.log("\nexamples");
+const sections = doc.split(/\n(?=### 4\.\d+ )/).slice(1);
+const bare = sections
+  .filter((section) => !section.includes("**Example: "))
+  .map((section) => section.match(/^### (4\.\d+)/)[1]);
+check("every component section has an example", bare.join(", "), "");
+
+// The panel has no row spacing of its own, so a dropdown example without a
+// list inside it teaches the one layout that looks broken.
+const panels =
+  doc.match(/<div class="pui-dropdown[^"]*"[^>]*>\s*<[^>]+>/g) ?? [];
+check(
+  "every dropdown example opens straight into a list",
+  panels.length > 0 &&
+    panels.every((panel) => /<(ul|ol) class="pui-list/.test(panel)),
+  true
+);
+
+// An icon the examples use with no row in 1.6 leaves the reader without the
+// file to fetch, in either set.
+const listed = [...doc.matchAll(/^\| `icon-([a-z0-9-]+)` \|/gm)].map(
+  (row) => row[1]
+);
+const drawn = [
+  ...new Set(
+    [...doc.matchAll(/class="icon icon-([a-z0-9-]+)"/g)].map((use) => use[1])
+  )
+];
+check(
+  "every icon in the examples has a file in 1.6",
+  drawn.filter((name) => !listed.includes(name)).join(", "),
+  ""
+);
+check(
+  "and 1.6 lists no icon the examples do not use",
+  listed.filter((name) => !drawn.includes(name)).join(", "),
+  ""
+);
 
 /* --- section 7: the contrast claims ------------------------------------- */
 

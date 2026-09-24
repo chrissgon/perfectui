@@ -1,5 +1,5 @@
 /**
- * Generates DESIGN-SYSTEM.md by measuring the real components in a browser.
+ * Generates design-system/DESIGN-SYSTEM.md by measuring the real components in a browser.
  *
  * The document is written for a tool that cannot run CSS: every value is
  * resolved to pixels and hex, for both color modes. Measuring rather than
@@ -76,7 +76,7 @@ await page.setContent(`<!doctype html><html><head>
   <input type="checkbox" class="pui-checkbox" id="m-indeterminate">
   <input type="radio" class="pui-radio" id="m-radio" checked>
   <input type="checkbox" class="pui-switch" id="m-switch" checked>
-  <div class="pui-dropdown" id="m-dropdown" style="position:static">d</div>
+  <div class="pui-dropdown" id="m-dropdown" style="position:static"><ul class="pui-list" id="m-dd-list"><li class="pui-list-item" id="m-dd-item">d</li></ul></div>
   <div class="pui-tooltip" id="m-tooltip" style="position:static">t</div>
   <div class="pui-group-row" id="m-group"><button class="pui-btn pui-outline pui-surface">a</button><button class="pui-btn pui-outline pui-surface" id="m-group-second">b</button></div>
   <button class="pui-btn pui-solid pui-theme pui-rounded-full" id="m-pill">p</button>
@@ -214,6 +214,8 @@ for (const id of [
   "m-radio",
   "m-switch",
   "m-dropdown",
+  "m-dd-list",
+  "m-dd-item",
   "m-tooltip",
   "m-group-second",
   "m-pill"
