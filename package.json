@@ -3,6 +3,7 @@
   "version": "1.0.0-beta.1",
   "displayName": "Perfect UI",
   "description": "An exceptionally lightweight and highly customizable CSS and JavaScript library for crafting elegant user interfaces.",
+  "homepage": "https://perfectui.dev",
   "private": false,
   "license": "MIT",
   "type": "module",
