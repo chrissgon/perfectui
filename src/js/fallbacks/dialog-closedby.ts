@@ -5,8 +5,6 @@
  * is the browser default and needs nothing.
  */
 
-let installed = false;
-
 function closedBy(dialog: HTMLDialogElement): string {
   return (dialog.getAttribute("closedby") ?? "").toLowerCase();
 }
@@ -40,8 +38,7 @@ function onCancel(event: Event): void {
   }
 }
 
-if (typeof document !== "undefined" && !installed) {
-  installed = true;
+if (typeof document !== "undefined") {
   document.addEventListener("click", onClick);
   document.addEventListener("cancel", onCancel, true);
 }

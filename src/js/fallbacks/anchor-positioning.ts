@@ -29,7 +29,6 @@ const OPPOSITE: Record<Side, Side> = {
   end: "start"
 };
 
-let installed = false;
 let open: HTMLElement | null = null;
 
 function anchorOf(popover: HTMLElement): HTMLElement | null {
@@ -135,8 +134,7 @@ function reposition(): void {
 }
 
 /** `toggle` does not bubble, so it is caught on the way down. */
-if (typeof document !== "undefined" && !installed) {
-  installed = true;
+if (typeof document !== "undefined") {
   document.addEventListener("toggle", onToggle, true);
   window.addEventListener("resize", reposition);
   window.addEventListener("scroll", reposition, true);

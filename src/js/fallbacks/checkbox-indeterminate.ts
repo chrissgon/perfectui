@@ -14,8 +14,6 @@
 
 const SELECTOR = "input[type=checkbox][indeterminate]";
 
-let installed = false;
-
 function apply(): void {
   for (const input of document.querySelectorAll<HTMLInputElement>(SELECTOR)) {
     if (!input.indeterminate) input.indeterminate = true;
@@ -41,8 +39,7 @@ function onChange(event: Event): void {
   }
 }
 
-if (typeof document !== "undefined" && !installed) {
-  installed = true;
+if (typeof document !== "undefined") {
   document.addEventListener("change", onChange, true);
   document.addEventListener("animationstart", onAnimationStart, true);
   document.addEventListener("pointerdown", apply, true);

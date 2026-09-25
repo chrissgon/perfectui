@@ -22,8 +22,6 @@ const COMMANDS: Record<string, Command> = {
   "toggle-popover": (target) => target.togglePopover?.()
 };
 
-let installed = false;
-
 function onClick(event: MouseEvent): void {
   if (!(event.target instanceof Element)) return;
 
@@ -42,8 +40,7 @@ function onClick(event: MouseEvent): void {
   if (target) COMMANDS[command]?.(target);
 }
 
-if (typeof document !== "undefined" && !installed) {
-  installed = true;
+if (typeof document !== "undefined") {
   document.addEventListener("click", onClick);
 }
 

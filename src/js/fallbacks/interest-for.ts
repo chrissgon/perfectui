@@ -19,7 +19,6 @@ const LONG_PRESS = 500;
 let timer: ReturnType<typeof setTimeout> | undefined;
 let open: HTMLElement | null = null;
 let openTrigger: HTMLElement | null = null;
-let installed = false;
 
 /** The trigger has to travel with the target: see show(). */
 function triggerOf(node: EventTarget | null): HTMLElement | null {
@@ -115,8 +114,7 @@ function onKeyDown(event: KeyboardEvent): void {
   if (event.key === "Escape") hide();
 }
 
-if (typeof document !== "undefined" && !installed) {
-  installed = true;
+if (typeof document !== "undefined") {
   document.addEventListener("pointerover", onPointerOver);
   document.addEventListener("pointerout", onPointerOut);
   document.addEventListener("pointerdown", onPointerDown);
