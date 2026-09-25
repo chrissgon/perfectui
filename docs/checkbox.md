@@ -41,6 +41,8 @@ The third state — neither checked nor unchecked — is normally a JavaScript p
 >
 > This is the one case that always needs the script, because no browser has this attribute natively. The attribute is removed as soon as the user clicks the checkbox.
 
+It works on checkboxes rendered at any time, by a framework or a client-side route, with nothing to call. One exception: if your page turns animations off everywhere (`* { animation: none !important }`) or animates this checkbox itself, a checkbox rendered after the page loaded shows the mixed state from the reader's first click or focus on the page instead.
+
 The property keeps working as usual:
 
 ```js

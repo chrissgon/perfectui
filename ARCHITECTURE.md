@@ -452,7 +452,7 @@ instead.
 ### 8.4 Checkbox `indeterminate`
 
 - Markup: `<input type="checkbox" class="pui-checkbox" indeterminate>`.
-- Fallback: set `el.indeterminate = true` for matching elements, and remove the attribute on user change (delegated `change` listener). Because this needs to see elements, apply on `pointerdown`/`focusin` delegation or on initial load + on `change`; do **not** use `MutationObserver`.
+- Fallback: set `el.indeterminate = true` for matching elements, and remove the attribute on user change (delegated `change` listener). It sees elements at initial load, and later ones through events delegated on `document`: `.pui-checkbox[indeterminate]` runs a zero-length animation whose `animationstart` bubbles to the listener, and `pointerdown`/`focusin` cover pages that disable animations. Do **not** use `MutationObserver` (ADR-0001, `docs/engineering/adr/`).
 
 ---
 
@@ -565,7 +565,7 @@ import { setMode } from "@chrissgon/perfectui/mode";
 - SSR safety test: import every JS entry in Node; must not throw.
 - Visual check of every component × style × color in light and dark mode: `tests/manual/preview.html` and `tests/manual/table.html`, opened straight from the file system.
 
-**What the suites cover.** Mode switching and persistence against the system preference; the style + color contract and the fact that unlayered author CSS beats every layer; `aria-invalid` reaching both the control and its message; group border overlap; the table's last-row and `tfoot` rules; and, for the JS: which fallbacks are downloaded per engine, `commandfor` open and close, `closedby="any"` light dismiss, dropdown and tooltip placement, the `indeterminate` attribute, and a component inserted after load working with no re-initialisation.
+**What the suites cover.** Mode switching and persistence against the system preference; the style + color contract and the fact that unlayered author CSS beats every layer; `aria-invalid` reaching both the control and its message; group border overlap; the table's last-row and `tfoot` rules; and, for the JS: which fallbacks are downloaded per engine, `commandfor` open and close, `closedby="any"` light dismiss, dropdown and tooltip placement, the `indeterminate` attribute, including a checkbox inserted after load, hidden then shown, replaced by a re-render, and on a page that disables animations, and a component inserted after load working with no re-initialisation.
 
 ---
 
