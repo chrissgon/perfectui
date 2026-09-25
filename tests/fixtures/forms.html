@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Playwright fixture for the checkable controls (tests/forms.spec.ts). -->
+    <meta charset="utf-8" />
+    <title>forms fixture</title>
+    <link rel="stylesheet" href="../../dist/perfectui.css" />
+  </head>
+  <body style="margin: 0; padding: 20px">
+    <!-- A group before the first choice: nothing checked. -->
+    <p>
+      <input
+        type="radio"
+        class="pui-radio"
+        name="none"
+        id="radio-none-a"
+      /><input type="radio" class="pui-radio" name="none" id="radio-none-b" />
+    </p>
+    <!-- A radio with no name is a group of one. -->
+    <p><input type="radio" class="pui-radio" id="radio-lone" /></p>
+    <p>
+      <input
+        type="radio"
+        class="pui-radio"
+        name="one"
+        id="radio-checked"
+        checked
+      /><input type="radio" class="pui-radio" name="one" id="radio-unchecked" />
+    </p>
+    <p>
+      <input
+        type="radio"
+        class="pui-radio pui-success"
+        name="green"
+        id="radio-success"
+        checked
+      />
+    </p>
+    <p>
+      <input
+        type="checkbox"
+        class="pui-checkbox"
+        id="checkbox-unchecked"
+      /><input
+        type="checkbox"
+        class="pui-checkbox"
+        id="checkbox-checked"
+        checked
+      /><input type="checkbox" class="pui-checkbox" id="checkbox-mixed" />
+    </p>
+    <p>
+      <input type="checkbox" class="pui-switch" id="switch-unchecked" /><input
+        type="checkbox"
+        class="pui-switch"
+        id="switch-checked"
+        checked
+      /><input type="checkbox" class="pui-switch" id="switch-mixed" />
+    </p>
+    <script>
+      // The mixed state exists only as a property.
+      document.getElementById("checkbox-mixed").indeterminate = true;
+      document.getElementById("switch-mixed").indeterminate = true;
+    </script>
+  </body>
+</html>

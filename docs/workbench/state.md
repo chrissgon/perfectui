@@ -24,6 +24,10 @@
 - 2026-09-23: Project initialized for the workbench; autonomy every-phase. (core-project-init, confirmed by user)
 - 2026-09-23: Research brief on alternatives approved as written; global scope and English-language sources accepted for positioning work. (user)
 
+- 2026-09-25: perfectui is the real project for the workbench's pending engineering skills: eng-root-cause (radio `:indeterminate` fill; checkbox `indeterminate` on later markup), eng-unit-tests (radio), eng-impact-analysis, eng-tradeoffs and eng-integration-tests (later markup), eng-docs (modal margin under Tailwind 4; table borderless), eng-refactor (target proposed first); code changes on branch `v1`, committed locally, pushed by the user; evaluations run with real models (user)
+
+- 2026-09-25: A switch with `indeterminate` set shows no fill (a switch has no mixed state); the checkbox `indeterminate` on markup inserted after load uses `animationstart` on a zero-length animation, keeping today's listeners (ADR-0001, option D, accepted); the dead `installed` guard is removed from the five fallbacks (user: "siga com todas as suas recomendações")
+
 ## Open questions
 
 ## Approvals
