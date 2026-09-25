@@ -9,7 +9,7 @@ description: >
   library's components; everything the library has is listed here.
 license: MIT
 metadata:
-  version: "1.0.0-beta.0"
+  version: "1.0.0-beta.1"
 ---
 
 # Build with perfectui
@@ -23,10 +23,10 @@ Pin the version. The npm tag `latest` still points at 0.23, which has different 
 ```html
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/@chrissgon/perfectui@1.0.0-beta.0/dist/perfectui.css"
+  href="https://cdn.jsdelivr.net/npm/@chrissgon/perfectui@1.0.0-beta.1/dist/perfectui.css"
 />
 <script type="module">
-  import "https://cdn.jsdelivr.net/npm/@chrissgon/perfectui@1.0.0-beta.0/dist/js/index.js";
+  import "https://cdn.jsdelivr.net/npm/@chrissgon/perfectui@1.0.0-beta.1/dist/js/index.js";
 </script>
 ```
 
@@ -247,7 +247,7 @@ Output: `:root { --pui-theme: #059669 }`; a `pui-switch` whose change handler ca
 
 ## Checklist before finishing
 
-- The stylesheet is pinned to `@chrissgon/perfectui@1.0.0-beta.0`; the module script is imported only if overlays or indeterminate checkboxes are used.
+- The stylesheet is pinned to `@chrissgon/perfectui@1.0.0-beta.1`; the module script is imported only if overlays or indeterminate checkboxes are used.
 - Every component uses one shape class, one style class and one colour class from the tables, and nothing else from the `pui-` namespace.
 - Overlays are driven by `commandfor`/`command`, `popovertarget`, `interestfor` and `<details>`; no click handlers open them.
 - Colours come from the `--pui-*` tokens; the brand colour is changed only through `--pui-theme`.

@@ -1,6 +1,6 @@
 # perfectui
 
-Perfect UI is "An exceptionally lightweight and highly customizable CSS and JavaScript library for crafting elegant user interfaces" (`README.md`). It ships the bare minimum: no runtime dependencies, no CSS reset, no font import, and no rule that is not attached to a `pui-` class; behaviour comes from the browser and JavaScript only fills in what a browser is missing. Published on npm as `@chrissgon/perfectui`, MIT. The library is migrating from `0.23.0` (SCSS) to `1.0.0` (native CSS and native HTML APIs); the package is at `1.0.0-beta.0`.
+Perfect UI is "An exceptionally lightweight and highly customizable CSS and JavaScript library for crafting elegant user interfaces" (`README.md`). It ships the bare minimum: no runtime dependencies, no CSS reset, no font import, and no rule that is not attached to a `pui-` class; behaviour comes from the browser and JavaScript only fills in what a browser is missing. Published on npm as `@chrissgon/perfectui`, MIT. The library is migrating from `0.23.0` (SCSS) to `1.0.0` (native CSS and native HTML APIs); the package is at `1.0.0-beta.1`.
 
 ## Architecture
 
