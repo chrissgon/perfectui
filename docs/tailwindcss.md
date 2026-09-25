@@ -64,7 +64,7 @@ export default {
 };
 ```
 
-If the rest of your page needs Preflight, keep it and add the fill back only where you use Perfect UI buttons with your own unlayered rule; there is no layer order to declare in v3.
+If the rest of your page needs Preflight, keep it and restore, with your own unlayered rules, what it removes from the components you use: the fill of Perfect UI buttons, and `margin: auto` on `.pui-modal`, which centres the dialog. There is no layer order to declare in v3.
 
 ### Dark mode
 
@@ -87,4 +87,4 @@ See [Dark Mode](darkmode.md) for how the attribute is set and persisted.
 
 ### Preflight
 
-Preflight is Tailwind's reset. Perfect UI ships no reset and styles no bare elements, but Preflight styles bare elements that Perfect UI components use, such as `<button>`, so it can remove a component's fill or radius when it wins the cascade. With Tailwind v4 the layer declaration above keeps it below the library; with Tailwind v3 turn it off. Measured with Tailwind 4.3.3 and 3.4.17 against Perfect UI 1.0.0-beta.1.
+Preflight is Tailwind's reset. Perfect UI ships no reset and styles no bare elements, but Preflight styles bare elements that Perfect UI components use, such as `<button>`, so it can remove a component's fill or radius when it wins the cascade. Preflight also zeroes browser defaults, such as the `margin: auto` that centres a modal `<dialog>`, so Perfect UI declares every property its components rely on, including those: in a lower layer, a reset cannot undo them. With Tailwind v4 the layer declaration above keeps it below the library; with Tailwind v3 turn it off. Measured with Tailwind 4.3.3 and 3.4.17 against Perfect UI 1.0.0-beta.1; the modal's margin against branch `v1` after it.

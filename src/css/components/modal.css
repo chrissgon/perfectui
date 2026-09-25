@@ -7,6 +7,10 @@
 
 @layer pui.components {
   .pui-modal {
+    /* The browser centres a modal <dialog> with `margin: auto`, but any author reset beats the
+       browser, even one in a layer below this one (Tailwind v4's Preflight sets `margin: 0` in
+       `base`). Declared here, it wins through the layer order the Tailwind guide recommends. */
+    margin: auto;
     max-width: min(32rem, calc(100vw - var(--pui-space) * 8));
     max-height: calc(100dvh - var(--pui-space) * 8);
     /* Without this the content spills past the max height and cannot be
