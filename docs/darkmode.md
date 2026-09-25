@@ -2,7 +2,9 @@
 
 # Dark Mode
 
-Perfect UI follows the operating system by default. There is nothing to configure and nothing to import: colors are declared with `light-dark()`, and the browser resolves them.
+Perfect UI follows the operating system by default. There is nothing to configure and nothing to import.
+
+Colors are declared with `light-dark()`, and the browser resolves them.
 
 ### The switch
 
@@ -57,5 +59,6 @@ For a static site, put this in the `<head>` **before** the stylesheet:
 </script>
 ```
 
-> ⚠️ Attention needed:
+> [!WARNING]
+>
 > Importing Perfect UI's CSS declares `color-scheme: light dark` on the page, which is what makes the system mode work. If your app is not ready for dark mode yet, render `<html data-pui-mode="light">` and it will stay light.

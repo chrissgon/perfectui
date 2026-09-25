@@ -4,14 +4,14 @@
 
 The `pui-btn` class turns a `<button>` or an `<a>` into a button. It brings the shape only: pair it with a style and a color.
 
-```html
+```html live
 <button class="pui-btn pui-solid pui-theme">Save</button>
 <a class="pui-btn pui-solid pui-theme" href="#">A link that looks like one</a>
 ```
 
 ### Styles
 
-```html
+```html live
 <button class="pui-btn pui-solid pui-theme">Solid</button>
 <button class="pui-btn pui-soft pui-theme">Soft</button>
 <button class="pui-btn pui-outline pui-theme">Outline</button>
@@ -20,7 +20,7 @@ The `pui-btn` class turns a `<button>` or an `<a>` into a button. It brings the 
 
 ### Colors
 
-```html
+```html live
 <button class="pui-btn pui-solid pui-theme">Theme</button>
 <button class="pui-btn pui-solid pui-success">Success</button>
 <button class="pui-btn pui-solid pui-error">Error</button>
@@ -30,7 +30,7 @@ The `pui-btn` class turns a `<button>` or an `<a>` into a button. It brings the 
 
 Two colors are defined against the page rather than against a palette:
 
-```html
+```html live
 <!-- aligned with the page background: the usual secondary button -->
 <button class="pui-btn pui-outline pui-surface">Cancel</button>
 <!-- the opposite of the page background -->
@@ -39,14 +39,14 @@ Two colors are defined against the page rather than against a palette:
 
 ### Rounded
 
-```html
+```html live
 <button class="pui-btn pui-solid pui-theme pui-rounded-full">Pill</button>
 ```
 
 `pui-rounded` is the other half of the pair: it puts the default radius back on
 an element that lost it, which is what a group does to the pieces inside it.
 
-```html
+```html live
 <div class="pui-group-row">
   <button class="pui-btn pui-outline pui-surface">Left</button>
   <button class="pui-btn pui-outline pui-surface pui-rounded">Detached</button>
@@ -55,7 +55,7 @@ an element that lost it, which is what a group does to the pieces inside it.
 
 ### Disabled
 
-```html
+```html live
 <button class="pui-btn pui-solid pui-theme" disabled>Disabled</button>
 ```
 
@@ -74,4 +74,4 @@ For an element that is not a `<button>`, use `aria-disabled="true"`, which looks
 
 ### Grouping
 
-See [Layout Group](https://github.com/chrissgon/perfectui/blob/main/docs/layout-group.md).
+See [Layout Group](layout-group.md).

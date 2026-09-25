@@ -4,7 +4,7 @@
 
 One class on the `<table>`. The cells are styled from there, so no class goes on a `<th>` or a `<td>`.
 
-```html
+```html live
 <table class="pui-table">
   <thead>
     <tr>
@@ -50,7 +50,7 @@ The last row of the table never draws a rule, so a table can sit flush inside a 
 
 A `<tfoot>` is rendered as a summary band, so a total reads as part of the table:
 
-```html
+```html live
 <table class="pui-table">
   <tbody>
     <tr>

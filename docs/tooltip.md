@@ -4,7 +4,7 @@
 
 Built on `interestfor` and `popover="hint"`. It appears on hover, on keyboard focus, and on a long press — which is what makes it work on touch screens, unlike the old tooltip.
 
-```html
+```html live name=basic
 <button class="pui-btn pui-outline pui-surface" interestfor="help">?</button>
 
 <div class="pui-tooltip" id="help" popover="hint">
@@ -14,7 +14,8 @@ Built on `interestfor` and `popover="hint"`. It appears on hover, on keyboard fo
 
 `interestfor` names the tooltip, and that is the whole API.
 
-> ⚠️ Attention needed:
+> [!WARNING]
+>
 > This is the component that most needs the script today: `interestfor` is only in Chromium so far, so everywhere else the fallback provides the hover, focus and long press behavior.
 
 ### Placement
@@ -46,14 +47,15 @@ A tooltip is an ordinary colorable element, so it takes any style and color pair
 
 ### On any element
 
-```html
+```html live
 <span interestfor="definition" tabindex="0">CLS</span>
 <div class="pui-tooltip" id="definition" popover="hint">
   Cumulative Layout Shift
 </div>
 ```
 
-> ⚠️ Attention needed:
+> [!WARNING]
+>
 > A tooltip has to be reachable by keyboard. If the trigger is not already focusable, give it `tabindex="0"`.
 
 ### Why `popover="hint"`

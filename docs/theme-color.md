@@ -69,7 +69,7 @@ Only four tokens are not colors, and every component derives its size from them.
 
 The tokens are ordinary custom properties, so they cascade:
 
-```html
+```html live
 <section style="--pui-theme: #059669">
   <button class="pui-btn pui-solid pui-theme">Green in here only</button>
 </section>

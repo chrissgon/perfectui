@@ -4,7 +4,7 @@
 
 Wraps a control with its label and its message. Both are **real elements**, so screen readers announce them, browsers translate them, and users can select the text.
 
-```html
+```html live
 <label class="pui-field-group">
   <span>Email</span>
   <input class="pui-input" type="email" aria-describedby="email-help" />
@@ -24,7 +24,7 @@ No class goes on the children: they are matched by their tag. The `<label>` wrap
 
 The error state is `aria-invalid` on the control. There is no error class:
 
-```html
+```html live
 <label class="pui-field-group">
   <span>Password</span>
   <input
@@ -44,12 +44,13 @@ input.setAttribute("aria-invalid", "true");
 input.removeAttribute("aria-invalid");
 ```
 
-> ⚠️ Attention needed:
+> [!WARNING]
+>
 > `aria-describedby` is what ties the message to the control. Without it the message is visible but never announced.
 
 ### Any control
 
-```html
+```html live
 <label class="pui-field-group">
   <span>Role</span>
   <select class="pui-input">

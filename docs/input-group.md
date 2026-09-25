@@ -4,7 +4,7 @@
 
 Joins a control with an addon into a single field: one border, one radius, one focus ring.
 
-```html
+```html live
 <div class="pui-input-group">
   <span class="pui-addon">https://</span>
   <input class="pui-input" value="perfectui.dev" />
@@ -13,7 +13,7 @@ Joins a control with an addon into a single field: one border, one radius, one f
 
 The addon can sit on either side, or on both:
 
-```html
+```html live
 <div class="pui-input-group">
   <input class="pui-input" placeholder="Amount" />
   <span class="pui-addon">BRL</span>
@@ -30,7 +30,7 @@ The addon can sit on either side, or on both:
 
 Anything dropped into the group gives up its own frame, so a button needs no extra markup:
 
-```html
+```html live
 <div class="pui-input-group">
   <input class="pui-input" placeholder="Search" />
   <button class="pui-btn pui-solid pui-theme">Go</button>
@@ -41,7 +41,7 @@ Anything dropped into the group gives up its own frame, so a button needs no ext
 
 `aria-invalid` on the group colors the whole field:
 
-```html
+```html live
 <div class="pui-input-group" aria-invalid="true">
   <span class="pui-addon">@</span>
   <input class="pui-input" value="not an email" />
@@ -50,7 +50,7 @@ Anything dropped into the group gives up its own frame, so a button needs no ext
 
 ### Inside a field group
 
-```html
+```html live
 <label class="pui-field-group">
   <span>Website</span>
   <div class="pui-input-group">

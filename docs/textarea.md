@@ -4,7 +4,7 @@
 
 The same `pui-input` class, on a `<textarea>`.
 
-```html
+```html live
 <textarea class="pui-input" rows="3" placeholder="Your message"></textarea>
 ```
 
@@ -12,7 +12,7 @@ It resizes vertically only, so a textarea cannot break the layout sideways.
 
 ### With a label
 
-```html
+```html live
 <label class="pui-field-group">
   <span>Notes</span>
   <textarea class="pui-input" rows="4" aria-describedby="notes-help"></textarea>

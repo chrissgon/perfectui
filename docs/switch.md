@@ -4,7 +4,7 @@
 
 A switch is a checkbox that reads as on or off. It is the same native element, with the `pui-switch` class.
 
-```html
+```html live
 <label>
   <input type="checkbox" class="pui-switch" />
   Email notifications
@@ -13,13 +13,13 @@ A switch is a checkbox that reads as on or off. It is the same native element, w
 
 ### On
 
-```html
+```html live
 <input type="checkbox" class="pui-switch" checked />
 ```
 
 ### Colors
 
-```html
+```html live
 <input type="checkbox" class="pui-switch" checked />
 <input type="checkbox" class="pui-switch pui-success" checked />
 <input type="checkbox" class="pui-switch pui-error" checked />
@@ -27,7 +27,7 @@ A switch is a checkbox that reads as on or off. It is the same native element, w
 
 ### Disabled
 
-```html
+```html live
 <input type="checkbox" class="pui-switch" checked disabled />
 ```
 

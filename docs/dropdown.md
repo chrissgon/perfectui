@@ -4,7 +4,7 @@
 
 Built on the popover API. The browser handles the top layer, closing on an outside click, and closing on escape.
 
-```html
+```html live name=basic
 <button class="pui-btn pui-outline pui-surface" popovertarget="menu">
   Menu
 </button>
@@ -89,7 +89,8 @@ The panel is a container, not a menu. A list is the common case, but a form or a
 </div>
 ```
 
-> ⚠️ Attention needed:
+> [!WARNING]
+>
 > Clicking inside a popover does not close it, so the old `.ignore` class is gone.
 
 ### From JavaScript

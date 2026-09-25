@@ -1,8 +1,10 @@
 #### Getting Started
 
-# Learn more about the licensing terms for Perfect UI
+# License
 
-Perfect UI is released under the MIT license and is copyright 2024 Chrissgon. Boiled down to smaller chunks, it can be described with the following conditions.
+Perfect UI is released under the MIT license and is copyright 2024 Chrissgon.
+
+Boiled down to smaller chunks, it can be described with the following conditions.
 
 ### MIT License
 

@@ -2,7 +2,9 @@
 
 # Tailwind CSS
 
-Perfect UI does **not** depend on Tailwind, and Tailwind is not required to use it. They complement each other: Perfect UI gives you components, Tailwind gives you layout, spacing and typography utilities.
+Perfect UI and Tailwind complement each other: Perfect UI gives you components, Tailwind gives you layout, spacing and typography utilities.
+
+Perfect UI does **not** depend on Tailwind, and Tailwind is not required to use it.
 
 ### How the cascade decides
 
@@ -42,7 +44,7 @@ Declare the order yourself, as the first line of the stylesheet, and both proble
 
 `pui` in the list places every `pui.*` layer of the library at once, so its internal order is kept. Then utilities win as expected:
 
-```html
+```html live
 <!-- keeps the solid theme fill from Perfect UI; the corners and width come from Tailwind -->
 <button class="pui-btn pui-solid pui-theme rounded-none w-full">Save</button>
 ```
@@ -81,7 +83,7 @@ export default {
 };
 ```
 
-See [Dark Mode](https://github.com/chrissgon/perfectui/blob/main/docs/darkmode.md) for how the attribute is set and persisted.
+See [Dark Mode](darkmode.md) for how the attribute is set and persisted.
 
 ### Preflight
 

@@ -4,7 +4,7 @@
 
 A native `<input type="checkbox">` with the `pui-checkbox` class.
 
-```html
+```html live
 <label>
   <input type="checkbox" class="pui-checkbox" />
   Accept the terms
@@ -13,7 +13,7 @@ A native `<input type="checkbox">` with the `pui-checkbox` class.
 
 ### Checked
 
-```html
+```html live
 <input type="checkbox" class="pui-checkbox" checked />
 ```
 
@@ -21,7 +21,7 @@ A native `<input type="checkbox">` with the `pui-checkbox` class.
 
 A color class paints the checked state, the same classes used everywhere else:
 
-```html
+```html live
 <input type="checkbox" class="pui-checkbox" checked />
 <input type="checkbox" class="pui-checkbox pui-success" checked />
 <input type="checkbox" class="pui-checkbox pui-error" checked />
@@ -33,11 +33,12 @@ Without a color class it uses the theme color.
 
 The third state — neither checked nor unchecked — is normally a JavaScript property, which makes it impossible to express in markup. Perfect UI accepts it as an attribute:
 
-```html
+```html live
 <input type="checkbox" class="pui-checkbox" indeterminate />
 ```
 
-> ⚠️ Attention needed:
+> [!WARNING]
+>
 > This is the one case that always needs the script, because no browser has this attribute natively. The attribute is removed as soon as the user clicks the checkbox.
 
 The property keeps working as usual:
@@ -48,13 +49,13 @@ input.indeterminate = true;
 
 ### Disabled
 
-```html
+```html live
 <input type="checkbox" class="pui-checkbox" checked disabled />
 ```
 
 ### With a label and a message
 
-```html
+```html live
 <label class="pui-field-group">
   <span>Newsletter</span>
   <input type="checkbox" class="pui-checkbox" aria-describedby="news-help" />

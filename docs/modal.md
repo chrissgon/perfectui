@@ -4,7 +4,7 @@
 
 Built on `<dialog>`. The browser handles the top layer, the backdrop, focus trapping and the escape key.
 
-```html
+```html live name=basic
 <button
   class="pui-btn pui-solid pui-theme"
   commandfor="confirm"
@@ -48,7 +48,8 @@ No script is written above. `commandfor` names the dialog and `command` says wha
 | `closedby="any"`       | clicking the backdrop closes it |
 | no `closedby`          | only the escape key closes it   |
 
-> ⚠️ Attention needed:
+> [!WARNING]
+>
 > Import the script for the modal. Browsers that do not have `commandfor` or `closedby` yet get a fallback, and browsers that do download nothing.
 
 ### The surface comes from a card

@@ -4,7 +4,7 @@
 
 Pins an element to a corner of the viewport, for a floating action button or a persistent shortcut.
 
-```html
+```html live
 <button class="pui-btn pui-solid pui-theme pui-rounded-full pui-float">
   New post
 </button>
