@@ -226,7 +226,19 @@ Soft tints are the role colour at 15% (22% on hover); outline hover is the colou
 
 ## Overriding
 
-Every rule lives in `@layer pui.*`, so your own CSS and any Tailwind utility win without `!important`: `<button class="pui-btn pui-solid pui-theme w-full">` stretches the button. There is no reset, so nothing overlaps Tailwind's Preflight; point Tailwind's dark variant at `[data-pui-mode="dark"]`.
+Every rule lives in `@layer pui.*`, so your own unlayered CSS always wins without `!important`. With Tailwind the version matters:
+
+- Tailwind v4 keeps its CSS in layers; declare the order as the stylesheet's first line, or the import order decides who wins and breaks either the utilities or the buttons' fill:
+
+```css
+@layer theme, base, pui, components, utilities;
+@import "tailwindcss";
+@import "@chrissgon/perfectui/perfectui.css";
+```
+
+- Tailwind v3 is unlayered: utilities win, but Preflight also wins and removes button fills; set `corePlugins: { preflight: false }`.
+
+Then `<button class="pui-btn pui-solid pui-theme w-full rounded-none">` keeps the library's fill and takes Tailwind's width and corners. Point Tailwind's dark variant at `[data-pui-mode="dark"]`.
 
 ## Never
 
@@ -234,7 +246,7 @@ Every rule lives in `@layer pui.*`, so your own CSS and any Tailwind utility win
 - Never restyle a `pui-` component's colours, radius or padding to "improve" it; the design is the library's. Override only layout (width, margin, position) with your own classes.
 - Never add JavaScript to open, close or position a modal, dropdown, tooltip or accordion; the attributes do it. Never call an initialiser.
 - Never add a CSS reset, a shadow or a font import "for the library"; it needs none.
-- Never use `!important` against the library; the layer already gives your CSS priority.
+- Never use `!important` against the library; unlayered CSS and, with the layer order declared, Tailwind utilities already win.
 - Never write text in a colour that is not `--pui-text`, `--pui-text-muted` or a role's ink; never put muted text on `--pui-bg-emphasis`, where it drops below 4.5:1.
 
 ## Examples

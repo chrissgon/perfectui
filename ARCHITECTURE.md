@@ -188,7 +188,7 @@ Declared once, at the top of every entry CSS file (repeating the declaration is 
 | `pui.colors`     | `pui-theme`, `pui-surface`… (variables only)                                              |
 | `pui.states`     | `:disabled` / `[disabled]` (scoped to `pui-` classes only), `[aria-invalid]`, focus rings |
 
-Any **unlayered** user CSS (including Tailwind utilities) wins over all of these without `!important`.
+Any **unlayered** user CSS wins over all of these without `!important`. Tailwind v3's output is unlayered, so its utilities win (and so does its Preflight, which must be turned off); Tailwind v4 puts its CSS in layers, so a page using it declares `@layer theme, base, pui, components, utilities;` first (`docs/tailwindcss.md`).
 
 ---
 
