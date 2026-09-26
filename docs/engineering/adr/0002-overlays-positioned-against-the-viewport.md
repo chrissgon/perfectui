@@ -1,6 +1,6 @@
 # ADR-0002: Overlays positioned against the viewport
 
-- Status: proposed
+- Status: accepted (user, 2026-09-26: option A only; the site is fixed by the next release, no interim override)
 - Date: 2026-09-26
 - Serves: perfectui-doc docs/engineering/plans/header-menu-scroll.md (Root cause, Failing tests, Impact)
 
@@ -45,10 +45,10 @@ No change; the reported case stays broken on every iPhone.
 
 ## Decision
 
-Recommended: option A in the library, plus option D in perfectui-doc as an interim until its `libraryRef` moves to a release carrying A (releases are on hold, state file 2026-09-25), removed then, as the modal margin workaround is. Option A is the only library option that passes every criterion, crosses no rule and costs nothing.
+Option A: `position: fixed` on the native path of `pui-dropdown` and `pui-tooltip`. It is the only library option that passes every criterion, crosses no rule and costs nothing. Option D was recommended as an interim for perfectui-doc and declined by the user: the site takes the fix with the next library release.
 
 ## Consequences
 
 - In Chromium, an in-flow trigger near the bottom of a long page opens its panel above instead of below, as WebKit already does.
 - `docs/dropdown.md` and `docs/tooltip.md` keep their placement sentences; ARCHITECTURE.md §6 may say that overlays are placed against the viewport.
-- perfectui-doc carries one more interim rule, recorded with its removal condition.
+- perfectui-doc keeps the bug until its `libraryRef` moves to a release carrying this change.
