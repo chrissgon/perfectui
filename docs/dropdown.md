@@ -60,7 +60,7 @@ A panel that opens above or below lines up with the trigger's starting edge. Two
 
 `pui-align-end` is what a menu at the end of a header wants, so it opens inward instead of running off the page.
 
-Placement uses CSS anchor positioning. Browsers that do not have it yet get the same placement, including the direction classes, from the fallback in the script.
+Placement uses CSS anchor positioning. Browsers that do not have it yet get the same placement, including the direction classes, from the fallback in the script. Either way the panel is placed against the viewport, so a menu opened from a sticky header or a fixed bar stays next to its trigger while the page scrolls, and flips only when the screen has no room.
 
 ### Anything can go inside
 
