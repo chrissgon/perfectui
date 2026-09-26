@@ -32,5 +32,6 @@
 
 ## Approvals
 
-| Scope | What | Approved | Expires | Status |
-| ----- | ---- | -------- | ------- | ------ |
+| Scope  | What                                                                                                                                                         | Approved                                                                         | Expires | Status              |
+| ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------- | ------- | ------------------- |
+| action | `git push origin v1`: fast-forward to `fix/dropdown-scroll-flip` (7bbb000, dfafd13, 9ff2f9c, d628495, 872518d and this record); `todo.txt` stays uncommitted | user, 2026-09-26: "Pode subir tudo na v1 diretamente", then "Sim" to the payload | on use  | executed 2026-09-26 |
