@@ -4,7 +4,7 @@
 
 Built on `<details>`. Opening, closing and keyboard support come from the browser: this component is **pure CSS**, with no script at all.
 
-```html
+```html live name=basic
 <div class="pui-accordion">
   <details class="pui-accordion-item">
     <summary>What is Perfect UI?</summary>
@@ -21,7 +21,7 @@ Built on `<details>`. Opening, closing and keyboard support come from the browse
 
 Give the items the same `name`. The browser closes the others for you:
 
-```html
+```html live
 <div class="pui-accordion">
   <details class="pui-accordion-item" name="faq">
     <summary>First question</summary>
@@ -36,7 +36,7 @@ Give the items the same `name`. The browser closes the others for you:
 
 ### Open by default
 
-```html
+```html live
 <details class="pui-accordion-item" name="faq" open>
   <summary>Open on load</summary>
   <p>Content</p>
@@ -63,7 +63,7 @@ Spacing them apart instead is two rules of your own:
 
 `pui-highlighted` on the container gives the expanded item the same background as a card header, so a long list shows where you are. It replaces v0's `accordion-accented`:
 
-```html
+```html live
 <div class="pui-accordion pui-highlighted">
   <details class="pui-accordion-item" name="faq" open>
     <summary>Expanded</summary>
@@ -89,7 +89,7 @@ For a different tone, one rule of your own is enough — `--pui-bg-emphasis` is 
 Put an element with `pui-accordion-icon` in the summary and the drawn chevron
 steps aside. Placement and the rotation on open stay with the library:
 
-```html
+```html live
 <details class="pui-accordion-item">
   <summary>
     Question

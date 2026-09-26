@@ -6,17 +6,28 @@
  * so this module always loads. It is the single exception to the rule that a
  * fallback reads native attributes only.
  *
- * No MutationObserver: the attribute is applied at load and again on the
- * interactions that can follow a dynamic insertion.
+ * No MutationObserver (ARCHITECTURE.md rule 9): the attribute is applied at
+ * load, when a `.pui-checkbox` carrying it renders (the stylesheet gives it a
+ * zero-length animation, whose `animationstart` bubbles to `document`), and on
+ * the next interaction, which covers pages that disable animations (ADR-0001).
  */
 
 const SELECTOR = "input[type=checkbox][indeterminate]";
 
-let installed = false;
-
 function apply(): void {
   for (const input of document.querySelectorAll<HTMLInputElement>(SELECTOR)) {
     if (!input.indeterminate) input.indeterminate = true;
+  }
+}
+
+function onAnimationStart(event: AnimationEvent): void {
+  const input = event.target;
+  if (
+    event.animationName === "pui-indeterminate" &&
+    input instanceof HTMLInputElement &&
+    !input.indeterminate
+  ) {
+    input.indeterminate = true;
   }
 }
 
@@ -28,9 +39,9 @@ function onChange(event: Event): void {
   }
 }
 
-if (typeof document !== "undefined" && !installed) {
-  installed = true;
+if (typeof document !== "undefined") {
   document.addEventListener("change", onChange, true);
+  document.addEventListener("animationstart", onAnimationStart, true);
   document.addEventListener("pointerdown", apply, true);
   document.addEventListener("focusin", apply, true);
   apply();

@@ -8,7 +8,7 @@ Joins elements into a single control: the inner corners are squared off and the 
 
 Put `pui-group-row` or `pui-group-col` on the container. The children need **no class of their own**.
 
-```html
+```html live
 <div class="pui-group-row">
   <button class="pui-btn pui-outline pui-surface">Left</button>
   <button class="pui-btn pui-outline pui-surface">Middle</button>
@@ -16,7 +16,7 @@ Put `pui-group-row` or `pui-group-col` on the container. The children need **no 
 </div>
 ```
 
-```html
+```html live
 <div class="pui-group-col">
   <button class="pui-btn pui-outline pui-surface">Profile</button>
   <button class="pui-btn pui-outline pui-surface">Billing</button>
@@ -28,7 +28,7 @@ Put `pui-group-row` or `pui-group-col` on the container. The children need **no 
 
 Because the pieces keep their own style and color classes, a selected item is just a different style:
 
-```html
+```html live
 <div class="pui-group-row">
   <button class="pui-btn pui-outline pui-surface">Day</button>
   <button class="pui-btn pui-solid pui-theme">Week</button>
@@ -40,7 +40,7 @@ Because the pieces keep their own style and color classes, a selected item is ju
 
 Anything can go in a group, in any order:
 
-```html
+```html live
 <div class="pui-group-row">
   <select class="pui-input">
     <option>All</option>
@@ -54,7 +54,7 @@ Anything can go in a group, in any order:
 
 `pui-group-responsive` is a row on screens wider than `1024px` and a column below that.
 
-```html
+```html live
 <div class="pui-group-responsive">
   <button class="pui-btn pui-outline pui-surface">Left</button>
   <button class="pui-btn pui-outline pui-surface">Middle</button>
@@ -66,7 +66,7 @@ Anything can go in a group, in any order:
 
 A list of items joins the same way:
 
-```html
+```html live
 <ul class="pui-group-col" style="list-style: none; padding: 0">
   <li class="pui-list-item pui-outline pui-surface">First</li>
   <li class="pui-list-item pui-outline pui-surface">Second</li>
@@ -77,7 +77,7 @@ An accordion needs nothing: it already joins its own items.
 
 And a timeline turns horizontal:
 
-```html
+```html live
 <figure class="pui-timeline pui-group-row">
   <!-- checkpoints -->
 </figure>

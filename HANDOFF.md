@@ -223,7 +223,7 @@ npm version 1.0.0-beta.0 --no-git-tag-version
 bun run changelog                       # writes CHANGELOG.md for the range
 # the heading comes out as "v0.23.0...v1"; rename it to the version
 git add -A && git commit -m "chore: release v1.0.0-beta.0"
-git tag v1.0.0-beta.0
+git tag -a v1.0.0-beta.0 -m "v1.0.0-beta.0"   # annotated: --follow-tags skips lightweight tags
 git push --follow-tags                  # the tag is what triggers the publish
 ```
 

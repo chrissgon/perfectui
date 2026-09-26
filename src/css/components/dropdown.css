@@ -24,7 +24,10 @@
 
   @supports (position-area: block-end) {
     .pui-dropdown {
-      position: absolute;
+      /* Fixed, not absolute: the flip is tested against the containing block,
+         and only the viewport matches what the reader sees when the trigger
+         does not scroll (a sticky header). ADR-0002. */
+      position: fixed;
       inset: auto;
       margin: 0;
       position-area: block-end span-inline-end;

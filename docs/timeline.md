@@ -4,7 +4,7 @@
 
 Events in order, with a rule connecting them. Each checkpoint draws its own segment, so a timeline is a sequence of checkpoints with nothing in between.
 
-```html
+```html live
 <figure class="pui-timeline">
   <figcaption class="pui-checkpoint">
     <i class="pui-checkpoint-icon pui-solid pui-success">&check;</i>
@@ -33,7 +33,7 @@ Events in order, with a rule connecting them. Each checkpoint draws its own segm
 
 The icon is an ordinary colorable element, so its appearance is the same style and color pair used everywhere:
 
-```html
+```html live
 <i class="pui-checkpoint-icon pui-solid pui-success">&check;</i>
 <i class="pui-checkpoint-icon pui-outline pui-muted">3</i>
 <i class="pui-checkpoint-icon pui-soft pui-theme">i</i>
@@ -45,7 +45,7 @@ Anything fits inside it — a character, a number, or an icon font.
 
 Combine with `pui-group-row`:
 
-```html
+```html live
 <figure class="pui-timeline pui-group-row">
   <figcaption class="pui-checkpoint">
     <i class="pui-checkpoint-icon pui-solid pui-success">&check;</i>

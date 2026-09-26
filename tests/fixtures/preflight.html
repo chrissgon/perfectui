@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Playwright fixture (tests/preflight.spec.ts): a reset in a lower layer, declared in
+         the order docs/tailwindcss.md recommends. The reset stands in for Tailwind v4's
+         Preflight, which sets `margin: 0` on every element in its `base` layer. -->
+    <meta charset="utf-8" />
+    <title>preflight fixture</title>
+    <style>
+      @layer theme, base, pui, components, utilities;
+      @layer base {
+        *,
+        ::before,
+        ::after {
+          margin: 0;
+          padding: 0;
+          border: 0 solid;
+          box-sizing: border-box;
+        }
+      }
+    </style>
+    <link rel="stylesheet" href="../../dist/perfectui.css" />
+  </head>
+  <body>
+    <dialog class="pui-modal" id="modal">
+      <div class="pui-card">
+        <div class="pui-card-content">Centred under a reset</div>
+      </div>
+    </dialog>
+  </body>
+</html>

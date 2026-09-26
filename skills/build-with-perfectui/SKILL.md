@@ -9,7 +9,7 @@ description: >
   library's components; everything the library has is listed here.
 license: MIT
 metadata:
-  version: "1.0.0-beta.0"
+  version: "1.0.0-beta.1"
 ---
 
 # Build with perfectui
@@ -23,10 +23,10 @@ Pin the version. The npm tag `latest` still points at 0.23, which has different 
 ```html
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/@chrissgon/perfectui@1.0.0-beta.0/dist/perfectui.css"
+  href="https://cdn.jsdelivr.net/npm/@chrissgon/perfectui@1.0.0-beta.1/dist/perfectui.css"
 />
 <script type="module">
-  import "https://cdn.jsdelivr.net/npm/@chrissgon/perfectui@1.0.0-beta.0/dist/js/index.js";
+  import "https://cdn.jsdelivr.net/npm/@chrissgon/perfectui@1.0.0-beta.1/dist/js/index.js";
 </script>
 ```
 
@@ -67,7 +67,7 @@ All colours are `light-dark()` pairs; the page declares `color-scheme: light dar
 | `--pui-bg-muted`     | #f3f4f6  | #111827 | card headers, addons, stripes, hover rows |
 | `--pui-bg-emphasis`  | #e5e7eb  | #1f2937 | third level (code blocks)                 |
 | `--pui-text`         | #000000  | #ffffff | text                                      |
-| `--pui-text-muted`   | #6b7280  | #9ca3af | secondary text                            |
+| `--pui-text-muted`   | #676d7b  | #9ca3af | secondary text                            |
 | `--pui-border`       | #d1d5db  | #374151 | borders                                   |
 | `--pui-theme`        | #0092cd  | #07b6f0 | brand colour                              |
 | `--pui-success`      | #16a34a  | #22c55e | positive                                  |
@@ -226,7 +226,19 @@ Soft tints are the role colour at 15% (22% on hover); outline hover is the colou
 
 ## Overriding
 
-Every rule lives in `@layer pui.*`, so your own CSS and any Tailwind utility win without `!important`: `<button class="pui-btn pui-solid pui-theme w-full">` stretches the button. There is no reset, so nothing overlaps Tailwind's Preflight; point Tailwind's dark variant at `[data-pui-mode="dark"]`.
+Every rule lives in `@layer pui.*`, so your own unlayered CSS always wins without `!important`. With Tailwind the version matters:
+
+- Tailwind v4 keeps its CSS in layers; declare the order as the stylesheet's first line, or the import order decides who wins and breaks either the utilities or the buttons' fill:
+
+```css
+@layer theme, base, pui, components, utilities;
+@import "tailwindcss";
+@import "@chrissgon/perfectui/perfectui.css";
+```
+
+- Tailwind v3 is unlayered: utilities win, but Preflight also wins and removes button fills; set `corePlugins: { preflight: false }`.
+
+Then `<button class="pui-btn pui-solid pui-theme w-full rounded-none">` keeps the library's fill and takes Tailwind's width and corners. Point Tailwind's dark variant at `[data-pui-mode="dark"]`.
 
 ## Never
 
@@ -234,8 +246,8 @@ Every rule lives in `@layer pui.*`, so your own CSS and any Tailwind utility win
 - Never restyle a `pui-` component's colours, radius or padding to "improve" it; the design is the library's. Override only layout (width, margin, position) with your own classes.
 - Never add JavaScript to open, close or position a modal, dropdown, tooltip or accordion; the attributes do it. Never call an initialiser.
 - Never add a CSS reset, a shadow or a font import "for the library"; it needs none.
-- Never use `!important` against the library; the layer already gives your CSS priority.
-- Never write text in a colour that is not `--pui-text`, `--pui-text-muted` or a role's ink; never put muted text on a muted background.
+- Never use `!important` against the library; unlayered CSS and, with the layer order declared, Tailwind utilities already win.
+- Never write text in a colour that is not `--pui-text`, `--pui-text-muted` or a role's ink; never put muted text on `--pui-bg-emphasis`, where it drops below 4.5:1.
 
 ## Examples
 
@@ -247,7 +259,7 @@ Output: `:root { --pui-theme: #059669 }`; a `pui-switch` whose change handler ca
 
 ## Checklist before finishing
 
-- The stylesheet is pinned to `@chrissgon/perfectui@1.0.0-beta.0`; the module script is imported only if overlays or indeterminate checkboxes are used.
+- The stylesheet is pinned to `@chrissgon/perfectui@1.0.0-beta.1`; the module script is imported only if overlays or indeterminate checkboxes are used.
 - Every component uses one shape class, one style class and one colour class from the tables, and nothing else from the `pui-` namespace.
 - Overlays are driven by `commandfor`/`command`, `popovertarget`, `interestfor` and `<details>`; no click handlers open them.
 - Colours come from the `--pui-*` tokens; the brand colour is changed only through `--pui-theme`.

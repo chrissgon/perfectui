@@ -46,3 +46,13 @@ Forms
 - [Checkbox](https://github.com/chrissgon/perfectui/blob/main/docs/checkbox.md)
 - [Radio](https://github.com/chrissgon/perfectui/blob/main/docs/radio.md)
 - [Switch](https://github.com/chrissgon/perfectui/blob/main/docs/switch.md)
+
+## Writing these documents
+
+These files are the documentation site's pages: the site converts them at build time, from the tag of the version it documents. The summary above is its navigation, in order. Everything below renders on GitHub as well.
+
+- Start each document with its section as a level-4 heading, then the title as the only level-1 heading, then one paragraph: that paragraph is the page's description.
+- A code block marked `html live` is shown on the site with a live preview; `html live name=basic` also gives it a name another page can show. Any other block is shown as code.
+- Notes and warnings are GitHub alerts: `> [!NOTE]` or `> [!WARNING]`, followed by an empty `>` line.
+- Link to another document with its file name (`button.md`); the site turns it into a link to that page.
+- Metadata GitHub does not need goes in a comment after the title: `<!-- site: changed: "1.0" -->` (also `since`, `from`, `to` and `tags`).

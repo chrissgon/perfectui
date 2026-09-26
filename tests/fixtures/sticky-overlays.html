@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Playwright fixture for overlays whose trigger stays on screen while the
+         page scrolls (a sticky header), and for triggers at the viewport's
+         edges. Plan: perfectui-doc docs/engineering/plans/header-menu-scroll.md. -->
+    <meta charset="utf-8" />
+    <title>sticky overlays fixture</title>
+    <link rel="stylesheet" href="../../dist/perfectui.css" />
+    <script type="module" src="../../dist/js/index.js"></script>
+    <style>
+      header {
+        position: sticky;
+        top: 0;
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        padding: 12px;
+        background: canvas;
+      }
+      main {
+        height: 4000px;
+      }
+      .bottom-bar {
+        position: fixed;
+        bottom: 8px;
+        left: 40px;
+      }
+      .right-edge {
+        position: fixed;
+        top: 300px;
+        right: 8px;
+      }
+    </style>
+  </head>
+  <body style="margin: 0">
+    <header>
+      <button
+        class="pui-btn pui-outline pui-surface"
+        id="open-header-menu"
+        popovertarget="header-menu"
+      >
+        Menu
+      </button>
+      <div class="pui-dropdown pui-align-end" id="header-menu" popover>
+        <a href="#">Docs</a>
+        <a href="#">GitHub</a>
+      </div>
+      <button
+        class="pui-btn pui-outline pui-surface"
+        id="open-header-tip"
+        interestfor="header-tip"
+      >
+        Help
+      </button>
+      <div class="pui-tooltip" id="header-tip" popover="hint">Help text</div>
+    </header>
+
+    <div class="bottom-bar">
+      <button
+        class="pui-btn pui-outline pui-surface"
+        id="open-bottom-menu"
+        popovertarget="bottom-menu"
+      >
+        Bottom menu
+      </button>
+      <div class="pui-dropdown" id="bottom-menu" popover>
+        <a href="#">One</a>
+        <a href="#">Two</a>
+        <a href="#">Three</a>
+      </div>
+    </div>
+
+    <div class="right-edge">
+      <button
+        class="pui-btn pui-outline pui-surface"
+        id="open-end-menu"
+        popovertarget="end-menu"
+      >
+        End
+      </button>
+      <div class="pui-dropdown pui-end" id="end-menu" popover>
+        <a href="#">A menu wider than the room on the right</a>
+      </div>
+    </div>
+
+    <main></main>
+  </body>
+</html>

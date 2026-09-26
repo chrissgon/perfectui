@@ -4,7 +4,7 @@
 
 The same `pui-input` class, on a `<select>`.
 
-```html
+```html live
 <select class="pui-input">
   <option>Owner</option>
   <option>Editor</option>
@@ -16,7 +16,7 @@ The arrow is drawn in CSS from the current text color, so it follows your theme 
 
 ### With a label
 
-```html
+```html live
 <label class="pui-field-group">
   <span>Role</span>
   <select class="pui-input">
@@ -28,7 +28,7 @@ The arrow is drawn in CSS from the current text color, so it follows your theme 
 
 ### Multiple and grouped
 
-```html
+```html live
 <select class="pui-input" multiple size="4">
   <optgroup label="Admins">
     <option>Mark</option>

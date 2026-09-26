@@ -4,7 +4,7 @@
 
 Built on the popover API. The browser handles the top layer, closing on an outside click, and closing on escape.
 
-```html
+```html live name=basic
 <button class="pui-btn pui-outline pui-surface" popovertarget="menu">
   Menu
 </button>
@@ -60,7 +60,7 @@ A panel that opens above or below lines up with the trigger's starting edge. Two
 
 `pui-align-end` is what a menu at the end of a header wants, so it opens inward instead of running off the page.
 
-Placement uses CSS anchor positioning. Browsers that do not have it yet get the same placement, including the direction classes, from the fallback in the script.
+Placement uses CSS anchor positioning. Browsers that do not have it yet get the same placement, including the direction classes, from the fallback in the script. Either way the panel is placed against the viewport, so a menu opened from a sticky header or a fixed bar stays next to its trigger while the page scrolls, and flips only when the screen has no room.
 
 ### Anything can go inside
 
@@ -89,7 +89,8 @@ The panel is a container, not a menu. A list is the common case, but a form or a
 </div>
 ```
 
-> ⚠️ Attention needed:
+> [!WARNING]
+>
 > Clicking inside a popover does not close it, so the old `.ignore` class is gone.
 
 ### From JavaScript

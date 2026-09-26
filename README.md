@@ -80,7 +80,7 @@ a color.
 
 ## 📚 Documentation
 
-Read all documentation in [docs](https://github.com/chrissgon/perfectui/tree/main/docs) folder or in the [official website](https://perfectui.netlify.app/).
+Read all documentation in [docs](https://github.com/chrissgon/perfectui/tree/main/docs) folder or in the [official website](https://perfectui.dev).
 
 Coming from `0.x`? See [MIGRATION.md](https://github.com/chrissgon/perfectui/blob/main/MIGRATION.md).
 

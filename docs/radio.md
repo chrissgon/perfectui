@@ -4,7 +4,7 @@
 
 A native `<input type="radio">` with the `pui-radio` class. Grouping, arrow-key navigation and the one-of-many behavior all come from the `name` attribute.
 
-```html
+```html live
 <label>
   <input type="radio" name="plan" class="pui-radio" checked />
   Free
@@ -17,7 +17,7 @@ A native `<input type="radio">` with the `pui-radio` class. Grouping, arrow-key 
 
 ### Colors
 
-```html
+```html live
 <input type="radio" name="color" class="pui-radio" checked />
 <input type="radio" name="color" class="pui-radio pui-success" checked />
 <input type="radio" name="color" class="pui-radio pui-warn" checked />
@@ -25,13 +25,13 @@ A native `<input type="radio">` with the `pui-radio` class. Grouping, arrow-key 
 
 ### Disabled
 
-```html
+```html live
 <input type="radio" name="plan" class="pui-radio" checked disabled />
 ```
 
 ### A group of options
 
-```html
+```html live
 <fieldset>
   <legend>Plan</legend>
   <label><input type="radio" name="plan" class="pui-radio" /> Free</label>
@@ -40,5 +40,6 @@ A native `<input type="radio">` with the `pui-radio` class. Grouping, arrow-key 
 </fieldset>
 ```
 
-> ⚠️ Attention needed:
+> [!WARNING]
+>
 > A `<fieldset>` with a `<legend>` is what tells a screen reader that the options belong together. Perfect UI does not style either element, so they look like your page.

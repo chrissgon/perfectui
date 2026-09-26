@@ -188,7 +188,7 @@ Declared once, at the top of every entry CSS file (repeating the declaration is 
 | `pui.colors`     | `pui-theme`, `pui-surface`… (variables only)                                              |
 | `pui.states`     | `:disabled` / `[disabled]` (scoped to `pui-` classes only), `[aria-invalid]`, focus rings |
 
-Any **unlayered** user CSS (including Tailwind utilities) wins over all of these without `!important`.
+Any **unlayered** user CSS wins over all of these without `!important`. Tailwind v3's output is unlayered, so its utilities win (and so does its Preflight, which must be turned off); Tailwind v4 puts its CSS in layers, so a page using it declares `@layer theme, base, pui, components, utilities;` first (`docs/tailwindcss.md`).
 
 ---
 
@@ -224,7 +224,7 @@ Rules:
 - Helper classes are allowed **only if they are used together with components**: `pui-rounded`, `pui-rounded-full`. They live in `pui.utilities`, a layer of their own: a helper and a component class have the same specificity, so inside `pui.components` the winner would depend on the user's import order.
 - Accessibility is part of the component: visible `:focus-visible`, respect `prefers-reduced-motion`, use logical properties (`margin-inline`, `inset-inline-start`).
 - **Groups take no child class.** `pui-group-row`, `pui-group-col` and `pui-group-responsive` style their direct children, so v0's `group-item` (and its `[class*="item"]` escape hatch) is gone. They overlap borders with a negative margin instead of removing them, which keeps `pui-outline` working on every child, and raise the hovered or focused child with `z-index` so its own border and ring stay visible.
-- **Overlay placement.** `pui-dropdown` and `pui-tooltip` take a direction class — `pui-top`, `pui-bottom`, `pui-start`, `pui-end` — each flipping to the opposite side when the preferred one does not fit. The CSS rules live behind `@supports`, and `fallbacks/anchor-positioning.ts` reads the same classes, so both paths place an overlay the same way. The classes are inert on their own, like `pui-striped`.
+- **Overlay placement.** `pui-dropdown` and `pui-tooltip` take a direction class — `pui-top`, `pui-bottom`, `pui-start`, `pui-end` — each flipping to the opposite side when the preferred one does not fit. The CSS rules live behind `@supports`, and `fallbacks/anchor-positioning.ts` reads the same classes, so both paths place an overlay the same way. Both place it against the viewport (`position: fixed` in the top layer): with `absolute` the flip was tested against the document, which WebKit and Chromium each got wrong for triggers that do not scroll (ADR-0002). The classes are inert on their own, like `pui-striped`.
 - **Modifiers.** The library ships exactly three: `pui-striped` and `pui-hoverable` on `pui-list` and `pui-table`, and `pui-highlighted` on `pui-accordion`. They exist because they need a structural selector (`:nth-child`, `:hover` on a child, `[open]`) that the user cannot express by composing classes. Everything else v0 had is composition or one line of author CSS, and belongs in the docs as a recipe rather than in the bundle: a selected item is `pui-list-item pui-soft pui-theme`, a bordered one is `pui-list-item pui-outline pui-surface`, an unmarked list is `list-style: none`, a responsive table is `overflow-x: auto` on the parent. Each modifier lives in its own component file, so importing only `table.css` still brings them.
 - **Surfaces vs colorable elements.** A container that is not meant to be recolored — `pui-card`, `pui-table` cells, the timeline rule — reads the page tokens (`--pui-border`, `--pui-bg-muted`) directly, so it looks right with no extra classes. It stays composable anyway: `pui.styles` comes after `pui.components`, so `pui-card pui-soft pui-theme` still recolors the card. Elements meant to be recolored (`pui-btn`, `pui-chip`, `pui-badge`, `pui-list-item`, `pui-checkpoint-icon`) carry `border: var(--pui-border-width) solid transparent` so that a style class, which only ever sets `border-color`, has something to paint.
 
@@ -452,7 +452,7 @@ instead.
 ### 8.4 Checkbox `indeterminate`
 
 - Markup: `<input type="checkbox" class="pui-checkbox" indeterminate>`.
-- Fallback: set `el.indeterminate = true` for matching elements, and remove the attribute on user change (delegated `change` listener). Because this needs to see elements, apply on `pointerdown`/`focusin` delegation or on initial load + on `change`; do **not** use `MutationObserver`.
+- Fallback: set `el.indeterminate = true` for matching elements, and remove the attribute on user change (delegated `change` listener). It sees elements at initial load, and later ones through events delegated on `document`: `.pui-checkbox[indeterminate]` runs a zero-length animation whose `animationstart` bubbles to the listener, and `pointerdown`/`focusin` cover pages that disable animations. Do **not** use `MutationObserver` (ADR-0001, `docs/engineering/adr/`).
 
 ---
 
@@ -565,7 +565,7 @@ import { setMode } from "@chrissgon/perfectui/mode";
 - SSR safety test: import every JS entry in Node; must not throw.
 - Visual check of every component × style × color in light and dark mode: `tests/manual/preview.html` and `tests/manual/table.html`, opened straight from the file system.
 
-**What the suites cover.** Mode switching and persistence against the system preference; the style + color contract and the fact that unlayered author CSS beats every layer; `aria-invalid` reaching both the control and its message; group border overlap; the table's last-row and `tfoot` rules; and, for the JS: which fallbacks are downloaded per engine, `commandfor` open and close, `closedby="any"` light dismiss, dropdown and tooltip placement, the `indeterminate` attribute, and a component inserted after load working with no re-initialisation.
+**What the suites cover.** Mode switching and persistence against the system preference; the style + color contract and the fact that unlayered author CSS beats every layer; `aria-invalid` reaching both the control and its message; group border overlap; the table's last-row and `tfoot` rules; and, for the JS: which fallbacks are downloaded per engine, `commandfor` open and close, `closedby="any"` light dismiss, dropdown and tooltip placement, the `indeterminate` attribute, including a checkbox inserted after load, hidden then shown, replaced by a re-render, and on a page that disables animations, and a component inserted after load working with no re-initialisation.
 
 ---
 

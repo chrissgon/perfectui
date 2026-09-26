@@ -3,21 +3,27 @@ name: publish to npm
 on:
   push:
     tags:
-      - "*"
+      - "v*"
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      # contents: write creates the GitHub release; id-token: write is the identity npm's
+      # trusted publishing checks instead of a stored token.
+      contents: write
       id-token: write
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0 # the previous tag, for release notes generated from the changelog
       - uses: oven-sh/setup-bun@v2
       - uses: actions/setup-node@v7
         with:
-          node-version: 22
+          node-version: 24
           registry-url: https://registry.npmjs.org
+      # Trusted publishing needs npm 11.5.1 or later.
+      - run: npm install -g npm@12.1.0
 
       - run: bun install --frozen-lockfile
 
@@ -41,7 +47,25 @@ jobs:
           fi
           echo "publishing $version under the ${dist:-} tag"
 
+      # Trusted publishing (npmjs.com: package settings, trusted publisher = this repository and
+      # this workflow file): npm exchanges the job's OIDC identity for a one-off credential, so no
+      # token is stored in the repository. Provenance is attached automatically.
       - name: Publish
         run: npm publish --tag ${{ steps.tag.outputs.dist }} --provenance --access public
+
+      # Release notes: release-notes/<tag>.md when the release has hand-written notes (a major),
+      # otherwise the changelog since the previous tag.
+      - name: GitHub release
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_PERFECTUI_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="$GITHUB_REF_NAME"
+          notes="release-notes/$tag.md"
+          if [ ! -f "$notes" ]; then
+            previous=$(git describe --tags --abbrev=0 "$tag^")
+            bunx changelogen --from "$previous" --to "$tag" > /tmp/notes.md
+            notes=/tmp/notes.md
+          fi
+          prerelease=""
+          if [[ "$tag" == *-* ]]; then prerelease="--prerelease"; fi
+          gh release create "$tag" --verify-tag --title "$tag" --notes-file "$notes" $prerelease

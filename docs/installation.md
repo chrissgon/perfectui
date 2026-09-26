@@ -1,6 +1,8 @@
 #### Getting Started
 
-# Get started with Perfect UI
+# Installation
+
+Install Perfect UI from a CDN or a package manager, and load its small script only for the overlays.
 
 An exceptionally lightweight and highly customizable CSS and JavaScript library for crafting elegant user interfaces.
 
@@ -36,7 +38,8 @@ Perfect UI is **ESM only**, so the JavaScript is loaded as a module. You only ne
 </script>
 ```
 
-> ⚠️ Attention needed:
+> [!WARNING]
+>
 > Perfect UI no longer exposes anything on `window` or `document`. Everything is imported.
 
 ### Install by package manager
@@ -91,7 +94,7 @@ Every element is made of up to three independent classes:
 | **Style** | how is it painted | `pui-solid`, `pui-soft`, `pui-outline`, `pui-link`                                             |
 | **Color** | which color       | `pui-theme`, `pui-success`, `pui-error`, `pui-warn`, `pui-muted`, `pui-surface`, `pui-inverse` |
 
-```html
+```html live
 <button class="pui-btn pui-solid pui-theme">Save</button>
 <button class="pui-btn pui-outline pui-surface">Cancel</button>
 <span class="pui-chip pui-soft pui-success">Active</span>

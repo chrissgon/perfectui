@@ -160,8 +160,12 @@
   }
 
   /* One rule for every checked control: the fill is the element's own color,
-     so <input class="pui-checkbox pui-success"> is green with no extra work. */
-  :is(.pui-checkbox, .pui-radio, .pui-switch):is(:checked, :indeterminate) {
+     so <input class="pui-checkbox pui-success"> is green with no extra work.
+     Only the checkbox has a mixed state: on a radio, :indeterminate matches
+     every radio of a group with nothing checked (HTML standard), and a switch
+     has no mixed appearance. */
+  :is(.pui-checkbox, .pui-radio, .pui-switch):checked,
+  .pui-checkbox:indeterminate {
     background-color: var(--pui-color, var(--pui-theme));
     border-color: var(--pui-color, var(--pui-theme));
   }
@@ -169,6 +173,16 @@
   .pui-checkbox:checked {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
     background-size: 100%;
+  }
+
+  /* A zero-length animation marks a checkbox whose `indeterminate` attribute
+     enters the document at any time: its animationstart reaches the fallback's
+     listener on `document`, which sets the property (ADR-0001). */
+  .pui-checkbox[indeterminate] {
+    animation: pui-indeterminate 1ms;
+  }
+
+  @keyframes pui-indeterminate {
   }
 
   .pui-checkbox:indeterminate {

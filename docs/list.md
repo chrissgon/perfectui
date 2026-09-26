@@ -4,7 +4,7 @@
 
 Styles `<ul>` and `<ol>` without touching either element globally: the class carries everything, including the reset of the browser's own indentation.
 
-```html
+```html live
 <ul class="pui-list">
   <li class="pui-list-item">Now this is a story all about how</li>
   <li class="pui-list-item">my life got flipped turned upside down</li>
@@ -14,7 +14,7 @@ Styles `<ul>` and `<ol>` without touching either element globally: the class car
 
 Ordered lists work the same way:
 
-```html
+```html live
 <ol class="pui-list">
   <li class="pui-list-item">First</li>
   <li class="pui-list-item">Second</li>
@@ -25,7 +25,7 @@ Ordered lists work the same way:
 
 There is no class for this, because it is one declaration:
 
-```html
+```html live
 <ul class="pui-list" style="list-style: none">
   <li class="pui-list-item">No bullet</li>
 </ul>
@@ -35,7 +35,7 @@ There is no class for this, because it is one declaration:
 
 An item is an ordinary colorable element, so a selection is a style plus a color — the same classes you use everywhere else:
 
-```html
+```html live
 <ul class="pui-list" style="list-style: none">
   <li class="pui-list-item">Plain</li>
   <li class="pui-list-item pui-soft pui-theme">Selected</li>
@@ -47,7 +47,7 @@ An item is an ordinary colorable element, so a selection is a style plus a color
 
 These two need a structural selector, so they ship as modifiers on the list itself:
 
-```html
+```html live
 <ul class="pui-list pui-striped pui-hoverable">
   <li class="pui-list-item">One</li>
   <li class="pui-list-item">Two</li>

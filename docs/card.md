@@ -4,7 +4,7 @@
 
 A container with a border and a rounded frame. A card is a **surface**: it already looks right with no style or color class.
 
-```html
+```html live
 <div class="pui-card">
   <div class="pui-card-header">Card header</div>
   <div class="pui-card-content">
@@ -23,7 +23,7 @@ A container with a border and a rounded frame. A card is a **surface**: it alrea
 
 `pui-card-content` is a grid with a gap, so children do not need margins:
 
-```html
+```html live
 <div class="pui-card">
   <div class="pui-card-content">
     <h3>Delete project</h3>
@@ -40,7 +40,7 @@ A container with a border and a rounded frame. A card is a **surface**: it alrea
 
 A style class still wins over the card's own surface:
 
-```html
+```html live
 <div class="pui-card pui-soft pui-warn">
   <div class="pui-card-content">Careful with this one.</div>
 </div>

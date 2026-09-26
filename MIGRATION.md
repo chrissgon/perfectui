@@ -1,13 +1,16 @@
-# Migrating to 1.0.0
+# Migrating from 0.x
 
-`1.0.0` is a rewrite. The SCSS build is gone, every class is prefixed, and the
-components that used to be driven by Perfect UI's JavaScript are now driven by
-the browser.
+`1.0.0` is a rewrite. The SCSS build is gone, every class is prefixed, and the components that used to be driven by Perfect UI's JavaScript are now driven by the browser.
+
+<!-- site: tags: [guide, migration] -->
+<!-- site: from: 0.23.0 -->
+<!-- site: to: 1.0.0-beta.1 -->
+<!-- site: changed: "1.0" -->
 
 Nothing here is guesswork on your side: the changes are mechanical, and this
 page lists every one of them.
 
-## Why
+### Why
 
 `0.23.0` shipped a CSS reset, imported a font, styled bare elements like `ul`
 and `a`, used `!important`, and ran JavaScript on import that re-initialised the
@@ -18,7 +21,7 @@ rendering.
 `1.0.0` touches nothing you did not ask for, ships less, and leans on the
 platform for the behavior it used to implement itself.
 
-## 1. Update the imports
+### 1. Update the imports
 
 The package is **ESM only** and no longer puts anything on `window` or
 `document`.
@@ -44,7 +47,7 @@ import "@chrissgon/perfectui/core.css";
 import "@chrissgon/perfectui/components/button.css";
 ```
 
-## 2. Add the prefix
+### 2. Add the prefix
 
 Every class is prefixed with `pui-`, every custom property with `--pui-`.
 
@@ -53,7 +56,7 @@ Every class is prefixed with `pui-`, every custom property with `--pui-`.
 +<button class="pui-btn pui-solid pui-theme">Save</button>
 ```
 
-## 3. Split style from color
+### 3. Split style from color
 
 A combined class like `style-solid-primary` became two independent classes: one
 for **how** the color is applied, one for **which** color. Adding a color no
@@ -72,23 +75,23 @@ longer multiplies the number of classes.
 `secondary` is now `muted`, and the two page-relative colors have real names:
 `pui-surface` follows the page background, `pui-inverse` is its opposite.
 
-## 4. Components
+### 4. Components
 
-| `0.23.0`                              | `1.0.0`                                                 |
-| ------------------------------------- | ------------------------------------------------------- |
-| `btn`                                 | `pui-btn`                                               |
-| `badge`                               | `pui-badge`, plus the new `pui-chip`                    |
-| `card`, `card-header`, `card-content` | `pui-card`, `pui-card-header`, `pui-card-content`       |
-| `list`, `list-item`                   | `pui-list`, `pui-list-item`                             |
-| `table`                               | `pui-table`                                             |
-| `timeline`, `checkpoint`              | `pui-timeline`, `pui-checkpoint`, `pui-checkpoint-icon` |
-| `group-row`, `group-col`              | `pui-group-row`, `pui-group-col`                        |
-| `float`                               | `pui-float`                                             |
-| `input`, `addon`, `input-group`       | `pui-input`, `pui-addon`, `pui-input-group`             |
-| `checkbox`, `radio`, `switch`         | `pui-checkbox`, `pui-radio`, `pui-switch`               |
-| `rounded`, `rounded-full`             | `pui-rounded`, `pui-rounded-full`                       |
+| `0.23.0`                                                                                                  | `1.0.0`                                                 |
+| --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
+| [`btn`](https://github.com/chrissgon/perfectui/blob/v0.23.0/docs/button.md)                               | `pui-btn`                                               |
+| [`badge`](https://github.com/chrissgon/perfectui/blob/v0.23.0/docs/badge.md)                              | `pui-badge`, plus the new `pui-chip`                    |
+| [`card`](https://github.com/chrissgon/perfectui/blob/v0.23.0/docs/card.md), `card-header`, `card-content` | `pui-card`, `pui-card-header`, `pui-card-content`       |
+| [`list`](https://github.com/chrissgon/perfectui/blob/v0.23.0/docs/list.md), `list-item`                   | `pui-list`, `pui-list-item`                             |
+| [`table`](https://github.com/chrissgon/perfectui/blob/v0.23.0/docs/table.md)                              | `pui-table`                                             |
+| [`timeline`](https://github.com/chrissgon/perfectui/blob/v0.23.0/docs/timeline.md), `checkpoint`          | `pui-timeline`, `pui-checkpoint`, `pui-checkpoint-icon` |
+| [`group-row`](https://github.com/chrissgon/perfectui/blob/v0.23.0/docs/layout-group.md), `group-col`      | `pui-group-row`, `pui-group-col`                        |
+| `float`                                                                                                   | `pui-float`                                             |
+| [`input`](https://github.com/chrissgon/perfectui/blob/v0.23.0/docs/input.md), `addon`, `input-group`      | `pui-input`, `pui-addon`, `pui-input-group`             |
+| [`checkbox`](https://github.com/chrissgon/perfectui/blob/v0.23.0/docs/checkbox.md), `radio`, `switch`     | `pui-checkbox`, `pui-radio`, `pui-switch`               |
+| `rounded`, `rounded-full`                                                                                 | `pui-rounded`, `pui-rounded-full`                       |
 
-### Modal
+#### Modal
 
 ```diff
 -<button class="btn style-solid-primary" data-modal="confirm">Open</button>
@@ -104,7 +107,7 @@ longer multiplies the number of classes.
 - `data-autoclose` is now `commandfor="id" command="close"`.
 - `modal.static-backdrop` is now a `<dialog>` **without** `closedby`.
 
-### Dropdown
+#### Dropdown
 
 ```diff
 -<button class="dropdown-trigger">Menu</button>
@@ -115,7 +118,7 @@ longer multiplies the number of classes.
 
 The `.ignore` class is gone: a click inside a popover does not close it.
 
-### Tooltip
+#### Tooltip
 
 ```diff
 -<button class="tooltip" data-tooltip="Help text">?</button>
@@ -125,7 +128,7 @@ The `.ignore` class is gone: a click inside a popover does not close it.
 
 This is the change that fixes tooltips on touch screens.
 
-### Accordion
+#### Accordion
 
 ```diff
 -<div class="accordion">
@@ -141,7 +144,7 @@ This is the change that fixes tooltips on touch screens.
 
 One open at a time is the shared `name`, handled by the browser.
 
-### Field group
+#### Field group
 
 The label and the message used to be data attributes rendered as pseudo
 elements. They are real elements now, which is what makes them announced by
@@ -160,7 +163,7 @@ screen readers, translatable and selectable.
 
 `field-group-<state>` is gone: the state is `aria-invalid` on the control.
 
-## 5. Dark mode
+### 5. Dark mode
 
 ```diff
 -<html class="dark">
@@ -176,7 +179,7 @@ With no attribute at all the library follows the operating system, which it
 could not do before. The choice is persisted in a cookie so a server can render
 it on the first paint.
 
-## 6. Theming
+### 6. Theming
 
 `setThemeColor()` is gone. Theming is CSS:
 
@@ -192,26 +195,26 @@ The palettes went with it. `--theme50` … `--theme950`, `--gray*`, `--red*`,
 with `color-mix()`. The size scales are gone too — `--fontXS` … `--font9XL`,
 `--spacingXS` … `--spacingXL` — replaced by four base tokens that every
 component derives from. See
-[Theme Color](https://github.com/chrissgon/perfectui/blob/main/docs/theme-color.md).
+[Theme Color](docs/theme-color.md).
 
-## 7. Things that were removed with no replacement
+### 7. Things that were removed with no replacement
 
-| Removed                                                                 | What to do instead                                                                           |
-| ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| The CSS reset and the Poppins import                                    | Nothing: Perfect UI no longer touches your page                                              |
-| `.bg-*`, `.text-*`, `.border-*`, `.spacing-*`                           | Your own CSS, or Tailwind                                                                    |
-| `overflow-hidden`, `hr.vertical`                                        | Your own CSS                                                                                 |
-| `group-item` and the `[class*="item"]` rule                             | Nothing: a group styles its direct children                                                  |
-| `table-bordered`, `table-borderless`, `table-responsive`                | Recipes in the [Table](https://github.com/chrissgon/perfectui/blob/main/docs/table.md) docs  |
-| `list-bordered`, `unmarker`, `.active`                                  | Composition: `pui-outline pui-surface`, `list-style: none`, `pui-soft pui-theme`             |
-| `float-right`, `float-top`                                              | One declaration, see [Float](https://github.com/chrissgon/perfectui/blob/main/docs/float.md) |
-| `loadFunctions()`, `Accordion()`, `Dropdown()`, `Modal()`, `Checkbox()` | Nothing: the browser does it now                                                             |
-| `window.perfectui`, `document.perfectui`                                | ESM imports                                                                                  |
+| Removed                                                                 | What to do instead                                                               |
+| ----------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| The CSS reset and the Poppins import                                    | Nothing: Perfect UI no longer touches your page                                  |
+| `.bg-*`, `.text-*`, `.border-*`, `.spacing-*`                           | Your own CSS, or Tailwind                                                        |
+| `overflow-hidden`, `hr.vertical`                                        | Your own CSS                                                                     |
+| `group-item` and the `[class*="item"]` rule                             | Nothing: a group styles its direct children                                      |
+| `table-bordered`, `table-borderless`, `table-responsive`                | Recipes in the [Table](docs/table.md) docs                                       |
+| `list-bordered`, `unmarker`, `.active`                                  | Composition: `pui-outline pui-surface`, `list-style: none`, `pui-soft pui-theme` |
+| `float-right`, `float-top`                                              | One declaration, see [Float](docs/float.md)                                      |
+| `loadFunctions()`, `Accordion()`, `Dropdown()`, `Modal()`, `Checkbox()` | Nothing: the browser does it now                                                 |
+| `window.perfectui`, `document.perfectui`                                | ESM imports                                                                      |
 
 `table-striped`, `table-hoverable`, `list-striped` and `list-hoverable` survive
 as `pui-striped` and `pui-hoverable`.
 
-## 8. What you no longer have to do
+### 8. What you no longer have to do
 
 - No `loadFunctions()` after rendering. Components inserted at any time work,
   because the library listens on `document` instead of scanning the DOM.
@@ -221,7 +224,7 @@ as `pui-striped` and `pui-hoverable`.
 - No guard for server rendering: importing the JavaScript does nothing without a
   DOM.
 
-## Known trade-offs
+### Known trade-offs
 
 - In light mode, a solid `theme`, `success` or `warn` fill sits between 3.2:1
   and 3.5:1 against its white label — above the 3:1 floor for interface

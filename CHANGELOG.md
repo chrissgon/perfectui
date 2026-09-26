@@ -1,5 +1,89 @@
 # Changelog
 
+## v1.0.0
+
+[compare changes](https://github.com/chrissgon/perfectui/compare/v1.0.0-beta.1...v1.0.0)
+
+### 🩹 Fixes
+
+- **forms:** Keep unchecked radios and switches empty when :indeterminate matches ([057ff1c](https://github.com/chrissgon/perfectui/commit/057ff1c))
+- **modal:** Centre the dialog under resets that zero margins ([0e6a520](https://github.com/chrissgon/perfectui/commit/0e6a520))
+- **checkbox:** Show the mixed state on checkboxes inserted after load ([a7cc6d0](https://github.com/chrissgon/perfectui/commit/a7cc6d0))
+- **overlays:** Place dropdowns and tooltips against the viewport ([9ff2f9c](https://github.com/chrissgon/perfectui/commit/9ff2f9c))
+
+### 💅 Refactors
+
+- **fallbacks:** Drop the installed guard that could never be true ([4dce7a9](https://github.com/chrissgon/perfectui/commit/4dce7a9))
+
+### 📖 Documentation
+
+- **handoff:** Annotate the release tag so --follow-tags pushes it ([a743a3d](https://github.com/chrissgon/perfectui/commit/a743a3d))
+- **tailwind:** Explain the cascade layer order for Tailwind v4 and Preflight in v3 ([a6a86c6](https://github.com/chrissgon/perfectui/commit/a6a86c6))
+- Mark the documents for the documentation site (live examples, alerts, site metadata) ([652748d](https://github.com/chrissgon/perfectui/commit/652748d))
+- Point the homepage and the README at https://perfectui.dev ([92617ae](https://github.com/chrissgon/perfectui/commit/92617ae))
+- **workbench:** Record the release pipeline idea ([caa4478](https://github.com/chrissgon/perfectui/commit/caa4478))
+- **adr:** Propose positioning overlays against the viewport ([dfafd13](https://github.com/chrissgon/perfectui/commit/dfafd13))
+- **overlays:** Say that dropdowns and tooltips are placed against the viewport ([d628495](https://github.com/chrissgon/perfectui/commit/d628495))
+- **review:** Overlay placement fix approved ([872518d](https://github.com/chrissgon/perfectui/commit/872518d))
+- **workbench:** Record the approval to push the overlay fix to v1 ([ec26af5](https://github.com/chrissgon/perfectui/commit/ec26af5))
+
+### ✅ Tests
+
+- **overlays:** Sticky header dropdowns and tooltips after scrolling, and edge flips ([7bbb000](https://github.com/chrissgon/perfectui/commit/7bbb000))
+
+### 🤖 CI
+
+- **publish:** Trusted publishing and a GitHub release for every tag ([10aedbc](https://github.com/chrissgon/perfectui/commit/10aedbc))
+
+### ❤️ Contributors
+
+- Christopher Goncalves ([@chrissgon](https://github.com/chrissgon))
+
+## v1.0.0-beta.1
+
+[compare changes](https://github.com/chrissgon/perfectui/compare/v1.0.0-beta.0...v1.0.0-beta.1)
+
+### 🚀 Enhancements
+
+- **accordion:** Mark the open item with pui-highlighted ([86b3953](https://github.com/chrissgon/perfectui/commit/86b3953))
+
+### 🩹 Fixes
+
+- Interpolate the derived colors in oklab ([1a40b27](https://github.com/chrissgon/perfectui/commit/1a40b27))
+- **scripts:** Measure colors the browser has finished painting ([a121963](https://github.com/chrissgon/perfectui/commit/a121963))
+- **tests:** Compare the derived neutral in sRGB ([5f7ea4e](https://github.com/chrissgon/perfectui/commit/5f7ea4e))
+- **scripts:** Stop the design-system harness measuring an unstyled page ([afb96b1](https://github.com/chrissgon/perfectui/commit/afb96b1))
+- **accordion:** Join consecutive items into one block ([1ee27b0](https://github.com/chrissgon/perfectui/commit/1ee27b0))
+- **tokens:** Darken muted text to keep 4.5:1 on the muted background ([169cec1](https://github.com/chrissgon/perfectui/commit/169cec1))
+
+### 💅 Refactors
+
+- Point the token scale page at the library ([d6eed18](https://github.com/chrissgon/perfectui/commit/d6eed18))
+
+### 📖 Documentation
+
+- Add a design system specification ([8cfacfd](https://github.com/chrissgon/perfectui/commit/8cfacfd))
+- Organize the design system around Figma variables ([ac361ea](https://github.com/chrissgon/perfectui/commit/ac361ea))
+- Describe every component's variants, and where each one comes from ([769736e](https://github.com/chrissgon/perfectui/commit/769736e))
+- Describe the accordion block in the design system ([87f7ead](https://github.com/chrissgon/perfectui/commit/87f7ead))
+- **skills:** Build-with-perfectui skill for AI design and coding tools ([10f13d8](https://github.com/chrissgon/perfectui/commit/10f13d8))
+- **design-system:** Drop recolored variant from dropdown and accordion ([8215c6b](https://github.com/chrissgon/perfectui/commit/8215c6b))
+- **design-system:** Examples, icons, alerts and the dropdown's list ([d8b9ba5](https://github.com/chrissgon/perfectui/commit/d8b9ba5))
+- **design-system:** Add the design system PDF ([8b1d961](https://github.com/chrissgon/perfectui/commit/8b1d961))
+
+### 🏡 Chore
+
+- Move the workflows off the deprecated action runtimes ([a4158a9](https://github.com/chrissgon/perfectui/commit/a4158a9))
+- Adopt AGENTS.md and workbench state ([d27f56e](https://github.com/chrissgon/perfectui/commit/d27f56e))
+
+### ✅ Tests
+
+- **docs:** Verify every hand-written number in DESIGN-SYSTEM.md ([471430e](https://github.com/chrissgon/perfectui/commit/471430e))
+
+### ❤️ Contributors
+
+- Christopher Goncalves ([@chrissgon](https://github.com/chrissgon))
+
 ## v1.0.0-beta.0
 
 [compare changes](https://github.com/chrissgon/perfectui/compare/v0.23.0...v1.0.0-beta.0)

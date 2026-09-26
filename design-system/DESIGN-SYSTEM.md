@@ -36,7 +36,7 @@ value, given for both color modes.
 | `--pui-bg-muted` | #F3F4F6 | #111827 | Card headers, table footers, addons, stripes, hover rows |
 | `--pui-bg-emphasis` | #E5E7EB | #1F2937 | A third level, for authors — no component in the library uses it |
 | `--pui-text` | #000000 | #FFFFFF | Body text |
-| `--pui-text-muted` | #6B7280 | #9CA3AF | Secondary text: help messages, table headers, card headers |
+| `--pui-text-muted` | #676D7B | #9CA3AF | Secondary text: help messages, table headers, card headers |
 | `--pui-border` | #D1D5DB | #374151 | Every border that is not carrying a color |
 | `--pui-theme` | #0092CD | #07B6F0 | Brand color |
 | `--pui-success` | #16A34A | #22C55E | Positive state |
@@ -1192,7 +1192,7 @@ describe the page.
 | `page/bg-muted` | #F3F4F6 | #111827 | Card header, table footer, addon, stripe, hovered row |
 | `page/bg-emphasis` | #E5E7EB | #1F2937 | Nothing in the library — yours to use |
 | `page/text` | #000000 | #FFFFFF | Body text |
-| `page/text-muted` | #6B7280 | #9CA3AF | Label, help message, table header, card header |
+| `page/text-muted` | #676D7B | #9CA3AF | Label, help message, table header, card header |
 | `page/border` | #D1D5DB | #374151 | Every border that carries no role color |
 
 Each of the seven roles gets the same five variables. Five slots for every
