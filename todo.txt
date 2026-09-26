@@ -1,7 +1,5 @@
-Add tooltip to work in the mobile (By click) - Use popover api
-Review card bg color important if it's inside a modal
-Review card styles when it's inside a modal
-Review importants
-create tabs component (using buttons)
-Create versioning
-Remove font imports
+Add avatar component
+Add borderless class to tables
+Float variant positions
+Fix radio :indeterminate fill (form.css:164): a radio group with nothing checked matches :indeterminate and renders filled; scope the rule to .pui-checkbox
+Menu/Tab component using buttons/badges or creating a new design?

@@ -4,7 +4,7 @@
 
 <!-- site: tags: [guide, migration] -->
 <!-- site: from: 0.23.0 -->
-<!-- site: to: 1.0.0-beta.1 -->
+<!-- site: to: 1.0.0 -->
 <!-- site: changed: "1.0" -->
 
 Nothing here is guesswork on your side: the changes are mechanical, and this
