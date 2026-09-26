@@ -1,4 +1,4 @@
-![Perfect UI](https://i.ibb.co/FJGxtZ5/perfectui.png)
+![Perfect UI: the bare minimum for elegant interfaces](https://raw.githubusercontent.com/chrissgon/perfectui/main/.github/assets/thumbnail.webp)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
